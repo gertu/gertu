@@ -1,0 +1,12 @@
+{
+  "name"        : "gertu",
+  "version"     : "0.1.0",
+  "dependencies": {
+    "bootstrap"        : "latest",
+    "angular"          : "1.2.*",
+    "angular-resource" : "1.2.*",
+    "angular-cookies"  : "1.2.*",
+    "angular-bootstrap": "1.2.*",
+    "angular-ui-utils" : "1.2.*"
+  }
+}

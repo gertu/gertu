@@ -1,0 +1,6 @@
+{
+    "db": "mongodb://localhost/gertu",
+    "app": {
+        "name": "Gertu: find the best deals near you - Production"
+    }
+}

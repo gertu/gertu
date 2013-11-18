@@ -1,0 +1,7 @@
+{
+    "db": "mongodb://localhost/gertu-test",
+    "port": 3001,
+    "app": {
+        "name": "Gertu: find the best deals near you - Test"
+    }
+}
