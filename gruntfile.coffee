@@ -8,7 +8,7 @@ module.exports = (grunt) ->
     meta:
       file: "Gertu"
       banner:
-        '/* <%= meta.file %> v<%= pkg.version %> - '                  +
+        '/* <%= meta.file %> v<%= pkg.version %> - '                 +
         '<%= grunt.template.today("yyyy/m/d") %>\n'                  +
         '<%= grunt.template.today("yyyy") %> <%= pkg.author.name %>' +
         '- Licensed <%= _.pluck(pkg.license, "type").join(", ") %> */\n'
@@ -20,11 +20,11 @@ module.exports = (grunt) ->
       jade:
         files: ["views/**/*"],                 tasks: ["jade"]
       coffee:
-        files: "assets/**/*.coffee",           tasks: ["coffeelint:app", "coffee"]
+        files: "assets/**/*.coffee",           tasks: ["coffeelint:app", "coffee", "uglify"]
       coffee_server:
         files: "server/**/*.coffee",           tasks: ["coffeelint:server"]
       stylus:
-        files: "assets/stylesheets/**/*.styl", tasks: ["stylus"]
+        files: "assets/stylesheets/**/*.styl", tasks: ["stylus", "cssmin"]
 
     jade:
       options:
