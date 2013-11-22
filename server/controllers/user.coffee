@@ -12,12 +12,12 @@ exports.signin       = (req, res) ->
 exports.session      = (req, res) ->
   res.redirect "/"
 
-exports.show         = (req, res) ->
-  user = req.profile
+# exports.show         = (req, res) ->
+#   user = req.profile
 
-  res.render "users/show",
-    email: user.email
-    user : user
+#   res.render "users/show",
+#     email: user.email
+#     user : user
 
-exports.me           = (req, res) ->
-  res.jsonp(req.user or null)
+# exports.me           = (req, res) ->
+#   res.jsonp(req.user or null)

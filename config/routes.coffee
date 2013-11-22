@@ -11,8 +11,8 @@ module.exports = (app, passport, auth) ->
     successFlash   : "Welcome!"
   ), users.session
 
-  app.get "/users/me",     users.me
-  app.get "/users/:email", users.show
+  # app.get "/users/me",     users.me
+  # app.get "/users/:email", users.show
 
 
   # Home route

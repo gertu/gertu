@@ -8,16 +8,16 @@ server = request.agent("http://localhost:3000")
 
 
 user  = undefined
-user2 = undefined
 
 describe "<Unit Test>", ->
   describe "API User:", ->
     before (done) ->
+      user = undefined
       user = new User(
-        email    : "user@user.com"
+        email: "user@user.com"
         firstName: "Full Name"
-        lastName : "Last Name"
-        password : "pass11"
+        lastName: "Last Name"
+        password: "pass11"
       )
       user.save done
 
@@ -27,9 +27,22 @@ describe "<Unit Test>", ->
           email: "user@user.com"
           password: "pass11"
         ).end (err, res) ->
-          res.should.have.status(200)
-          done()
+
+          # res.should.have.status(302);
+          if res.status is 302
+            console.log res.req.path
+            server.get("/signin").end (err, res) ->
+              res.should.have.status 200
+              done()
+
+          else
+            console.log "In else"
+            done()
+
+
 
     after (done) ->
       User.remove().exec()
       done()
+
+
