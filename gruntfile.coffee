@@ -58,13 +58,15 @@ module.exports = (grunt) ->
           ext   : ".min.css"]
 
     coffee:
-      compile:
+      all:
         files: [
           expand: true
           cwd   : "assets",
           src   :  "**/*.coffee"
           dest  : "public/js"
           ext   :  ".js"]
+      single:
+        files: "public/gertu.js": ["assets/**/*.coffee"]
 
     uglify:
       options: mangle: false, compress: true, banner: "<%= meta.banner %>"
@@ -80,10 +82,11 @@ module.exports = (grunt) ->
         no_throwing_strings: level: "warn"
 
     clean:
-      js    : ["public/js",  "public/<%=pkg.name%>.min.js"]
+      js    : ["public/js",  "public/<%=pkg.name%>.js", "public/<%=pkg.name%>.min.js"]
       css   : ["public/css", "public/<%=pkg.name%>.min.css"]
       views : ["public/views"]
       images: ["public/img"]
+      prod  : ["public/js",  "public/<%=pkg.name%>.js"]
 
     copy:
       images:
@@ -126,10 +129,13 @@ module.exports = (grunt) ->
     "clean", "coffeelint:app", "jade", "copy", "scripts", "stylesheets"]
 
   grunt.registerTask "stylesheets", "Compiles the stylesheets.",       [
-        "stylus", "cssmin"]
+    "stylus", "cssmin"]
 
   grunt.registerTask "scripts",     "Compiles the JavaScript files.",  [
-        "coffee", "uglify"]
+    "coffee", "uglify"]
+
+  grunt.registerTask "prod",        "Cleans dev JS files for prod.",   [
+    "build", "clean:prod"]
 
   grunt.registerTask "test",        "Executes the tests of project.",  [
     "env:test", "mochaTest"]
