@@ -3,10 +3,11 @@
   "version"     : "0.1.0",
   "dependencies": {
     "bootstrap"        : "latest",
-    "angular"          : "1.2.*",
-    "angular-resource" : "1.2.*",
-    "angular-cookies"  : "1.2.*",
-    "angular-bootstrap": "1.2.*",
-    "angular-ui-utils" : "1.2.*"
+    "angular"          : "latest",
+    "angular-resource" : "latest",
+    "angular-cookies"  : "latest",
+    "angular-bootstrap": "latest",
+    "angular-ui-utils" : "latest",
+    "angular-route"    : "latest"
   }
 }
