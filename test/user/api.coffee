@@ -4,21 +4,19 @@ mongoose = require("mongoose")
 User     = mongoose.model("User")
 
 request  = require("supertest")
-server   = request.agent("http://localhost:3000")
+server   = request.agent(app)
 
-user     = undefined
 
 describe "<Unit Test>", ->
   describe "API User:", ->
     before (done) ->
-      user = undefined
       user = new User(
         email    : "user@user.com"
         firstName: "Full Name"
         lastName : "Last Name"
         password : "pass11"
       )
-      user.save
+      user.save()
       done()
 
     describe "Authentication", ->

@@ -1,8 +1,7 @@
 async = require("async")
 users = require("../server/controllers/user")
 
-module.exports = (app, passport, auth) ->
-  # User route
+module.exports = (app, passport) ->
   app.get "/signin", users.signin
 
   app.post "/users/session", passport.authenticate("local",
@@ -10,10 +9,6 @@ module.exports = (app, passport, auth) ->
     failureFlash   : "Invalid email or password"
     successFlash   : "Welcome!"
   ), users.session
-
-  # app.get "/users/me",     users.me
-  # app.get "/users/:email", users.show
-
 
   # Home route
   index = require("../server/controllers/index")

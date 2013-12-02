@@ -13,8 +13,8 @@ module.exports = (passport) ->
         done error, user
 
   passport.use new LocalStrategy(
-    email   : "email"
-    password: "password"
+    usernameField: "email"
+    passwordField: "password"
   , (email, password, done) ->
     User.findOne
       email: email, (error, user) ->
