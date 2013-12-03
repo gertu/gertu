@@ -9,5 +9,9 @@ exports.signin       = (req, res) ->
     title  : "Signin"
     message: req.flash("error")
 
+exports.signout      = (req, res) ->
+  req.logout()
+  res.redirect "/"
+
 exports.session      = (req, res) ->
   res.redirect "/"
