@@ -3,6 +3,7 @@ users = require("../server/controllers/user")
 
 module.exports = (app, passport) ->
   app.get "/signin", users.signin
+  app.get "/signout", users.signout
 
   app.post "/users/session", passport.authenticate("local",
     failureRedirect: "/signin"
