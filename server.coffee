@@ -11,6 +11,7 @@ stylus   = require("stylus")
 # if test env, load example file
 env      = process.env.NODE_ENV = process.env.NODE_ENV or "development"
 config   = require "./config/config"
+auth     = require "./config/middlewares/authorization"
 mongoose = require "mongoose"
 
 # Bootstrap db connection
@@ -28,15 +29,18 @@ walk = (path) ->
 walk models_path
 
 
+# Bootstrap passport config
+require("./config/passport") passport
+
 app = express()
 
-#express settings
+# express settings
 require("./config/express") app, passport, db
 
-#Bootstrap routes
-require("./config/routes") app, passport
+# Bootstrap routes
+require("./config/routes") app, passport, auth
 
-#Start the app by listening on <port>
+# Start the app by listening on <port>
 port = process.env.PORT or config.port
 app.listen port
 console.log "Express app started on port " + port
