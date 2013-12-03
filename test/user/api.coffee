@@ -20,11 +20,16 @@ describe "<Unit Test>", ->
       done()
 
     describe "Authentication", ->
-      it "Local login", (done) ->
+      it "local login", (done) ->
         server.post("/users/session").send(
           email   : "user@user.com"
           password: "pass11"
         ).end (err, res) ->
+          res.headers.location.should.have.equal "/"
+          done()
+
+      it "logout", (done) ->
+        server.get("/signout").send().end (err, res) ->
           res.headers.location.should.have.equal "/"
           done()
 
