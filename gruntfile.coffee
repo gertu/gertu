@@ -1,6 +1,18 @@
 module.exports = (grunt) ->
-  # Grab all grunt-* packages from package.json and load their tasks
-  require("matchdep").filterDev("grunt-*").forEach grunt.loadNpmTasks
+  grunt.loadNpmTasks "grunt-contrib-clean"
+  grunt.loadNpmTasks "grunt-contrib-coffee"
+  grunt.loadNpmTasks "grunt-contrib-jade"
+  grunt.loadNpmTasks "grunt-contrib-copy"
+  grunt.loadNpmTasks "grunt-contrib-stylus"
+  grunt.loadNpmTasks "grunt-contrib-uglify"
+  grunt.loadNpmTasks "grunt-contrib-cssmin"
+  grunt.loadNpmTasks "grunt-coffeelint"
+  grunt.loadNpmTasks "grunt-contrib-cssmin"
+  grunt.loadNpmTasks "grunt-mocha-test"
+  grunt.loadNpmTasks "grunt-nodemon"
+  grunt.loadNpmTasks "grunt-env"
+  grunt.loadNpmTasks "grunt-concurrent"
+  grunt.loadNpmTasks "grunt-contrib-watch"
 
   grunt.initConfig
     pkg: grunt.file.readJSON("package.json")
@@ -66,7 +78,7 @@ module.exports = (grunt) ->
           dest  : "public/js"
           ext   :  ".js"]
       single:
-        files: "public/gertu.js": ["assets/**/*.coffee"]
+        files: "public/<%=pkg.name%>.js": ["assets/**/*.coffee"]
 
     uglify:
       options: mangle: false, compress: true, banner: "<%= meta.banner %>"
@@ -135,7 +147,7 @@ module.exports = (grunt) ->
     "build", "coffeelint:server", "concurrent"]
 
   grunt.registerTask "build",       "Compiles all files of project.",  [
-    "clean", "coffeelint:app", "jade", "copy", "scripts", "stylesheets"]
+    "clean", "coffeelint", "jade", "copy", "scripts", "stylesheets"]
 
   grunt.registerTask "stylesheets", "Compiles the stylesheets.",       [
     "stylus", "cssmin"]
