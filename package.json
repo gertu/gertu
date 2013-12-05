@@ -16,6 +16,9 @@
     "node": "0.10.*",
     "npm" : "1.*"
   },
+  "scripts": {
+    "postinstall": "bower install"
+  },
   "dependencies": {
     "express"              : "~3.4.4",
     "jade"                 : "~0.35.0",
@@ -56,7 +59,6 @@
     "grunt-contrib-watch" : "*",
     "grunt-env"           : "*",
     "grunt-mocha-test"    : "*",
-    "grunt-nodemon"       : "*",
-    "matchdep"            : "*"
+    "grunt-nodemon"       : "*"
   }
 }
