@@ -110,8 +110,17 @@ module.exports = (grunt) ->
           cwd              : __dirname
 
     mochaTest:
-      options: reporter: "spec"
-      src: ["test/**/*.coffee"]
+      test:
+        options:
+          reporter: "spec"
+          require : ["coffee-script", "coverage/blanket"]
+        src: ["test/**/*.coffee"]
+      coverage:
+        options:
+          reporter   : "html-cov"
+          quiet      : true
+          captureFile: "coverage.html"
+        src: ["test/**/*.coffee"]
 
     env:
       test:

@@ -38,6 +38,8 @@
     "underscore"           : "latest"
   },
   "devDependencies": {
+    "blanket"             : "*",
+    "coffee-script"       : "*",
     "supertest"           : "*",
     "should"              : "*",
 
