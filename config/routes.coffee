@@ -1,10 +1,12 @@
-async = require("async")
-users = require("../server/controllers/user")
+async = require "async"
+users = require "../server/controllers/user"
 
 module.exports = (app, passport) ->
-  app.get "/signin", users.signin
+  app.get "/signin",  users.signin
+  app.get "/signup",  users.signup
   app.get "/signout", users.signout
 
+  app.post "/users", users.create
   app.post "/users/session", passport.authenticate("local",
     failureRedirect: "/signin"
     failureFlash   : "Invalid email or password"

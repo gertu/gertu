@@ -1,9 +1,9 @@
-should   = require("should")
-app      = require("../../server")
-mongoose = require("mongoose")
-User     = mongoose.model("User")
+should   = require "should"
+app      = require "../../server"
+mongoose = require "mongoose"
+request  = require "supertest"
 
-request  = require("supertest")
+User     = mongoose.model "User"
 server   = request.agent(app)
 
 
@@ -20,7 +20,7 @@ describe "<Unit Test>", ->
       done()
 
     describe "Authentication", ->
-      it "local login", (done) ->
+      it "should be able to login locally", (done) ->
         server.post("/users/session").send(
           email   : "user@user.com"
           password: "pass11"
@@ -28,9 +28,19 @@ describe "<Unit Test>", ->
           res.headers.location.should.have.equal "/"
           done()
 
-      it "logout", (done) ->
-        server.get("/signout").send().end (err, res) ->
+      it "should be able to sign up",       (done) ->
+        server.post("/users").send(
+          email   : "newuser@user.com"
+          password: "pass11"
+        ).end (err, res) ->
           res.headers.location.should.have.equal "/"
+          done()
+
+      it "should be able to logout",        (done) ->
+        server.get("/signout").send().end (err, res) ->
+          res.should.have.status 302
+          server.get("/").send().end (err, res) ->
+           res.should.have.status 200
           done()
 
     after (done) ->
