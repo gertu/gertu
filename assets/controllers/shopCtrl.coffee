@@ -24,7 +24,7 @@ angular.module("mean.system").controller "ShopSignUpController",
 
 
       $http(
-        url: "/api/shop/signup"
+        url: "/shop/signup"
         method: "POST"
         data:
           name: $scope.shopname
@@ -53,7 +53,7 @@ angular.module("mean.system").controller "ShopLogInController",
       if $scope.email != '' and $scope.password != ''
 
         $http(
-          url: "/api/shop/login"
+          url: "/shop/login"
           method: "POST"
           data:
             email: $scope.email
