@@ -15,7 +15,7 @@ describe "<Unit Test>", ->
         name  : "My shop 1 INC"
         password  : "123456"
       )
-     
+
       done()
 
     describe "Method Save", ->
