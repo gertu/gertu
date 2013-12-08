@@ -101,7 +101,7 @@ module.exports = (grunt) ->
       dev:
         options:
           file             : "server.coffee"
-          ignoredFiles     : ["README.md", "node_modules/**", ".DS_Store"]
+          ignoredFiles     : ["README.md", "node_modules/**", ".DS_Store", ".idea/**"]
           watchedExtensions: ["coffee"]
           watchedFolders   : ["server", "config"]
           debug            : true
