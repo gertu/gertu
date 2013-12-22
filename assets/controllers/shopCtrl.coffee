@@ -1,29 +1,44 @@
+ShopFunctions = (() ->
+
+  _getSignUpValidationErrors = ($scope) ->
+
+    validationErrors = []
+
+    # Verify password and passwordRpt match
+    if $scope.password != $scope.passwordRpt
+      validationErrors.push('Passwords do not match')
+
+    if !$scope.shopname
+      validationErrors.push('A shop name has to be provided')
+
+    if !$scope.email
+      validationErrors.push('An email has to be provided')
+
+    if !$scope.password
+      validationErrors.push('A password has to be provided')
+
+    validationErrors
+
+
+  getSignUpValidationErrors: _getSignUpValidationErrors
+)()
+
 # Shop SignUp
 angular.module("mean.system").controller "ShopSignUpController",
   ["$scope", "$http", "$location", "Global", ($scope, $http, $location, Global) ->
+
     $scope.global = Global
     $scope.errors = null
 
     $scope.doSignUp = () ->
 
-      validationErrors = []
-
-      # Verify password and passwordRpt match
-      if $scope.password != $scope.passwordRpt
-        validationErrors.push('Passwords do not match')
-
-      if !$scope.shopname
-        validationErrors.push('A shop name has to be provided')
-
-      if !$scope.email
-        validationErrors.push('An email has to be provided')
-
-      if !$scope.password
-        validationErrors.push('A password has to be provided')
+      validationErrors = ShopFunctions.getSignUpValidationErrors($scope)
 
       if validationErrors.length > 0
         $scope.errors = validationErrors
+
       else
+
         $http(
           url: "/shop/signup"
           method: "POST"
@@ -33,12 +48,9 @@ angular.module("mean.system").controller "ShopSignUpController",
             password: $scope.password
         )
         .success () ->
-
-            $location.path('/shop/offers')
-
-        .error (data) ->
-
-            $scope.errorMsg = data
+          $location.path('/shop/offers')
+        .error (errorData) ->
+          $scope.errorMsg = errorData
   ]
 
 # Shop LogIn
