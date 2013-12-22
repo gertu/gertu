@@ -4,40 +4,41 @@ angular.module("mean.system").controller "ShopSignUpController",
     $scope.global = Global
     $scope.errors = null
 
-    $scope.doSignUp = () =>
+    $scope.doSignUp = () ->
 
       validationErrors = []
 
       # Verify password and passwordRpt match
-      if $scope.password == $scope.passwordRpt
+      if $scope.password != $scope.passwordRpt
         validationErrors.push('Passwords do not match')
 
-      if !!$scope.shopname
+      if !$scope.shopname
         validationErrors.push('A shop name has to be provided')
 
-      if !!$scope.email
+      if !$scope.email
         validationErrors.push('An email has to be provided')
 
-      if !!$scope.password
+      if !$scope.password
         validationErrors.push('A password has to be provided')
 
+      if validationErrors.length > 0
+        $scope.errors = validationErrors
+      else
+        $http(
+          url: "/shop/signup"
+          method: "POST"
+          data:
+            name: $scope.shopname
+            email: $scope.email
+            password: $scope.password
+        )
+        .success () ->
 
+            $location.path('/shop/offers')
 
-      $http(
-        url: "/shop/signup"
-        method: "POST"
-        data:
-          name: $scope.shopname
-          email: $scope.email
-          password: $scope.password
-      )
-      .success (data, status, headers, config) ->
+        .error (data) ->
 
-          $location.path('/shop/offers')
-
-      .error (data, status, headers, config) ->
-
-          $scope.errorMsg = data
+            $scope.errorMsg = data
   ]
 
 # Shop LogIn
@@ -47,7 +48,7 @@ angular.module("mean.system").controller "ShopLogInController",
     $scope.global = Global
     $scope.errorMsg = ''
 
-    $scope.doLogIn = () =>
+    $scope.doLogIn = () ->
 
       # Verify password and passwordRpt match
       if $scope.email != '' and $scope.password != ''
@@ -59,14 +60,14 @@ angular.module("mean.system").controller "ShopLogInController",
             email: $scope.email
             password: $scope.password
         )
-        .success (data, status, headers, config) ->
+        .success (data, status) ->
 
           if status == 403
             $scope.errorMsg = 'No shop with that information has been found'
           else
             $location.path('/shop/offers/')
 
-        .error (data, status, headers, config) ->
+        .error (data) ->
             $scope.errorMsg = data
 
       else
