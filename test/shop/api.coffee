@@ -28,6 +28,22 @@ describe "General", ->
       shops.should.have.length 1
       done()
 
+  it "should mark an existant email for a shop as existant", (done) ->
+    request.
+    post("/shop/emailExists").
+    send({email: 'myshop@email.com'}).
+    end (err, res) ->
+      res.should.have.status 200
+      done()
+
+  it "should mark a non existant email for a shop as non existant", (done) ->
+    request.
+    post("/shop/emailExists").
+    send({email: 'mynonexistantshop@email.com'}).
+    end (err, res) ->
+      res.should.have.status 404
+      done()
+
   it "should be able to grant access to the newly created shop", (done) ->
     request.
     post("/shop/login").
