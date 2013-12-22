@@ -30,7 +30,7 @@ describe "General", ->
 
   it "should mark an existant email for a shop as existant", (done) ->
     request.
-    post("/shop/emailExists").
+    post("/shop/emailexists").
     send({email: 'myshop@email.com'}).
     end (err, res) ->
       res.should.have.status 200
@@ -38,10 +38,18 @@ describe "General", ->
 
   it "should mark a non existant email for a shop as non existant", (done) ->
     request.
-    post("/shop/emailExists").
+    post("/shop/emailexists").
     send({email: 'mynonexistantshop@email.com'}).
     end (err, res) ->
       res.should.have.status 404
+      done()
+
+  it "should return error on verifying email existance when no email is passed", (done) ->
+    request.
+    post("/shop/emailexists").
+    send({email: ''}).
+    end (err, res) ->
+      res.should.have.status 422
       done()
 
   it "should be able to grant access to the newly created shop", (done) ->
