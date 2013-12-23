@@ -21,7 +21,7 @@ exports.signup = (req, res) ->
     )
     mailOptions =
       from: "mail@gertuproject.info"
-      to: "jm.escudero.justel@gmail.com"
+      to: req.body.email
       subject: "Hello"
       text: "Hello world"
 
