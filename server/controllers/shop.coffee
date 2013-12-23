@@ -17,7 +17,7 @@ exports.signup = (req, res) ->
       port: 465
       auth:
         user: "mail@gertuproject.info"
-        pass: "gertumail"
+        pass: "*******"
     )
     mailOptions =
       from: "mail@gertuproject.info"
