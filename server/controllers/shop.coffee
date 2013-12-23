@@ -1,13 +1,36 @@
-mongoose = require("mongoose")
-async    = require("async")
-_        = require("underscore")
+mongoose = require "mongoose"
+async    = require "async"
+_        = require "underscore"
+mailer   = require "nodemailer"
 Shop     = mongoose.model "Shop"
 
 exports.signup = (req, res) ->
 
   if req.body.name and req.body.email and req.body.password
+
     shop = new Shop(req.body)
     shop.save()
+
+    mailsender = mailer.createTransport("SMTP",
+      host: "smtpout.europe.secureserver.net"
+      secureConnection: true
+      port: 465
+      auth:
+        user: "mail@gertuproject.info"
+        pass: "gertumail"
+    )
+    mailOptions =
+      from: "mail@gertuproject.info"
+      to: "jm.escudero.justel@gmail.com"
+      subject: "Hello"
+      text: "Hello world"
+
+    mailsender.sendMail mailOptions, (error, response) ->
+      if error
+        console.log error
+      else
+        console.log "Message sent: " + response.message
+
     res.send JSON.stringify(shop)
   else
     res.status(422).send('Incorrect data')

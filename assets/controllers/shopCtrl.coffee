@@ -19,8 +19,25 @@ ShopFunctions = (() ->
 
     validationErrors
 
+  _existsEmailForShopInDatabase = ($http, emailAccount) ->
+
+    existsEmail = true
+
+    $http(
+      url: "/shop/emailexists"
+      method: "POST"
+      data:
+        email: emailAccount
+    )
+    .success () ->
+      existsEmail = true
+    .error () ->
+      existsEmail = false
+
+    existsEmail
 
   getSignUpValidationErrors: _getSignUpValidationErrors
+  existsEmailForShopInDatabase: _existsEmailForShopInDatabase
 )()
 
 # Shop SignUp
@@ -34,11 +51,12 @@ angular.module("mean.system").controller "ShopSignUpController",
 
       validationErrors = ShopFunctions.getSignUpValidationErrors($scope)
 
+      if ShopFunctions.existsEmailForShopInDatabase($http, $scope.email)
+        validationErrors.push('Email already exists. Please do choose another one.')
+
       if validationErrors.length > 0
         $scope.errors = validationErrors
-
       else
-
         $http(
           url: "/shop/signup"
           method: "POST"
