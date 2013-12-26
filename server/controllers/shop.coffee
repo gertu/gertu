@@ -1,8 +1,8 @@
 mongoose = require "mongoose"
 async    = require "async"
 _        = require "underscore"
-mailer   = require "nodemailer"
 Shop     = mongoose.model "Shop"
+Mailer   = require("../tools/mailer")
 
 exports.signup = (req, res) ->
 
@@ -11,25 +11,7 @@ exports.signup = (req, res) ->
     shop = new Shop(req.body)
     shop.save()
 
-    mailsender = mailer.createTransport("SMTP",
-      host: "smtpout.europe.secureserver.net"
-      secureConnection: true
-      port: 465
-      auth:
-        user: "mail@gertuproject.info"
-        pass: "*******"
-    )
-    mailOptions =
-      from: "mail@gertuproject.info"
-      to: req.body.email
-      subject: "Hello"
-      text: "Hello world"
-
-    mailsender.sendMail mailOptions, (error, response) ->
-      if error
-        console.log error
-      else
-        console.log "Message sent: " + response.message
+    Mailer.send req.body.email, "Hello", "Hello world"
 
     res.send JSON.stringify(shop)
   else

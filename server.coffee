@@ -18,15 +18,19 @@ db = mongoose.connect(config.db)
 
 # Bootstrap models
 models_path = __dirname + "/server/models"
+tools_path = __dirname + "/server/tools"
+
 walk = (path) ->
   fs.readdirSync(path).forEach (file) ->
+
     newPath = path + "/" + file
     stat = fs.statSync(newPath)
     if stat.isFile()
       require newPath  if /(.*)\.(js|coffee)/.test(file)
     else walk newPath  if stat.isDirectory()
-walk models_path
 
+walk models_path
+walk tools_path
 
 app = express()
 

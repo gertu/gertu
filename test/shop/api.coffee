@@ -84,6 +84,14 @@ describe "General", ->
       res.should.have.status 422
       done()
 
+  it "should send an email when signing up a new shop", (done) ->
+    request.
+    post("/shop/signup").
+    send({name: 'Shop name', email: 'mail@gertuproject.info', password: '123456'}).
+    end (err, res) ->
+      res.should.have.status 200
+      done()
+
   after (done) ->
     Shop.remove().exec()
     done()
