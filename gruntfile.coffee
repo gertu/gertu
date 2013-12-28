@@ -1,18 +1,6 @@
 module.exports = (grunt) ->
-  grunt.loadNpmTasks "grunt-contrib-clean"
-  grunt.loadNpmTasks "grunt-contrib-coffee"
-  grunt.loadNpmTasks "grunt-contrib-jade"
-  grunt.loadNpmTasks "grunt-contrib-copy"
-  grunt.loadNpmTasks "grunt-contrib-stylus"
-  grunt.loadNpmTasks "grunt-contrib-uglify"
-  grunt.loadNpmTasks "grunt-contrib-cssmin"
-  grunt.loadNpmTasks "grunt-coffeelint"
-  grunt.loadNpmTasks "grunt-contrib-cssmin"
-  grunt.loadNpmTasks "grunt-mocha-test"
-  grunt.loadNpmTasks "grunt-nodemon"
-  grunt.loadNpmTasks "grunt-env"
-  grunt.loadNpmTasks "grunt-concurrent"
-  grunt.loadNpmTasks "grunt-contrib-watch"
+  # Grab all grunt-* packages from package.json and load their tasks
+  require("matchdep").filterDev("grunt-*").forEach grunt.loadNpmTasks
 
   grunt.initConfig
     pkg: grunt.file.readJSON("package.json")
@@ -20,7 +8,7 @@ module.exports = (grunt) ->
     meta:
       file: "Gertu"
       banner:
-        '/* <%= meta.file %> v<%= pkg.version %> - '                 +
+        '/* <%= meta.file %> v<%= pkg.version %> - '                  +
         '<%= grunt.template.today("yyyy/m/d") %>\n'                  +
         '<%= grunt.template.today("yyyy") %> <%= pkg.author.name %>' +
         '- Licensed <%= _.pluck(pkg.license, "type").join(", ") %> */\n'
@@ -37,6 +25,8 @@ module.exports = (grunt) ->
         files: "server/**/*.coffee",           tasks: ["coffeelint:server"]
       stylus:
         files: "assets/stylesheets/**/*.styl", tasks: ["stylus", "cssmin"]
+      images:
+        files: "assets/img/**/*",              tasks: ["copy"]
 
     jade:
       options:
@@ -70,15 +60,13 @@ module.exports = (grunt) ->
           ext   : ".min.css"]
 
     coffee:
-      all:
+      compile:
         files: [
           expand: true
           cwd   : "assets",
           src   :  "**/*.coffee"
           dest  : "public/js"
           ext   :  ".js"]
-      single:
-        files: "public/<%=pkg.name%>.js": ["assets/**/*.coffee"]
 
     uglify:
       options: mangle: false, compress: true, banner: "<%= meta.banner %>"
@@ -94,11 +82,10 @@ module.exports = (grunt) ->
         no_throwing_strings: level: "warn"
 
     clean:
-      js    : ["public/js",  "public/<%=pkg.name%>.js", "public/<%=pkg.name%>.min.js"]
+      js    : ["public/js",  "public/<%=pkg.name%>.min.js"]
       css   : ["public/css", "public/<%=pkg.name%>.min.css"]
       views : ["public/views"]
       images: ["public/img"]
-      prod  : ["public/js",  "public/<%=pkg.name%>.js"]
 
     copy:
       images:
@@ -122,17 +109,8 @@ module.exports = (grunt) ->
           cwd              : __dirname
 
     mochaTest:
-      test:
-        options:
-          reporter: "spec"
-          require : ["coffee-script", "coverage/blanket"]
-        src: ["test/**/*.coffee"]
-      coverage:
-        options:
-          reporter   : "html-cov"
-          quiet      : true
-          captureFile: "coverage.html"
-        src: ["test/**/*.coffee"]
+      options: reporter: "spec"
+      src: ["test/**/*.coffee"]
 
     env:
       test:
@@ -147,16 +125,13 @@ module.exports = (grunt) ->
     "build", "coffeelint:server", "concurrent"]
 
   grunt.registerTask "build",       "Compiles all files of project.",  [
-    "clean", "coffeelint", "jade", "copy", "scripts", "stylesheets"]
+    "clean", "coffeelint:app", "jade", "copy", "scripts", "stylesheets"]
 
   grunt.registerTask "stylesheets", "Compiles the stylesheets.",       [
-    "stylus", "cssmin"]
+        "stylus", "cssmin"]
 
   grunt.registerTask "scripts",     "Compiles the JavaScript files.",  [
-    "coffee", "uglify"]
-
-  grunt.registerTask "prod",        "Cleans dev JS files for prod.",   [
-    "build", "clean:prod"]
+        "coffee", "uglify"]
 
   grunt.registerTask "test",        "Executes the tests of project.",  [
     "env:test", "mochaTest"]

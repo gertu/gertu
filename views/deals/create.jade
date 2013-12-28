@@ -1,0 +1,13 @@
+section(data-ng-controller='DealsController')
+    form.form-horizontal(data-ng-submit='create()')
+        .control-group
+          label.control-label(for='title') Name
+          .controls
+            input#name(type='text', data-ng-model='name', placeholder='Title', required='required')
+        .control-group
+          label.control-label(for='price') Price
+          .controls
+            input#price(type='number', step="0.01", data-ng-model='price', placeholder='Price', required='required')
+        .control-group
+          .controls
+            input.btn(type='submit')

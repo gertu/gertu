@@ -1,0 +1,13 @@
+section
+  .col-md-8(style="text-align: center;")
+    img(src="/img/gertu_logo6_v.png", style="margin: 5% 0;")
+  .col-md-4(style="text-align: center;")
+    form.form-horizontal(action='', method='post')
+      input(type='hidden', name='_csrf', value=token)
+      .form-group
+        input#message_name.form-control.input-xxlarge(type='text', placeholder='Nombre', name='message[name]')
+      .form-group
+        input#message_email.form-control.input-xxlarge(type='text', placeholder='Email', name='message[email]')
+      .form-group
+        textarea#message_message.form-control.input-xxlarge(placeholder='Introduce el mensaje', rows='6', name='message[message]')
+      button.btn.btn-primary(type='submit') Enviar mensaje

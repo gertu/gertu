@@ -1,0 +1,8 @@
+form.signin.form-inline(action="/users/session", method="post", role="form")
+  .form-group
+    input#email.form-control(type='text', name="email", placeholder='Email')
+
+  .form-group
+    input#password.form-control(type='password', name="password", placeholder='Contraseña')
+
+  button.btn.btn-primary(type='submit') Acceder
