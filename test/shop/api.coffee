@@ -30,24 +30,22 @@ describe "General", ->
 
   it "should mark an existant email for a shop as existant", (done) ->
     request.
-    post("/shop/emailexists").
-    send({email: 'myshop@email.com'}).
+    get("/shop/emailexists?email=myshop@email.com").
     end (err, res) ->
       res.should.have.status 200
       done()
 
   it "should mark a non existant email for a shop as non existant", (done) ->
     request.
-    post("/shop/emailexists").
-    send({email: 'mynonexistantshop@email.com'}).
+    get("/shop/emailexists?email=mynonexistantshop@email.com").
     end (err, res) ->
-      res.should.have.status 404
+      res.should.have.status 200
+      res.text.should.include 'False'
       done()
 
   it "should return error on verifying email existance when no email is passed", (done) ->
     request.
-    post("/shop/emailexists").
-    send({email: ''}).
+    get("/shop/emailexists?email=").
     end (err, res) ->
       res.should.have.status 422
       done()

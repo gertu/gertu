@@ -10,6 +10,8 @@ shop2 = undefined
 describe "<Unit Test>", ->
   describe "Model Shop:", ->
     before (done) ->
+      Shop.remove().exec()
+
       valid_shop = new Shop(
         email     : "shop1_email@email.com"
         name  : "My shop 1 INC"
