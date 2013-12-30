@@ -19,22 +19,22 @@ ShopFunctions = (() ->
 
     validationErrors
 
-  _existsEmailForShopInDatabase = ($http, emailAccount) ->
+  _existsEmailForShopInDatabase = ($http, emailAccount, callbackFn) ->
 
     existsEmail = true
 
     $http(
-      url: "/shop/emailexists"
-      method: "POST"
-      data:
-        email: emailAccount
+      url: "/shop/emailexists?email=" + emailAccount
+      method: "GET"
     )
-    .success () ->
-      existsEmail = true
+    .success (data) ->
+      existsEmail = false unless data == 'True'
+      callbackFn(existsEmail)
     .error () ->
       existsEmail = false
+      callbackFn(existsEmail)
 
-    existsEmail
+    @
 
   getSignUpValidationErrors: _getSignUpValidationErrors
   existsEmailForShopInDatabase: _existsEmailForShopInDatabase
@@ -51,24 +51,28 @@ angular.module("mean.system").controller "ShopSignUpController",
 
       validationErrors = ShopFunctions.getSignUpValidationErrors($scope)
 
-      if ShopFunctions.existsEmailForShopInDatabase($http, $scope.email)
-        validationErrors.push('Email already exists. Please do choose another one.')
+      ShopFunctions.existsEmailForShopInDatabase($http, $scope.email, (result) ->
+        if result
+          validationErrors.push('Email already exists. Please do choose another one.')
 
-      if validationErrors.length > 0
-        $scope.errors = validationErrors
-      else
-        $http(
-          url: "/shop/signup"
-          method: "POST"
-          data:
-            name: $scope.shopname
-            email: $scope.email
-            password: $scope.password
-        )
-        .success () ->
-          $location.path('/shop/offers')
-        .error (errorData) ->
-          $scope.errorMsg = errorData
+        if validationErrors.length > 0
+          $scope.errors = validationErrors
+        else
+          $http(
+            url: "/shop/signup"
+            method: "POST"
+            data:
+              name: $scope.shopname
+              email: $scope.email
+              password: $scope.password
+          )
+          .success () ->
+              $location.path('/shop/offers')
+          .error (errorData) ->
+              $scope.errorMsg = errorData
+      )
+
+
   ]
 
 # Shop LogIn
@@ -106,8 +110,16 @@ angular.module("mean.system").controller "ShopLogInController",
 
 # Shop offer list
 angular.module("mean.system").controller "ShopOffersController",
-  ["$scope", "Global", ($scope,Global) ->
-    $scope.global = Global
-    $scope.title = 'Offers for the shop'
+  ["$scope", "$http", "Global", ($scope, $http, Global) ->
 
+    $http(
+      url: "/shop/current"
+      method: "GET"
+    )
+    .success (data) ->
+        $scope.title = 'Offers for the ' + data
+    .error () ->
+        $scope.title = 'Error on retrieving'
+
+    $scope.global = Global
   ]

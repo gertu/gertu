@@ -6,7 +6,8 @@ module.exports = (app) ->
   app.post "/shop/signup", shop.signup
   app.post "/shop/login", shop.login
   app.post "/shop/logoff", shop.logoff
-  app.post "/shop/emailexists", shop.emailexists
+  app.get "/shop/emailexists", shop.emailexists
+  app.get "/shop/current", shop.current
 
   #Home route
   index = require("../server/controllers/index")
