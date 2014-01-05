@@ -31,6 +31,16 @@ module.exports = (app) ->
   app.post "/management/deal-categories/remove/:id", managementDealCategories.removeDo
   # End of deal categories
 
+  # Currency management
+  managementCurrencies = require("../server/controllers/management/currencies")
+  app.get  "/management/currencies/list", managementCurrencies.list
+  app.get  "/management/currencies/edit/0", managementCurrencies.add
+  app.get  "/management/currencies/edit/:id", managementCurrencies.edit
+  app.post "/management/currencies/edit/:id", managementCurrencies.editDo
+  app.get  "/management/currencies/remove/:id", managementCurrencies.remove
+  app.post "/management/currencies/remove/:id", managementCurrencies.removeDo
+  # End of currency management
+
   # End of management routes
 
   # Home routes

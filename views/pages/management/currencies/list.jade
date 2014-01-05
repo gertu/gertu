@@ -1,0 +1,21 @@
+extends ../../../layouts/default
+block content
+    h1 Monedas
+    p
+        a.btn.btn-primary(href='/management/currencies/edit/0') Nueva moneda
+
+    table.table.table-bordered.table-condensed
+        thead
+            tr
+                th  Nombre
+                th  Codigo
+                th  Conversion
+                th  Eliminar
+        each currency in currencies
+            tr
+                td
+                    a(href='/management/currencies/edit/#{currency._id}') #{currency.name}
+                td #{currency.code}
+                td #{currency.conversionRate}
+                td
+                    a.btn.btn-danger(href='/management/currencies/remove/#{currency._id}') eliminar

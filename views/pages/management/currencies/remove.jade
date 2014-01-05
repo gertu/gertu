@@ -1,0 +1,8 @@
+extends ../../../layouts/default
+block content
+    h1 Eliminar moneda
+
+    form.form-inline(action="/management/currencies/remove/#{currency._id}", method="post", role="form")
+        p Desea elimianr la moneda #{currency.name}
+        button.btn.btn-primary(type='submit') Eliminar
+        a.btn.btn-default(href='/management/currencies/list') Volver
