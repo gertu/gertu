@@ -13,6 +13,13 @@ module.exports = (app, passport) ->
     successFlash   : "Welcome!"
   ), users.session
 
+  app.get "/api/profile", users.me
+  app.put "/api/profile/:profileId", users.update
+  app.get "/users/:userId", users.show
+
+  # Finish with setting up the userId param
+  app.param "userId", users.user
+
   # Home route
   index = require("../server/controllers/index")
   app.get "/",  index.render

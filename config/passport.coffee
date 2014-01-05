@@ -5,11 +5,11 @@ config        = require("./config")
 
 module.exports = (passport) ->
   passport.serializeUser   (user, done) ->
-    done null, user.email
+    done null, user.id
 
   passport.deserializeUser (email, done) ->
     User.findOne
-      _email: email, (error, user) ->
+      _id: email, (error, user) ->
         done error, user
 
   passport.use new LocalStrategy(
