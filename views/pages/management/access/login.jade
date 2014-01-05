@@ -1,0 +1,10 @@
+form.signin.form-inline(action="/management/access/login", method="post", role="form")
+    .form-group
+        input#email.form-control(type='text', name="email", ng-model="email", placeholder='Email')
+
+    .form-group
+        input#password.form-control(type='password', name="password", ng-model="password", placeholder='Contraseña')
+
+    button.btn.btn-primary(type='submit') Acceder
+    p.well
+        | #{errorMsg}

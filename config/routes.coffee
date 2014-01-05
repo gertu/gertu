@@ -1,15 +1,34 @@
 async = require("async")
 module.exports = (app) ->
 
-  #Shop route
+  # Shop routes
   shop = require("../server/controllers/shop")
   app.post "/shop/signup", shop.signup
   app.post "/shop/login", shop.login
   app.post "/shop/logoff", shop.logoff
-  app.get "/shop/emailexists", shop.emailexists
-  app.get "/shop/current", shop.current
+  app.get  "/shop/emailexists", shop.emailexists
+  app.get  "/shop/current", shop.current
 
-  #Home route
+  # Management routes
+
+  # Access routes
+  managementAccess = require("../server/controllers/management/access")
+
+  app.get  "/management/access/login", managementAccess.login
+  app.post "/management/access/login", managementAccess.loginDo
+  # End of access routes
+
+  managementDashboard = require("../server/controllers/management/dashboard")
+  app.get  "/management/dashboard", managementDashboard.show
+
+  managementDealCategories = require("../server/controllers/management/dealCategories")
+  app.get  "/management/deal-categories/list", managementDealCategories.list
+
+
+
+  # End of management routes
+
+  # Home routes
   index = require("../server/controllers/index")
   app.get "/",  index.render
   app.get "/*", index.render
