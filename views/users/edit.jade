@@ -1,0 +1,16 @@
+section(data-ng-controller='UsersController', data-ng-init='findOne()')
+  form.signup.form-horizontal(name="signup_form", data-ng-submit="update()")
+    .form-group
+      input#email.form-control(type="email", name="email", data-ng-model="user.email" ,value="{{user.email}}")
+
+    .form-group
+      input#firstName.form-control(type="text", name="firstName", data-ng-model="user.firstName",value="{{user.firstName}}")
+
+    .form-group
+      input#lastName.form-control(type="text", name="lastName", data-ng-model="user.lastName",value="{{user.lastName}}")
+
+    .well.well-small(ng-model="dt", style="display:inline-block;")
+      datepicker(show-weeks="false", starting-day="1", min="minDate", ng-model="dt")
+
+    .form-actions
+      button.btn.btn-primary(type="submit") Actualizar

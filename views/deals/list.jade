@@ -1,0 +1,18 @@
+section(data-ng-controller='DealsController', data-ng-init='find()')
+  .searchbar
+    h3 Buscar por:
+    input.form-control(type="search",ng-model="search.name",placeholder="Nombre de oferta...")
+    input.form-control(type="search",ng-model="search.shop",placeholder="Nombre de tienda...")
+  ul.deals
+    li(data-ng-repeat='deal in deals | filter:search')
+      a(data-ng-href="deals/{{deal._id}}")
+        .deal-data
+          h3 {{deal.name | trunc:true:20}}
+          img.img-rounded(ng-src="{{deal.image}}")
+          p {{deal.created | date:'medium'}}
+          p {{deal.shop}}
+          p {{deal.price | currency:"&euro;"}}
+          rating.deal-rating(value='rate', max='max', readonly='isReadonly')
+          span {{rate}}/{{max}}
+
+  a(data-ng-href='/deals/create') Create One
