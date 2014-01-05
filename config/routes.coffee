@@ -21,6 +21,7 @@ module.exports = (app) ->
   managementDashboard = require("../server/controllers/management/dashboard")
   app.get  "/management/dashboard", managementDashboard.show
 
+  # Deal categories
   managementDealCategories = require("../server/controllers/management/dealCategories")
   app.get  "/management/deal-categories/list", managementDealCategories.list
   app.get  "/management/deal-categories/edit/0", managementDealCategories.add
@@ -28,7 +29,7 @@ module.exports = (app) ->
   app.post "/management/deal-categories/edit/:id", managementDealCategories.editDo
   app.get  "/management/deal-categories/remove/:id", managementDealCategories.remove
   app.post "/management/deal-categories/remove/:id", managementDealCategories.removeDo
-
+  # End of deal categories
 
   # End of management routes
 
