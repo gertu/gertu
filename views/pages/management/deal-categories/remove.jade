@@ -1,0 +1,6 @@
+h1 Eliminar categoría
+
+form.form-inline(action="/management/deal-categories/remove/#{category._id}", method="post", role="form")
+    p Desea elimianr la categoría #{category.name}
+    button.btn.btn-primary(type='submit') Eliminar
+    a.btn.btn-default(href='/management/deal-categories/list') Volver

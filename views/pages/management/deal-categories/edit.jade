@@ -1,0 +1,11 @@
+- if (category._id == 0)
+    h1 Nueva categoría
+- else
+    h1 Editar categoría
+
+form.form-inline(action="/management/deal-categories/edit/#{category._id}", method="post", role="form")
+    .form-group
+        input#name.form-control(type='text', name="name", placeholder='Category name', value='#{category.name}')
+    button.btn.btn-primary(type='submit') Save
+    p.well
+        | #{errorMsg}

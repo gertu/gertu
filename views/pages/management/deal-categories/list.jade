@@ -1,1 +1,8 @@
 h1 Deal categories
+a(href='/management/deal-categories/edit/0') New category
+ul
+    each category in categories
+        li
+            a(href='/management/deal-categories/edit/#{category._id}') #{category.name}
+            &nbsp;
+            a(href='/management/deal-categories/remove/#{category._id}') (eliminar)
