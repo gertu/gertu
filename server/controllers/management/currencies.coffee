@@ -1,13 +1,20 @@
 mongoose = require 'mongoose'
 Currency = mongoose.model 'Currency'
+http     = require('http')
+async    = require('async')
 
 exports.list = (req, res) ->
+
+  message = ''
+
+  if req.query.message == 'ratioload'
+    message = 'Se ha solicitado la obtención de ratios de monedas. Refresque en unos segundos para actualizar.'
+
   Currency.find({}).exec( (err, currencies) ->
     if err
       res.status(500).send('Database error')
     else
-      console.log currencies
-      res.render 'pages/management/currencies/list', {currencies: currencies}
+      res.render 'pages/management/currencies/list', {currencies: currencies, message: message}
   )
 
 exports.add = (req, res) ->
@@ -73,5 +80,50 @@ exports.removeDo = (req, res) ->
       currency.remove(()->
         res.redirect '/management/currencies/list?rnd=' + Math.random()
       )
+  )
 
+exports.loadRates = (req, res) ->
+  Currency.find({}).exec( (err, currencies) ->
+    if err
+      res.status(500).send('Database error')
+    else
+
+      count = 0
+      async.whilst (->
+        count < currencies.length
+      ), ((callback) ->
+
+        currency = currencies[count]
+
+        options =
+          host: "rate-exchange.appspot.com"
+          path: "/currency?from=" + currency.code + "&to=EUR"
+          port: 80
+          method: "GET"
+
+        request = http.request(options, (response) ->
+          conversionInfo = ''
+          response.on "data", (data) ->
+            conversionInfo += data
+
+          response.on "end", ->
+            currency.conversionRate = parseFloat(JSON.parse(conversionInfo).rate)
+
+
+            console.log currency
+            console.log JSON.parse(conversionInfo).rate
+
+            currency.save()
+        )
+        request.on "error", (err) ->
+          console.log "Problem with request: " + err.message
+
+        request.end()
+
+        count++
+        callback()
+      ), (err) ->
+        @
+
+      res.redirect '/management/currencies/list?message=ratioload'
   )

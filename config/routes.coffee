@@ -39,6 +39,7 @@ module.exports = (app) ->
   app.post "/management/currencies/edit/:id", managementCurrencies.editDo
   app.get  "/management/currencies/remove/:id", managementCurrencies.remove
   app.post "/management/currencies/remove/:id", managementCurrencies.removeDo
+  app.get  "/management/currencies/loadRates", managementCurrencies.loadRates
   # End of currency management
 
   # End of management routes

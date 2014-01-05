@@ -3,6 +3,8 @@ block content
     h1 Monedas
     p
         a.btn.btn-primary(href='/management/currencies/edit/0') Nueva moneda
+        &nbsp;
+        a.btn.btn-info(href='/management/currencies/loadRates') Carga automática de ratios
 
     table.table.table-bordered.table-condensed
         thead
@@ -19,3 +21,9 @@ block content
                 td #{currency.conversionRate}
                 td
                     a.btn.btn-danger(href='/management/currencies/remove/#{currency._id}') eliminar
+
+    - if (message != '')
+        div.alert.alert-info.alert-dismissable
+            | #{message}
+            br
+            a.btn.btn-primary(href='/management/currencies/list') Actualizar
