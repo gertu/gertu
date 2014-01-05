@@ -9,7 +9,6 @@ module.exports = (app) ->
   app.get "/shop/emailexists", shop.emailexists
   app.get "/shop/current", shop.current
 
-  
   #Home route
   index = require("../server/controllers/index")
   app.get "/",  index.render
