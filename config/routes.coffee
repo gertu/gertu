@@ -1,5 +1,6 @@
 async = require "async"
 users = require "../server/controllers/user"
+index = require "../server/controllers/index"
 
 module.exports = (app, passport) ->
   app.get "/signin",  users.signin
@@ -8,7 +9,7 @@ module.exports = (app, passport) ->
 
   app.post "/users", users.create
   app.post "/users/session", passport.authenticate("local",
-    failureRedirect: "/signin"
+    failureRedirect: "/"
     failureFlash   : "Invalid email or password"
     successFlash   : "Welcome!"
   ), users.session
@@ -21,6 +22,5 @@ module.exports = (app, passport) ->
   app.param "userId", users.user
 
   # Home route
-  index = require("../server/controllers/index")
   app.get "/",  index.render
   app.get "/*", index.render

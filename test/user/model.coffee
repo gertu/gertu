@@ -1,7 +1,7 @@
-should   = require("should")
-app      = require("../../server")
-mongoose = require("mongoose")
-User     = mongoose.model("User")
+should   = require "should"
+app      = require "../../server"
+mongoose = require "mongoose"
+User     = mongoose.model "User"
 
 
 user  = undefined
@@ -25,15 +25,15 @@ describe "<Unit Test>", ->
       done()
 
     describe "Method Save", ->
-      it "begin with no users", (done) ->
+      it "should be able to begin with no users", (done) ->
         User.find {}, (error, users) ->
           users.should.have.length 0
           done()
 
-      it "save whithout problems",                       (done) ->
+      it "should be able to save whithout problems", (done) ->
         user.save done
 
-      it "fail to save an email wich is already in use", (done) ->
+      it "should be able to fail to save an email wich is already in use", (done) ->
         user.save()
         user2.save ->
           (email: user.email).should.not.eql email: user2.email
