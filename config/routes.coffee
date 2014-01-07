@@ -16,6 +16,7 @@ module.exports = (app) ->
 
   app.get  "/management/access/login", managementAccess.login
   app.post "/management/access/login", managementAccess.loginDo
+  app.get "/management/access/logout", managementAccess.logout
   # End of access routes
 
   managementDashboard = require("../server/controllers/management/dashboard")
