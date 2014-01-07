@@ -1,0 +1,312 @@
+// includes
+@import 'vendor'
+
+// variables
+light-green   = #A8E430
+dark-green    = #609C00
+dark-orange   = #FC6C00
+lighter-green = #FCFCA8
+light-orange  = #FCA860
+brown         = #483000
+blueish-green = #84C090
+
+//functions
+gradient(direction = top, color1, color2)
+  background -webkit-linear-gradient(direction, color1, color2) /* For Safari */
+  background -o-linear-gradient(direction, color1, color2) /* For Opera 11.1 to 12.0 */
+  background -moz-linear-gradient(direction, color1, color2) /* For Firefox 3.6 to 15 */
+  background linear-gradient(direction, color1, color2) /* Standard syntax */
+
+@keyframes fadeInUp
+  0%
+    opacity 0
+    transform translateY(20px)
+
+  100%
+    opacity 1
+    transform translateY(0)
+
+@keyframes flipInY
+  0%
+    transform perspective(400px) rotateY(90deg)
+    opacity 0
+
+  40%
+    transform perspective(400px) rotateY(-10deg)
+
+  70%
+    transform perspective(400px) rotateY(10deg)
+
+  100%
+    transform perspective(400px) rotateY(0deg)
+    opacity 1
+
+@keyframes fadeIn
+  0%
+    opacity 0
+
+  100%
+    opacity 1
+
+
+//theme
+*
+  -webkit-box-sizing border-box
+  -moz-box-sizing border-box
+  box-sizing border-box
+
+html
+  // background-color lighter-green
+  background url(/img/main_bg.png) no-repeat center center fixed
+  -webkit-background-size cover
+  -moz-background-size cover
+  -o-background-size cover
+  background-size cover
+
+body
+  font-family 'Lato', sans-serif
+  position relative
+  z-index 10
+  background rgba(brown,0.35)
+
+.navbar
+  box-shadow(0,0,20px,rgba(black,0.8))
+  gradient(color1: lighten(dark-green,5), color2: light-green)
+  border-color dark-green
+  .nav
+    & > li
+      & > a
+        color darken(dark-green,5)
+        text-shadow(0,0,10px,white)
+        &:hover
+          text-shadow(0,0,10px,black)
+          transition(text-shadow,ease-in-out,.15s)
+          transition(color,ease-in-out,.05s)
+        &.brand
+          padding-left 20px
+          margin-left 0
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover,
+.navbar-inverse .navbar-nav>.active>a:focus,.navbar-inverse .navbar-nav>.open>a,
+.navbar-inverse .navbar-nav>.open>a:hover
+  background-color dark-green
+  text-shadow(1px,1px,2px,black)
+
+.navbar-nav.pull-right>li>
+  .dropdown-menu
+    background-color lighten(light-green,30)
+    border-color dark-green
+    li>a:hover
+      background-color dark-green
+      color white
+      text-shadow(0,0,10px,black)
+
+.navbar-inverse .navbar-nav > .dropdown > a .caret
+  margin-left 5px
+
+
+.home
+  border-right 1px dashed light-orange
+
+.content
+  margin 8% 0
+  padding 35px 0
+  box-shadow(0,0,20px,rgba(black,0.7))
+  width 100%
+  h1, h2
+    color white
+    text-shadow(0,0,10px,black)
+  .steps
+    float left
+    width 100%
+    padding 30px 0
+    background transparent url(/img/steps_bg2.png) center center no-repeat
+    background-size(contain)
+    text-align center
+    font-size 18px
+    color white
+    text-shadow(0 0 10px black)
+    .step-img
+      background url(/img/steps_sprite.png) no-repeat center center
+      background-size(cover)
+      width 60px
+      height 60px
+      margin 0 auto
+    .step-1
+      background-position left top
+    .step-2
+      background-position -60px top
+    .step-3
+      background-position -120px top
+    .step-4
+      background-position right top
+    .step-title
+      padding 4px 0
+      margin 3px 0 6px
+      border-bottom 1px solid white
+      box-shadow(0,8px,5px,-5px,rgba(black,0.5))
+    .step-desc
+      font-size 20px
+    img
+      width 30px
+  .desc
+    width 100%
+    margin-bottom 16px
+    float left
+    text-align center
+    .logo
+      background url(/img/gertu_logo6_v.png) no-repeat center top
+      background-size contain
+      height 210px
+      margin-top -50px
+      margin-bottom 65px
+      margin-right auto
+      margin-left auto
+      animation flipInY 1s
+  .web-data
+    color white
+    text-shadow(0,0,10px,black)
+    padding 20px 0
+    float left
+    width 100%
+    background rgba(light-green,0.25)
+    box-shadow(inset,0,0,15px,-3px,black)
+    border-radius 35px
+    .data-desc
+      border-right 1px dashed light-orange
+      border-left 1px dashed dark-orange
+      margin 5px 0
+      text-align center
+      font-size 18px
+      animation fadeInUp 1s
+      .icon
+        background url(/img/webdata_sprite.png) no-repeat center center
+        background-size(cover)
+        width 60px
+        height 60px
+        margin 0 auto
+      .icon1
+        background-position left top
+      .icon2
+        background-position -60px top
+      .icon3
+        background-position -120px top
+      .icon4
+        background-position right top
+      .number
+        font-size 36px
+      &:last-child
+        border-right none
+      &:first-child
+        border-left none
+  .data
+    margin 15px 0 20px
+    float left
+    width 100%
+  .signupform
+    padding 10px 40px
+    border-left 1px dashed dark-orange
+    text-align center
+    >h3
+      text-align justify
+      color white
+      text-shadow(0,0,10px,black)
+      margin-top 6px
+    >button
+      margin 5px 0 21px
+
+
+.btn-primary
+  color #fff
+  background-color light-orange
+  border-color dark-orange
+  text-shadow(0 0 10px black)
+  &:hover, &:focus, &:active
+    transition(background-color,ease-in-out,.10s)
+    background-color dark-orange
+    border-color dark-orange
+
+.btn-primary[disabled]
+  background-color lighten(light-orange,20)
+  border-color lighten(dark-orange,20)
+
+
+form.signin
+  margin-top 8px
+  .form-group
+    width 40%
+    margin-right 4px
+
+form.signup
+  .form-actions
+    text-align center
+    .btn
+      width 50%
+
+.form-control
+  &:focus
+    border-color #888
+    box-shadow(inset,0,1px,1px,rgba(0,0,0,0.075))
+    box-shadow(0,0,8px,rgba(black,0.6))
+
+.has-error
+  .form-control
+    box-shadow(inset,0,1px,1px,rgba(185,74,72,1))
+    box-shadow(0,0,8px,rgba(185,74,72,1))
+
+.searchbar
+  text-align center
+  margin 0 0 5px
+  padding 0 0 15px
+  border-bottom 2px dashed light-orange
+  input
+    width 300px
+    display inline
+    margin 0 10px
+  h3
+    color white
+    text-shadow(0,0,10px,black)
+
+.deals
+  list-style none
+  width 100%
+  float left
+  margin-top 25px
+  li
+    float left
+    width 306px
+    margin 0 30px 15px
+    text-align center
+    background rgba(light-green,0.25)
+    box-shadow(inset,0,0,15px,-3px,black)
+    border-radius 5px
+    animation fadeIn 1s
+    a
+      text-decoration none
+    .deal-data
+      padding 15px
+      img
+        width 225px
+        margin 5px 0 15px
+        box-shadow(0,0,20px,rgba(black,0.7))
+      p
+        color white
+        text-shadow(0,0,10px,black)
+        font-size 16px
+      h3
+        color white
+        text-shadow(0,0,10px,black)
+        margin-top 0
+      .deal-rating, span
+        color white
+        text-shadow(0,0,10px,black)
+      &:hover
+        background rgba(light-green,0.40)
+        cursor pointer
+        transition(background,ease-in-out,.15s)
+        border-radius 5px
+
+footer
+  .navbar-inverse .navbar-text
+    color white
+    text-shadow(0,0,10px,black)

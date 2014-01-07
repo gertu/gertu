@@ -1,0 +1,19 @@
+button.btn.btn-primary(type="button", ng-init='showUser = true', ng-click='showUser = !showUser') {{showUser | iif: "Soy empresa" : "Soy usuario"}}
+form.signup.form-horizontal(name="signup_form", novalidate, action="/users", method="post")
+  .form-group(ng-class="{'has-error': signup_form.email.$dirty && signup_form.email.$invalid}")
+    input#email.form-control(type="email", name="email", ng-model="signup.email" ,placeholder="Email", ng-minlength=3, ng-maxlength=20 ,required)
+
+  .form-group
+    input#firstName.form-control(type="text", name="firstName", placeholder="{{showUser | iif: 'Nombre':'Empresa'}}")
+
+  .form-group
+    input#lastName.form-control(type="text", name="lastName", placeholder="Apellidos")
+
+  .form-group(ng-class="{'has-error': signup_form.password.$dirty && signup_form.password.$invalid}")
+    input#password.form-control(type="password", name="password", placeholder="Contraseña", ng-model="signup.password", ng-minlength=6, ng-maxlength=20, required)
+
+  .form-group(ng-class="{'has-error': signup_form.pwdcheck.$dirty && signup_form.pwdcheck.$invalid}")
+    input#pwdcheck.form-control(type="password", name="pwdcheck", placeholder="Repetir Contraseña", ng-model="signup.pwdcheck", ng-minlength=6, ng-maxlength=20, required)
+
+  .form-actions
+    button.btn.btn-primary(type="submit",ng-disabled="signup_form.$invalid" ) Registrarse

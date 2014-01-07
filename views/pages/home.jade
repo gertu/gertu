@@ -1,2 +1,46 @@
 section(ng-controller='IndexController')
-  h1 HomeView
+  .row(data-ng-hide='global.authenticated')
+    .transparent
+    .data
+      .col-md-8.home
+        .desc
+          .logo
+        .web-data
+          .data-desc.col-md-3
+            .icon.icon1
+            .number {{global.dealcount}}
+            .text  ofertas activas
+          .data-desc.col-md-3
+            .icon.icon2
+            .number 4.000
+            .text  ofertas reservadas
+          .data-desc.col-md-3
+            .icon.icon3
+            .number {{global.usercount}}
+            .text usuarios activos
+          .data-desc.col-md-3
+            .icon.icon4
+            .number 3.000
+            .text  tiendas asociadas
+      .col-md-4.signupform
+        h3 Créate una cuenta y...¡busca ofertas!
+        include ../templates/signupform
+    .steps
+      .col-md-3.step
+        .step-img.step-1
+        h2.step-title Busca
+        p.step-desc Busca dentro de nuestra lista de ofertas la que más te guste. Hay miles entre las que elegir, no dejes que se escape la tuya
+      .col-md-3.step
+        .step-img.step-2
+        h2.step-title Reserva
+        p.step-desc Una vez elegida, simplemente tienes que reservarla y se te asignará un número de reserva; es muy importante que no lo pierdas
+      .col-md-3.step
+        .step-img.step-3
+        h2.step-title Canjea
+        p.step-desc Acércate a la tienda que ofrece la oferta y muéstrale al dependiente tu número de reserva. Una vez validado podrás canjearla
+      .col-md-3.step
+        .step-img.step-4
+        h2.step-title ¡Disfruta!
+        p.step-desc Con la oferta ya canjeada y en tu poder, es hora de disfrutar de ella. Así que no lo pienses más y ¡corre a disfrutar de ella!
+  .row(data-ng-show='global.authenticated')
+    h1 Estoy logeado
