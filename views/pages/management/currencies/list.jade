@@ -1,7 +1,8 @@
 extends ../../../layouts/default
 block content
+    include ../includes/top-menu
     h1 Monedas
-    p
+        &nbsp;
         a.btn.btn-primary(href='/management/currencies/edit/0') Nueva moneda
         &nbsp;
         a.btn.btn-info(href='/management/currencies/loadRates') Carga automática de ratios
@@ -10,9 +11,9 @@ block content
         thead
             tr
                 th  Nombre
-                th  Codigo
-                th  Conversion
-                th  Eliminar
+                th(width='120')  Codigo
+                th(width='120')  Conversion
+                th(width='80')  Eliminar
         each currency in currencies
             tr
                 td
