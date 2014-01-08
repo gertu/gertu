@@ -7,7 +7,8 @@ angular.module "mean", [
   "mean.system",
   "mean.users",
   "mean.deals",
-  "mean.filters"
+  "mean.filters",
+  "pascalprecht.translate"
 ]
 
 angular.module "mean.system", []
