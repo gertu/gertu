@@ -38,13 +38,16 @@
     "forever"              : "latest",
     "bower"                : "latest",
     "async"                : "latest",
-    "underscore"           : "latest"
+    "underscore"           : "latest",
+    "nodemailer"          : "*"
   },
   "devDependencies": {
+
     "blanket"             : "*",
     "coffee-script"       : "*",
     "supertest"           : "*",
     "should"              : "*",
+    "nodemailer"          : "*",
 
     "grunt"               : "*",
     "grunt-coffeelint"    : "*",

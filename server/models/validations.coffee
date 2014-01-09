@@ -1,6 +1,4 @@
 mongoose = require("mongoose")
-
-
 exports.validatePresenceOf       = (value) ->
   value and value.length
 
@@ -20,5 +18,6 @@ exports.uniqueFieldInsensitive   = (key) ->
       $ne: @_id
 
     query[key] = regex
+
     mongoose.models["User"].findOne query, (error, user) ->
       respond not user

@@ -2,5 +2,13 @@
     "db": "mongodb://localhost/gertu",
     "app": {
         "name": "Gertu: find the best deals near you - Production"
+    },
+    "mail":{
+        "host": "smtpout.europe.secureserver.net",
+        "secureConnection": true,
+        "mailPort": 465,
+        "accountUser": "mail@gertuproject.info",
+        "accountPassword": "*******",
+        "accountFrom": "mail@gertuproject.info"
     }
 }

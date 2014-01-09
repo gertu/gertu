@@ -44,10 +44,6 @@ module.exports = (app, passport, db) ->
     #express/mongo session storage
     app.use express.session(
       secret: "GERTU"
-      store: new mongoStore(
-        db: db.connection.db
-        collection: "sessions"
-      )
     )
 
     #connect flash for flash messages

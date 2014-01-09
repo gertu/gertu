@@ -1,7 +1,15 @@
 {
-    "db": "mongodb://localhost/gertu-test",
+    "db": "mongodb://admin:admin@ds053718.mongolab.com:53718/gertu",
     "port": 3001,
     "app": {
         "name": "Gertu: find the best deals near you - Test"
+    },
+    "mail":{
+        "host": "smtpout.europe.secureserver.net",
+        "secureConnection": true,
+        "mailPort": 465,
+        "accountUser": "mail@gertuproject.info",
+        "accountPassword": "*******",
+        "accountFrom": "mail@gertuproject.info"
     }
 }

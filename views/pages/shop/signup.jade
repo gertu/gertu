@@ -1,0 +1,18 @@
+form.signin.form-inline(action="/shop/signup", method="post", role="form")
+    .form-group
+        input#shopname.form-control(type='text', name="shopname", ng-model="shopname", placeholder='Nombre del comercio')
+
+    .form-group
+        input#email.form-control(type='email', name="email", ng-model="email", placeholder='Email')
+
+    .form-group
+        input#password.form-control(type='password', name="password", ng-model="password", placeholder='Contraseña')
+
+    .form-group
+        input#passwordRpt.form-control(type='password', name="passwordRpt",ng-model="passwordRpt", placeholder='Repita contraseña')
+
+    button.btn.btn-primary(type='button', ng-click='doSignUp()') Crear cuenta
+
+    p.well
+        ul
+            li(ng-repeat="error in error"){{error}}

@@ -18,6 +18,14 @@ module.exports = (app, passport) ->
   app.put "/api/profile/:profileId", users.update
   app.get "/users/:userId", users.show
 
+  #Shop route
+  shop = require("../server/controllers/shop")
+  app.post "/shop/signup", shop.signup
+  app.post "/shop/login", shop.login
+  app.post "/shop/logoff", shop.logoff
+  app.get "/shop/emailexists", shop.emailexists
+  app.get "/shop/current", shop.current
+
   # Finish with setting up the userId param
   app.param "userId", users.user
 
