@@ -59,7 +59,7 @@ angular.module("mean.system").controller "ShopSignUpController",
           $scope.errors = validationErrors
         else
           $http(
-            url: "/shop/signup"
+            url: "/api/v1/shop/signup"
             method: "POST"
             data:
               name: $scope.shopname
@@ -83,29 +83,32 @@ angular.module("mean.system").controller "ShopLogInController",
     $scope.errorMsg = ''
 
     $scope.doLogIn = () ->
-
-      # Verify password and passwordRpt match
-      if $scope.email != '' and $scope.password != ''
+      
+      # Verify password and email have been provided
+      if $scope.email? and $scope.password? and $scope.email != '' and $scope.password != ''
 
         $http(
-          url: "/shop/login"
+          url: "/api/v1/shop/login"
           method: "POST"
           data:
             email: $scope.email
             password: $scope.password
         )
         .success (data, status) ->
+          $location.path('/shop/offers/')
 
+        .error (data, status) ->
           if status == 403
-            $scope.errorMsg = 'No shop with that information has been found'
-          else
-            $location.path('/shop/offers/')
+            $scope.errorMsg = 'No se ha encontrado ningún comercio con los credenciales suministrados'
 
-        .error (data) ->
-            $scope.errorMsg = data
-
+      else if (not $scope.password? or $scope.password == '') and (not $scope.email? or $scope.email == '')
+        $scope.errorMsg = 'Debe indicar una contaseña y un email para poder acceder'
+      else if not $scope.password? or $scope.password == ''
+        $scope.errorMsg = 'Debe indicar una contaseña'
+      else if not $scope.email? or $scope.email == ''
+        $scope.errorMsg = 'Debe indicar un email'
       else
-        $scope.errorMsg = 'Email and password must be provided'
+        $scope.errorMsg = 'Debe indicar una contaseña y un email para poder acceder'
   ]
 
 # Shop offer list
@@ -113,7 +116,7 @@ angular.module("mean.system").controller "ShopOffersController",
   ["$scope", "$http", "Global", ($scope, $http, Global) ->
 
     $http(
-      url: "/shop/current"
+      url: "/api/v1/shop/current"
       method: "GET"
     )
     .success (data) ->
