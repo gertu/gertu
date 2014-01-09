@@ -1,3 +1,11 @@
+PasswordsDoNotMatch = 'Las contraseñas suministradas no coinciden'
+ShopNameHasToBeProvided = 'Debe proporcionar un nombre para el comercio'
+EmailHasToBeProvided = 'Debe proporcionar un email para el comercio'
+PasswordHasToBeProvided = 'Debe proporcionar una contraseña para el comercio'
+EmailAlreadyExists = 'Ya existe un comercio con ese email. Por favor, proporcione otro.'
+NoShopHasBeenFound = 'No se ha encontrado ningún comercio con los credenciales suministrados'
+PasswordAndEmailHaveToBeProvided = 'Debe indicar una contaseña y un email para poder acceder'
+
 ShopFunctions = (() ->
 
   _getSignUpValidationErrors = ($scope) ->
@@ -6,16 +14,16 @@ ShopFunctions = (() ->
 
     # Verify password and passwordRpt match
     if $scope.password != $scope.passwordRpt
-      validationErrors.push('Passwords do not match')
+      validationErrors.push(PasswordsDoNotMatch)
 
     if !$scope.shopname
-      validationErrors.push('A shop name has to be provided')
+      validationErrors.push(ShopNameHasToBeProvided)
 
     if !$scope.email
-      validationErrors.push('An email has to be provided')
+      validationErrors.push(EmailHasToBeProvided)
 
     if !$scope.password
-      validationErrors.push('A password has to be provided')
+      validationErrors.push(PasswordHasToBeProvided)
 
     validationErrors
 
@@ -24,7 +32,7 @@ ShopFunctions = (() ->
     existsEmail = true
 
     $http(
-      url: "/shop/emailexists?email=" + emailAccount
+      url: "/api/v1/shop/emailexists?email=" + emailAccount
       method: "GET"
     )
     .success (data) ->
@@ -41,7 +49,7 @@ ShopFunctions = (() ->
 )()
 
 # Shop SignUp
-angular.module("mean.system").controller "ShopSignUpController",
+angular.module("mean.shops").controller "ShopSignUpController",
   ["$scope", "$http", "$location", "Global", ($scope, $http, $location, Global) ->
 
     $scope.global = Global
@@ -53,7 +61,7 @@ angular.module("mean.system").controller "ShopSignUpController",
 
       ShopFunctions.existsEmailForShopInDatabase($http, $scope.email, (result) ->
         if result
-          validationErrors.push('Email already exists. Please do choose another one.')
+          validationErrors.push(EmailAlreadyExists)
 
         if validationErrors.length > 0
           $scope.errors = validationErrors
@@ -67,7 +75,10 @@ angular.module("mean.system").controller "ShopSignUpController",
               password: $scope.password
           )
           .success () ->
-              $location.path('/shop/offers')
+            $scope.global.authenticated = true
+            $scope.global.shop = {name: $scope.shopname, email: $scope.email }
+            
+            $location.path('/')
           .error (errorData) ->
               $scope.errorMsg = errorData
       )
@@ -76,11 +87,11 @@ angular.module("mean.system").controller "ShopSignUpController",
   ]
 
 # Shop LogIn
-angular.module("mean.system").controller "ShopLogInController",
+angular.module("mean.shops").controller "ShopLogInController",
   ["$scope", "$location", "$http", "Global", ($scope, $location, $http, Global) ->
 
     $scope.global = Global
-    $scope.errorMsg = ''
+    $scope.errorMsg = undefined
 
     $scope.doLogIn = () ->
       
@@ -95,34 +106,43 @@ angular.module("mean.system").controller "ShopLogInController",
             password: $scope.password
         )
         .success (data, status) ->
-          $location.path('/shop/offers/')
+          $scope.global.authenticated = true
+          $scope.global.shop = data
+
+          console.log $scope.global
+
+          $location.path('/')
 
         .error (data, status) ->
           if status == 403
-            $scope.errorMsg = 'No se ha encontrado ningún comercio con los credenciales suministrados'
+            $scope.errorMsg = NoShopHasBeenFound
 
       else if (not $scope.password? or $scope.password == '') and (not $scope.email? or $scope.email == '')
-        $scope.errorMsg = 'Debe indicar una contaseña y un email para poder acceder'
-      else if not $scope.password? or $scope.password == ''
-        $scope.errorMsg = 'Debe indicar una contaseña'
-      else if not $scope.email? or $scope.email == ''
-        $scope.errorMsg = 'Debe indicar un email'
-      else
-        $scope.errorMsg = 'Debe indicar una contaseña y un email para poder acceder'
+
+        $scope.errorMsg = PasswordAndEmailHaveToBeProvided
+
+      else if not $scope.password? or $scope.password == '' then $scope.errorMsg = PasswordHasToBeProvided
+
+      else if not $scope.email? or $scope.email == '' then $scope.errorMsg = EmailHasToBeProvided
+
+      else $scope.errorMsg = PasswordAndEmailHaveToBeProvided
   ]
 
-# Shop offer list
-angular.module("mean.system").controller "ShopOffersController",
-  ["$scope", "$http", "Global", ($scope, $http, Global) ->
+# Shop LogOut
+angular.module("mean.shops").controller "ShopLogOutController",
+  ["$scope", "$location", "$http", "Global", ($scope, $location, $http, Global) ->
 
     $http(
-      url: "/api/v1/shop/current"
-      method: "GET"
+      url: "/api/v1/shop/logout"
+      method: "POST"
+      data:
+        email: $scope.email
+        password: $scope.password
     )
-    .success (data) ->
-        $scope.title = 'Offers for the ' + data
-    .error () ->
-        $scope.title = 'Error on retrieving'
+    .success (data, status) ->
+      $scope.global.authenticated = false
+      $scope.global.shop = null
 
-    $scope.global = Global
+    $location.path('/')
+    
   ]

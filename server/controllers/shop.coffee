@@ -38,12 +38,12 @@ exports.login = (req, res) ->
         # Access granted
         req.session.currentShop = {shopId: shopdata._id, userEmail: shopdata.email, isAuthenticated: true}
 
-        res.send('OK')
+        res.send JSON.stringify(shopdata)
     )
   else
     res.status(422).send('Incorrect data')
 
-exports.logoff = (req, res) ->
+exports.logout = (req, res) ->
 
   req.session.destroy()
 

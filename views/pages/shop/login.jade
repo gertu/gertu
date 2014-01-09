@@ -1,10 +1,23 @@
-form.signin.form-inline(action="/shop/login", method="post", role="form")
-    .form-group
-        input#email.form-control(type='text', name="email", ng-model="email", placeholder='Email')
+h1 Acceso de comercios
+.row
+    .col-md-4
+        form(action="/shop/login", method="post")
+            .form-group
+                input#email.form-control(type='email', required, name="email", ng-model="email", placeholder='Email')
 
-    .form-group
-        input#password.form-control(type='password', name="password", ng-model="password", placeholder='Contraseña')
-
-    button.btn.btn-primary(type='button', ng-click='doLogIn()') Acceder
-    p.well
-        | {{errorMsg}}
+            .form-group
+                input#password.form-control(type='password', required, name="password", ng-model="password", placeholder='Contraseña')
+            p
+                button.btn.btn-primary(type='button', ng-click='doLogIn()') Acceder
+        .alert.alert-danger(data-ng-show='errorMsg')
+            {{errorMsg}}
+    .col-md-8
+        p 
+            | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed lobortis justo. Aliquam adipiscing, nibh vel semper varius, 
+            | dui risus elementum nibh, vel lacinia nisi elit at justo. Nulla tincidunt lacus sit amet felis suscipit malesuada. 
+            | Nullam a euismod tortor. Morbi ut urna sed magna placerat tristique ac commodo leo. Phasellus non massa lacinia, dignissim leo eu, 
+            | vulputate mauris. Nullam tempus convallis orci. Nunc egestas magna ac venenatis bibendum. Nullam nec tortor ultrices lacus luctus 
+            | pellentesque in vel ipsum. Nullam fringilla euismod magna, auctor ullamcorper ligula eleifend eu. Nulla eu libero nibh. 
+            | Donec at nulla ac nulla feugiat tempor. Mauris viverra magna luctus augue venenatis vestibulum. 
+            | Mauris euismod lorem vitae dui rutrum, sit amet lacinia sapien egestas. Maecenas non orci ullamcorper, cursus enim ut, luctus tortor. 
+            | Etiam velit tellus, mattis a imperdiet id, faucibus tempor nibh.
