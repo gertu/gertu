@@ -8,12 +8,12 @@
         ul.nav.navbar-nav.pull-right
           li.dropdown
             a.dropdown-toggle(ng-cloak,href='#', data-toggle='dropdown')
-              img(ng-src="{{selectedLang.flag}}",style="width: 30px; height:18px; background-size: contain;")
+              {{selectedLang.name}}
               b.caret
             ul.dropdown-menu(style="min-width: 72px;")
               li(data-ng-repeat="lang in filteredLangs")
                 a(href='#', data-ng-click="selectLang(lang.code)")
-                  img(ng-src="{{lang.flag}}",style="width: 30px; height:18px; background-size: contain;")
+                  {{lang.name}}
                   
         ul.nav.navbar-nav.pull-right(data-ng-hide='global.authenticated')
           include signinform

@@ -16,23 +16,22 @@ angular.module('mean.system').controller 'HeaderController', ['$scope', 'Global'
   $scope.isCollapsed = false
   
   $scope.langs = [
-    flag: 'http://blogs.lainformacion.com/zoomboomcrash/files/2012/06/bandera-espa%C3%B1a.jpg'
-    code: 'es'
+    name: 'Español'
+    code: 'es-ES'
   ,
-    flag: 'http://gbwomensvolleyball.co.uk/wp-content/uploads/British-Flag1.png'
-    code: 'en'
+    name: 'English'
+    code: 'en-US'
   ]
 
   $scope.filteredLangs = []
 
-  $scope.selectLang = (code = document.documentElement.lang) ->
+  $scope.selectLang = (code = (if navigator.language is "es" then "es-ES" else navigator.language)) ->
     $scope.filteredLangs = []
     for lang in $scope.langs
       if lang.code == (code)
         $scope.selectedLang = lang
       else
         $scope.filteredLangs.push lang
-    console.log $scope.filteredLangs
 
     $translate.uses($scope.selectedLang.code)
 
