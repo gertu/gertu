@@ -127,22 +127,3 @@ angular.module("mean.shops").controller "ShopLogInController",
 
       else $scope.errorMsg = PasswordAndEmailHaveToBeProvided
   ]
-
-# Shop LogOut
-angular.module("mean.shops").controller "ShopLogOutController",
-  ["$scope", "$location", "$http", "Global", ($scope, $location, $http, Global) ->
-
-    $http(
-      url: "/api/v1/shop/logout"
-      method: "POST"
-      data:
-        email: $scope.email
-        password: $scope.password
-    )
-    .success (data, status) ->
-      $scope.global.authenticated = false
-      $scope.global.shop = null
-
-    $location.path('/')
-    
-  ]

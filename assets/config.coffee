@@ -36,6 +36,7 @@ angular.module('mean').config ['$routeProvider', ($routeProvider) ->
     controller: "ShopLogInController"
 
    ).when("/shop/logout",
+    templateUrl: '/views/pages/shop/logout.html'
     controller: "ShopLogOutController"
 
   ).when("/shop/offers",

@@ -25,7 +25,7 @@ module.exports = (app, passport) ->
   shop = require("../server/controllers/shop")
   app.post currentApiVersion + "/shop/signup", shop.signup
   app.post currentApiVersion + "/shop/login", shop.login
-  app.post currentApiVersion + "/shop/logout", shop.logout
+  app.get "/shop/logout", shop.logout
   app.get  currentApiVersion + "/shop/emailexists", shop.emailexists
   app.get  currentApiVersion + "/shop/current", shop.current
 

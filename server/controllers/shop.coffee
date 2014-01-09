@@ -47,7 +47,7 @@ exports.logout = (req, res) ->
 
   req.session.destroy()
 
-  res.status(200).send('Session ended')
+  res.redirect "/"
 
 exports.current = (req, res) ->
 
