@@ -8,10 +8,10 @@ module.exports = (app, passport) ->
 
   app.get "/signin",  users.signin
   app.get "/signup",  users.signup
-  app.get "/signout", users.signout
+  app.get currentApiVersion + "/signout", users.signout
 
-  app.post "/users", users.create
-  app.post "/users/session", passport.authenticate("local",
+  app.post currentApiVersion + "/users", users.create
+  app.post currentApiVersion + "/users/session", passport.authenticate("local",
     failureRedirect: "/"
     failureFlash   : "Invalid email or password"
     successFlash   : "Welcome!"

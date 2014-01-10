@@ -6,6 +6,7 @@ request  = require "supertest"
 User     = mongoose.model "User"
 server   = request.agent(app)
 
+apiPreffix = '/api/v1'
 
 describe "<Unit Test>", ->
   describe "API User:", ->
@@ -21,7 +22,7 @@ describe "<Unit Test>", ->
 
     describe "Authentication", ->
       it "should be able to login locally", (done) ->
-        server.post("/users/session").send(
+        server.post(apiPreffix + "/users/session").send(
           email   : "user@user.com"
           password: "pass11"
         ).end (err, res) ->
@@ -29,7 +30,7 @@ describe "<Unit Test>", ->
           done()
 
       it "should be able to sign up",       (done) ->
-        server.post("/users").send(
+        server.post(apiPreffix + "/users").send(
           email   : "newuser@user.com"
           password: "pass11"
         ).end (err, res) ->
@@ -37,7 +38,7 @@ describe "<Unit Test>", ->
           done()
 
       it "should be able to logout",        (done) ->
-        server.get("/signout").send().end (err, res) ->
+        server.get(apiPreffix + "/signout").send().end (err, res) ->
           res.should.have.status 302
           server.get("/").send().end (err, res) ->
            res.should.have.status 200
