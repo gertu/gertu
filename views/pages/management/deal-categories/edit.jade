@@ -1,0 +1,17 @@
+extends ../../../layouts/default
+block content
+    include ../includes/top-menu
+    - if (category._id == 0)
+        h1 Nueva categoría
+    - else
+        h1 Editar categoría
+
+    form(action="/management/deal-categories/edit/#{category._id}", method="post", role="form")
+        .form-group
+            label Nombre
+            input#name.form-control(type='text', name="name", placeholder='Nombre de la categoría', value='#{category.name}', required)
+        button.btn.btn-primary(type='submit') Guardar
+        br
+        - if (errorMsg)
+            p.well
+                | #{errorMsg}

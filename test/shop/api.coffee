@@ -75,7 +75,7 @@ describe "General", ->
       res.should.have.status 422
       done()
 
-  it "should nofity incorrect data when login with incomplete data", (done) ->
+  it "should notify incorrect data when login with incomplete data", (done) ->
     request.
     post(apiPreffix + '/shop/login').
     send({email: '', password: ''}).

@@ -1,0 +1,23 @@
+extends ../../../layouts/default
+block content
+    include ../includes/top-menu
+    - if (currency._id == 0)
+        h1 Nueva moneda
+    - else
+        h1 Editar moneda
+
+    form(action="/management/currencies/edit/#{currency._id}", method="post", role="form")
+        .form-group
+            label Nombre
+            input#name.form-control(type='text', name="name", placeholder='Currency name', value='#{currency.name}')
+        .form-group
+            label Codigo
+            input#code.form-control(type='text', name="code", placeholder='Currency code', value='#{currency.code}')
+        .form-group
+            label Ratio de conversion
+            input#conversionRate.form-control(type='number', name="conversionRate", placeholder='Currency conversion rate', step='any', value='#{currency.conversionRate}')
+        button.btn.btn-primary(type='submit') Guardar
+
+        - if (errorMsg)
+            p.well
+                | #{errorMsg}

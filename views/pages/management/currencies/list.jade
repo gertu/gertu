@@ -1,0 +1,30 @@
+extends ../../../layouts/default
+block content
+    include ../includes/top-menu
+    h1 Monedas
+        &nbsp;
+        a.btn.btn-primary(href='/management/currencies/edit/0') Nueva moneda
+        &nbsp;
+        a.btn.btn-info(href='/management/currencies/loadRates') Carga automática de ratios
+
+    table.table.table-bordered.table-condensed
+        thead
+            tr
+                th  Nombre
+                th(width='120')  Codigo
+                th(width='120')  Conversion
+                th(width='80')  Eliminar
+        each currency in currencies
+            tr
+                td
+                    a(href='/management/currencies/edit/#{currency._id}') #{currency.name}
+                td #{currency.code}
+                td #{currency.conversionRate}
+                td
+                    a.btn.btn-danger(href='/management/currencies/remove/#{currency._id}') eliminar
+
+    - if (message != '')
+        div.alert.alert-info.alert-dismissable
+            | #{message}
+            br
+            a.btn.btn-primary(href='/management/currencies/list') Actualizar

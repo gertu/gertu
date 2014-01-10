@@ -1,0 +1,21 @@
+extends ../../../layouts/default
+block content
+    h1 Acceso al área de mantenimiento
+    form(action="/management/access/login", method="post", role="form")
+        .form-group
+            label Email
+            input#email.form-control(type='email', name="email", ng-model="email", placeholder='Email', required)
+
+        .form-group
+            label Contraseña
+            input#password.form-control(type='password', name="password", ng-model="password", placeholder='Contraseña', required)
+
+        button.btn.btn-primary(type='submit') Acceder
+        br
+        br
+        - if (endSession)
+            div.alert.alert-success
+                | La sesión se ha cerrado correctamente
+        - if (errorMsg)
+            div.alert.alert-danger
+                | #{errorMsg}
