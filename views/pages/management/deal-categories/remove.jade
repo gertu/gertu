@@ -1,6 +1,5 @@
-extends ../../../layouts/default
+extends ../layouts/default
 block content
-    include ../includes/top-menu
     h1 Eliminar categoría
 
     form.form-inline(action="/management/deal-categories/remove/#{category._id}", method="post", role="form")

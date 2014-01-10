@@ -1,6 +1,5 @@
-extends ../../../layouts/default
+extends ../layouts/default
 block content
-    include ../includes/top-menu
     h1 Eliminar moneda
 
     form.form-inline(action="/management/currencies/remove/#{currency._id}", method="post", role="form")
