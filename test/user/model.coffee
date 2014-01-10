@@ -10,6 +10,8 @@ user2 = undefined
 describe "<Unit Test>", ->
   describe "Model User:", ->
     before (done) ->
+      User.remove().exec()
+      
       user = new User(
         email    : "user@user.com"
         firstName: "Full Name"

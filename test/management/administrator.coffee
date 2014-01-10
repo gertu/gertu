@@ -6,7 +6,6 @@ mongoose      = require("mongoose")
 Administrator = mongoose.model("Administrator")
 
 app = express()
-request = request('http://localhost:3000');
 
 describe "Management administrator model testing", ->
   before (done) ->

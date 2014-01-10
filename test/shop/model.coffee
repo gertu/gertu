@@ -1,8 +1,7 @@
-should   = require("should")
-app      = require("../../server")
-mongoose = require("mongoose")
-Shop     = mongoose.model("Shop")
-
+should   = require "should"
+mongoose = require "mongoose"
+request  = require "supertest"
+Shop     = mongoose.model "Shop"
 
 valid_shop  = undefined
 shop2 = undefined
