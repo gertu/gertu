@@ -1,5 +1,5 @@
 p
-  a.btn.btn-primary(href='/shop/signup') Soy un comercio
+  a.btn.btn-primary(href='/admin/signup') Soy un comercio
 form.signup.form-horizontal(name="signup_form", novalidate, action="/users", method="post")
   .form-group(ng-class="{'has-error': signup_form.email.$dirty && signup_form.email.$invalid}")
     input#email.form-control(type="email", name="email", ng-model="signup.email" ,placeholder="Email", ng-minlength=3, ng-maxlength=20 ,required)

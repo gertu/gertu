@@ -27,19 +27,15 @@ angular.module('mean').config ['$routeProvider', ($routeProvider) ->
   ).when('/404',
     templateUrl: '/views/404.html'
   
-  ).when("/shop/signup",
+  ).when("/admin/signup",
     templateUrl: "/views/pages/shop/signup.html",
     controller: "ShopSignUpController"
 
-  ).when("/shop/login",
+  ).when("/admin/login",
     templateUrl: "/views/pages/shop/login.html",
     controller: "ShopLogInController"
 
-   ).when("/shop/logout",
-    templateUrl: '/views/pages/shop/logout.html'
-    controller: "ShopLogOutController"
-
-  ).when("/shop/offers",
+  ).when("/admin/offers",
     templateUrl: "/views/pages/shop/offers.html",
     controller: "ShopOffersController"
 
