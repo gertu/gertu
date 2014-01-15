@@ -1,5 +1,5 @@
 {
-    "db": "mongodb://admin:admin@ds053718.mongolab.com:53718/gertu",
+    "db": "mongodb://localhost/gertu-test",
     "port": 3001,
     "app": {
         "name": "Gertu: find the best deals near you - Test"
