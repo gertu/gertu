@@ -8,7 +8,7 @@
         "secureConnection": true,
         "mailPort": 465,
         "accountUser": "mail@gertuproject.info",
-        "accountPassword": "gertumail",
+        "accountPassword": "*******",
         "accountFrom": "mail@gertuproject.info"
     }
 }
