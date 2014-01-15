@@ -11,7 +11,7 @@ apiPreffix = '/api'
 describe "<Unit test>", ->
   describe "API deal", ->
     it "should create a new deal", (done)->
-      server.post(apiPreffix + "/deal").send(
+      server.post(apiPreffix + "/deals").send(
       	name:  "deal1"
       	price: 21
       	image: "/img/deals/img1.jpg"
@@ -21,7 +21,7 @@ describe "<Unit test>", ->
       	done()
 
     it "should not be created because no data", (done)->
-    	server.post(apiPreffix + "/deal").send(
+    	server.post(apiPreffix + "/deals").send(
     	  name: ""
     	  price: ""
     	  image: ""

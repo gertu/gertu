@@ -34,9 +34,10 @@ describe "<Unit Test>", ->
           done()
 
       it "should now have a deal with all data correct", (done) ->
-        Deal.find { name: 'Deal name'}, (error, deals) ->
+        Deal.find { shop: "524f36e34ca6e9c82a000001"}, (error, deals) ->
+          deals[0].should.have.property "name", deal.name
+          deals[0].should.have.property "price", deal.price
           deals[0].should.have.property "image", deal.image
-          deals[0].should.have.property "shop", deal.shop
           done()
 
       it "should update data correctly", (done) ->
