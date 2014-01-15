@@ -43,4 +43,7 @@ section(ng-controller='IndexController')
         h2.step-title ¡Disfruta!
         p.step-desc Con la oferta ya canjeada y en tu poder, es hora de disfrutar de ella. Así que no lo pienses más y ¡corre a disfrutar de ella!
   .row(data-ng-show='global.authenticated')
-    h1 Estoy logeado
+    div(data-ng-show='global.shop')
+      include shop/controlpanel
+    div(data-ng-show='global.user')
+      h1 Estoy logeado como usuario

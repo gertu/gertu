@@ -1,2 +1,5 @@
 section(data-ng-controller='DealsController', data-ng-init='findOne()')
   h1 {{deal.name}}
+  a(data-ng-href="/deals/edit/{{deal._id}}" class="btn") editar
+  form.form-horizontal(data-ng-submit='remove()')
+    input.btn(type='submit', value="eliminar") 
