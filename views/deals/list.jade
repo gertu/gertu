@@ -10,9 +10,9 @@ section(data-ng-controller='DealsController', data-ng-init='find()')
           h3 {{deal.name | trunc:true:20}}
           img.img-rounded(ng-src="{{deal.image}}")
           p {{deal.created | date:'medium'}}
-          p {{deal.shop}}
+          p {{deal.shop.name}}
           p {{deal.price | currency:"&euro;"}}
           rating.deal-rating(value='rate', max='max', readonly='isReadonly')
           span {{rate}}/{{max}}
-
-  a(data-ng-href='/deals/create') Create One
+  div(data-ng-show='global.shop')
+    a(data-ng-href='/deals/create') Create One

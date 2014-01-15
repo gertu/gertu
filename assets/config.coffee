@@ -9,6 +9,9 @@ angular.module('mean').config ['$routeProvider', ($routeProvider) ->
   ).when('/deals/:dealId',
     templateUrl: '/views/deals/view.html'
 
+  ).when('/deals/edit/:dealId',
+    templateUrl: '/views/deals/edit.html'
+
   ).when('/profile',
     templateUrl: '/views/users/profile.html'
 

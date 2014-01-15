@@ -6,7 +6,8 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
   $scope.create = ->
     deal = new Deals(
       name: @name,
-      price: @price
+      price: @price,
+      shop: $scope.global.shop._id
     )
     deal.$save (response) ->
       $location.path "/deals"
@@ -23,6 +24,22 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
       dealId: $routeParams.dealId
     , (deal) ->
       $scope.deal = deal
+
+
+  $scope.remove = (deal) ->
+    if deal
+      deal.$remove()
+      for i of $scope.deals
+        $scope.deals.splice i, 1  if $scope.deals[i] is deal
+    else
+      $scope.deal.$remove()
+      $location.path "/deals"
+
+  $scope.update = ->
+    deal = $scope.deal
+    deal.$update ->
+      $location.path "/deals/" + deal._id
+      $scope.global.deal = deal
 
 
   $scope.rate = 7
