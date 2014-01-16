@@ -34,11 +34,11 @@ module.exports = (app, passport) ->
 
   #Deal routes
   deals = require("../server/controllers/deals")
-  app.get    "/api/deals", deals.all
-  app.get    "/api/deals/:dealId", deals.show
-  app.post   "/api/deals", deals.create
-  app.put    "/api/deals/:dealId", deals.update
-  app.delete "/api/deals/:dealId", deals.destroy
+  app.get    currentApiVersion + "/deals", deals.all
+  app.get    currentApiVersion + "/deals/:dealId", deals.show
+  app.post   currentApiVersion + "/deals", deals.create
+  app.put    currentApiVersion + "/deals/:dealId", deals.update
+  app.delete currentApiVersion + "/deals/:dealId", deals.destroy
   #Finish with setting up the articleId param
   app.param 'dealId', deals.deal
 
