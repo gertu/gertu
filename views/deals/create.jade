@@ -1,4 +1,7 @@
-section(data-ng-controller='DealsController')
+section(data-ng-controller='DealsController', data-ng-init="showdealcategories()")
+  ul 
+    li(data-ng-repeat='category in categories')
+      p {{category.name}}
     form.form-horizontal(data-ng-submit='create()')
         h1 Shop {{global.shop.name}}
         .control-group

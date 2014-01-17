@@ -1,6 +1,6 @@
 angular.module("mean.deals").controller "DealsController", ["$scope",
-"$routeParams", "$location", "Global", "Deals", ($scope, $routeParams,
-  $location, Global, Deals) ->
+"$routeParams", "$location", "Global", "Deals", "DealsCategory", ($scope, $routeParams,
+  $location, Global, Deals, DealsCategory) ->
   $scope.global = Global
 
   $scope.create = ->
@@ -17,6 +17,13 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
   $scope.find = ->
     Deals.query (deals) ->
       $scope.deals = deals
+
+
+  $scope.showdealcategories = ->
+    console.log("baii")
+    DealsCategory.query (categories) ->
+      $scope.categories = categories
+      console.log("ona be")
 
 
   $scope.findOne = ->
