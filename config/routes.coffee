@@ -1,6 +1,7 @@
 async = require "async"
 users = require "../server/controllers/user"
 index = require "../server/controllers/index"
+Security = require "../server/tools/security"
 
 module.exports = (app, passport) ->
 
@@ -53,27 +54,27 @@ module.exports = (app, passport) ->
   # End of access routes
 
   managementDashboard = require("../server/controllers/management/dashboard")
-  app.get  "/management/dashboard", managementDashboard.show
+  app.get  "/management/dashboard", Security.authenticateAdministrator, managementDashboard.show
 
   # Deal categories
   managementDealCategories = require("../server/controllers/management/dealCategories")
-  app.get  "/management/deal-categories/list", managementDealCategories.list
-  app.get  "/management/deal-categories/edit/0", managementDealCategories.add
-  app.get  "/management/deal-categories/edit/:id", managementDealCategories.edit
-  app.post "/management/deal-categories/edit/:id", managementDealCategories.editDo
-  app.get  "/management/deal-categories/remove/:id", managementDealCategories.remove
-  app.post "/management/deal-categories/remove/:id", managementDealCategories.removeDo
+  app.get  "/management/deal-categories/list", Security.authenticateAdministrator, managementDealCategories.list
+  app.get  "/management/deal-categories/edit/0", Security.authenticateAdministrator, managementDealCategories.add
+  app.get  "/management/deal-categories/edit/:id", Security.authenticateAdministrator, managementDealCategories.edit
+  app.post "/management/deal-categories/edit/:id", Security.authenticateAdministrator, managementDealCategories.editDo
+  app.get  "/management/deal-categories/remove/:id", Security.authenticateAdministrator, managementDealCategories.remove
+  app.post "/management/deal-categories/remove/:id", Security.authenticateAdministrator, managementDealCategories.removeDo
   # End of deal categories
 
   # Currency management
   managementCurrencies = require("../server/controllers/management/currencies")
-  app.get  "/management/currencies/list", managementCurrencies.list
-  app.get  "/management/currencies/edit/0", managementCurrencies.add
-  app.get  "/management/currencies/edit/:id", managementCurrencies.edit
-  app.post "/management/currencies/edit/:id", managementCurrencies.editDo
-  app.get  "/management/currencies/remove/:id", managementCurrencies.remove
-  app.post "/management/currencies/remove/:id", managementCurrencies.removeDo
-  app.get  "/management/currencies/loadRates", managementCurrencies.loadRates
+  app.get  "/management/currencies/list", Security.authenticateAdministrator, managementCurrencies.list
+  app.get  "/management/currencies/edit/0", Security.authenticateAdministrator, managementCurrencies.add
+  app.get  "/management/currencies/edit/:id", Security.authenticateAdministrator, managementCurrencies.edit
+  app.post "/management/currencies/edit/:id", Security.authenticateAdministrator, managementCurrencies.editDo
+  app.get  "/management/currencies/remove/:id", Security.authenticateAdministrator, managementCurrencies.remove
+  app.post "/management/currencies/remove/:id", Security.authenticateAdministrator, managementCurrencies.removeDo
+  app.get  "/management/currencies/loadRates", Security.authenticateAdministrator, managementCurrencies.loadRates
   # End of currency management
 
   # End of management routes
