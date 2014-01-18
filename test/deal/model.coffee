@@ -16,6 +16,7 @@ describe "<Unit Test>", ->
         price : 45
         image : "/img/deals/img1.jpg"
         shop  : "524f36e34ca6e9c82a000001"
+        categoryname : "Restaurantes"
       )
       done()
 
@@ -38,6 +39,7 @@ describe "<Unit Test>", ->
           deals[0].should.have.property "name", deal.name
           deals[0].should.have.property "price", deal.price
           deals[0].should.have.property "image", deal.image
+          deals[0].should.have.property "categoryname", deal.categoryname
           done()
 
       it "should update data correctly", (done) ->

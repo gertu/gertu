@@ -1,14 +1,22 @@
-section(data-ng-controller='DealsController')
-    form.form-horizontal(data-ng-submit='create()')
-        h1 Shop {{global.shop.name}}
-        .control-group
-          label.control-label(for='title') Name
-          .controls
-            input#name(type='text', data-ng-model='name', placeholder='Title', required='required')
-        .control-group
-          label.control-label(for='price') Price
-          .controls
-            input#price(type='number', step="0.01", data-ng-model='price', placeholder='Price', required='required')
-        .control-group
-          .controls
-            input.btn(type='submit')
+section(data-ng-controller='DealsController', data-ng-init="showdealcategories()")
+  form.form-horizontal(data-ng-submit='create()')
+      h1 Shop {{global.shop.name}}
+      p Elije una categoria
+      btn-group(data-toggle='buttons')
+        label.btn.btn-primary(data-ng-repeat='category in categories')
+          input#categoryname(type='radio', name='categoryname', data-ng-model='categoryname'
+          , value='{{category.name}}')
+          p {{category.name}}
+      .control-group
+        label.control-label(for='title') Name
+        .controls
+          input#name(type='text', data-ng-model='name', placeholder='Title'
+          , required='required')
+      .control-group
+        label.control-label(for='price') Price
+        .controls
+          input#price(type='number', step="0.01", data-ng-model='price', placeholder='Price'
+          , required='required')
+      .control-group
+        .controls
+          input.btn(type='submit')

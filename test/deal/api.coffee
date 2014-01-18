@@ -6,7 +6,7 @@ request  = require "supertest"
 Deal     = mongoose.model "Deal"
 server   = request.agent(app)
 
-apiPreffix = '/api'
+apiPreffix = '/api/v1'
 
 describe "<Unit test>", ->
   describe "API deal", ->

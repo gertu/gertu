@@ -1,22 +1,30 @@
 angular.module("mean.deals").controller "DealsController", ["$scope",
-"$routeParams", "$location", "Global", "Deals", ($scope, $routeParams,
-  $location, Global, Deals) ->
+"$routeParams", "$location", "Global", "Deals", "DealsCategory", ($scope, $routeParams,
+  $location, Global, Deals, DealsCategory) ->
   $scope.global = Global
 
   $scope.create = ->
     deal = new Deals(
       name: @name,
       price: @price,
-      shop: $scope.global.shop._id
+      shop: $scope.global.shop._id,
+      categoryname: @categoryname
     )
+    console.log(deal)
     deal.$save (response) ->
       $location.path "/deals"
 
     @title = ""
 
+
   $scope.find = ->
     Deals.query (deals) ->
       $scope.deals = deals
+
+
+  $scope.showdealcategories = ->
+    DealsCategory.query (categories) ->
+      $scope.categories = categories
 
 
   $scope.findOne = ->
