@@ -7,12 +7,15 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
     deal = new Deals(
       name: @name,
       price: @price,
-      shop: $scope.global.shop._id
+      shop: $scope.global.shop._id,
+      categoryname: @categoryname
     )
+    console.log(deal)
     deal.$save (response) ->
       $location.path "/deals"
 
     @title = ""
+
 
   $scope.find = ->
     Deals.query (deals) ->
@@ -20,10 +23,8 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
 
 
   $scope.showdealcategories = ->
-    console.log("baii")
     DealsCategory.query (categories) ->
       $scope.categories = categories
-      console.log("ona be")
 
 
   $scope.findOne = ->

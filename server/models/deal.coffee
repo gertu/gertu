@@ -17,10 +17,13 @@ DealSchema = new Schema
   created:
     type:     Date
     default:  Date.now
+  categoryname:
+    type:     String
   shop:
     required: true
     type:     Schema.Types.ObjectId
     ref:      "Shop"
+  
 
 DealSchema.statics.load = (id, cb) ->
   @findOne(_id: id).populate("shop", "name shop").exec cb

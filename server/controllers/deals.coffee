@@ -24,7 +24,7 @@ exports.create = (req, res) ->
     deal = new Deal(req.body)
     deal.save (err) ->
       if err
-        res.render "error",
+        res.render "error at create deal",
           status: 500
       else
         res.jsonp deal
