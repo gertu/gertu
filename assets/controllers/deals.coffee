@@ -4,6 +4,7 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
   $scope.global = Global
 
   $scope.create = ->
+    console.log(@categoryname)
     deal = new Deals(
       name: @name,
       price: @price,
