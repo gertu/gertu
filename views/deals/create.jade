@@ -2,11 +2,8 @@ section(data-ng-controller='DealsController', data-ng-init="showdealcategories()
   form.form-horizontal(data-ng-submit='create()')
       h1 Shop {{global.shop.name}}
       p Elije una categoria
-      btn-group(data-toggle='buttons')
-        label.btn.btn-primary(data-ng-repeat='category in categories')
-          input#categoryname(type='radio', name='categoryname', data-ng-model='categoryname'
-          , value='{{category.name}}')
-          p {{category.name}}
+      select#categoryname(name='categoryname', data-ng-model='categoryname')
+        option(data-ng-repeat='category in categories' data-ng-value='category.name'){{category.name}}
       .control-group
         label.control-label(for='title') Name
         .controls
