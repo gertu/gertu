@@ -13,8 +13,9 @@ describe "<Unit Test>", ->
 
       deal = new Deal(
         name  : "Deal name"
-        price : 45
-        image : "/img/deals/img1.jpg"
+        price : 100
+        gertuprice : 50
+        discount :   50
         shop  : "524f36e34ca6e9c82a000001"
         categoryname : "Restaurantes"
       )
@@ -38,7 +39,8 @@ describe "<Unit Test>", ->
         Deal.find { shop: "524f36e34ca6e9c82a000001"}, (error, deals) ->
           deals[0].should.have.property "name", deal.name
           deals[0].should.have.property "price", deal.price
-          deals[0].should.have.property "image", deal.image
+          deals[0].should.have.property "gertuprice", deal.gertuprice
+          deals[0].should.have.property "discount", deal.discount
           deals[0].should.have.property "categoryname", deal.categoryname
           done()
 

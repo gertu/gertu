@@ -38,9 +38,8 @@ angular.module('mean').config ['$routeProvider', ($routeProvider) ->
     templateUrl: "/views/pages/shop/login.html",
     controller: "ShopLogInController"
 
-  ).when("/admin/offers",
-    templateUrl: "/views/pages/shop/offers.html",
-    controller: "ShopOffersController"
+  ).when("/admin/deals/:shopId",
+    templateUrl: "/views/pages/shop/deals.html"
 
   ).otherwise redirectTo: '/404'
 ]

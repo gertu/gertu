@@ -8,6 +8,7 @@ section(data-ng-controller='DealsController', data-ng-init='findOne()')
       button.btn.btn-default.btn-sm(type='button')
         span.glyphicon.glyphicon-pencil
           a(data-ng-href="/deals/edit/{{deal._id}}")| Editar
-      button.btn.btn-default.btn-sm(type='button')
-        span.glyphicon.glyphicon-trash
-          a(href='#', data-ng-click="remove()")| Eliminar
+      a(href='#', data-ng-click="remove()")
+        button.btn.btn-default.btn-sm(type='button')
+          span.glyphicon.glyphicon-trash  Eliminar
+            
