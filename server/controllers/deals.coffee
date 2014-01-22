@@ -2,6 +2,7 @@ mongoose = require "mongoose"
 async    = require "async"
 _        = require "underscore"
 Deal     = mongoose.model('Deal')
+Shop     = mongoose.model('Shop')
 
 
 exports.deal = (req, res, next, id) ->
@@ -11,8 +12,9 @@ exports.deal = (req, res, next, id) ->
     req.deal = deal
     next()
 
+
 exports.shop = (req, res, next, id) ->
-  Deal.findOne(shop: id).exec (err, shop) ->
+  Shop.findOne(_id: id).exec (err, shop) ->
     return next(err)  if err
     return next(new Error('Failed to load shop ' + id))  unless shop
     req.shop = shop
@@ -36,24 +38,14 @@ exports.show = (req, res) ->
   console.log("show")
   res.jsonp req.deal
 
-exports.findByShop = (req, res ) ->
-  query = Deal.find(shop: req.params.id)
-  query.populate "shop"
-  query.exec (err, deals) ->
+
+exports.findByShop = (req, res) ->
+  Deal.find(shop: req.shop._id).populate('shop'). exec (err,deals) ->
     if err
       res.render 'error',
         status: 500
     else
       res.jsonp deals
-
-
-
-  # Deal.where('shop', req.params.id).sort('-created').populate("shop").exec (err, deals) ->
-    # if err
-    #   res.render 'error',
-    #     status: 500
-    # else
-    #   res.jsonp deals
 
 
 exports.all = (req, res) ->
