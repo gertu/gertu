@@ -60,7 +60,7 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
   $scope.calcdiscount = ->
     price = @price
     gertuprice = @gertuprice
-    $scope.discount = gertuprice * 100 / price
+    $scope.discount = 100 - (gertuprice * 100 / price)
 
 
   $scope.rate = 7
