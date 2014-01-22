@@ -18,7 +18,8 @@
       .controls
           input#gertuprice(type='number', step="0.1", data-ng-model='gertuprice', placeholder='discounted price', required='required', ng-change='calcdiscount()')
         p Discount:
-        span(data-ng-model='discount') {{discount | number:0}}
+          input#discount(type='number', step="1", data-ng-model='discount', placeholder='% discount', required='required', ng-change='calcgertuprice()'
+          , value='{{discount | number:0}}') 
       .control-group
         .controls
           input.btn(type='submit')

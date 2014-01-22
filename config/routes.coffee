@@ -41,8 +41,9 @@ module.exports = (app, passport) ->
   app.put    currentApiVersion + "/deals/:dealId", deals.update
   app.delete currentApiVersion + "/deals/:dealId", deals.destroy
   #Finish with setting up the articleId param
-  app.param 'dealId', deals.deal
   app.param 'shopId', deals.shop
+  app.param 'dealId', deals.deal
+  
 
   dealscategory = require("../server/controllers/dealsCategory")
   app.get    currentApiVersion + "/dealscategory", dealscategory.all

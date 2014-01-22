@@ -11,7 +11,6 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
       discount: @discount,
       shop: $scope.global.shop._id,
       categoryname: $scope.categoryname
-      
     )
     console.log(deal)
     deal.$save (response) ->
@@ -19,8 +18,11 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
 
     @title = ""
 
+
   $scope.findbyshop = ->
-    DealsShop.query (deals) ->
+    DealsShop.query
+      shopId: $routeParams.shopId
+    , (deals) ->
       $scope.deals = deals
 
 
@@ -48,7 +50,7 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
         $scope.deals.splice i, 1  if $scope.deals[i] is deal
     else
       $scope.deal.$remove()
-      $location.path "/deals"
+      $location.path "/"
 
   $scope.update = ->
     deal = $scope.deal
@@ -61,6 +63,12 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
     price = @price
     gertuprice = @gertuprice
     $scope.discount = 100 - (gertuprice * 100 / price)
+
+
+  $scope.calcgertuprice = ->
+    price = @price
+    discount = @discount
+    $scope.gertuprice = price - (discount * price / 100)
 
 
   $scope.rate = 7

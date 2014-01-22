@@ -35,7 +35,7 @@ angular.module('mean').config ['$routeProvider', ($routeProvider) ->
   ).when('/admin/deals/create',
     templateUrl: '/views/pages/shop/create.html'
 
-  ).when("/admin/deals/:shopId",
+  ).when("/admin/deals/list/:shopId",
     templateUrl: "/views/pages/shop/deals.html"
 
   ).when('/admin/deals/:dealId',
