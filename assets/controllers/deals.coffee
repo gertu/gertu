@@ -6,15 +6,18 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
   $scope.create = ->
     deal = new Deals(
       name: @name,
+      description: @description,
       price: @price,
       gertuprice: @gertuprice,
       discount: @discount,
       shop: $scope.global.shop._id,
       categoryname: $scope.categoryname
+      datainit: @datainit
+      dataend: @dataend
     )
     console.log(deal)
     deal.$save (response) ->
-      $location.path "/deals"
+      $location.path "/"
 
     @title = ""
 

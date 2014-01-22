@@ -9,17 +9,30 @@
         .controls
           input#name(type='text', data-ng-model='name', placeholder='Title'
           , required='required')
+        label.control-label(for='title') Description
+        .controls
+          textarea#description(rows='4', cols='50', data-ng-model='description'
+          , placeholder='Description of the deal...', required='required')
       .control-group
-        label.control-label(for='price') Price
+        label.control-label(for='price') Price:
         .controls
           input#price(type='number', step="0.01", data-ng-model='price', placeholder='Price'
           , required='required', ng-change='calcdiscount()')
-        label.control-label(for='price') Gertu price
-      .controls
-          input#gertuprice(type='number', step="0.1", data-ng-model='gertuprice', placeholder='discounted price', required='required', ng-change='calcdiscount()')
-        p Discount:
-          input#discount(type='number', step="1", data-ng-model='discount', placeholder='% discount', required='required', ng-change='calcgertuprice()'
-          , value='{{discount | number:0}}') 
+        label.control-label(for='gertu price') Gertu price:
+        .controls
+          input#gertuprice(type='number', step="0.01", 
+            data-ng-model='gertuprice',placeholder='discounted price',
+            required='required', ng-change='calcdiscount()')
+        label.control-label(for='discount') Discount:
+          .controls
+            input#discount(type='number', step="1", data-ng-model='discount', placeholder='%discount', required='required', ng-change='calcgertuprice()'
+            , value='{{discount | number:0}}') 
+        label.control-label(for='discount') Fecha de inicio:
+          .controls
+            datepicker(show-weeks="false", starting-day="1", min="minDate", ng-model="datainit")
+        label.control-label(for='discount') Fecha fin:
+          .controls
+            datepicker(show-weeks="false", starting-day="1", min="minDate", ng-model="dataend")
       .control-group
         .controls
           input.btn(type='submit')
