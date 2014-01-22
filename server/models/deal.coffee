@@ -7,6 +7,9 @@ DealSchema = new Schema
     type:     String
     required: true
     trim:     true
+  description:
+    type:     String
+    trim:     true
   price:
     type:     Number
     required: true
@@ -25,6 +28,10 @@ DealSchema = new Schema
     ref:      "Shop"
   categoryname:
     type:     String
+  datainit:
+    type:     Date
+  dataend:
+    type:     Date
   created:
     type:     Date
     default:  Date.now
