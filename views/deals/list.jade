@@ -12,8 +12,13 @@ section(data-ng-controller='DealsController', data-ng-init='find()')
           img.img-rounded(ng-src="{{deal.image}}")
           p {{deal.created | date:'medium'}}
           p {{deal.shop.name}}
-          h4 {{deal.price | currency:"&euro;"}}
+          .pricecolumn
+            .normalprice
+              p.price {{deal.price | currency:"&euro;"}}
+              p.discount {{deal.discount | number:0}}%
+            .gertuprice
+              p {{deal.gertuprice | currency:"&euro;"}}
+              
+            
           rating.deal-rating(value='rate', max='max', readonly='isReadonly')
           span {{rate}}/{{max}}
-  div(data-ng-show='global.shop')
-    a(data-ng-href='/deals/create') Create One

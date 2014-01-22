@@ -3,14 +3,8 @@ angular.module('mean').config ['$routeProvider', ($routeProvider) ->
   $routeProvider.when('/deals',
     templateUrl: '/views/deals/list.html'
 
-  ).when('/deals/create',
-    templateUrl: '/views/deals/create.html'
-
   ).when('/deals/:dealId',
     templateUrl: '/views/deals/view.html'
-
-  ).when('/deals/edit/:dealId',
-    templateUrl: '/views/deals/edit.html'
 
   ).when('/profile',
     templateUrl: '/views/users/profile.html'
@@ -38,8 +32,17 @@ angular.module('mean').config ['$routeProvider', ($routeProvider) ->
     templateUrl: "/views/pages/shop/login.html",
     controller: "ShopLogInController"
 
+  ).when('/admin/deals/create',
+    templateUrl: '/views/pages/shop/create.html'
+
   ).when("/admin/deals/:shopId",
     templateUrl: "/views/pages/shop/deals.html"
+
+  ).when('/admin/deals/:dealId',
+    templateUrl: '/views/pages/shop/view.html'
+
+  ).when('/admin/deals/edit/:dealId',
+    templateUrl: '/views/pages/shop/edit.html'
 
   ).otherwise redirectTo: '/404'
 ]

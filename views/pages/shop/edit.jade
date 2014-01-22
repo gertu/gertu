@@ -1,0 +1,9 @@
+section(ng-controller='DealsController', ng-init='findOne()')
+  form.edit.form-inline(data-ng-submit='update()')
+        .form-group
+            input#name.form-control(type='text', name="name", ng-model="deal.name", placeholder='name', value="{{deal.name}}", required)
+
+        .form-group
+            input#price.form-control(type='text', name="price", ng-model="deal.price", placeholder='price', value="{{deal.price}}", required)
+
+        input.btn(type='submit')
