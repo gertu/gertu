@@ -1,21 +1,27 @@
 angular.module("mean.deals").controller "DealsController", ["$scope",
-"$routeParams", "$location", "Global", "Deals", "DealsCategory", ($scope, $routeParams,
-  $location, Global, Deals, DealsCategory) ->
+"$routeParams", "$location", "Global", "Deals", "DealsCategory", "DealsShop", ($scope, $routeParams,
+  $location, Global, Deals, DealsCategory, DealsShop) ->
   $scope.global = Global
 
   $scope.create = ->
-    console.log @categoryname
     deal = new Deals(
       name: @name,
       price: @price,
+      gertuprice: @gertuprice,
+      discount: @discount,
       shop: $scope.global.shop._id,
-      categoryname: @categoryname
+      categoryname: $scope.categoryname
+      
     )
     console.log(deal)
     deal.$save (response) ->
       $location.path "/deals"
 
     @title = ""
+
+  $scope.findbyshop = ->
+    DealsShop.query (deals) ->
+      $scope.deals = deals
 
 
   $scope.find = ->
@@ -49,6 +55,12 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
     deal.$update ->
       $location.path "/deals/" + deal._id
       $scope.global.deal = deal
+
+
+  $scope.calcdiscount = ->
+    price = @price
+    gertuprice = @gertuprice
+    $scope.discount = gertuprice * 100 / price
 
 
   $scope.rate = 7

@@ -13,8 +13,7 @@ describe "<Unit test>", ->
     it "should create a new deal", (done)->
       server.post(apiPreffix + "/deals").send(
       	name:  "deal1"
-      	price: 21
-      	image: "/img/deals/img1.jpg"
+      	price: 50, gertuprice: 25, discount: 50
       	shop:  "524f36e34ca6e9c82a000001"
       ).end (err, res) ->
       	res.should.have.status 200

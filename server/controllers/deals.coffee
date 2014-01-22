@@ -11,8 +11,8 @@ exports.deal = (req, res, next, id) ->
     req.deal = deal
     next()
 
-exports.DealCategory = (req, res, next, id) ->
-  Shop.findOne(_id: id).exec (err, shop) ->
+exports.shop = (req, res, next, id) ->
+  Deal.findOne(shop: id).exec (err, shop) ->
     return next(err)  if err
     return next(new Error('Failed to load shop ' + id))  unless shop
     req.shop = shop
@@ -33,15 +33,27 @@ exports.create = (req, res) ->
 
 
 exports.show = (req, res) ->
+  console.log("show")
   res.jsonp req.deal
 
-exports.findByShop = (req, res) ->
-  Deal.find().sort('-created').populate("shop").exec (err, deals) ->
+exports.findByShop = (req, res ) ->
+  query = Deal.find(shop: req.params.id)
+  query.populate "shop"
+  query.exec (err, deals) ->
     if err
       res.render 'error',
         status: 500
     else
       res.jsonp deals
+
+
+
+  # Deal.where('shop', req.params.id).sort('-created').populate("shop").exec (err, deals) ->
+    # if err
+    #   res.render 'error',
+    #     status: 500
+    # else
+    #   res.jsonp deals
 
 
 exports.all = (req, res) ->

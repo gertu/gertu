@@ -3,11 +3,4 @@ section(data-ng-controller='DealsController', data-ng-init='findOne()')
     h1 {{deal.name}}
     p {{deal.created | date:'medium'}}
     p {{deal.shop.name}}
-    p {{deal.price | currency:"&euro;"}}
-    .btn-toolbar(role="toolbar")
-      button.btn.btn-default.btn-sm(type='button')
-        span.glyphicon.glyphicon-pencil
-          a(data-ng-href="/deals/edit/{{deal._id}}")| Editar
-      button.btn.btn-default.btn-sm(type='button')
-        span.glyphicon.glyphicon-trash
-          a(href='#', data-ng-click="remove()")| Eliminar
+    p {{deal.price | currency:"&euro;"}}        

@@ -11,19 +11,24 @@ DealSchema = new Schema
     type:     Number
     required: true
     trim:     true
-  image:
-    type:     String
+  gertuprice:
+    type:     Number
+    required: true
     trim:     true
-  created:
-    type:     Date
-    default:  Date.now
-  categoryname:
-    type:     String
+  discount:
+    type:     Number
+    required: true
+    trim:     true
   shop:
     required: true
     type:     Schema.Types.ObjectId
     ref:      "Shop"
-  
+  categoryname:
+    type:     String
+  created:
+    type:     Date
+    default:  Date.now
+
 
 DealSchema.statics.load = (id, cb) ->
   @findOne(_id: id).populate("shop", "name shop").exec cb
