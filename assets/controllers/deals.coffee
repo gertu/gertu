@@ -4,6 +4,13 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
   $scope.global = Global
 
   $scope.create = ->
+    file = @image
+    path = __dirname + "/public/userphotos/" + file
+    console.log(path)
+    splittednewname = (file.path).split("\\")
+    console.log(splittednewname)
+    image = "/userphotos/" + splittednewname[splittednewname.length-1]
+    console.log(image)
     deal = new Deals(
       name: @name,
       description: @description,
@@ -14,6 +21,7 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
       categoryname: $scope.categoryname
       datainit: @datainit
       dataend: @dataend
+      image: @image
     )
     console.log(deal)
     deal.$save (response) ->
@@ -58,7 +66,7 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
   $scope.update = ->
     deal = $scope.deal
     deal.$update ->
-      $location.path "/deals/" + deal._id
+      $location.path "/admin/deals/" + deal._id
       $scope.global.deal = deal
 
   truncateDecimals = (number) ->

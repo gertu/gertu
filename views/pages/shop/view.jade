@@ -1,14 +1,24 @@
 section(data-ng-controller='DealsController', data-ng-init='findOne()')
   .deal-view
-    h1 {{deal.name}}
-    p {{deal.created | date:'medium'}}
-    p {{deal.shop.name}}
-    p {{deal.price | currency:"&euro;"}}
-    .btn-toolbar(role="toolbar")
+    .row
+      .col-md-12
+        h1 {{deal.name}}
+        p {{deal.created | date:'medium'}}
+        p {{deal.shop.name}}
+        p {{deal.price | currency:"&euro;"}}
+        .pricecolumn
+            .normalprice
+              p.price {{deal.price | currency:"&euro;"}}
+              p.discount {{deal.discount | number:0}}%
+            .gertuprice
+              p {{deal.gertuprice | currency:"&euro;"}}        
+          rating.deal-rating(value='rate', max='max', readonly='isReadonly')
+          span {{rate}}/{{max}}
+  .btn-toolbar(role="toolbar")
+    button.btn.btn-default.btn-sm(type='button')
+      span.glyphicon.glyphicon-pencil
+      a(data-ng-href="/admin/deals/edit/{{deal._id}}")| Editar
+    a(href='#', data-ng-click="remove()")
       button.btn.btn-default.btn-sm(type='button')
-        span.glyphicon.glyphicon-pencil
-          a(data-ng-href="/admin/deals/edit/{{deal._id}}")| Editar
-      a(href='#', data-ng-click="remove()")
-        button.btn.btn-default.btn-sm(type='button')
-          span.glyphicon.glyphicon-trash  Eliminar
+        span.glyphicon.glyphicon-trash  Eliminar
             

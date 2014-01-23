@@ -1,7 +1,19 @@
-.col-md-3
-  .bs-sidebar
-    ul.nav.bs-sidenav
-      li
-        a(href="/admin/deals/create") Crear una nueva oferta
-      li
-        a(href="/admin/deals/list/{{global.shop._id}}") Listar mis ofertas
+h2 Panel de control
+.row
+  .btn-group.btn-group-lg
+    a(href="/admin/deals/create")
+        button.btn.btn-default.btn-lg(type='button')
+          span.glyphicon.glyphicon-plus
+          | Crear nueva oferta
+    a(href="/admin/deals/list/{{global.shop._id}}")     
+        button.btn.btn-default.btn-lg(type='button')
+          span.glyphicon.glyphicon-list
+          | Ver mis ofertas
+    a(href="/admin/deals/list/{{global.shop._id}}")     
+        button.btn.btn-default.btn-lg(type='button')
+          span.glyphicon.glyphicon-user
+          | Mi perfil
+    a(href="/admin/deals/list/{{global.shop._id}}")     
+        button.btn.btn-default.btn-lg(type='button')
+          span.glyphicon.glyphicon-stats
+          | Estadisticas

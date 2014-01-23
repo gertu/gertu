@@ -1,4 +1,5 @@
 section(data-ng-controller='DealsController', data-ng-init='findbyshop()')
+  h2 Mis Ofertas
   .searchbar
     h3 Buscar por:
     input.form-control(type="search",ng-model="search.name",placeholder="Nombre de oferta...")
@@ -21,5 +22,3 @@ section(data-ng-controller='DealsController', data-ng-init='findbyshop()')
               p {{deal.gertuprice | currency:"&euro;"}}        
           rating.deal-rating(value='rate', max='max', readonly='isReadonly')
           span {{rate}}/{{max}}
-  div(data-ng-show='global.shop')
-    a(data-ng-href='/admin/deals/create') Create One
