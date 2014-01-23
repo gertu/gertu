@@ -9,8 +9,9 @@ section(data-ng-controller='DealsController', data-ng-init='findbyshop()')
         .deal-data
           h3 {{deal.name | trunc:true:20}}
           p Categoria: {{deal.categoryname}}
-          img.img-rounded(ng-src="{{deal.image}}")
-          p {{deal.created | date:'medium'}}
+          img.img-rounded(ng-src="/img/deals/terraza.jpg")
+          p Desde: {{deal.datainit | date:'longDate'}}
+          p Hasta: {{deal.dataend | date:'mediumDate'}}
           p {{deal.shop.name}}
           .pricecolumn
             .normalprice

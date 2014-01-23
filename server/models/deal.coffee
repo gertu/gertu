@@ -32,6 +32,8 @@ DealSchema = new Schema
     type:     Date
   dataend:
     type:     Date
+  image:
+    type:     String
   created:
     type:     Date
     default:  Date.now

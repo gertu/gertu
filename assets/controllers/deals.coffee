@@ -61,17 +61,22 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
       $location.path "/deals/" + deal._id
       $scope.global.deal = deal
 
+  truncateDecimals = (number) ->
+    Math[(if number < 0 then "ceil" else "floor")] number
+
 
   $scope.calcdiscount = ->
     price = @price
     gertuprice = @gertuprice
-    $scope.discount = 100 - (gertuprice * 100 / price)
+    discount = 100 - (gertuprice * 100 / price)
+    $scope.discount = truncateDecimals(discount)
 
 
   $scope.calcgertuprice = ->
     price = @price
     discount = @discount
-    $scope.gertuprice = price - (discount * price / 100)
+    gertuprice = price - (discount * price / 100)
+    $scope.gertuprice = truncateDecimals(gertuprice)
 
 
   $scope.rate = 7

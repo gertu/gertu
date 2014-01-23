@@ -35,7 +35,6 @@ exports.create = (req, res) ->
 
 
 exports.show = (req, res) ->
-  console.log("show")
   res.jsonp req.deal
 
 
