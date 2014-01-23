@@ -1,0 +1,50 @@
+.col-md-9.admincont
+  h2.admin Edit your deal
+  section(ng-controller='DealsController', ng-init='findOne()')
+      form.form-horizontal(role="form", data-ng-submit='update()')
+        .form-group.control-group.admin
+          label.col-sm-2.control-label(for='categoryname') Categoria
+          .col-sm-10
+            select#categoryname.form-control(name='categoryname', data-ng-model='deal.categoryname'
+            ,data-ng-init="showdealcategories()")
+              option(data-ng-repeat='category in categories' data-ng-value='category.name'){{category.name}}
+        .form-group.control-group.admin
+          label.col-sm-2.control-label(for='title') Name
+          .col-sm-10
+            input#name.form-control(type='text', data-ng-model='deal.name', placeholder='Title'
+            , required='required')
+        .form-group.control-group.admin
+          label.col-sm-2.control-label(for='description') Description
+          .col-sm-10
+            textarea#description.form-control(rows='10', data-ng-model='deal.description'
+            , placeholder='Description of the deal...', required='required')
+        .form-inline.admin
+          .row
+            label.col-sm-1.control-label(for='price') Price:
+            .col-xs-2
+              .input-group
+                span.input-group-addon €
+                input#price.form-control(data-ng-model='deal.price', placeholder='Price'
+                , required='required', ng-change='calcdiscount()')
+            label.col-sm-2.control-label(for='gertu price') Gertuprice:
+            .col-xs-2
+              .input-group
+                span.input-group-addon €
+                input#gertuprice.form-control(data-ng-model='deal.gertuprice', placeholder='discounted price', required='required', ng-change='calcdiscount()')
+            label.col-sm-2.control-label(for='discount') %Discount:
+            .col-xs-2
+              .input-group
+                span.input-group-addon %
+                input#discount.form-control(data-ng-model='deal.discount', placeholder='%discount', required='required', ng-change='calcgertuprice()') 
+        .row
+          .col-md-12
+            .datainit
+              label.control-label(for='datainit') Fecha de inicio:
+              datepicker#datainit(show-weeks="false", starting-day="1"
+              , min="minDate", ng-model="deal.datainit")
+            .dataend
+              label.control-label(for='dataend') Fecha fin:
+              datepicker#dataend(show-weeks="false", starting-day="1", min="minDate", ng-model="deal.dataend")
+        .row
+          .col-md-6.col-md-offset-4
+            input.btn.btn-success.btn-lg.btn-block(type='submit')

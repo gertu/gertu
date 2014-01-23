@@ -6,15 +6,14 @@ request  = require "supertest"
 Deal     = mongoose.model "Deal"
 server   = request.agent(app)
 
-apiPreffix = '/api'
+apiPreffix = '/api/v1'
 
 describe "<Unit test>", ->
   describe "API deal", ->
     it "should create a new deal", (done)->
       server.post(apiPreffix + "/deals").send(
-      	name:  "deal1"
-      	price: 21
-      	image: "/img/deals/img1.jpg"
+      	name:  "deal1", description: "esta es la descripcion",
+      	price: 50, gertuprice: 25, discount: 50
       	shop:  "524f36e34ca6e9c82a000001"
       ).end (err, res) ->
       	res.should.have.status 200
@@ -22,9 +21,8 @@ describe "<Unit test>", ->
 
     it "should not be created because no data", (done)->
     	server.post(apiPreffix + "/deals").send(
-    	  name: ""
-    	  price: ""
-    	  image: ""
+    	  name: "", description: "", price: ""
+    	  gertuprice: "", discount: "",
     	  shop: "").end (err, res)->
     	  res.should.have.status 422
     	  done()

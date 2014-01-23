@@ -9,6 +9,8 @@ lighter-green = #FCFCA8
 light-orange  = #FCA860
 brown         = #483000
 blueish-green = #84C090
+light-gray    = #F7F5FA
+light-black   = #666666
 
 //functions
 gradient(direction = top, color1, color2)
@@ -296,6 +298,28 @@ form.signup
         color white
         text-shadow(0,0,10px,black)
         margin-top 0
+      .pricecolumn
+        .normalprice
+          width 70px
+          height 70px
+          float left
+          padding-top 10px
+          background light-black
+          color white
+          p.price
+            font-size 12px
+          p.discount
+            font-size 20px
+        .gertuprice
+          width 120px
+          height 70px
+          padding-top 15px
+          float left
+          background dark-green 
+          color white
+          p
+            font-size 28px
+
       .deal-rating, span
         color white
         text-shadow(0,0,10px,black)
