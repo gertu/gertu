@@ -7,7 +7,7 @@
           .col-sm-10
             select#categoryname.form-control(name='categoryname', data-ng-model='deal.categoryname'
             ,data-ng-init="showdealcategories()")
-              option(data-ng-repeat='category in categories' data-ng-value='category.name'){{category.name}}
+              option(data-ng-repeat='category in categories', data-ng-value='category.name'){{category.name}}
         .form-group.control-group.admin
           label.col-sm-2.control-label(for='title') Name
           .col-sm-10
@@ -35,7 +35,7 @@
             .col-xs-2
               .input-group
                 span.input-group-addon %
-                input#discount.form-control(data-ng-model='deal.discount', placeholder='%discount', required='required', ng-change='calcgertuprice()') 
+                input#discount.form-control(data-ng-model='deal.discount', placeholder='%discount', required='required', ng-change='calcgertuprice()')
         .row
           .col-md-12
             .datainit

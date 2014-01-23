@@ -6,7 +6,7 @@
         label.col-sm-2.control-label(for='categoryname') Categoria
         .col-sm-10
           select#categoryname.form-control(name='categoryname', data-ng-model='categoryname')
-            option(data-ng-repeat='category in categories' data-ng-value='category.name'){{category.name}}
+            option(data-ng-repeat='category in categories', data-ng-value='category.name'){{category.name}}
       .form-group.control-group.admin
         label.col-sm-2.control-label(for='title') Name
         .col-sm-10
@@ -15,16 +15,14 @@
       .form-group.control-group.admin
         label.col-sm-2.control-label(for='description') Description
         .col-sm-10
-          textarea#description.form-control(rows='10', data-ng-model='description'
-          , placeholder='Description of the deal...', required='required')
+          textarea#description.form-control(rows='10', data-ng-model='description', placeholder='Description of the deal...', required='required')
       .form-inline.admin
         .row
           label.col-sm-1.control-label(for='price') Price:
           .col-xs-2
             .input-group
               span.input-group-addon €
-              input#price.form-control(type='number', data-ng-model='price'
-                , required='required', ng-change='calcdiscount()')
+              input#price.form-control(type='number', data-ng-model='price', required='required', ng-change='calcdiscount()')
           label.col-sm-2.control-label(for='gertuprice') Gertuprice:
           .col-xs-2
             .input-group
@@ -39,33 +37,31 @@
         .col-md-12
           .datainit
             label.control-label(for='datainit') Fecha de inicio
-            datepicker#datainit(show-weeks="false", starting-day="1"
-              , min="minDate", ng-model="datainit")
+            datepicker#datainit(show-weeks="false", starting-day="1", min="minDate", ng-model="datainit")
           .dataend
             label.control-label(for='dataend') Fecha fin
-            datepicker#dataend(show-weeks="false", starting-day="1"
-              , min="minDate", ng-model="dataend")
+            datepicker#dataend(show-weeks="false", starting-day="1", min="minDate", ng-model="dataend")
       .row
         .col-md-12
             label(for='dias') Elige los dias de la semana
             label.checkbox-inline(for='lunes') Lunes
-              input#lunes.form-control(type='checkbox' data-ng-model='lunes'  value='lunes') 
+              input#lunes.form-control(type='checkbox', data-ng-model='lunes',  value='lunes')
             label.checkbox-inline(for='dias') Martes:
-              input#martes.form-control(type='checkbox' data-ng-model='martes' value='martes') 
+              input#martes.form-control(type='checkbox', data-ng-model='martes', value='martes')
             label.checkbox-inline(for='dias') Miercoles:
-              input#miercoles.form-control(type='checkbox' data-ng-model='miercoles' value='miercoles') 
+              input#miercoles.form-control(type='checkbox', data-ng-model='miercoles', value='miercoles')
             label.checkbox-inline(for='dias') Jueves:
-              input#jueves.form-control(type='checkbox' data-ng-model='jueves' value='jueves') 
+              input#jueves.form-control(type='checkbox',, data-ng-model='jueves', value='jueves')
             label.checkbox-inline(for='dias') Viernes:
-              input#viernes.form-control(type='checkbox' data-ng-model='viernes' value='viernes')
-            label.checkbox-inline(for='dias') Sabado: 
-              input#sabado.form-control(type='checkbox' data-ng-model='sabado' value='sabado') 
+              input#viernes.form-control(type='checkbox', data-ng-model='viernes', value='viernes')
+            label.checkbox-inline(for='dias') Sabado:
+              input#sabado.form-control(type='checkbox', data-ng-model='sabado', value='sabado')
             label.checkbox-inline(for='dias') Domingo:
-              input#domingo.form-control(type='checkbox' data-ng-model='domingo' value='domingo') 
+              input#domingo.form-control(type='checkbox', data-ng-model='domingo', value='domingo')
       .form-group.control-group.admin
         label.col-sm-2.control-label(for='image') Imagen
         .col-sm-10
-          input#image.form-control(type='file' name='image' data-ng-model='image', accept="image/*")
+          input#image.form-control(type='file', name='image', data-ng-model='image', accept="image/*")
       .row
         .col-md-6.col-md-offset-4
           input.btn.btn-success.btn-lg.btn-block(type='submit')
