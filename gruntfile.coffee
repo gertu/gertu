@@ -90,7 +90,7 @@ module.exports = (grunt) ->
       server   : ["server/**/*.coffee"]
       gruntfile: "gruntfile.coffee"
       options  :
-        max_line_length:     level: "warn", value: 120
+        max_line_length:     level: "ignore"
         no_throwing_strings: level: "warn"
 
     clean:
@@ -111,15 +111,15 @@ module.exports = (grunt) ->
 
     nodemon:
       dev:
+        script : "server.coffee"
         options:
-          file             : "server.coffee"
-          ignoredFiles     : ["README.md", "node_modules/**", ".DS_Store", ".idea/**"]
-          watchedExtensions: ["coffee"]
-          watchedFolders   : ["server", "config"]
-          debug            : true
-          delayTime        : 1
-          env              : PORT: 3000
-          cwd              : __dirname
+          ignore   : ["README.md", "node_modules/**", ".DS_Store"]
+          ext      : "coffee"
+          watch    : ["server", "config"]
+          debug    : true
+          delayTime: 1
+          env      : PORT: 3000
+          cwd      : __dirname
 
     mochaTest:
       test:
@@ -137,14 +137,19 @@ module.exports = (grunt) ->
     env:
       test:
         NODE_ENV: "test"
+      prod:
+        NODE_ENV: "production"
 
     concurrent:
-      tasks  : ["nodemon", "watch"]
+      tasks  : ["nodemon:dev", "watch"]
       options: logConcurrentOutput: true
 
 
   grunt.registerTask "default",     "Main Grunt. Executes all tasks.", [
     "build", "coffeelint:server", "concurrent"]
+
+  grunt.registerTask "launch",     "Main Grunt. Executes all tasks.", [
+    "build", "coffeelint:server", "env:prod", "nodemon"]
 
   grunt.registerTask "build",       "Compiles all files of project.",  [
     "clean", "coffeelint", "jade", "copy", "scripts", "stylesheets"]
