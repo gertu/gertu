@@ -44,10 +44,12 @@ require("./config/express") app, passport, db
 # Bootstrap routes
 require("./config/routes") app, passport, auth
 
+# Cron actions
+require("./config/cron")
+
 # Start the app by listening on <port>
 port = process.env.PORT or config.port
 app.listen port
 console.log "Express app started on port " + port
-
 
 exports = module.exports = app
