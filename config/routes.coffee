@@ -24,11 +24,11 @@ module.exports = (app, passport) ->
 
   # Shop routes
   shop = require("../server/controllers/shop")
-  app.post currentApiVersion + "/shop/signup", shop.signup
-  app.post currentApiVersion + "/shop/login", shop.login
+  app.post currentApiVersion + "/shops", shop.signup
+  app.post currentApiVersion + "/shops/login", shop.login
   app.get "/shop/logout", shop.logout
-  app.get  currentApiVersion + "/shop/emailexists", shop.emailexists
-  app.get  currentApiVersion + "/shop/current", shop.current
+  app.get  currentApiVersion + "/shops/emailexists", shop.emailexists
+  app.get  currentApiVersion + "/shops", shop.current
 
   # Finish with setting up the userId param
   app.param "userId", users.user

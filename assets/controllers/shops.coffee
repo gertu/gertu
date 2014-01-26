@@ -24,7 +24,7 @@ ShopFunctions = (() ->
     existsEmail = true
 
     $http(
-      url: "/api/v1/shop/emailexists?email=" + emailAccount
+      url: "/api/v1/shops/emailexists?email=" + emailAccount
       method: "GET"
     )
     .success (data) ->
@@ -41,8 +41,8 @@ ShopFunctions = (() ->
 )()
 
 # Shop SignUp
-angular.module("mean.shops").controller "ShopSignUpController",
-  ["$scope", "$http", "$location", "Global", ($scope, $http, $location, Global) ->
+angular.module("mean.shops").controller 'ShopSignUpController',
+  ['$scope', '$http', '$location', 'Global', 'Shop', ($scope, $http, $location, Global, Shop) ->
 
     $scope.global = Global
     $scope.errors = null
@@ -58,24 +58,22 @@ angular.module("mean.shops").controller "ShopSignUpController",
         if validationErrors.length > 0
           $scope.errors = validationErrors
         else
-          $http(
-            url: "/api/v1/shop/signup"
-            method: "POST"
-            data:
-              name: $scope.shopname
-              email: $scope.email
-              password: $scope.password
-          )
-          .success () ->
-            $scope.global.authenticated = true
-            $scope.global.shop = {name: $scope.shopname, email: $scope.email }
-            
-            $location.path('/')
-          .error (errorData) ->
+          shop = new Shop(
+            name: $scope.shopname,
+            email: $scope.email,
+            password: $scope.password
+            )
+
+          shop.$save(
+            (successData) ->
+              $scope.global.authenticated = true
+              $scope.global.shop = {name: $scope.shopname, email: $scope.email }
+              $location.path('/')
+            ,
+            (errorData) ->
               $scope.errorMsg = errorData
+            )
       )
-
-
   ]
 
 # Shop LogIn
@@ -91,7 +89,7 @@ angular.module("mean.shops").controller "ShopLogInController",
       if $scope.email? and $scope.password? and $scope.email != '' and $scope.password != ''
 
         $http(
-          url: "/api/v1/shop/login"
+          url: "/api/v1/shops/login"
           method: "POST"
           data:
             email: $scope.email
