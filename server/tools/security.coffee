@@ -1,7 +1,7 @@
 (->
   Security = { }
 
-  Security.authenticateAdministrator = (req, res, next) =>
+  Security.authenticateAdministrator = (req, res, next) ->
 
     isAuthenticated = req.session.currentAdministrator? && req.session.currentAdministrator.isAuthenticated
 

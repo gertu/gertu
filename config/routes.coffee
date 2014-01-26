@@ -77,6 +77,16 @@ module.exports = (app, passport) ->
   app.get  "/management/currencies/loadRates", Security.authenticateAdministrator, managementCurrencies.loadRates
   # End of currency management
 
+  # Adminstrator management
+  managementAdministrators = require("../server/controllers/management/administrators")
+  app.get  "/management/administrators/list", Security.authenticateAdministrator, managementAdministrators.list
+  app.get  "/management/administrators/edit/0", Security.authenticateAdministrator, managementAdministrators.add
+  app.get  "/management/administrators/edit/:id", Security.authenticateAdministrator, managementAdministrators.edit
+  app.post "/management/administrators/edit/:id", Security.authenticateAdministrator, managementAdministrators.editDo
+  app.get  "/management/administrators/remove/:id", Security.authenticateAdministrator, managementAdministrators.remove
+  app.post "/management/administrators/remove/:id", Security.authenticateAdministrator, managementAdministrators.removeDo
+  # End of adminstrator management
+
   # End of management routes
 
   # Home routes

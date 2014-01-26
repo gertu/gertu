@@ -11,7 +11,7 @@ config     = require("../../config/config")
     from : config.mail.accountFrom
   }
 
-  Mailer.send = (to, subject, body) =>
+  Mailer.send = (to, subject, body) ->
 
     mailsender = nodemailer.createTransport("SMTP",
       host: Mailer.host
