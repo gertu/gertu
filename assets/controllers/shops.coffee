@@ -1,57 +1,20 @@
-ShopFunctions = (() ->
-
-  _getSignUpValidationErrors = ($scope) ->
-
-    validationErrors = []
-
-    # Verify password and passwordRpt match
-    if $scope.password != $scope.passwordRpt
-      validationErrors.push('PASSWORDS_DO_NOT_MATCH')
-
-    if !$scope.shopname
-      validationErrors.push('SHOP_NAME_HAS_TO_BE_PROVIDED')
-
-    if !$scope.email
-      validationErrors.push('EMAIL_HAS_TO_BE_PROVIDED')
-
-    if !$scope.password
-      validationErrors.push('PASSWORD_HAS_TO_BE_PROVIDED')
-
-    validationErrors
-
-  _existsEmailForShopInDatabase = ($http, emailAccount, callbackFn) ->
-
-    existsEmail = true
-
-    $http(
-      url: "/api/v1/shops/emailexists?email=" + emailAccount
-      method: "GET"
-    )
-    .success (data) ->
-      existsEmail = false unless data == 'True'
-      callbackFn(existsEmail)
-    .error () ->
-      existsEmail = false
-      callbackFn(existsEmail)
-
-    @
-
-  getSignUpValidationErrors: _getSignUpValidationErrors
-  existsEmailForShopInDatabase: _existsEmailForShopInDatabase
-)()
-
 # Shop SignUp
 angular.module("mean.shops").controller 'ShopSignUpController',
-  ['$scope', '$http', '$location', 'Global', 'Shop', ($scope, $http, $location, Global, Shop) ->
+  ['$scope', '$http', '$location', 'Global', 'Shop', 'Validation',
+  ($scope, $http, $location, Global, Shop, Validation) ->
 
     $scope.global = Global
     $scope.errors = null
 
     $scope.doSignUp = () ->
 
-      validationErrors = ShopFunctions.getSignUpValidationErrors($scope)
+      validationErrors = Validation.newShop
+        name: $scope.shopname
+        email: $scope.email
+        password: $scope.password
+        passwordRpt: $scope.passwordRpt
 
-      ShopFunctions.existsEmailForShopInDatabase($http, $scope.email, (result) ->
+      Validation.emailExists($http, $scope.email, (result) ->
         if result
           validationErrors.push('EMAIL_ALREADY_EXISTS')
 
@@ -78,15 +41,19 @@ angular.module("mean.shops").controller 'ShopSignUpController',
 
 # Shop LogIn
 angular.module("mean.shops").controller "ShopLogInController",
-  ["$scope", "$location", "$http", "Global", ($scope, $location, $http, Global) ->
+  ["$scope", "$location", "$http", "Global", "Validation", ($scope, $location, $http, Global, Validation) ->
 
     $scope.global = Global
-    $scope.errorMsg = undefined
+    $scope.errors = []
 
     $scope.doLogIn = () ->
       
+      validationErrors = Validation.loginShop
+        email: $scope.email
+        password: $scope.password
+      
       # Verify password and email have been provided
-      if $scope.email? and $scope.password? and $scope.email != '' and $scope.password != ''
+      if validationErrors.length == 0
 
         $http(
           url: "/api/v1/shops/login"
@@ -99,21 +66,11 @@ angular.module("mean.shops").controller "ShopLogInController",
           $scope.global.authenticated = true
           $scope.global.shop = data
 
-          console.log $scope.global
-
           $location.path('/')
 
         .error (data, status) ->
-          if status == 403
-            $scope.errorMsg = 'NO_SHOP_HAS_BEEN_FOUND'
+          $scope.errors = (if (status is 403) then ["NO_SHOP_HAS_BEEN_FOUND"] else ["UNKNOWN_ERROR"])
 
-      else if (not $scope.password? or $scope.password == '') and (not $scope.email? or $scope.email == '')
-
-        $scope.errorMsg = 'PASSWORD_AND_EMAIL_HAVE_TO_BE_PROVIDED'
-
-      else if not $scope.password? or $scope.password == '' then $scope.errorMsg = 'PASSWORD_HAS_TO_BE_PROVIDED'
-
-      else if not $scope.email? or $scope.email == '' then $scope.errorMsg = 'EMAIL_HAS_TO_BE_PROVIDED'
-
-      else $scope.errorMsg = 'PASSWORD_AND_EMAIL_HAVE_TO_BE_PROVIDED'
+      else
+        $scope.errors = validationErrors
   ]

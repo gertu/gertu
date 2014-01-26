@@ -8,6 +8,7 @@ angular.module('mean').config ["$translateProvider", ($translateProvider) ->
     EMAIL_ALREADY_EXISTS: 'EN_Ya existe un comercio con ese email. Por favor, proporcione otro.'
     NO_SHOP_HAS_BEEN_FOUND: 'EN_No se ha encontrado ningún comercio con los credenciales suministrados'
     PASSWORD_AND_EMAIL_HAVE_TO_BE_PROVIDED: 'EN_Debe indicar una contaseña y un email para poder acceder'
+    UNKNOWN_ERROR: 'EN_Error desconocido'
     # Here we must add translations for english language
 
   $translateProvider.translations "es-ES",
@@ -19,6 +20,7 @@ angular.module('mean').config ["$translateProvider", ($translateProvider) ->
     EMAIL_ALREADY_EXISTS: 'Ya existe un comercio con ese email. Por favor, proporcione otro.'
     NO_SHOP_HAS_BEEN_FOUND: 'No se ha encontrado ningún comercio con los credenciales suministrados'
     PASSWORD_AND_EMAIL_HAVE_TO_BE_PROVIDED: 'Debe indicar una contaseña y un email para poder acceder'
+    UNKNOWN_ERROR: 'Error desconocido'
     # Here we must add translations for spanish language
 
 
