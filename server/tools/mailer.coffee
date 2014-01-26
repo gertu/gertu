@@ -26,7 +26,7 @@ config     = require("../../config/config")
       from: Mailer.from
       to: to
       subject: subject
-      text: body
+      html: body
 
     mailsender.sendMail mailOptions, (error) ->
       if error

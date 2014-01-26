@@ -1,5 +1,6 @@
 mongoose    = require "mongoose"
 async       = require "async"
+fs          = require "fs"
 _           = require "underscore"
 Shop        = mongoose.model "Shop"
 Mailer      = require("../tools/mailer")
@@ -15,9 +16,19 @@ exports.signup = (req, res) ->
     shop = new Shop(req.body)
     shop.save()
 
-    Mailer.send shopEmail, "Wellcome to Gertu", "Wellcome to Gertu. We hope your business grow up with us."
+    fs.readFile __dirname + '../../../views/mailer/newShop.html',
+      'utf8'
+      (err, data) ->
+        htmlContent = data + ''
 
-    req.session.currentShop = {shopId: shop._id, userEmail: shop.email, isAuthenticated: true}
+        htmlContent = htmlContent.replace '{{shopname}}', shopName
+
+        Mailer.send shopEmail, 'Wellcome to Gertu', htmlContent
+
+    req.session.currentShop =
+      shopId: shop._id
+      userEmail: shop.email
+      isAuthenticated: true
 
     res.send JSON.stringify(shop)
   else
