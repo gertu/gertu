@@ -1,11 +1,3 @@
-PasswordsDoNotMatch = 'Las contraseñas suministradas no coinciden'
-ShopNameHasToBeProvided = 'Debe proporcionar un nombre para el comercio'
-EmailHasToBeProvided = 'Debe proporcionar un email para el comercio'
-PasswordHasToBeProvided = 'Debe proporcionar una contraseña para el comercio'
-EmailAlreadyExists = 'Ya existe un comercio con ese email. Por favor, proporcione otro.'
-NoShopHasBeenFound = 'No se ha encontrado ningún comercio con los credenciales suministrados'
-PasswordAndEmailHaveToBeProvided = 'Debe indicar una contaseña y un email para poder acceder'
-
 ShopFunctions = (() ->
 
   _getSignUpValidationErrors = ($scope) ->
@@ -14,16 +6,16 @@ ShopFunctions = (() ->
 
     # Verify password and passwordRpt match
     if $scope.password != $scope.passwordRpt
-      validationErrors.push(PasswordsDoNotMatch)
+      validationErrors.push('PASSWORDS_DO_NOT_MATCH')
 
     if !$scope.shopname
-      validationErrors.push(ShopNameHasToBeProvided)
+      validationErrors.push('SHOP_NAME_HAS_TO_BE_PROVIDED')
 
     if !$scope.email
-      validationErrors.push(EmailHasToBeProvided)
+      validationErrors.push('EMAIL_HAS_TO_BE_PROVIDED')
 
     if !$scope.password
-      validationErrors.push(PasswordHasToBeProvided)
+      validationErrors.push('PASSWORD_HAS_TO_BE_PROVIDED')
 
     validationErrors
 
@@ -61,7 +53,7 @@ angular.module("mean.shops").controller "ShopSignUpController",
 
       ShopFunctions.existsEmailForShopInDatabase($http, $scope.email, (result) ->
         if result
-          validationErrors.push(EmailAlreadyExists)
+          validationErrors.push('EMAIL_ALREADY_EXISTS')
 
         if validationErrors.length > 0
           $scope.errors = validationErrors
@@ -115,15 +107,15 @@ angular.module("mean.shops").controller "ShopLogInController",
 
         .error (data, status) ->
           if status == 403
-            $scope.errorMsg = NoShopHasBeenFound
+            $scope.errorMsg = 'NO_SHOP_HAS_BEEN_FOUND'
 
       else if (not $scope.password? or $scope.password == '') and (not $scope.email? or $scope.email == '')
 
-        $scope.errorMsg = PasswordAndEmailHaveToBeProvided
+        $scope.errorMsg = 'PASSWORD_AND_EMAIL_HAVE_TO_BE_PROVIDED'
 
-      else if not $scope.password? or $scope.password == '' then $scope.errorMsg = PasswordHasToBeProvided
+      else if not $scope.password? or $scope.password == '' then $scope.errorMsg = 'PASSWORD_HAS_TO_BE_PROVIDED'
 
-      else if not $scope.email? or $scope.email == '' then $scope.errorMsg = EmailHasToBeProvided
+      else if not $scope.email? or $scope.email == '' then $scope.errorMsg = 'EMAIL_HAS_TO_BE_PROVIDED'
 
-      else $scope.errorMsg = PasswordAndEmailHaveToBeProvided
+      else $scope.errorMsg = 'PASSWORD_AND_EMAIL_HAVE_TO_BE_PROVIDED'
   ]
