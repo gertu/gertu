@@ -16,14 +16,18 @@ exports.signup = (req, res) ->
     shop = new Shop(req.body)
     shop.save()
 
-    fs.readFile __dirname + '../../../views/mailer/newShop.html',
-      'utf8'
-      (err, data) ->
-        htmlContent = data + ''
+    mailInfo = {
+      shopname: shopName
+    }
 
-        htmlContent = htmlContent.replace '{{shopname}}', shopName
-
-        Mailer.send shopEmail, 'Wellcome to Gertu', htmlContent
+    Mailer.sendTemplate shopEmail,
+      'Wellcome to Gertu',
+      'newShop',
+      mailInfo,
+      () ->
+        @
+      , () ->
+        @
 
     req.session.currentShop =
       shopId: shop._id
