@@ -46,16 +46,17 @@ exports.load = (req, res) ->
     , (err, result) ->
       nearshops = result.documents[0].results
       nearshopids = []
-      for shop in nearshops
-        nearshopids.push shop.obj._id
-      Deal.find({shop: { $in:nearshopids}}).exec (err,deals) ->
-        for deal in deals
-          for shop in nearshops
-            if deal.shop.equals(shop.obj._id)
-              nearbyDeals.push
-                dist: shop.dis
-                deal: deal
-        nearbyDeals.sort (a, b) ->
-          a.dist - b.dist
+      if nearshops?
+        for shop in nearshops
+          nearshopids.push shop.obj._id
+        Deal.find({shop: { $in:nearshopids}}).exec (err,deals) ->
+          for deal in deals
+            for shop in nearshops
+              if deal.shop.equals(shop.obj._id)
+                nearbyDeals.push
+                  dist: shop.dis
+                  deal: deal
+          nearbyDeals.sort (a, b) ->
+            a.dist - b.dist
 
-        res.jsonp  [dealcount: dealc, usercount: userc, shopcount: shopc,neardeals: nearbyDeals]
+      res.jsonp  [dealcount: dealc, usercount: userc, shopcount: shopc,neardeals: nearbyDeals]
