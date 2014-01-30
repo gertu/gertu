@@ -28,6 +28,7 @@ module.exports = (app, passport, db) ->
 
   #Set views path, template engine and default layout
   app.set "views", config.root + "/views"
+  app.set 'photos', config.root + "/public/img/userphotos"
   app.set "view engine", "jade"
 
   #Enable jsonp
@@ -38,7 +39,10 @@ module.exports = (app, passport, db) ->
     app.use express.cookieParser()
 
     #bodyParser should be above methodOverride
-    app.use express.bodyParser()
+    app.use express.bodyParser(
+      keepExtensions: true
+      uploadDir: config.root + "/public/img/userphotos"
+    )
     app.use express.methodOverride()
 
     #express/mongo session storage

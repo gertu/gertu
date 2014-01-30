@@ -1,6 +1,8 @@
 mongoose = require "mongoose"
 User     = mongoose.model "User"
 _        = require "underscore"
+fs       = require("fs")
+Path     = require("path")
 
 
 exports.authCallback = (req, res, next) ->
@@ -57,3 +59,25 @@ exports.user         = (req, res, next, id) ->
     return next(new Error("Failed to load User " + id)) unless user
     req.profile = user
     next()
+    
+exports.updatePicture = (req, res) ->
+  file = req.files.picture
+  name = file.name
+  type = file.type
+  path = __dirname + "/public/img/userphotos/" + name
+  user = req.user
+
+  format = type.split("/")
+  if format[1] is "jpg" or format[1] is "jpeg" or format[1] is "png" or format[1] is "gif"
+    fs.rename req.files.picture.path, path, (err) ->
+      res.send "Ocurrio un error al intentar subir la imagen"  if err
+      res.redirect "/profile"
+      User.findOne(_id: user._id).exec (err, userfound) ->
+        fs.unlink Path.resolve(".")+ "/public/img"  + userfound.picture
+        splittednewname = (file.path).split("\\")
+        userfound.picture = "/img/userphotos/" + splittednewname[splittednewname.length-1]
+        userfound.save()
+
+  else
+    fs.unlink file.path
+    res.send "El formato debe ser jpg, png o gif"

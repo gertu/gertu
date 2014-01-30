@@ -19,7 +19,8 @@ module.exports = (app, passport) ->
 
   app.get currentApiVersion + "/profile", users.me
   app.put currentApiVersion + "/profile/:profileId", users.update
-  app.get "/users/:userId", users.show
+  app.post currentApiVersion + "/profile/updatepicture", users.updatePicture
+  app.get currentApiVersion + "/users/:userId", users.show
 
   # Shop routes
   shop = require("../server/controllers/shop")

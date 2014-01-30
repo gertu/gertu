@@ -9,6 +9,7 @@ UserSchema = new Schema(
   email     : type: String, required: true, unique: true, lowercase: true
   firstName : String
   lastName  : String
+  picture   : type: String, default: "http://static.freepik.com/free-photo/male-user-icon-clip-art_419253.jpg"
   radius    : type: Number, default: 1000
 
   hashed_password : String
