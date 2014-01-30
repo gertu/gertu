@@ -9,6 +9,7 @@ UserSchema = new Schema(
   email     : type: String, required: true, unique: true, lowercase: true
   firstName : String
   lastName  : String
+  radius    : type: Number, default: 1000
 
   hashed_password : String
   salt            : String

@@ -88,4 +88,5 @@ module.exports = (app, passport) ->
   index = require("../server/controllers/index")
 
   app.get "/",  index.render
+  app.get currentApiVersion + "/webData", index.load
   app.get "/*", index.render
