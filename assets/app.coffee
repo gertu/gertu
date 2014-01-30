@@ -1,6 +1,7 @@
 angular.module "mean", [
   "ngCookies",
   "ngRoute",
+  "ngAnimate",
   "ngResource",
   "ui.bootstrap",
   "ui.route",
