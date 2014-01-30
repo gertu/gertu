@@ -44,6 +44,8 @@ section.home-page(ng-controller='IndexController')
         h2.step-title {{'STEP_ENJOY' | translate}}
         p.step-desc {{'STEP_ENJOY_DESC' | translate}}
   .row(data-ng-show='global.authenticated')
+    div(data-ng-show='global.shop')
+        include shop/controlpanel
     div(data-ng-show='global.user')
       .profile-status(data-ng-hide="hideSteps")
         h2
