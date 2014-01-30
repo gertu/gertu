@@ -30,11 +30,11 @@ module.exports = (grunt) ->
       options:
         livereload: true
       jade:
-        files: ["views/**/*"],                 tasks: ["jade"]
+        files: ["views/**/*"], tasks: ["jade"]
       coffee:
-        files: "assets/**/*.coffee",           tasks: ["coffeelint:app", "coffee", "uglify"]
+        files: "assets/**/*.coffee", tasks: ["coffeelint:app", "coffee", "uglify"]
       coffee_server:
-        files: "server/**/*.coffee",           tasks: ["coffeelint:server"]
+        files: "server/**/*.coffee", tasks: ["coffeelint:server"]
       stylus:
         files: "assets/stylesheets/**/*.styl", tasks: ["stylus", "cssmin"]
 
@@ -55,7 +55,7 @@ module.exports = (grunt) ->
         files  : [
           expand: true
           cwd   : "assets/stylesheets"
-          src   :  "**/*.styl"
+          src   : ["**/*.styl", "!**/vendor.styl"]
           dest  : "public/css"
           ext   :  ".css"]
 
@@ -90,15 +90,15 @@ module.exports = (grunt) ->
       server   : ["server/**/*.coffee"]
       gruntfile: "gruntfile.coffee"
       options  :
-        max_line_length:     level: "ignore"
+        max_line_length    : level: "ignore"
         no_throwing_strings: level: "warn"
 
     clean:
-      js    : ["public/js",  "public/<%=pkg.name%>.js", "public/<%=pkg.name%>.min.js"]
+      js    : ["public/js", "public/<%=pkg.name%>.js", "public/<%=pkg.name%>.min.js"]
       css   : ["public/css", "public/<%=pkg.name%>.min.css"]
       views : ["public/views"]
       images: ["public/img"]
-      prod  : ["public/js",  "public/<%=pkg.name%>.js"]
+      prod  : ["public/js", "public/<%=pkg.name%>.js"]
 
     copy:
       images:
@@ -148,7 +148,7 @@ module.exports = (grunt) ->
   grunt.registerTask "default",     "Main Grunt. Executes all tasks.", [
     "build", "coffeelint:server", "concurrent"]
 
-  grunt.registerTask "launch",     "Main Grunt. Executes all tasks.", [
+  grunt.registerTask "launch",     "Main Grunt. Executes all tasks.",  [
     "build", "coffeelint:server", "env:prod", "nodemon"]
 
   grunt.registerTask "build",       "Compiles all files of project.",  [
