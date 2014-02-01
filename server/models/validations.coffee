@@ -21,3 +21,17 @@ exports.uniqueFieldInsensitive   = (key) ->
 
     mongoose.models["User"].findOne query, (error, user) ->
       respond not user
+
+exports.uniqueFieldInsensitiveAdministrator   = (key) ->
+  (value, respond) ->
+    console.log 'validando'
+    value   = ""  if "undefined" is value or null is value
+    pattern = value.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1")
+    regex   = new RegExp("^" + pattern + "$", "i")
+    query   = _id:
+      $ne: @_id
+
+    query[key] = regex
+
+    mongoose.models["Administrator"].findOne query, (error, admin) ->
+      respond not admin

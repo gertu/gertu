@@ -1,0 +1,19 @@
+extends ../layouts/default
+block content
+    h1 Administradores de la aplicación
+        &nbsp;
+        a.btn.btn-primary(href='/management/administrators/edit/0') Nuevo administrador
+    table.table.table-bordered.table-condensed
+        thead
+            tr
+                th  Nombre
+                th  Email
+                th(width='80')  Eliminar
+        each administrator in administrators
+            tr
+                td
+                    a(href='/management/administrators/edit/#{administrator._id}') #{administrator.name}
+                td
+                    a(href='/management/administrators/edit/#{administrator._id}') #{administrator.email}
+                td
+                    a.btn.btn-danger(href='/management/administrators/remove/#{administrator._id}') eliminar

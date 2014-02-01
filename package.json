@@ -39,7 +39,8 @@
     "bower"                : "latest",
     "async"                : "latest",
     "underscore"           : "latest",
-    "nodemailer"           : "latest"
+    "nodemailer"           : "latest",
+    "cron"                 : "*"
   },
   "devDependencies": {
 
@@ -62,6 +63,7 @@
     "grunt-contrib-watch" : "*",
     "grunt-env"           : "*",
     "grunt-mocha-test"    : "*",
-    "grunt-nodemon"       : "*"
+    "grunt-nodemon"       : "*",
+    "cron"                : "*"
   }
 }

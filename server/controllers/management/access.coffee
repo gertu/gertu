@@ -9,17 +9,23 @@ exports.loginDo = (req, res) ->
   password = req.body.password
 
   if not email? or not password? or email == '' or password == ''
-    res.render "pages/management/access/login", {errorMsg: 'Debe indicar tanto el email como la contraseña del usuario'}
+    res.render "pages/management/access/login",
+      {errorMsg: 'Debe indicar tanto el email como la contraseña del usuario'}
   else
 
     Administrator.findOne({email: email, password: password}).exec( (err, administrator) ->
       if err
         res.status(500).send('Application error')
       else if not administrator?
-        res.render "pages/management/access/login", {errorMsg: 'Los credenciales suministrados no corresponden a un usuario'}
+        res.render "pages/management/access/login",
+          {errorMsg: 'Los credenciales suministrados no corresponden a un usuario'}
       else
         # Access granted
-        req.session.currentAdministrator = {adminId: administrator._id, adminEmail: administrator.email, isAuthenticated: true}
+        req.session.currentAdministrator =
+          adminId: administrator._id,
+          adminEmail: administrator.email,
+          isAuthenticated: true
+          
         res.redirect "/management/dashboard"
     )
 

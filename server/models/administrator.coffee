@@ -1,5 +1,6 @@
 mongoose    = require "mongoose"
 Schema      = mongoose.Schema
+Validations = require("./validations")
 
 # Adminisrator Schema
 
@@ -12,4 +13,3 @@ AdministratorSchema = new Schema
     type: String, default: '', trim: true, required: true
 
 mongoose.model "Administrator", AdministratorSchema
-

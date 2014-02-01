@@ -1,0 +1,9 @@
+extends ../layouts/default
+block content
+    h1 Eliminar administrador
+
+    form.form-inline(action="/management/administrators/remove/#{administrator._id}", method="post", role="form")
+        p Desea eliminar el administrador #{administrator.name}
+        a.btn.btn-default(href='/management/administrators/list') Volver
+        &nbsp;
+        input.btn.btn-danger(type='submit', value='Eliminar')
