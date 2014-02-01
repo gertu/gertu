@@ -17,6 +17,7 @@
     "npm" : "1.*"
   },
   "scripts": {
+    "install"    : "npm update",
     "postinstall": "bower install"
   },
   "dependencies": {
