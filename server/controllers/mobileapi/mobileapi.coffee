@@ -2,7 +2,6 @@ mongoose = require "mongoose"
 User     = mongoose.model "User"
 _        = require "underscore"
 
-
 exports.usersLogin = (req, res) ->
   
   user = new User(req.body)
