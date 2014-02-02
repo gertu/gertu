@@ -1,5 +1,6 @@
 mongoose = require "mongoose"
 User     = mongoose.model "User"
+Deal     = mongoose.model "Deal"
 _        = require "underscore"
 
 exports.usersLogin = (req, res) ->
@@ -57,32 +58,80 @@ exports.usersGetCurrent = (req, res) ->
       send()
 
 exports.usersUpdate = (req, res) ->
+
   user = req.session.user
-  user = _.extend(user, req.body)
-  user.save (err) ->
-    if err?
-      res.
-      status(500).
+
+  if user?
+    User.findOne({_id: user.id}).exec( (err, userData) ->
+      
+      if err? or not userData?
+        res.status(403).send('Access denied')
+      else
+
+        userData = _.extend(userData, req.body)
+
+        user.save (err) ->
+
+          if err?
+            res.
+            status(500).
+            send(JSON.stringify(err))
+          else
+            req.session.user =
+                id: userData._id,
+                name: userData.name,
+                email: userData.email,
+                isAuthenticated: true
+
+            res.
+              status(200).
+              send(JSON.stringify(userData))
+     )
+  else
+    res.
+      status(404).
       send()
+
+exports.dealsGetAll = (req, res) ->
+  Deal.find().sort('-created').populate("shop").exec (err, deals) ->
+    if err
+      res.
+        status(500).
+        send()
     else
       res.
         status(200).
-        send(JSON.stringify(user))
-
-exports.dealsGetAll = (req, res) ->
-  res.jsonp user
+        send(JSON.stringify(deals))
 
 exports.dealsGetAllByPositition = (req, res) ->
-  res.jsonp user
+  res.
+    status(404).
+    send('Not implemented')
 
 exports.dealsGetById = (req, res) ->
-  res.jsonp user
+
+  id = req.params.id
+
+  Deal.findOne({_id: id}).exec (err, deal) ->
+
+    if err? or not deal?
+      res.
+        status(404).
+        send()
+    else
+      res.
+        status(200).
+        send(JSON.stringify(deal))
 
 exports.dealsMakeReservationById = (req, res) ->
-  res.jsonp user
+  res.
+    status(404).
+    send('Not implemented')
 
 exports.dealsAddComment = (req, res) ->
-  res.jsonp user
+  res.
+    status(404).
+    send('Not implemented')
 
 
 

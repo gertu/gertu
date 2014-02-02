@@ -4,6 +4,9 @@ mongoose = require "mongoose"
 request  = require "supertest"
 
 User     = mongoose.model "User"
+Shop     = mongoose.model "Shop"
+Deal     = mongoose.model "Deal"
+
 server   = request.agent(app)
 
 apiPreffix = '/mobile/v1'
@@ -15,10 +18,43 @@ describe "Mobile API testing", ->
     email: 'nombreusuario@email.com',
     password: '123456'
 
+  shop1 = new Shop(
+    name: 'Shop 1'
+    email: 'emailshop1@mail.com'
+    password: '123456'
+  )
+
+  deal1 = new Deal(
+    name: 'Deal 1',
+    price: 2,
+    gertuprice: 1,
+    discount: 0.5,
+    shop: shop1)
+
+  deal2 = new Deal(
+    name: 'Deal 2',
+    price: 4,
+    gertuprice: 1,
+    discount: 0.75,
+    shop: shop1)
+
   before (done) ->
     User.remove().exec()
-    done()
+    Deal.remove().exec()
+    Shop.remove().exec()
 
+    shop1.save( (err) ->
+
+      deal1.save( (err) ->
+
+        deal2.save( (err) ->
+
+          done()
+          )
+        )
+    )
+    
+   
   it "should signup a new user", (done) ->
     server.
       post(apiPreffix + '/users').
@@ -29,7 +65,7 @@ describe "Mobile API testing", ->
 
   it "should NOT signin a non existant user", (done) ->
     server.
-      post(apiPreffix + '/users/login').
+      post(apiPreffix + '/users/session').
       send({email: 'nonexistantmail@mail.com', password: 'nonexistantpassword'}).
       end (err, res) ->
         res.should.have.status 403
@@ -37,7 +73,7 @@ describe "Mobile API testing", ->
 
   it "should signin the newly created user", (done) ->
     server.
-      post(apiPreffix + '/users/login').
+      post(apiPreffix + '/users/session').
       send({email: userOfApplication.email, password: userOfApplication.password}).
       end (err, res) ->
         res.should.have.status 200
@@ -45,7 +81,7 @@ describe "Mobile API testing", ->
 
   it "should return the current user", (done) ->
     server.
-      get(apiPreffix + '/users').
+      get(apiPreffix + '/users/session').
       send().
       end (err, res) ->
         res.should.have.status 200
@@ -54,7 +90,7 @@ describe "Mobile API testing", ->
 
   it "should log out current user", (done) ->
     server.
-      get(apiPreffix + '/users/logout').
+      del(apiPreffix + '/users/session').
       send().
       end (err, res) ->
         res.should.have.status 200
@@ -69,22 +105,39 @@ describe "Mobile API testing", ->
         res.text.should.not.include userOfApplication.email
         done()
 
-  ###
-  it "should allow update current user", (done) ->
-
-    userOfApplicationUpdated = userOfApplication;
-    userOfApplicationUpdated.name = 'newname'
-
+  it "should return 2 deals when 2 are present", (done) ->
     server.
-      put(apiPreffix + '/users').
-      send(userOfApplicationUpdated).
+      get(apiPreffix + '/deals').
+      send().
       end (err, res) ->
         res.should.have.status 200
+
+        allDeals = eval(res.text)
+
+        allDeals.should.not.have.length 3
+        allDeals.should.have.length 2
         done()
-  ###
+
+  it "should return first deal when requested", (done) ->
+    
+    deal1.save( (err) ->
+      
+      server.
+        get(apiPreffix + '/deals/' + deal1._id).
+        send().
+        end (err, res) ->
+          res.should.have.status 200
+
+          res.text.should.include deal1.name
+          res.text.should.include deal1._id
+
+          done()
+    )
   
   after (done) ->
     User.remove().exec()
+    Deal.remove().exec()
+    Shop.remove().exec()
     done()
 
 

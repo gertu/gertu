@@ -100,16 +100,18 @@ module.exports = (app, passport) ->
   mobileApi = require "../server/controllers/mobileapi/mobileapi"
   currentMobileApiVersion = '/mobile/v1'
 
-  app.post currentMobileApiVersion + "/users/login", mobileApi.usersLogin
-  app.get  currentMobileApiVersion + "/users/logout",  mobileApi.usersLogout
+  app.post currentMobileApiVersion + "/users/session", mobileApi.usersLogin
+  app.delete currentMobileApiVersion + "/users/session",  mobileApi.usersLogout
+  app.get  currentMobileApiVersion + "/users/session",  mobileApi.usersGetCurrent
+  
   app.post currentMobileApiVersion + "/users",  mobileApi.usersSignUp
-  app.get  currentMobileApiVersion + "/users",  mobileApi.usersGetCurrent
   app.put  currentMobileApiVersion + "/users",  mobileApi.usersUpdate
+  
   app.get  currentMobileApiVersion + "/deals",  mobileApi.dealsGetAll
   app.post currentMobileApiVersion + "/deals",  mobileApi.dealsGetAllByPositition
-  app.get  currentMobileApiVersion + "/deals/:dealId",  mobileApi.dealsGetById
-  app.get  currentMobileApiVersion + "/deals/:dealId/reservation",  mobileApi.dealsMakeReservationById
-  app.post currentMobileApiVersion + "/deals/:dealId/comment",  mobileApi.dealsAddComment
+  app.get  currentMobileApiVersion + "/deals/:id",  mobileApi.dealsGetById
+  app.get  currentMobileApiVersion + "/deals/:id/reservation",  mobileApi.dealsMakeReservationById
+  app.post currentMobileApiVersion + "/deals/:id/comment",  mobileApi.dealsAddComment
 
   # Home routes
   index = require("../server/controllers/index")
