@@ -1,4 +1,5 @@
 nodemailer = require "nodemailer"
+fs         = require "fs"
 config     = require("../../config/config")
 
 (->
@@ -11,7 +12,26 @@ config     = require("../../config/config")
     from : config.mail.accountFrom
   }
 
-  Mailer.send = (to, subject, body) ->
+  Mailer.sendTemplate = (to, subject, templateName, variables , onSuccess, onError) ->
+    fs.readFile __dirname + '../../../views/mailer/' + templateName + '.html',
+      'utf8'
+      (err, data) ->
+        htmlContent = data + ''
+
+        if err
+          onError (err)
+
+        else if variables
+          
+
+          for key of variables
+            onError(key)
+            htmlContent = htmlContent.replace '{{' + key + '}}', variables[key]
+
+        Mailer.send to, subject, htmlContent, onSuccess, onError
+
+
+  Mailer.send = (to, subject, body, onSuccess, onError) ->
 
     mailsender = nodemailer.createTransport("SMTP",
       host: Mailer.host
@@ -26,13 +46,13 @@ config     = require("../../config/config")
       from: Mailer.from
       to: to
       subject: subject
-      text: body
+      html: body
 
     mailsender.sendMail mailOptions, (error) ->
-      if error
-        console.log error
-      else
-        console.log "Mail sent to " + mailOptions.to
+      if error and onError?
+        onError(error)
+      else if onSuccess?
+        onSuccess()
 
   module.exports = Mailer
 )()

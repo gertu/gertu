@@ -1,0 +1,47 @@
+extends ../layouts/default
+block content
+    - if (administrator._id == 0)
+        h1 Nuevo administrador
+    - else
+        h1 Editar administradores
+
+    form(action="/management/administrators/edit/#{administrator._id}", method="post", role="form")
+        .form-group
+            label Nombre
+            input#name.form-control(
+                type='text',
+                name="name",
+                placeholder='Nombre del administrador',
+                value='#{administrator.name}',
+                required)
+        .form-group
+            label Email
+            input#email.form-control(
+                type='email',
+                name="email",
+                placeholder='Email del administrador',
+                value='#{administrator.email}',
+                required)
+        .form-group
+            label Contraseña
+            input#password.form-control(
+                type='password',
+                name="password",
+                placeholder='Contraseña del administrador',
+                value='#{administrator.password}',
+                required)
+        .form-group
+            label Repita contraseña
+            input#passwordRpt.form-control(
+                type='password',
+                name="passwordRpt",
+                placeholder='Nombre del administrador',
+                value='#{administrator.passwordRpt}',
+                required)
+
+        button.btn.btn-primary(type='submit') Guardar
+        br
+        - if (errors && errors.length > 0)
+            p.well
+                - for error in errors
+                    | #{error}

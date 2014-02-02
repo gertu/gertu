@@ -18,7 +18,7 @@ h1 Nuevo comercio
         
             .alert.alert-danger(data-ng-show='errors')
                 ul
-                    li(ng-repeat="error in errors"){{error}}
+                    li(ng-repeat="error in errors"){{error | translate}}
     .col-md-8
         p 
             | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed lobortis justo. Aliquam adipiscing, nibh vel semper varius, 
