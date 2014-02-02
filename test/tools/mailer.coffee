@@ -18,10 +18,9 @@ describe "<Unit Test>", ->
           'This is test#1',
           'Body for test#1',
           () =>
-            console.log 'mail sent success'
             done()
           (error) =>
-            console.log error
+            done() unless error
 
       it "should send email to address " + destinationEmail + ' from a template without replacing anything', (done) ->
 
@@ -30,25 +29,24 @@ describe "<Unit Test>", ->
           'testMail',
           null,
           () =>
-            console.log 'mail sent success'
             done()
           (error) =>
-            console.log error
+            done() unless error
 
       it "should send email to address " + destinationEmail + ' from a template replacing fields', (done) ->
 
-        fields = {
+        fields =
           emailTest: 'text replaced in test'
-        }
-        Mailer.sendTemplate destinationEmail,
+        
+        result = Mailer.sendTemplate destinationEmail,
           'This is test#3',
           'testMail',
           fields,
           () =>
-            console.log 'mail sent success'
             done()
           (error) =>
-            console.log error
+            done() unless error
+            
 
     after (done) ->
       

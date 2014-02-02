@@ -13,16 +13,19 @@ config     = require("../../config/config")
   }
 
   Mailer.sendTemplate = (to, subject, templateName, variables , onSuccess, onError) ->
-    fs.readFile __dirname + '../../../views/mailer/' + templateName + '.html',
+
+    templatePath = __dirname + '../../../views/mailer/' + templateName + '.html'
+
+    fs.readFile templatePath,
       'utf8'
       (err, data) ->
         htmlContent = data + ''
 
-        if err
+        if err and onError?
+
           onError (err)
 
         else if variables
-          
 
           for key of variables
             onError(key)
