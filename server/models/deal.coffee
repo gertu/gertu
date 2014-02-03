@@ -37,6 +37,8 @@ DealSchema = new Schema
   created:
     type:     Date
     default:  Date.now
+  quantity:
+    type:     Number
 
 
 DealSchema.statics.load = (id, cb) ->

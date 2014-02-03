@@ -45,6 +45,10 @@
             .dataend
               label.control-label(for='dataend') Fecha fin:
               datepicker#dataend(show-weeks="false", starting-day="1", min="minDate", ng-model="deal.dataend")
+        .col-xs-2
+          label.col-sm-1.control-label(for='quantity') Quantity:
+          .input-group
+            input#quantity.form-control(type='number', data-ng-model='quantity', required='required')
         .row
           .col-md-6.col-md-offset-4
             input.btn.btn-success.btn-lg.btn-block(type='submit')

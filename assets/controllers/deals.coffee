@@ -15,6 +15,7 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
       datainit: @datainit
       dataend: @dataend
       image: @image
+      quantity: @quantity
     )
     deal.$save (response) ->
       $location.path "/"

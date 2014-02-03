@@ -19,6 +19,7 @@ describe "<Unit Test>", ->
         discount:  50
         shop: "524f36e34ca6e9c82a000001"
         categoryname : "Restaurantes"
+        quantity: 20
       )
       done()
 
@@ -44,6 +45,7 @@ describe "<Unit Test>", ->
           deals[0].should.have.property "gertuprice", deal.gertuprice
           deals[0].should.have.property "discount", deal.discount
           deals[0].should.have.property "categoryname", deal.categoryname
+          deals[0].should.have.property "quantity", deal.quantity
           done()
 
       it "should update data correctly", (done) ->
