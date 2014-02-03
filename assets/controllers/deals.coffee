@@ -67,16 +67,31 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
 
 
   $scope.calcdiscount = ->
-    price = @price
-    gertuprice = @gertuprice
-    discount = 100 - (gertuprice * 100 / price)
-    $scope.discount = truncateDecimals(discount)
+    if @price
+      price = @price
+      gertuprice = @gertuprice
+      discount = 100 - (gertuprice * 100 / price)
+      $scope.discount = truncateDecimals(discount)
+    else
+      console.log("bai")
+      price = $scope.deal.price
+      gertuprice = $scope.deal.gertuprice
+      discount = 100 - (gertuprice * 100 / price)
+      $scope.deal.discount = truncateDecimals(discount)
 
 
   $scope.calcgertuprice = ->
-    price = @price
-    discount = @discount
-    gertuprice = price - (discount * price / 100)
-    $scope.gertuprice = truncateDecimals(gertuprice)
+    if @price
+      price = @price
+      discount = @discount
+      gertuprice = price - (discount * price / 100)
+      $scope.gertuprice = truncateDecimals(gertuprice)
+    else
+      console.log("bai")
+      price = $scope.deal.price
+      discount = $scope.deal.discount
+      gertuprice = price - (discount * price / 100)
+      $scope.deal.gertuprice = truncateDecimals(gertuprice)
+
 
 ]
