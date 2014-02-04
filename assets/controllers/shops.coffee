@@ -30,7 +30,7 @@ angular.module("mean.shops").controller 'ShopSignUpController',
           shop.$save(
             (successData) ->
               $scope.global.authenticated = true
-              $scope.global.shop = {name: $scope.shopname, email: $scope.email }
+              $scope.global.shop = successData
               $location.path('/')
             ,
             (errorData) ->
@@ -47,11 +47,11 @@ angular.module("mean.shops").controller "ShopLogInController",
     $scope.errors = []
 
     $scope.doLogIn = () ->
-      
+
       validationErrors = Validation.loginShop
         email: $scope.email
         password: $scope.password
-      
+
       # Verify password and email have been provided
       if validationErrors.length == 0
 
