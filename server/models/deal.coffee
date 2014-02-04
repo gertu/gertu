@@ -21,7 +21,7 @@ DealSchema = new Schema
 
 
 DealSchema.pre "save", (next) ->
-  @_id = Validations.slugify(@name + "-" + Validations.dateToString(@created))
+  @_id = Validations.slugify(@name)
   next()
 
 

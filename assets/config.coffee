@@ -20,7 +20,7 @@ angular.module('mean').config ['$routeProvider', ($routeProvider) ->
 
   ).when('/404',
     templateUrl: '/views/404.html'
-  
+
   ).when("/admin/signup",
     templateUrl: "/views/pages/shop/signup.html",
     controller: "ShopSignUpController"
@@ -35,7 +35,7 @@ angular.module('mean').config ['$routeProvider', ($routeProvider) ->
   ).when("/admin/deals/list/:shopId",
     templateUrl: "/views/pages/shop/deals.html"
 
-  ).when('/admin/deals/:dealId',
+  ).when('/admin/:shopId/:dealId',
     templateUrl: '/views/pages/shop/view.html'
 
   ).when('/admin/deals/edit/:dealId',

@@ -1,18 +1,18 @@
 mongoose    = require "mongoose"
+config      = require "../../config/config"
 Schema      = mongoose.Schema
-crypto      = require("crypto")
-_           = require("underscore")
-Validations = require("./validations")
+Validations = require "./validations"
 
-# Shop Schema
 
 ShopSchema = new Schema
-  name:
-    type: String, default: '', trim: true
-  email:
-    type: String, default: '', trim: true
-  password:
-    type: String, default: '', trim: true
+  _id     : type: String
+  name    : type: String, required: true, trim: true
+  email   : type: String, required: true, trim: true
+  password: type: String, required: true, trim: true
+
+ShopSchema.pre "save", (next) ->
+  @_id = Validations.slugify(@name)
+  next()
 
 mongoose.model "Shop", ShopSchema
 
