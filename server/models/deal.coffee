@@ -11,7 +11,7 @@ DealSchema = new Schema
   price        : type: Number, required: true, trim: true
   gertuprice   : type: Number, required: true, trim: true
   discount     : type: Number, required: true, trim: true
-  shop         : type: Schema.Types.ObjectId, required: true, ref: "Shop"
+  shop         : type: String, required: true, ref: "Shop"
   categoryname : type: String
   datainit     : type: Date
   dataend      : type: Date
