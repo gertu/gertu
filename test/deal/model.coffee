@@ -12,14 +12,14 @@ describe "<Unit Test>", ->
       Deal.remove().exec()
 
       deal = new Deal(
-        name: "Deal name"
-        description: "This is description"
-        price: 100
-        gertuprice: 50
-        discount:  50
-        shop: "524f36e34ca6e9c82a000001"
-        categoryname : "Restaurantes"
-        quantity: 20
+        name        : "Deal name"
+        description : "This is description"
+        price       : 100
+        gertuprice  : 50
+        discount    : 50
+        shop        : "524f36e34ca6e9c82a000001"
+        categoryname: "Restaurantes"
+        quantity    : 20
       )
       done()
 
@@ -50,9 +50,8 @@ describe "<Unit Test>", ->
 
       it "should update data correctly", (done) ->
         deal.name = 'Deal name update'
-        deal.save done
-
-
+        deal.save()
+        done()
 
     after (done) ->
       Deal.remove().exec()

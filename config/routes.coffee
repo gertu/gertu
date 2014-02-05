@@ -42,10 +42,13 @@ module.exports = (app, passport) ->
   app.post   currentApiVersion + "/deals", deals.create
   app.put    currentApiVersion + "/deals/:dealId", deals.update
   app.delete currentApiVersion + "/deals/:dealId", deals.destroy
+  #Comments routes
+  app.put    currentApiVersion + "/deals/:dealId", deals.addComment
+
   #Finish with setting up the articleId param
   app.param 'shopId', deals.shop
   app.param 'dealId', deals.deal
-  
+
 
   dealscategory = require("../server/controllers/dealsCategory")
   app.get    currentApiVersion + "/dealscategory", dealscategory.all
@@ -103,10 +106,10 @@ module.exports = (app, passport) ->
   app.post currentMobileApiVersion + "/users/session", mobileApi.usersLogin
   app.delete currentMobileApiVersion + "/users/session",  mobileApi.usersLogout
   app.get  currentMobileApiVersion + "/users/session",  mobileApi.usersGetCurrent
-  
+
   app.post currentMobileApiVersion + "/users",  mobileApi.usersSignUp
   app.put  currentMobileApiVersion + "/users",  mobileApi.usersUpdate
-  
+
   app.get  currentMobileApiVersion + "/deals",  mobileApi.dealsGetAll
   app.post currentMobileApiVersion + "/deals",  mobileApi.dealsGetAllByPositition
   app.get  currentMobileApiVersion + "/deals/:id",  mobileApi.dealsGetById

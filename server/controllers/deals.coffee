@@ -66,7 +66,7 @@ exports.update = (req, res) ->
       deal: deal
     else
       res.jsonp deal
-      
+
 
 exports.destroy = (req, res) ->
   deal = req.deal
@@ -76,3 +76,14 @@ exports.destroy = (req, res) ->
         status: 500
     else
       res.send JSON.stringify(deal)
+
+# functions about Comments
+
+exports.addComment = (req, res) ->
+  if req.body.comments.author and req.body.comments.description and req.body.comments.rating
+    deal = req.deal
+    deal = _.extend(deal, req.body)
+    deal.save (err) ->
+      res.jsonp deal
+  else
+    res.status(422).send("author, description and rating are required")

@@ -18,7 +18,12 @@ DealSchema = new Schema
   image        : type: String
   created      : type: Date, default: Date.now
   quantity     : type: Number
-
+  comments     : [
+      author      : type: String
+      description : type: String
+      writedAt    : type: Date, default: Date.now
+      rating      : type: Number
+  ]
 
 DealSchema.pre "save", (next) ->
   @_id = Validations.slugify(@name + "-" + Validations.dateToString(@created))
