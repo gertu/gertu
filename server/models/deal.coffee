@@ -19,7 +19,7 @@ DealSchema = new Schema
   created      : type: Date, default: Date.now
   quantity     : type: Number
   comments     : [
-      author      : type: String
+      author      : type: Schema.Types.ObjectId, required: true, ref: "User"
       description : type: String
       writedAt    : type: Date, default: Date.now
       rating      : type: Number
@@ -28,9 +28,5 @@ DealSchema = new Schema
 DealSchema.pre "save", (next) ->
   @_id = Validations.slugify(@name + "-" + Validations.dateToString(@created))
   next()
-
-
-DealSchema.statics.load = (id, cb) ->
-  @findOne(_id: id).populate("shop", "name shop").exec cb
 
 mongoose.model "Deal", DealSchema

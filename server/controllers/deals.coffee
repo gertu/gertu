@@ -3,7 +3,7 @@ async    = require "async"
 _        = require "underscore"
 Deal     = mongoose.model('Deal')
 Shop     = mongoose.model('Shop')
-
+User     = mongoose.model "User"
 
 exports.deal = (req, res, next, id) ->
   Deal.findOne(_id: id).exec (err, deal) ->
@@ -12,7 +12,6 @@ exports.deal = (req, res, next, id) ->
     req.deal = deal
     next()
 
-
 exports.shop = (req, res, next, id) ->
   Shop.findOne(_id: id).exec (err, shop) ->
     return next(err)  if err
@@ -20,23 +19,30 @@ exports.shop = (req, res, next, id) ->
     req.shop = shop
     next()
 
+exports.user = (req, res, next, id) ->
+  User.findOne(_id: id).exec (err, shop) ->
+    return next(err)  if err
+    return next(new Error('Failed to load user ' + id))  unless user
+    req.user = user
+    next()
 
 exports.create = (req, res) ->
-  if req.body.name and req.body.price
-    deal = new Deal(req.body)
-    deal.save (err) ->
-      if err
-        res.render "error at create deal",
-          status: 500
+  if req.body.name and req.body.price and req.body.gertuprice and req.body.discount and req.body.shop
+    Shop.findOne(_id: req.body.shop).exec (err, shop) ->
+      if shop
+        deal = new Deal(req.body)
+        deal.save (err) ->
+          if err
+            res.render "error at create deal", status: 500
+          else
+            res.jsonp deal
       else
-        res.jsonp deal
+        res.status(404).send("the shop does not exist")
   else
-    res.status(422).send("name and price are required")
-
+    res.status(422).send("name, price, gertuprice and discount are required")
 
 exports.show = (req, res) ->
   res.jsonp req.deal
-
 
 exports.findByShop = (req, res) ->
   Deal.find(shop: req.shop._id).populate('shop'). exec (err,deals) ->
@@ -46,7 +52,6 @@ exports.findByShop = (req, res) ->
     else
       res.jsonp deals
 
-
 exports.all = (req, res) ->
   Deal.find().sort('-created').populate("shop").exec (err, deals) ->
     if err
@@ -54,7 +59,6 @@ exports.all = (req, res) ->
         status: 500
     else
       res.jsonp deals
-
 
 exports.update = (req, res) ->
   deal = req.deal
@@ -67,7 +71,6 @@ exports.update = (req, res) ->
     else
       res.jsonp deal
 
-
 exports.destroy = (req, res) ->
   deal = req.deal
   deal.remove (err) ->
@@ -78,12 +81,18 @@ exports.destroy = (req, res) ->
       res.send JSON.stringify(deal)
 
 # functions about Comments
-
 exports.addComment = (req, res) ->
-  if req.body.comments.author and req.body.comments.description and req.body.comments.rating
-    deal = req.deal
-    deal = _.extend(deal, req.body)
-    deal.save (err) ->
-      res.jsonp deal
+  if req.body.author and req.body.description and req.body.rating
+    User.findOne(_id: req.body.author).exec (err, user) ->
+      if user
+        comments = req.deal.comments
+        comments = _.extend(comments, req.body)
+        req.deal.save (err) ->
+          if err
+            res.render "error at add a comment", status: 500
+          else
+            res.jsonp req.deal
+      else
+        res.status(404).send("the user does not exist")
   else
     res.status(422).send("author, description and rating are required")

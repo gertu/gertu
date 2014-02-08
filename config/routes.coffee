@@ -43,7 +43,7 @@ module.exports = (app, passport) ->
   app.put    currentApiVersion + "/deals/:dealId", deals.update
   app.delete currentApiVersion + "/deals/:dealId", deals.destroy
   #Comments routes
-  app.put    currentApiVersion + "/deals/:dealId", deals.addComment
+  app.put    currentApiVersion + "/deals/:dealId/addcomment", deals.addComment
 
   #Finish with setting up the articleId param
   app.param 'shopId', deals.shop
