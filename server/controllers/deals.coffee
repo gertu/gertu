@@ -1,8 +1,8 @@
 mongoose = require "mongoose"
 async    = require "async"
 _        = require "underscore"
-Deal     = mongoose.model('Deal')
-Shop     = mongoose.model('Shop')
+Deal     = mongoose.model "Deal"
+Shop     = mongoose.model "Shop"
 User     = mongoose.model "User"
 
 exports.deal = (req, res, next, id) ->
@@ -85,13 +85,22 @@ exports.addComment = (req, res) ->
   if req.body.author and req.body.description and req.body.rating
     User.findOne(_id: req.body.author).exec (err, user) ->
       if user
-        comments = req.deal.comments
-        comments = _.extend(comments, req.body)
-        req.deal.save (err) ->
-          if err
-            res.render "error at add a comment", status: 500
+        Deal.findOne("comments.author": req.body.author).exec (err, user) ->
+          if !user
+            comments = req.deal.comments
+
+            _sumOfRatings = req.deal.average * (req.deal.comments.length)
+            average       = (_sumOfRatings + req.body.rating) / (req.deal.comments.length + 1)
+
+            req.deal.comments = _.union(comments, req.body)
+            req.deal          = _.extend(req.deal, "average": average)
+            req.deal.save (err) ->
+              if err
+                res.status(500).send("error at add a comment")
+              else
+                res.jsonp req.deal
           else
-            res.jsonp req.deal
+            res.status(500).send("this user has written a comment in this deal")
       else
         res.status(404).send("the user does not exist")
   else

@@ -5,7 +5,6 @@ Validations  = require "./validations"
 
 
 DealSchema = new Schema
-  _id          : type: String
   name         : type: String, required: true, trim: true
   description  : type: String, trim: true
   price        : type: Number, required: true, trim: true
@@ -18,15 +17,12 @@ DealSchema = new Schema
   image        : type: String
   created      : type: Date, default: Date.now
   quantity     : type: Number
+  average      : type: Number, default: 0, min: 0, max: 10
   comments     : [
       author      : type: Schema.Types.ObjectId, required: true, ref: "User"
       description : type: String
       writedAt    : type: Date, default: Date.now
       rating      : type: Number
   ]
-
-DealSchema.pre "save", (next) ->
-  @_id = Validations.slugify(@name + "-" + Validations.dateToString(@created))
-  next()
 
 mongoose.model "Deal", DealSchema

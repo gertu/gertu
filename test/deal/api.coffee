@@ -12,9 +12,10 @@ server   = request.agent(app)
 
 apiPreffix = '/api/v1'
 
-deal = undefined
-user = undefined
-shop = undefined
+deal  = undefined
+user  = undefined
+user2 = undefined
+shop  = undefined
 
 describe "<Unit test>", ->
   describe "API Deal:", ->
@@ -30,6 +31,13 @@ describe "<Unit test>", ->
         password : "pass11"
       )
       user.save()
+      user2 = new User(
+        email    : "user2@user2.com"
+        firstName: "Full Name"
+        lastName : "Last Name"
+        password : "pass11"
+      )
+      user2.save()
 
       shop = new Shop(
         email   : "shop@shop.com"
@@ -64,6 +72,7 @@ describe "<Unit test>", ->
           quantity    : 20
         ).end (err, res) ->
           res.should.have.status 200
+          res.body.average.should.have.eql 0
           done()
 
       it "should not be create because it does not exist this shop", (done) ->
@@ -150,6 +159,26 @@ describe "<Unit test>", ->
             rating     : 7
         ).end (err, res) ->
           res.should.have.status 200
+          res.body.average.should.have.eql 7
+          done()
+
+      it "should update the average score of the deal", (done) ->
+        server.put(apiPreffix + "/deals/" + deal._id + "/addcomment").send(
+            author     : user2._id
+            description: "This is a very important test"
+            rating     : 8
+        ).end (err, res) ->
+          res.should.have.status 200
+          res.body.average.should.have.eql 7.5
+          done()
+
+      it "should not add a comment because this user has already written on this deal", (done) ->
+        server.put(apiPreffix + "/deals/" + deal._id + "/addcomment").send(
+            author     : user._id
+            description: "This is a very important test"
+            rating     : 8
+        ).end (err, res) ->
+          res.should.have.status 500
           done()
 
       it "should not add a comment because it does not exist this user", (done) ->
