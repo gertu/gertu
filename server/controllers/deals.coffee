@@ -6,7 +6,7 @@ Shop     = mongoose.model "Shop"
 User     = mongoose.model "User"
 
 exports.deal = (req, res, next, id) ->
-  Deal.findOne(_id: id).exec (err, deal) ->
+  Deal.findOne(_id: id).populate("comments.author").exec (err, deal) ->
     return next(err)  if err
     return next(new Error('Failed to load deal ' + id))  unless deal
     req.deal = deal
@@ -17,13 +17,6 @@ exports.shop = (req, res, next, id) ->
     return next(err)  if err
     return next(new Error('Failed to load shop ' + id))  unless shop
     req.shop = shop
-    next()
-
-exports.user = (req, res, next, id) ->
-  User.findOne(_id: id).exec (err, shop) ->
-    return next(err)  if err
-    return next(new Error('Failed to load user ' + id))  unless user
-    req.user = user
     next()
 
 exports.create = (req, res) ->
