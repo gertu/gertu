@@ -5,7 +5,6 @@ Validations  = require "./validations"
 
 
 DealSchema = new Schema
-  _id          : type: String
   name         : type: String, required: true, trim: true
   description  : type: String, trim: true
   price        : type: Number, required: true, trim: true
@@ -20,12 +19,8 @@ DealSchema = new Schema
   quantity     : type: Number
 
 
-DealSchema.pre "save", (next) ->
-  @_id = Validations.slugify(@name + "-" + Validations.dateToString(@created))
-  next()
-
-
 DealSchema.statics.load = (id, cb) ->
   @findOne(_id: id).populate("shop", "name shop").exec cb
+
 
 mongoose.model "Deal", DealSchema
