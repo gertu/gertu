@@ -13,6 +13,13 @@ ShopSchema = new Schema
     type: String, default: '', trim: true
   password:
     type: String, default: '', trim: true
+  loc:
+    latitude:
+      type: Number, default: 0.0
+    longitude:
+      type: Number, default: 0.0
+
+ShopSchema.index {loc: "2d"}
 
 mongoose.model "Shop", ShopSchema
 
