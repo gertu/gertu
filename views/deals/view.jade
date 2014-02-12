@@ -3,4 +3,5 @@ section(data-ng-controller='DealsController', data-ng-init='findOne()')
     h1 {{deal.name}}
     p {{deal.created | date:'medium'}}
     p {{deal.shop.name}}
-    p {{deal.price | currency:"&euro;"}}        
+    p {{deal.price | currency:"&euro;"}}
+    button.btn.btn-primary(type="submit", ng-click="reserve()") {{'RESERVE' | translate}}

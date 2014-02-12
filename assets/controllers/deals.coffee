@@ -1,6 +1,6 @@
 angular.module("mean.deals").controller "DealsController", ["$scope",
-"$routeParams", "$location", "Global", "Deals", "DealsCategory", "DealsShop", ($scope, $routeParams,
-  $location, Global, Deals, DealsCategory, DealsShop) ->
+"$routeParams", "$location", "Global", "Deals", "DealsCategory", "DealsShop", "AppAlert", ($scope, $routeParams,
+  $location, Global, Deals, DealsCategory, DealsShop, AppAlert) ->
   $scope.global = Global
 
   $scope.create = ->
@@ -43,6 +43,14 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
       dealId: $routeParams.dealId
     , (deal) ->
       $scope.deal = deal
+
+  $scope.reserve = ->
+    deal = $scope.deal
+    deal.$reserve
+      dealId: $routeParams.dealId
+      action: "reserve"
+    , (cb) ->
+      AppAlert.add "success", "Oferta reservada con éxito"
 
 
   $scope.remove = (deal) ->

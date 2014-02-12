@@ -28,6 +28,7 @@ angular.module('mean').config ["$translateProvider", ($translateProvider) ->
     CLOSE_DEALS: "Nearby deals"
     MY_MESSAGES: "My messages"
     NO_NEAR_DEALS: "There are no nearby deals"
+    RESERVE: "Reserve"
     # Here we must add translations for english language
 
   $translateProvider.translations "es-ES",
@@ -59,6 +60,7 @@ angular.module('mean').config ["$translateProvider", ($translateProvider) ->
     CLOSE_DEALS: "Ofertas cercanas"
     MY_MESSAGES: "Mis mensajes"
     NO_NEAR_DEALS: "No hay ofertas cercanas"
+    RESERVE: "Reservar"
     # Here we must add translations for spanish language
 
 

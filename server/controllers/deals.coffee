@@ -1,8 +1,9 @@
-mongoose = require "mongoose"
-async    = require "async"
-_        = require "underscore"
-Deal     = mongoose.model('Deal')
-Shop     = mongoose.model('Shop')
+mongoose        = require "mongoose"
+async           = require "async"
+_               = require "underscore"
+Deal            = mongoose.model('Deal')
+Shop            = mongoose.model('Shop')
+Reservation     = mongoose.model('Reservation')
 
 
 exports.deal = (req, res, next, id) ->
@@ -66,7 +67,22 @@ exports.update = (req, res) ->
       deal: deal
     else
       res.jsonp deal
-      
+
+# reserve a deal
+exports.reserve = (req, res) ->
+  reservation = new Reservation()
+  reservation.deal = req.deal._id
+  reservation.user = req.user._id
+  reservation.save (err) ->
+    Deal.collection.update
+      _id: req.deal._id
+    ,
+      $inc:
+        quantity:
+          -1
+    , (err,data) ->
+      res.writeHead 200
+      res.end()
 
 exports.destroy = (req, res) ->
   deal = req.deal
