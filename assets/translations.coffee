@@ -9,6 +9,11 @@ angular.module('mean').config ["$translateProvider", ($translateProvider) ->
     NO_SHOP_HAS_BEEN_FOUND: 'EN_No se ha encontrado ningún comercio con los credenciales suministrados'
     PASSWORD_AND_EMAIL_HAVE_TO_BE_PROVIDED: 'EN_Debe indicar una contaseña y un email para poder acceder'
     UNKNOWN_ERROR: 'EN_Error desconocido'
+    COMMENTS: 'Comments'
+    DESCRIPTION: 'Description'
+    DESCRIPTION_PLACEHOLDER: 'Description of the deal...'
+    RATING: 'Rating'
+    ADDED_COMMENT: 'Comment has been added!'
     # Here we must add translations for english language
 
   $translateProvider.translations "es-ES",
@@ -21,6 +26,11 @@ angular.module('mean').config ["$translateProvider", ($translateProvider) ->
     NO_SHOP_HAS_BEEN_FOUND: 'No se ha encontrado ningún comercio con los credenciales suministrados'
     PASSWORD_AND_EMAIL_HAVE_TO_BE_PROVIDED: 'Debe indicar una contaseña y un email para poder acceder'
     UNKNOWN_ERROR: 'Error desconocido'
+    COMMENTS: 'Comentarios'
+    DESCRIPTION: 'Descripción'
+    DESCRIPTION_PLACEHOLDER: 'Descripción de la oferta...'
+    RATING: 'Puntuación'
+    ADDED_COMMENT: '¡El comentario ha sido añadido!'
     # Here we must add translations for spanish language
 
 

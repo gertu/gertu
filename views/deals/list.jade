@@ -18,6 +18,6 @@ section(data-ng-controller='DealsController', data-ng-init='find()')
               p.price {{deal.price | currency:"&euro;"}}
               p.discount {{deal.discount | number:0}}%
             .gertuprice
-              p {{deal.gertuprice | currency:"&euro;"}}        
-          rating.deal-rating(value='rate', max='max', readonly='isReadonly')
-          span {{rate}}/{{max}}
+              p {{deal.gertuprice | currency:"&euro;"}}
+          p Valoración
+          p {{deal.average}}/10

@@ -75,18 +75,22 @@ exports.destroy = (req, res) ->
 
 # functions about Comments
 exports.addComment = (req, res) ->
-  if req.body.author and req.body.description and req.body.rating
-    User.findOne(_id: req.body.author).exec (err, user) ->
+  if req.query.author and req.query.description and req.query.rating
+    User.findOne(_id: req.query.author).exec (err, user) ->
       if user
-        Deal.findOne("comments.author": req.body.author).exec (err, user) ->
+        Deal.findOne("comments.author": req.query.author).exec (err, user) ->
           if !user
-            comments = req.deal.comments
+            comment =
+              author     : req.query.author
+              description: req.query.description
+              rating     : Number(req.query.rating)
 
-            _sumOfRatings = req.deal.average * (req.deal.comments.length)
-            average       = (_sumOfRatings + req.body.rating) / (req.deal.comments.length + 1)
+            sumOfRatings = req.deal.average * (req.deal.comments.length)
+            average      = (sumOfRatings + comment.rating) / (req.deal.comments.length + 1)
 
-            req.deal.comments = _.union(comments, req.body)
-            req.deal          = _.extend(req.deal, "average": average)
+            req.deal.comments.push comment
+
+            req.deal = _.extend(req.deal, "average": average)
             req.deal.save (err) ->
               if err
                 res.status(500).send("error at add a comment")

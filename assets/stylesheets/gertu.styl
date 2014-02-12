@@ -11,6 +11,7 @@ brown         = #483000
 blueish-green = #84C090
 light-gray    = #F7F5FA
 light-black   = #666666
+gold          = #E0B53E
 
 //functions
 gradient(direction = top, color1, color2)
@@ -71,6 +72,9 @@ body
   z-index 10
   background rgba(brown,0.35)
 
+ul
+  list-style-type none
+
 .navbar
   box-shadow(0,0,20px,rgba(black,0.8))
   gradient(color1: lighten(dark-green,5), color2: light-green)
@@ -105,8 +109,8 @@ body
 
 .navbar-inverse .navbar-nav > .dropdown > a .caret
   margin-left 5px
-  
-  
+
+
 .alert
   width 300px
   margin-left -150px
@@ -345,7 +349,7 @@ form.signup
           height 70px
           padding-top 15px
           float left
-          background dark-green 
+          background dark-green
           color white
           p
             font-size 28px
@@ -358,6 +362,11 @@ form.signup
         cursor pointer
         transition(background,ease-in-out,.15s)
         border-radius 5px
+
+.rating
+  float right
+  .deal-rating
+    color gold
 
 footer
   .navbar-inverse .navbar-text

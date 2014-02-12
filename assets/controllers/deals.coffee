@@ -1,6 +1,6 @@
 angular.module("mean.deals").controller "DealsController", ["$scope",
-"$routeParams", "$location", "Global", "Deals", "DealsCategory", "DealsShop", ($scope, $routeParams,
-  $location, Global, Deals, DealsCategory, DealsShop) ->
+"$routeParams", "$location", "Global", "Deals", "DealsCategory", "DealsShop", "AppAlert", ($scope, $routeParams,
+  $location, Global, Deals, DealsCategory, DealsShop, AppAlert) ->
   $scope.global = Global
 
   $scope.create = ->
@@ -16,6 +16,7 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
       dataend: @dataend
       image: @image
       quantity: @quantity
+      average: @average
     )
     deal.$save (response) ->
       $location.path "/"
@@ -60,6 +61,19 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
     deal.$update ->
       $location.path "/admin/deals/" + deal._id
       $scope.global.deal = deal
+
+  $scope.addComent = () ->
+    deal = $scope.deal
+    deal.$addComment
+      dealId     : $routeParams.dealId
+      action     : "addComment"
+      author     : $scope.global.user._id
+      description: $scope.comment.description
+      rating     : $scope.comment.rating
+    ,
+      (cb) ->
+        $scope.deal = cb
+        AppAlert.add "success","ADDED_COMMENT"
 
 
   truncateDecimals = (number) ->
