@@ -96,6 +96,13 @@ module.exports = (app, passport) ->
   app.post "/management/administrators/remove/:id", Security.authenticateAdministrator, managementAdministrators.removeDo
   # End of adminstrator management
 
+  # Payment management
+  managementPayments = require("../server/controllers/management/payments")
+  app.get  "/management/payments/list", Security.authenticateAdministrator, managementPayments.list
+  app.get  "/management/payments/confirm/:id", Security.authenticateAdministrator, managementPayments.confirm
+  app.get  "/management/payments/history/:id", Security.authenticateAdministrator, managementPayments.history
+  # End of payment management
+
   # End of management routes
 
   # Mobile API

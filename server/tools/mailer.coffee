@@ -54,7 +54,7 @@ config     = require("../../config/config")
     mailsender.sendMail mailOptions, (error) ->
       if error and onError?
         onError(error)
-      else if onSuccess? and onSuccess?
+      else if onSuccess?
         onSuccess()
 
   module.exports = Mailer
