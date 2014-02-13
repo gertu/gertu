@@ -74,3 +74,31 @@ angular.module("mean.shops").controller "ShopLogInController",
       else
         $scope.errors = validationErrors
   ]
+
+# Shop LogIn
+angular.module("mean.shops").controller "ShopProfileController",
+  ["$scope", "$location", "$http", "Global", "Validation", ($scope, $location, $http, Global, Validation) ->
+    
+    $http(
+      url: "/api/v1/shopsinfo"
+      method: "GET"
+    )
+    .success (data, status) ->
+      $scope.shop = data
+    
+    .error (data, status) ->
+      $scope.errors = (if (status is 403) then ["NO_SHOP_HAS_BEEN_FOUND"] else ["UNKNOWN_ERROR"])
+    
+    $scope.updateShopInfo = () ->
+      console.log $scope.shop
+      $http(
+        url: "/api/v1/shopsinfo"
+        method: "POST",
+        data: $scope.shop
+      )
+      .success (data, status) ->
+        $scope.shop = data
+      
+      .error (data, status) ->
+        $scope.errors = (if (status is 403) then ["NO_SHOP_HAS_BEEN_FOUND"] else ["UNKNOWN_ERROR"])
+  ]

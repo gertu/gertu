@@ -29,6 +29,10 @@ angular.module('mean').config ['$routeProvider', ($routeProvider) ->
     templateUrl: "/views/pages/shop/login.html",
     controller: "ShopLogInController"
 
+  ).when("/admin/profile",
+    templateUrl: "/views/pages/shop/profile.html",
+    controller: "ShopProfileController"
+
   ).when('/admin/deals/create',
     templateUrl: '/views/pages/shop/create.html'
 

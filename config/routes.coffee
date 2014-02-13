@@ -30,6 +30,8 @@ module.exports = (app, passport) ->
   app.get "/shop/logout", shop.logout
   app.get  currentApiVersion + "/shops/emailexists", shop.emailexists
   app.get  currentApiVersion + "/shops", shop.current
+  app.get  currentApiVersion + "/shopsinfo", shop.currentShopInfo
+  app.post currentApiVersion + "/shopsinfo", shop.updateShopInfo
 
   # Finish with setting up the userId param
   app.param "userId", users.user

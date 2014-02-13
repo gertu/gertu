@@ -71,6 +71,43 @@ exports.current = (req, res) ->
   res.status(200).send(currentLoggedShop.userEmail) if currentLoggedShop?
   res.status(403).send('Access denied') if not currentLoggedShop?
 
+exports.currentShopInfo = (req, res) ->
+
+  currentLoggedShop = req.session.currentShop
+
+  shopId = currentLoggedShop.shopId
+
+  Shop.findOne({_id: shopId}).exec( (err, shopdata) ->
+    if err
+      res.status(500).send('Application error')
+    else if not shopdata?
+      res.status(403).send('Access denied')
+    else
+      res.send JSON.stringify(shopdata)
+  )
+ 
+exports.updateShopInfo = (req, res) ->
+
+  currentLoggedShop = req.session.currentShop
+
+  shopId = currentLoggedShop.shopId
+
+  Shop.findOne({_id: shopId}).exec( (err, shopdata) ->
+    if err
+      res.status(500).send('Application error')
+    else if not shopdata?
+      res.status(403).send('Access denied')
+    else
+      console.log req.body
+      shopdata.email = req.body.email
+      shopdata.name = req.body.name
+      shopdata.loc.longitude = req.body.loc.longitude
+      shopdata.loc.latitude = req.body.loc.latitude
+
+      shopdata.save()
+
+      res.send JSON.stringify(shopdata)
+  )
 
 exports.emailexists = (req, res) ->
 

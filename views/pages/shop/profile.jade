@@ -1,0 +1,16 @@
+h1 Profile
+
+form(method="POST", data-ng-submit="updateShopInfo()")
+    label Nombre
+    input(type="text", ng-model="shop.name")
+    br
+    label Email
+    input(type="email", ng-model="shop.email")
+    br
+    label Longitud
+    input(type="text", ng-model="shop.loc.longitude")
+    br
+    label Latitud
+    input(type="text", ng-model="shop.loc.latitude")
+    br
+    input(Type="submit", ng-model="Actualizar")
