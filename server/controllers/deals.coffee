@@ -74,30 +74,36 @@ exports.destroy = (req, res) ->
       res.send JSON.stringify(deal)
 
 # functions about Comments
+hasWritten = (req, user) ->
+  i = 0
+  while i < req.deal.comments.length
+    return true  if req.deal.comments[i].author._id.equals user._id
+    i++
+  return false
+
 exports.addComment = (req, res) ->
   if req.query.author and req.query.description and req.query.rating
     User.findOne(_id: req.query.author).exec (err, user) ->
       if user
-        Deal.findOne("comments.author": req.query.author).exec (err, user) ->
-          if !user
-            comment =
-              author     : req.query.author
-              description: req.query.description
-              rating     : Number(req.query.rating)
+        if !(hasWritten(req, user))
+          comment =
+            author     : req.query.author
+            description: req.query.description
+            rating     : Number(req.query.rating)
 
-            sumOfRatings = req.deal.average * (req.deal.comments.length)
-            average      = (sumOfRatings + comment.rating) / (req.deal.comments.length + 1)
+          sumOfRatings = req.deal.average * (req.deal.comments.length)
+          average      = (sumOfRatings + comment.rating) / (req.deal.comments.length + 1)
 
-            req.deal.comments.push comment
+          req.deal.comments.push comment
 
-            req.deal = _.extend(req.deal, "average": average)
-            req.deal.save (err) ->
-              if err
-                res.status(500).send("error at add a comment")
-              else
-                res.jsonp req.deal
-          else
-            res.status(500).send("this user has written a comment in this deal")
+          req.deal = _.extend(req.deal, "average": average)
+          req.deal.save (err) ->
+            if err
+              res.status(500).send("error at add a comment")
+            else
+              res.jsonp req.deal
+        else
+          res.status(500).send("this user has written a comment in this deal")
       else
         res.status(404).send("the user does not exist")
   else
