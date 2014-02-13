@@ -43,7 +43,8 @@
     "underscore"           : "latest",
     "nodemailer"           : "latest",
     "cron"                 : "*",
-    "grunt-cli"            : "*"
+    "grunt-cli"            : "*",
+    "paypal-rest-sdk"      : "*"
   },
   "devDependencies": {
 
@@ -67,6 +68,7 @@
     "grunt-env"           : "*",
     "grunt-mocha-test"    : "*",
     "grunt-nodemon"       : "*",
-    "cron"                : "*"
+    "cron"                : "*",
+    "paypal-rest-sdk"     : "*"
   }
 }
