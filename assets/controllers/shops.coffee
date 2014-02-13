@@ -90,7 +90,7 @@ angular.module("mean.shops").controller "ShopProfileController",
       $scope.errors = (if (status is 403) then ["NO_SHOP_HAS_BEEN_FOUND"] else ["UNKNOWN_ERROR"])
     
     $scope.updateShopInfo = () ->
-      console.log $scope.shop
+      
       $http(
         url: "/api/v1/shopsinfo"
         method: "POST",
