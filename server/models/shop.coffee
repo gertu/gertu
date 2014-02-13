@@ -18,6 +18,21 @@ ShopSchema = new Schema
       type: Number, default: 0.0
     longitude:
       type: Number, default: 0.0
+  card:
+    type:
+      type: String, default: ''
+    number:
+      type: Number, default: 0
+    expire_month:
+      type: Number, default: 0
+    expire_year:
+      type: Number, default: 0
+    cvv2:
+      type: Number, default: 0
+    first_name:
+      type: String, default: ''
+    last_name:
+      type: String, default: ''
 
 ShopSchema.index {loc: "2d"}
 

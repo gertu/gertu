@@ -13,4 +13,29 @@ form(method="POST", data-ng-submit="updateShopInfo()")
     label Latitud
     input(type="text", ng-model="shop.loc.latitude")
     br
+    fieldset
+        legend Información de facturación
+        label Tipo de tarjeta
+        select(ng-model="shop.card.type")
+            option(value="1") Visa
+            option(value="2") MasterCard
+        br
+        label Número
+        input(type="text", ng-model="shop.card.number")
+        br
+        label Mes expiración
+        input(type="text", ng-model="shop.card.expire_month")
+        br
+        label Año expiración
+        input(type="text", ng-model="shop.card.expire_year")
+        br
+        label CCV
+        input(type="text", ng-model="shop.card.cvv2")
+        br
+        label Nombre en la tarjeta
+        input(type="text", ng-model="shop.card.first_name")
+        br
+        label Apellidos en la tarjeta
+        input(type="text", ng-model="shop.card.last_name")
+         
     input(Type="submit", ng-model="Actualizar")

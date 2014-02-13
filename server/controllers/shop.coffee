@@ -98,12 +98,11 @@ exports.updateShopInfo = (req, res) ->
     else if not shopdata?
       res.status(403).send('Access denied')
     else
-      console.log req.body
+      
       shopdata.email = req.body.email
       shopdata.name = req.body.name
-      shopdata.loc.longitude = req.body.loc.longitude
-      shopdata.loc.latitude = req.body.loc.latitude
-
+      shopdata.loc = req.body.loc
+      shopdata.card = req.body.card
       shopdata.save()
 
       res.send JSON.stringify(shopdata)
