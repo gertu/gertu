@@ -17,8 +17,8 @@ form(method="POST", data-ng-submit="updateShopInfo()")
         legend Información de facturación
         label Tipo de tarjeta
         select(ng-model="shop.card.type")
-            option(value="1") Visa
-            option(value="2") MasterCard
+            option(value="Visa") Visa
+            option(value="MasterCard") MasterCard
         br
         label Número
         input(type="text", ng-model="shop.card.number")
