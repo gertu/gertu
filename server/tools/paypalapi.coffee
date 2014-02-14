@@ -3,7 +3,7 @@ paypal_api = require('paypal-rest-sdk')
 (->
   PaypalAPI = { }
 
-  PaypalAPI.makePayment = (creditCardInfo, amount, onSuccess, onError) ->
+  PaypalAPI.makePayment = (creditCardInfo, billing_address, amount, onSuccess, onError) ->
     config_opts =
       host: "api.sandbox.paypal.com"
       port: ""
@@ -23,11 +23,11 @@ paypal_api = require('paypal-rest-sdk')
           first_name: creditCardInfo.first_name.toString()
           last_name: creditCardInfo.last_name.toString()
           billing_address:
-            line1: "52 N Main ST"
-            city: "Johnstown"
-            state: "OH"
-            postal_code: "43210"
-            country_code: "US"
+            line1: billing_address.line1
+            city: billing_address.city
+            state: billing_address.state
+            postal_code: billing_address.postal_code
+            country_code: billing_address.country_code
         ]
 
       transactions: [
