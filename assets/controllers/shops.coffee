@@ -99,7 +99,8 @@ angular.module("mean.shops").controller "ShopProfileController",
       )
       .success (data, status) ->
         $scope.shop = data
-      
+        AppAlert.add "success","INFORMATION_UPDATED"
       .error (data, status) ->
         $scope.errors = (if (status is 403) then ["NO_SHOP_HAS_BEEN_FOUND"] else ["UNKNOWN_ERROR"])
+        AppAlert.add "warning","ERROR"
   ]
