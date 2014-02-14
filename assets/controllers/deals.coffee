@@ -1,6 +1,6 @@
 angular.module("mean.deals").controller "DealsController", ["$scope",
-"$routeParams", "$location", "Global", "Deals", "DealsCategory", "DealsShop", "AppAlert", ($scope, $routeParams,
-  $location, Global, Deals, DealsCategory, DealsShop, AppAlert) ->
+"$routeParams", "$location", "Global", "Deals", "DealsCategory", "DealsShop", "AppAlert", "$http", ($scope,
+  $routeParams, $location, Global, Deals, DealsCategory, DealsShop, AppAlert, $http) ->
   $scope.global = Global
 
   $scope.create = ->
@@ -64,17 +64,18 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
 
   $scope.addComent = () ->
     deal = $scope.deal
-    deal.$addComment
-      dealId     : $routeParams.dealId
-      action     : "addComment"
-      author     : $scope.global.user._id
-      description: $scope.comment.description
-      rating     : $scope.comment.rating
-    ,
-      (cb) ->
-        $scope.deal = cb
-        AppAlert.add "success","ADDED_COMMENT"
-
+    comment = $scope.comment
+    if not comment.rating?
+      comment.rating = 0
+    
+    $http(
+      url: "/api/v1/deals/" + deal._id + "/addComment"
+      method: "PUT"
+      data: $scope.comment
+    )
+    .success (data, status) ->
+      $scope.deal = data
+      AppAlert.add "success","ADDED_COMMENT"
 
   truncateDecimals = (number) ->
     Math[(if number < 0 then "ceil" else "floor")] number

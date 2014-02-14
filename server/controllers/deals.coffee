@@ -82,14 +82,18 @@ hasWritten = (req, user) ->
   return false
 
 exports.addComment = (req, res) ->
-  if req.query.author and req.query.description and req.query.rating
-    User.findOne(_id: req.query.author).exec (err, user) ->
+  description = req.body.description
+  rating = req.body.rating
+  currentUser = req.user
+
+  if description? and rating?
+    User.findOne(_id: currentUser._id).exec (err, user) ->
       if user
-        if !(hasWritten(req, user))
+        if !hasWritten(req, currentUser)
           comment =
-            author     : req.query.author
-            description: req.query.description
-            rating     : Number(req.query.rating)
+            author     : user._id
+            description: description
+            rating     : Number(rating)
 
           sumOfRatings = req.deal.average * (req.deal.comments.length)
           average      = (sumOfRatings + comment.rating) / (req.deal.comments.length + 1)
@@ -99,11 +103,12 @@ exports.addComment = (req, res) ->
           req.deal = _.extend(req.deal, "average": average)
           req.deal.save (err) ->
             if err
-              res.status(500).send("error at add a comment")
+              console.log err
+              res.status(500).send(err)
             else
               res.jsonp req.deal
         else
-          res.status(500).send("this user has written a comment in this deal")
+          res.status(409).send("user has already post a comment in this deal")
       else
         res.status(404).send("the user does not exist")
   else
