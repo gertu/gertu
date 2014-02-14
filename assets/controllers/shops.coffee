@@ -92,15 +92,27 @@ angular.module("mean.shops").controller "ShopProfileController",
     
     $scope.updateShopInfo = () ->
       
-      $http(
-        url: "/api/v1/shopsinfo"
-        method: "POST",
-        data: $scope.shop
-      )
-      .success (data, status) ->
-        $scope.shop = data
-        AppAlert.add "success","INFORMATION_UPDATED"
-      .error (data, status) ->
-        $scope.errors = (if (status is 403) then ["NO_SHOP_HAS_BEEN_FOUND"] else ["UNKNOWN_ERROR"])
-        AppAlert.add "warning","ERROR"
+      hasErrors = false
+
+      if $scope.password? and $scope.passwordRpt?
+        if $scope.password == $scope.passwordRpt
+          $scope.shop.password = $scope.password
+        else
+          hasErrors = true
+          AppAlert.add "warning","PASSWODRDS_DO_NOT_MATCH"
+      else
+        $scope.shop.password = ''
+
+      if not hasErrors
+        $http(
+          url: "/api/v1/shopsinfo"
+          method: "POST",
+          data: $scope.shop
+        )
+        .success (data, status) ->
+          $scope.shop = data
+          AppAlert.add "success","INFORMATION_UPDATED"
+        .error (data, status) ->
+          $scope.errors = (if (status is 403) then ["NO_SHOP_HAS_BEEN_FOUND"] else ["UNKNOWN_ERROR"])
+          AppAlert.add "warning","ERROR"
   ]

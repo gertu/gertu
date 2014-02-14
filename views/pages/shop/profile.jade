@@ -1,18 +1,29 @@
-h1 Profile
+h1 PErfil de la tienda
 
 form(method="POST", data-ng-submit="updateShopInfo()")
-    label Nombre
-    input(type="text", ng-model="shop.name")
-    br
-    label Email
-    input(type="email", ng-model="shop.email")
-    br
-    label Longitud
-    input(type="text", ng-model="shop.loc.longitude")
-    br
-    label Latitud
-    input(type="text", ng-model="shop.loc.latitude")
-    br
+    .row
+        .col-md-6
+            fieldset
+                legend General
+                label Nombre
+                input(type="text", ng-model="shop.name")
+                br
+                label Email
+                input(type="email", ng-model="shop.email")
+                br
+                label Clave
+                input(type="password", ng-model="password")
+                br
+                label Repita clave
+                input(type="password", ng-model="passwordRpt")
+        .col-md-6
+            fieldset
+                legend Localización
+                label Longitud
+                input(type="text", ng-model="shop.loc.longitude")
+                br
+                label Latitud
+                input(type="text", ng-model="shop.loc.latitude")
     .row
         .col-md-6
             fieldset

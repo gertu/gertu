@@ -102,8 +102,14 @@ exports.updateShopInfo = (req, res) ->
       shopdata.email = req.body.email
       shopdata.name = req.body.name
       shopdata.loc = req.body.loc
+      
+      if req.body.password? and req.body.password != ''
+        shopdata.password = req.body.password
+
       shopdata.card = req.body.card
+
       shopdata.billing_address = req.body.billing_address
+      
       shopdata.save()
 
       res.send JSON.stringify(shopdata)
