@@ -22,12 +22,7 @@ paypal_api = require('paypal-rest-sdk')
           cvv2: creditCardInfo.cvv2.toString()
           first_name: creditCardInfo.first_name.toString()
           last_name: creditCardInfo.last_name.toString()
-          billing_address:
-            line1: billing_address.line1
-            city: billing_address.city
-            state: billing_address.state
-            postal_code: billing_address.postal_code
-            country_code: billing_address.country_code
+          billing_address: billing_address
         ]
 
       transactions: [
