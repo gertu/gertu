@@ -77,7 +77,8 @@ angular.module("mean.shops").controller "ShopLogInController",
 
 # Shop LogIn
 angular.module("mean.shops").controller "ShopProfileController",
-  ["$scope", "$location", "$http", "Global", "Validation", ($scope, $location, $http, Global, Validation) ->
+  ["$scope", "$location", "$http", "Global", "Validation", "AppAlert"
+  ($scope, $location, $http, Global, Validation, AppAlert) ->
     
     $http(
       url: "/api/v1/shopsinfo"

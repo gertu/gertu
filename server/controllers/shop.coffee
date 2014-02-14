@@ -103,6 +103,7 @@ exports.updateShopInfo = (req, res) ->
       shopdata.name = req.body.name
       shopdata.loc = req.body.loc
       shopdata.card = req.body.card
+      shopdata.billing_address = req.body.billing_address
       shopdata.save()
 
       res.send JSON.stringify(shopdata)

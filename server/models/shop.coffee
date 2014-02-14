@@ -33,6 +33,18 @@ ShopSchema = new Schema
       type: String, default: ''
     last_name:
       type: String, default: ''
+  billing_address:
+    line1:
+      type: String, default: ''
+    city:
+      type: String, default: ''
+    state:
+      type: String, default: ''
+    postal_code:
+      type: String, default: ''
+    country_code:
+      type: String, default: ''
+
 
 ShopSchema.index {loc: "2d"}
 
