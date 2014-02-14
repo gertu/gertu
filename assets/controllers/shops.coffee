@@ -79,16 +79,20 @@ angular.module("mean.shops").controller "ShopLogInController",
 angular.module("mean.shops").controller "ShopProfileController",
   ["$scope", "$location", "$http", "Global", "Validation", "AppAlert"
   ($scope, $location, $http, Global, Validation, AppAlert) ->
-    
+  
     $http(
       url: "/api/v1/shopsinfo"
       method: "GET"
     )
     .success (data, status) ->
       $scope.shop = data
+      $scope.center = new google.maps.LatLng(data.loc.longitude, data.loc.latitude)
     
     .error (data, status) ->
       $scope.errors = (if (status is 403) then ["NO_SHOP_HAS_BEEN_FOUND"] else ["UNKNOWN_ERROR"])
+    
+    $scope.updateMapCenter = () ->
+      $scope.center = new google.maps.LatLng($scope.shop.loc.longitude, $scope.shop.loc.latitude)
     
     $scope.updateShopInfo = () ->
       
