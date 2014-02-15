@@ -1,4 +1,4 @@
-h1 PErfil de la tienda
+h1 Perfil de la tienda
 
 form(method="POST", data-ng-submit="updateShopInfo()")
     .row
@@ -16,7 +16,6 @@ form(method="POST", data-ng-submit="updateShopInfo()")
                 br
                 label Repita clave
                 input(type="password", ng-model="passwordRpt")
-        .col-md-6
             fieldset
                 legend Localización
                 label Longitud
@@ -26,10 +25,11 @@ form(method="POST", data-ng-submit="updateShopInfo()")
                 label Latitud
                 input(type="text", ng-model="shop.loc.latitude",
                       ng-change="updateCenter(shop.loc.longitude, shop.loc.latitude)")
-                br
-                label Mapa
-                gm-map(gm-map-id="'myMap'", gm-center="center", gm-zoom="zoom", gm-bounds="bounds",
-                       gm-map-type-id="mapTypeId", style="width:500px;height:500px;")
+        .col-md-6
+            fieldset
+                legend Mapa
+                gm-map(gm-map-id="'shopLocationMap'", gm-center="center", gm-zoom="zoom", gm-bounds="bounds",
+                       gm-map-type-id="mapTypeId", style="width:100%;height:500px;")
     .row
         .col-md-6
             fieldset
