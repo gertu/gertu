@@ -20,10 +20,12 @@ form(method="POST", data-ng-submit="updateShopInfo()")
             fieldset
                 legend Localización
                 label Longitud
-                input(type="text", ng-model="shop.loc.longitude", ng-change="updateMapCenter()")
+                input(type="text", ng-model="shop.loc.longitude",
+                      ng-change="updateCenter(shop.loc.longitude, shop.loc.latitude)")
                 br
                 label Latitud
-                input(type="text", ng-model="shop.loc.latitude", ng-change="updateMapCenter()")
+                input(type="text", ng-model="shop.loc.latitude",
+                      ng-change="updateCenter(shop.loc.longitude, shop.loc.latitude)")
                 br
                 label Mapa
                 gm-map(gm-map-id="'myMap'", gm-center="center", gm-zoom="zoom", gm-bounds="bounds",

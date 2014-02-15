@@ -86,14 +86,21 @@ angular.module("mean.shops").controller "ShopProfileController",
     )
     .success (data, status) ->
       $scope.shop = data
-      $scope.center = new google.maps.LatLng(data.loc.longitude, data.loc.latitude)
+      $scope.center = new google.maps.LatLng(data.loc.latitude, data.loc.longitude)
     
     .error (data, status) ->
       $scope.errors = (if (status is 403) then ["NO_SHOP_HAS_BEEN_FOUND"] else ["UNKNOWN_ERROR"])
     
-    $scope.updateMapCenter = () ->
-      $scope.center = new google.maps.LatLng($scope.shop.loc.longitude, $scope.shop.loc.latitude)
-    
+    $scope.$watch "center", (center) ->
+      if center
+        $scope.shop.loc.latitude  = center.lat()
+        $scope.shop.loc.longitude = center.lng()
+      return
+
+    $scope.updateCenter = (lng, lat) ->
+      $scope.center = new google.maps.LatLng(lat, lng)
+      return
+
     $scope.updateShopInfo = () ->
       
       hasErrors = false
