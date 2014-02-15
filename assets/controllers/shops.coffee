@@ -29,9 +29,7 @@ angular.module("mean.shops").controller 'ShopSignUpController',
 
           shop.$save(
             (successData) ->
-              $scope.global.authenticated = true
-              $scope.global.shop = successData
-              $location.path('/')
+              $location.path('/admin/shouldconfirm/' + shop._id)
             ,
             (errorData) ->
               $scope.errorMsg = errorData
@@ -69,7 +67,10 @@ angular.module("mean.shops").controller "ShopLogInController",
           $location.path('/')
 
         .error (data, status) ->
-          $scope.errors = (if (status is 403) then ["NO_SHOP_HAS_BEEN_FOUND"] else ["UNKNOWN_ERROR"])
+          if status is 401
+            $location.path('/admin/shouldconfirm/' + data._id)
+          else
+            $scope.errors = (if (status is 403) then ["NO_SHOP_HAS_BEEN_FOUND"] else ["UNKNOWN_ERROR"])
 
       else
         $scope.errors = validationErrors
@@ -79,7 +80,10 @@ angular.module("mean.shops").controller "ShopLogInController",
 angular.module("mean.shops").controller "ShopProfileController",
   ["$scope", "$location", "$http", "Global", "Validation", "AppAlert"
   ($scope, $location, $http, Global, Validation, AppAlert) ->
-  
+    
+    if $location.search('confirmed')
+      AppAlert.add "success","ACCOUNT_CONFIRMED"
+
     $http(
       url: "/api/v1/shopsinfo"
       method: "GET"
@@ -126,4 +130,20 @@ angular.module("mean.shops").controller "ShopProfileController",
         .error (data, status) ->
           $scope.errors = (if (status is 403) then ["NO_SHOP_HAS_BEEN_FOUND"] else ["UNKNOWN_ERROR"])
           AppAlert.add "warning","ERROR"
+  ]
+
+angular.module("mean.shops").controller "ShopShouldConfirmController",
+  ["$scope", "$location", "$http", "$routeParams", "AppAlert",
+  ($scope, $location, $http, $routeParams, AppAlert) ->
+
+    $scope.shopId = $routeParams.id
+
+    $scope.resendConfirmationMail = () ->
+      $http(
+          url: "/api/v1/shops/confirmaccount"
+          method: "POST",
+          data: {id: $scope.shopId}
+        )
+      
+      AppAlert.add "warning","CONFIRMATION_MAIL_RESENT"
   ]

@@ -13,6 +13,8 @@ ShopSchema = new Schema
     type: String, default: '', trim: true
   password:
     type: String, default: '', trim: true
+  confirmed :
+    type: Boolean, default: false
   loc:
     latitude:
       type: Number, default: 0.0

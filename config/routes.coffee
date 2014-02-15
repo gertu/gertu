@@ -28,6 +28,8 @@ module.exports = (app, passport) ->
   app.post currentApiVersion + "/shops", shop.signup
   app.post currentApiVersion + "/shops/login", shop.login
   app.get "/shop/logout", shop.logout
+  app.get "/admin/confirmaccount/:accountid", shop.confirmAccount
+  app.post currentApiVersion + "/shops/confirmaccount", shop.resendConfirmationAccount
   app.get  currentApiVersion + "/shops/emailexists", shop.emailexists
   app.get  currentApiVersion + "/shops", shop.current
   app.get  currentApiVersion + "/shopsinfo", shop.currentShopInfo
