@@ -3,6 +3,27 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
   $location, Global, Deals, DealsCategory, DealsShop) ->
   $scope.global = Global
 
+  # $scope.days [
+  #   "Lunes"
+  #   "Martes"
+  #   "Miercoles"
+  #   "Jueves"
+  #   ]
+
+  # $scope.selection ['Lunes', 'Martes']
+
+  # $scope.toggleSelection = toggleSelection = (fruitName) ->
+  #   idx = $scope.selection.indexOf(fruitName)
+    
+  #   # is currently selected
+  #   if idx > -1
+  #     $scope.selection.splice idx, 1
+    
+  #   # is newly selected
+  #   else
+  #     $scope.selection.push fruitName
+  #   return
+
   $scope.create = ->
     deal = new Deals(
       name: @name,
@@ -14,13 +35,12 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
       categoryname: $scope.categoryname
       datainit: @datainit
       dataend: @dataend
-      image: @image
       quantity: @quantity
     )
     deal.$save (response) ->
-      $location.path "/"
+      $location.path "/admin/deals/photo/" + deal._id
 
-
+  
   $scope.findbyshop = ->
     DealsShop.query
       shopId: $routeParams.shopId
@@ -46,20 +66,21 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
 
 
   $scope.remove = (deal) ->
-    if deal
-      deal.$remove()
-      for i of $scope.deals
-        $scope.deals.splice i, 1  if $scope.deals[i] is deal
-    else
-      $scope.deal.$remove()
-      $location.path "/"
+    if confirm("Estas seguro")
+      if deal
+        deal.$remove()
+        for i of $scope.deals
+          $scope.deals.splice i, 1  if $scope.deals[i] is deal
+      else
+        $scope.deal.$remove()
+        $location.path "/"
 
 
   $scope.update = ->
     deal = $scope.deal
     deal.$update ->
-      $location.path "/admin/deals/" + deal._id
       $scope.global.deal = deal
+      $location.path "/admin/deals/photo/" + deal._id
 
 
   truncateDecimals = (number) ->
@@ -73,7 +94,6 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
       discount = 100 - (gertuprice * 100 / price)
       $scope.discount = truncateDecimals(discount)
     else
-      console.log("bai")
       price = $scope.deal.price
       gertuprice = $scope.deal.gertuprice
       discount = 100 - (gertuprice * 100 / price)
@@ -87,7 +107,6 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
       gertuprice = price - (discount * price / 100)
       $scope.gertuprice = truncateDecimals(gertuprice)
     else
-      console.log("bai")
       price = $scope.deal.price
       discount = $scope.deal.discount
       gertuprice = price - (discount * price / 100)
