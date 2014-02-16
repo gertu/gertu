@@ -64,7 +64,7 @@ exports.updatePicture = (req, res) ->
   file = req.files.picture
   name = file.name
   type = file.type
-  path = __dirname + "/public/img/userphotos/" + name
+  path = __dirname + "/public/upload/" + name
   user = req.user
 
   format = type.split("/")
@@ -73,9 +73,9 @@ exports.updatePicture = (req, res) ->
       res.send "Ocurrio un error al intentar subir la imagen"  if err
       res.redirect "/profile"
       User.findOne(_id: user._id).exec (err, userfound) ->
-        fs.unlink Path.resolve(".")+ "/public/img"  + userfound.picture
-        splittednewname = (file.path).split("\\")
-        userfound.picture = "/img/userphotos/" + splittednewname[splittednewname.length-1]
+        fs.unlink Path.resolve(".")+ "/public/upload"  + userfound.picture
+        splittednewname = (file.path).split("/")
+        userfound.picture = "/upload/" + splittednewname[splittednewname.length-1]
         userfound.save()
 
   else

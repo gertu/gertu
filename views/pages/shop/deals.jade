@@ -1,16 +1,12 @@
 section(data-ng-controller='DealsController', data-ng-init='findbyshop()')
   h2 Mis Ofertas
-  .searchbar
-    h3 Buscar por:
-    input.form-control(type="search",ng-model="search.name",placeholder="Nombre de oferta...")
-    input.form-control(type="search",ng-model="search.shop",placeholder="Nombre de tienda...")
   ul.deals
     li(data-ng-repeat='deal in deals | filter:search')
       a(data-ng-href="/admin/deals/{{deal._id}}")
         .deal-data
           h3 {{deal.name | trunc:true:20}}
           p Categoria: {{deal.categoryname}}
-          img.img-rounded(ng-src="/img/deals/terraza.jpg")
+          img.img-rounded(ng-src="{{deal.image}}")
           p Desde: {{deal.datainit | date:'longDate'}}
           p Hasta: {{deal.dataend | date:'mediumDate'}}
           p {{deal.shop.name}}
