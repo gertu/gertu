@@ -45,7 +45,7 @@ module.exports = (grunt) ->
         files:[
           expand: true
           cwd   : "views"
-          src   : ["**/*.jade", "!pages/management/**/*.jade"]
+          src   : ["**/*.jade", "!pages/management/**/*.jade", "!pages/shopmanagement/**/*.jade"]
           dest  : "public/views"
           ext   : ".html"]
 

@@ -1,0 +1,80 @@
+extends ../layouts/default
+block content
+    h1 Perfil de la tienda
+
+    form(method="POST", action="/shopmanagement/profile/view")
+        .row
+            .col-md-6
+                fieldset
+                    legend General
+                    label Nombre
+                    input(type="text", value="#{shop.name}", name="shop_name")
+                    br
+                    label Email
+                    input(type="email", value="#{shop.email}", name="shop_email")
+                fieldset
+                    legend Localización
+                    label Longitud
+                    input(type="text", value="#{shop.loc.longitude}", name="shop_loc_longitude")
+                    br
+                    label Latitud
+                    input(type="text", value="#{shop.loc.latitude}", name="shop_loc_latitude")
+            .col-md-6
+                fieldset
+                    legend Mapa
+                    
+        .row
+            .col-md-6
+                fieldset
+                    legend Información de facturación
+                    label Tipo de tarjeta
+                    select(value="#{shop.card.type}", name="shop_name")
+                        option(value="Visa") Visa
+                        option(value="MasterCard") MasterCard
+                    br
+                    label Número
+                    input(type="text", value="#{shop.card.number}", name="shop_card_number")
+                    br
+                    label Mes expiración
+                    input(type="text", value="#{shop.card.expire_month}", name="shop_card_expire_month")
+                    br
+                    label Año expiración
+                    input(type="text", value="#{shop.card.expire_year}", name="shop_card_expire_year")
+                    br
+                    label CCV
+                    input(type="text", value="#{shop.card.cvv2}", name="shop_card_cvv2")
+                    br
+                    label Nombre en la tarjeta
+                    input(type="text", value="#{shop.card.first_name}", name="shop_card_first_name")
+                    br
+                    label Apellidos en la tarjeta
+                    input(type="text", value="#{shop.card.last_name}", name="shop_card_last_name}")
+            .col-md-6
+                fieldset
+                    legend Dirección de facturación
+                    label Dirección
+                    input(type="text", value="#{shop.billing_address.line1}")
+                    br
+                    label Ciudad
+                    input(type="text", value="#{shop.billing_address.city}")
+                    br
+                    label Provincia
+                    input(type="text", value="#{shop.billing_address.state}")
+                    br
+                    label Código postal
+                    input(type="text", value="#{shop.billing_address.postal_code}")
+                    br
+                    label País
+                    select(value="#{shop.billing_address.country_code}")
+                        option(value="USA") Estados Unidos
+                        option(value="FR") Francia
+                        option(value="IT") Italia
+                        option(value="UK") Reino Unido
+        .row
+            .col-md-12   
+                input(type="submit", value="Actualizar")
+
+    - if (saved)
+        .alert.alert-success
+            p
+                | Guardado correctamente

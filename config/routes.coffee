@@ -125,6 +125,23 @@ module.exports = (app, passport) ->
   app.get  currentMobileApiVersion + "/deals/:id/reservation",  mobileApi.dealsMakeReservationById
   app.post currentMobileApiVersion + "/deals/:id/comment",  mobileApi.dealsAddComment
 
+
+  # Shop management area
+  shopManagementAccess = require("../server/controllers/shopmanagement/access")
+  app.get  "/shopmanagement/login", shopManagementAccess.login
+  app.post "/shopmanagement/login", shopManagementAccess.loginDo
+  app.get  "/shopmanagement/logout", shopManagementAccess.logout
+  app.get  "/shopmanagement/dashboard", Security.authenticateShop, shopManagementAccess.dashboard
+  app.post "/shopmanagement/signup", shopManagementAccess.signupDo
+  app.get  "/shopmanagement/confirm/:shopId", shopManagementAccess.confirm
+
+  shopManagementProfile = require("../server/controllers/shopmanagement/profile")
+  app.get  "/shopmanagement/profile/view", shopManagementProfile.view
+  app.post "/shopmanagement/profile/view", shopManagementProfile.viewDo
+  # End of shop management area
+
+
+
   # Home routes
   index = require("../server/controllers/index")
 
