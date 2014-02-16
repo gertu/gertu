@@ -3,46 +3,12 @@ section.home-page(ng-controller='IndexController')
     span.location-text
   .row(data-ng-hide='global.authenticated')
     .data
-      .col-md-8.home
-        .desc
-          .logo
-        .web-data
-          .data-desc.col-md-3
-            .icon.icon1
-            .number {{dealcount}}
-            .text  {{'ACTIVE_DEALS' | translate}}
-          .data-desc.col-md-3
-            .icon.icon2
-            .number 4
-            .text  {{'RESERVED_DEALS' | translate}}
-          .data-desc.col-md-3
-            .icon.icon3
-            .number {{usercount}}
-            .text {{'ACTIVE_USERS' | translate}}
-          .data-desc.col-md-3
-            .icon.icon4
-            .number {{shopcount}}
-            .text  {{'ACTIVE_SHOPS' | translate}}
-      .col-md-4.signupform
+      .col-md-6.signupform
         h3 {{ 'SIGNUP_FORM_TITLE' | translate}}
         include ../templates/signupform
-    .steps
-      .col-md-3.step
-        //- .step-img.step-1
-        h2.step-title {{'STEP_FIND' | translate}}
-        p.step-desc {{'STEP_FIND_DESC' | translate}}
-      .col-md-3.step
-        //- .step-img.step-2
-        h2.step-title {{'STEP_RESERVE' | translate}}
-        p.step-desc {{'STEP_RESERVE_DESC' | translate}}
-      .col-md-3.step
-        //- .step-img.step-3
-        h2.step-title {{'STEP_REDEEM' | translate}}
-        p.step-desc {{'STEP_REDEEM_DESC' | translate}}
-      .col-md-3.step
-        //- .step-img.step-4
-        h2.step-title {{'STEP_ENJOY' | translate}}
-        p.step-desc {{'STEP_ENJOY_DESC' | translate}}
+    include ../templates/steps
+    include ../templates/webdata
+
   .row(data-ng-show='global.authenticated')
     div(data-ng-show='global.shop')
         include shop/controlpanel

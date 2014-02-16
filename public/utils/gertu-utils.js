@@ -15,4 +15,30 @@ function readURL (input) {
   }
 };
 
+$(window).scroll(function(e){
+  parallax();
+});
+function parallax(){
+  var scrolled = $(window).scrollTop();
+  $('.bg').css('top',-(scrolled*0.5)+'px');
+};
+
+
+var previousScroll = 0,
+    headerOrgOffset = 120;
+
+$('#header-wrap').height($('#header').height());
+
+$(window).scroll(function () {
+    var currentScroll = $(this).scrollTop();
+    if (currentScroll > headerOrgOffset) {
+        if (currentScroll > previousScroll) {
+            $('#header-wrap').fadeOut();
+        } else {
+            $('#header-wrap').fadeIn();
+        }
+    }
+    previousScroll = currentScroll;
+});
+
 

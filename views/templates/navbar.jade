@@ -1,34 +1,27 @@
-.navigation.navbar.navbar-inverse.navbar-fixed-top(data-ng-controller='HeaderController', data-role="navigation")
-  .navbar-inner
-    .container
-      ul.nav.navbar-nav
-        li(data-ng-repeat='item in menu', ui-route='/{{item.link}}', ng-class='{active: $uiRoute}')
-          a(href='/{{item.link}}') {{item.title}}
-            
-        ul.nav.navbar-nav.pull-right
-          li.dropdown
-            a.dropdown-toggle(ng-cloak,href='#', data-toggle='dropdown') {{selectedLang.name}}
-              b.caret
-            ul.dropdown-menu(style="min-width: 72px;")
-              li(data-ng-repeat="lang in filteredLangs")
-                a(href='#', data-ng-click="selectLang(lang.code)") {{lang.name}}
-                  
-        ul.nav.navbar-nav.pull-right(data-ng-hide='global.authenticated')
-          include signinform
-        ul.nav.navbar-nav.navbar-nav.pull-right(data-ng-show='global.authenticated')
-          li.dropdown(data-ng-show='global.user')
-            a.dropdown-toggle(href='#', data-toggle='dropdown')
-              | {{global.user.firstName}} {{global.user.lastName}}
-              b.caret
-            ul.dropdown-menu
-              li
-                a(data-ng-href='/profile') Perfil
-              li
-                a(href='/api/v1/signout', target='_self') Signout
-          li.dropdown(data-ng-show='global.shop')
-              a.dropdown-toggle(href='#', data-toggle='dropdown')
-                | {{global.shop.name}}
-                b.caret
-              ul.dropdown-menu
-                li
-                  a(href='/shop/logout', target='_self') Signout
+div#header-wrap
+  div#header
+    .navigation.navbar.navbar-inverse.navbar-fixed-top(data-ng-controller='HeaderController', data-role="navigation")
+      .navbar-inner
+        .container
+          ul.nav.navbar-nav
+            li(data-ng-repeat='item in menu', ui-route='/{{item.link}}', ng-class='{active: $uiRoute}')
+              a(href='/{{item.link}}') {{item.title}}
+            ul.nav.navbar-nav.pull-right(data-ng-hide='global.authenticated')
+              include signinform
+            ul.nav.navbar-nav.navbar-nav.pull-right(data-ng-show='global.authenticated')
+              li.dropdown(data-ng-show='global.user')
+                a.dropdown-toggle(href='#', data-toggle='dropdown')
+                  | {{global.user.firstName}} {{global.user.lastName}}
+                  b.caret
+                ul.dropdown-menu
+                  li
+                    a(data-ng-href='/profile') Perfil
+                  li
+                    a(href='/api/v1/signout', target='_self') Signout
+              li.dropdown(data-ng-show='global.shop')
+                  a.dropdown-toggle(href='#', data-toggle='dropdown')
+                    | {{global.shop.name}}
+                    b.caret
+                  ul.dropdown-menu
+                    li
+                      a(href='/shop/logout', target='_self') Signout
