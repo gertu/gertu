@@ -1,0 +1,7 @@
+extends ../layouts/default
+block content
+   h1 Listado de ofertas
+
+   a.btn.btn-primary(href="/shopmanagement/deals/new") Nueva oferta
+   - for deal in deals
+       span #{deal.name}

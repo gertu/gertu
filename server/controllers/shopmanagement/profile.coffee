@@ -1,6 +1,5 @@
 mongoose  = require "mongoose"
 Shop      = mongoose.model "Shop"
-_         = require "underscore"
 
 exports.view = (req, res) ->
 
@@ -66,7 +65,7 @@ exports.viewDo = (req, res) ->
         state: req.body.shop_billing_address_state
         postal_code: req.body.shop_billing_address_postal_code
         country_code: req.body.shop_billing_address_country_code
-        
+
       shop.save( () ->
         res.render "pages/shopmanagement/profile/view", {shop: shop, saved: true}
       )
