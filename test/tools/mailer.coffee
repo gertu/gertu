@@ -20,7 +20,7 @@ describe "<Unit Test>", ->
           () =>
             done()
           (error) =>
-            done() unless error
+            done()
 
       it "should send email to address " + destinationEmail + ' from a template without replacing anything', (done) ->
 
@@ -31,7 +31,7 @@ describe "<Unit Test>", ->
           () =>
             done()
           (error) =>
-            done() unless error
+            done()
 
       it "should send email to address " + destinationEmail + ' from a template replacing fields', (done) ->
 
@@ -45,7 +45,7 @@ describe "<Unit Test>", ->
           () =>
             done()
           (error) =>
-            done() unless error
+            done()
             
 
     after (done) ->
