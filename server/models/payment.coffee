@@ -15,5 +15,11 @@ PaymentSchema = new Schema
     type: Date, default: Date.now
   amount:
     type: Number, default: 0
+  finished:
+    type: Boolean, default: false
+  successful:
+    type: Boolean, default: false
+  error:
+    type: String, default: ''
 
 mongoose.model "Payment", PaymentSchema

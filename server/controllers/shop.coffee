@@ -61,6 +61,7 @@ exports.confirmAccount = (req, res) ->
   Shop.findOne({_id: req.params.accountid}).exec( (err, shopdata) ->
     if shopdata
       shopdata.confirmed = true
+      shopdata.confirmationDate = new Date()
       shopdata.save()
 
       req.session.currentShop = {shopId: shopdata._id, userEmail: shopdata.email, isAuthenticated: true}

@@ -42,16 +42,34 @@ exports.confirm = (req, res) ->
       if shop.confirmationDate > new Date(currentYear, currentMonth, 1)
         paymentPerMonth = paymentPerMonth * (shop.confirmationDate.getDate() / currentMonthEndDay)
 
+      paymentPerMonth = (Math.round(paymentPerMonth * 100) / 100)
+      
       payment = new Payment
         shop: shop,
         amount: paymentPerMonth
-
+        date: new Date()
 
       PaypalAPI.makePayment shop.card, shop.billing_address, paymentPerMonth, ((success) ->
-        console.log success
+
+        payment.finished = true
+        payment.successful = true
+        payment.error = null
+
         payment.save()
       ), ((error) ->
-        console.log error)
+
+        allErrors = ''
+
+        for errorDetail in error.response.details
+          allErrors += errorDetail.field + '---->'
+          allErrors += errorDetail.issue + '\n'
+
+        payment.finished = true
+        payment.successful = false
+        payment.error = allErrors
+
+        payment.save()
+      )
 
       Shop.find({}).exec( (err, shops) ->
         if err

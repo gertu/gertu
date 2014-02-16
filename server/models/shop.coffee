@@ -15,6 +15,8 @@ ShopSchema = new Schema
     type: String, default: '', trim: true
   confirmed :
     type: Boolean, default: false
+  confirmationDate :
+    type: Date, default: null
   loc:
     latitude:
       type: Number, default: 0.0
