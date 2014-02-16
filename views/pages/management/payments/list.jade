@@ -1,0 +1,17 @@
+extends ../layouts/default
+block content
+    h1  Tiendas en el periodo #{dates.start} a #{dates.end}
+    table.table.table-bordered.table-condensed
+        thead
+            tr
+                th  Tienda
+                th(width='180')  Histórico de pagos
+                th(width='180')  Ejecutar pago
+        each shop in shops
+            tr
+                td
+                    span #{shop.name}
+                td
+                    a.btn.btn-danger(href='/management/payments/history/#{shop._id}') histórico de pagos
+                td
+                    a.btn.btn-danger(href='/management/payments/confirm/#{shop._id}') confirmar pago

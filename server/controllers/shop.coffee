@@ -17,24 +17,20 @@ exports.signup = (req, res) ->
     shop.save()
 
     mailInfo = {
-      shopname: shopName
+      shopname: shopName,
+      confirmationId: shop._id
     }
 
     Mailer.sendTemplate shopEmail,
       'Wellcome to Gertu',
       'newShop',
-      mailInfo,
-      () ->
-        @
+      mailInfo
       , () ->
         @
+      , (error) ->
+        @
 
-    req.session.currentShop =
-      shopId: shop._id
-      userEmail: shop.email
-      isAuthenticated: true
-
-    res.send JSON.stringify(shop)
+    res.status(200).send()
   else
     res.status(422).send('Incorrect data')
 
@@ -49,6 +45,8 @@ exports.login = (req, res) ->
         res.status(500).send('Application error')
       else if not shopdata?
         res.status(403).send('Access denied')
+      else if not shopdata.confirmed
+        res.status(401).send(shopdata)
       else
         # Access granted
         req.session.currentShop = {shopId: shopdata._id, userEmail: shopdata.email, isAuthenticated: true}
@@ -57,6 +55,44 @@ exports.login = (req, res) ->
     )
   else
     res.status(422).send('Incorrect data')
+
+exports.confirmAccount = (req, res) ->
+ 
+  Shop.findOne({_id: req.params.accountid}).exec( (err, shopdata) ->
+    if shopdata
+      shopdata.confirmed = true
+      shopdata.save()
+
+      req.session.currentShop = {shopId: shopdata._id, userEmail: shopdata.email, isAuthenticated: true}
+      res.send JSON.stringify(shopdata)
+
+      res.redirect "/admin/profile?confirmed"
+    else
+      res.redirect "/"
+  )
+  
+exports.resendConfirmationAccount = (req, res) ->
+
+  Shop.findOne({_id: req.body.id}).exec( (err, shopdata) ->
+    if shopdata
+      mailInfo = {
+        shopname: shopdata.name,
+        confirmationId: shopdata._id
+      }
+
+      Mailer.sendTemplate shopdata.email,
+        'Wellcome to Gertu',
+        'newShop',
+        mailInfo
+        , () ->
+          @
+        , (error) ->
+          @
+
+      res.status(200).send('Incorrect data')
+    else
+      res.status(404).send('Incorrect data')
+  )
 
 exports.logout = (req, res) ->
 
@@ -71,6 +107,49 @@ exports.current = (req, res) ->
   res.status(200).send(currentLoggedShop.userEmail) if currentLoggedShop?
   res.status(403).send('Access denied') if not currentLoggedShop?
 
+exports.currentShopInfo = (req, res) ->
+
+  currentLoggedShop = req.session.currentShop
+
+  shopId = currentLoggedShop.shopId
+
+  Shop.findOne({_id: shopId}).exec( (err, shopdata) ->
+    if err
+      res.status(500).send('Application error')
+    else if not shopdata?
+      res.status(403).send('Access denied')
+    else
+      res.send JSON.stringify(shopdata)
+  )
+ 
+exports.updateShopInfo = (req, res) ->
+
+  currentLoggedShop = req.session.currentShop
+
+  shopId = currentLoggedShop.shopId
+
+  Shop.findOne({_id: shopId}).exec( (err, shopdata) ->
+    if err
+      res.status(500).send('Application error')
+    else if not shopdata?
+      res.status(403).send('Access denied')
+    else
+      
+      shopdata.email = req.body.email
+      shopdata.name = req.body.name
+      shopdata.loc = req.body.loc
+      
+      if req.body.password? and req.body.password != ''
+        shopdata.password = req.body.password
+
+      shopdata.card = req.body.card
+
+      shopdata.billing_address = req.body.billing_address
+      
+      shopdata.save()
+
+      res.send JSON.stringify(shopdata)
+  )
 
 exports.emailexists = (req, res) ->
 

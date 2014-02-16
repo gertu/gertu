@@ -30,7 +30,7 @@ config     = require("../../config/config")
           for key of variables
             onError(key)
             htmlContent = htmlContent.replace '{{' + key + '}}', variables[key]
-
+        
         Mailer.send to, subject, htmlContent, onSuccess, onError
 
 

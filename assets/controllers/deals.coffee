@@ -20,6 +20,9 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
     deal.$save (response) ->
       $location.path "/"
 
+  $scope.createphoto = ->
+    console.log("create photo")
+
 
   $scope.findbyshop = ->
     DealsShop.query
@@ -66,8 +69,8 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
   $scope.update = ->
     deal = $scope.deal
     deal.$update ->
-      $location.path "/admin/deals/" + deal._id
       $scope.global.deal = deal
+      $location.path "/admin/deals/" + deal._id
 
 
   truncateDecimals = (number) ->
@@ -81,7 +84,6 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
       discount = 100 - (gertuprice * 100 / price)
       $scope.discount = truncateDecimals(discount)
     else
-      console.log("bai")
       price = $scope.deal.price
       gertuprice = $scope.deal.gertuprice
       discount = 100 - (gertuprice * 100 / price)
@@ -95,7 +97,6 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
       gertuprice = price - (discount * price / 100)
       $scope.gertuprice = truncateDecimals(gertuprice)
     else
-      console.log("bai")
       price = $scope.deal.price
       discount = $scope.deal.discount
       gertuprice = price - (discount * price / 100)

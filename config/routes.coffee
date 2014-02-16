@@ -28,8 +28,12 @@ module.exports = (app, passport) ->
   app.post currentApiVersion + "/shops", shop.signup
   app.post currentApiVersion + "/shops/login", shop.login
   app.get "/shop/logout", shop.logout
+  app.get "/admin/confirmaccount/:accountid", shop.confirmAccount
+  app.post currentApiVersion + "/shops/confirmaccount", shop.resendConfirmationAccount
   app.get  currentApiVersion + "/shops/emailexists", shop.emailexists
   app.get  currentApiVersion + "/shops", shop.current
+  app.get  currentApiVersion + "/shopsinfo", shop.currentShopInfo
+  app.post currentApiVersion + "/shopsinfo", shop.updateShopInfo
 
   # Finish with setting up the userId param
   app.param "userId", users.user
@@ -94,6 +98,13 @@ module.exports = (app, passport) ->
   app.get  "/management/administrators/remove/:id", Security.authenticateAdministrator, managementAdministrators.remove
   app.post "/management/administrators/remove/:id", Security.authenticateAdministrator, managementAdministrators.removeDo
   # End of adminstrator management
+
+  # Payment management
+  managementPayments = require("../server/controllers/management/payments")
+  app.get  "/management/payments/list", Security.authenticateAdministrator, managementPayments.list
+  app.get  "/management/payments/confirm/:id", Security.authenticateAdministrator, managementPayments.confirm
+  app.get  "/management/payments/history/:id", Security.authenticateAdministrator, managementPayments.history
+  # End of payment management
 
   # End of management routes
 

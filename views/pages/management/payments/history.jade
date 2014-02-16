@@ -1,0 +1,17 @@
+extends ../layouts/default
+block content
+    h1  Histórico de pagos de #{shop.name}
+    p.well
+        a(href='/management/payments/list') Volver a lista de pagos
+    table.table.table-bordered.table-condensed
+        thead
+            tr
+                th  Fecha
+                
+                th(width='180')  Importe
+        each payment in payments
+            tr
+                td
+                    span #{payment.date}
+                td
+                    span #{payment.amount} €

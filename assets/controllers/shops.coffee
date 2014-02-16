@@ -29,9 +29,7 @@ angular.module("mean.shops").controller 'ShopSignUpController',
 
           shop.$save(
             (successData) ->
-              $scope.global.authenticated = true
-              $scope.global.shop = successData
-              $location.path('/')
+              $location.path('/admin/shouldconfirm/' + shop._id)
             ,
             (errorData) ->
               $scope.errorMsg = errorData
@@ -69,8 +67,83 @@ angular.module("mean.shops").controller "ShopLogInController",
           $location.path('/')
 
         .error (data, status) ->
-          $scope.errors = (if (status is 403) then ["NO_SHOP_HAS_BEEN_FOUND"] else ["UNKNOWN_ERROR"])
+          if status is 401
+            $location.path('/admin/shouldconfirm/' + data._id)
+          else
+            $scope.errors = (if (status is 403) then ["NO_SHOP_HAS_BEEN_FOUND"] else ["UNKNOWN_ERROR"])
 
       else
         $scope.errors = validationErrors
+  ]
+
+# Shop LogIn
+angular.module("mean.shops").controller "ShopProfileController",
+  ["$scope", "$location", "$http", "Global", "Validation", "AppAlert"
+  ($scope, $location, $http, Global, Validation, AppAlert) ->
+    
+    if $location.search('confirmed')
+      AppAlert.add "success","ACCOUNT_CONFIRMED"
+
+    $http(
+      url: "/api/v1/shopsinfo"
+      method: "GET"
+    )
+    .success (data, status) ->
+      $scope.shop = data
+      $scope.center = new google.maps.LatLng(data.loc.latitude, data.loc.longitude)
+    
+    .error (data, status) ->
+      $scope.errors = (if (status is 403) then ["NO_SHOP_HAS_BEEN_FOUND"] else ["UNKNOWN_ERROR"])
+    
+    $scope.$watch "center", (center) ->
+      if center
+        $scope.shop.loc.latitude  = center.lat()
+        $scope.shop.loc.longitude = center.lng()
+      return
+
+    $scope.updateCenter = (lng, lat) ->
+      $scope.center = new google.maps.LatLng(lat, lng)
+      return
+
+    $scope.updateShopInfo = () ->
+      
+      hasErrors = false
+
+      if $scope.password? and $scope.passwordRpt?
+        if $scope.password == $scope.passwordRpt
+          $scope.shop.password = $scope.password
+        else
+          hasErrors = true
+          AppAlert.add "warning","PASSWODRDS_DO_NOT_MATCH"
+      else
+        $scope.shop.password = ''
+
+      if not hasErrors
+        $http(
+          url: "/api/v1/shopsinfo"
+          method: "POST",
+          data: $scope.shop
+        )
+        .success (data, status) ->
+          $scope.shop = data
+          AppAlert.add "success","INFORMATION_UPDATED"
+        .error (data, status) ->
+          $scope.errors = (if (status is 403) then ["NO_SHOP_HAS_BEEN_FOUND"] else ["UNKNOWN_ERROR"])
+          AppAlert.add "warning","ERROR"
+  ]
+
+angular.module("mean.shops").controller "ShopShouldConfirmController",
+  ["$scope", "$location", "$http", "$routeParams", "AppAlert",
+  ($scope, $location, $http, $routeParams, AppAlert) ->
+
+    $scope.shopId = $routeParams.id
+
+    $scope.resendConfirmationMail = () ->
+      $http(
+          url: "/api/v1/shops/confirmaccount"
+          method: "POST",
+          data: {id: $scope.shopId}
+        )
+      
+      AppAlert.add "warning","CONFIRMATION_MAIL_RESENT"
   ]
