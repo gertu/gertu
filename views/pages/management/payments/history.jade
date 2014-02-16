@@ -1,17 +1,42 @@
 extends ../layouts/default
 block content
+    -function prettyDate(dateString){
+        -var date = new Date(dateString);
+        -var d = date.getDate();
+        -var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+        -var m = monthNames[date.getMonth()];
+        -var y = date.getFullYear();
+        -return d+' '+m+' '+y;
+    -}
     h1  Histórico de pagos de #{shop.name}
     p.well
         a(href='/management/payments/list') Volver a lista de pagos
     table.table.table-bordered.table-condensed
         thead
             tr
-                th  Fecha
-                
-                th(width='180')  Importe
+                th(width='100')  Fecha
+                th(width='80')  Completada
+                th(width='80')  Éxito
+                th              Error
+                th(width='80')  Importe
         each payment in payments
             tr
                 td
-                    span #{payment.date}
+                    span #{prettyDate(payment.date)}
+                td
+                    - if (payment.finished)
+                        span.label.label-success SI
+                    - else
+                        span.label.label-warning NO
+                td
+                    - if (payment.successful)
+                        span.label.label-success EXITO
+                    - else
+                        span.label.label-danger ERROR
+                td
+                    span #{payment.error}
                 td
                     span #{payment.amount} €
+    br
+    p
+        br

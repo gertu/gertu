@@ -86,7 +86,7 @@ exports.history = (req, res) ->
     if err
       res.status(500).send('Database error')
     else
-      Payment.find({shop: shop._id}).exec( (err, payments) ->
+      Payment.find({shop: shop._id}).sort('-date').exec( (err, payments) ->
         res.render 'pages/management/payments/history', {payments: payments, shop: shop}
       )
   )

@@ -14,9 +14,9 @@ block content
         thead
             tr
                 th  Tienda
-                th  Fecha confirmación alta
-                th(width='180')  Histórico de pagos
-                th(width='180')  Ejecutar pago
+                th(width='100')  Inicio suscripción
+                th(width='100')  Histórico de pagos
+                th(width='100')  Ejecutar pago
         each shop in shops
             tr
                 td
@@ -26,7 +26,7 @@ block content
                         span #{prettyDate(shop.confirmationDate)}
                 td
                     - if (shop.confirmationDate != null)
-                        a.btn.btn-danger(href='/management/payments/history/#{shop._id}') histórico de pagos
+                        a.btn.btn-danger(href='/management/payments/history/#{shop._id}') ver
                 td
                     - if (shop.confirmationDate != null)
-                        a.btn.btn-danger(href='/management/payments/confirm/#{shop._id}') confirmar pago
+                        a.btn.btn-danger(href='/management/payments/confirm/#{shop._id}') nuevo pago
