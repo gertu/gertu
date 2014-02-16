@@ -8,10 +8,23 @@ exports.list = (req, res) ->
     if err
       res.status(500).send('Database error')
     else
-      res.render 'pages/management/payments/list', {shops: shops, dates: {start: '01/01/2001', end: '31/01/2001'}}
+
+      today = new Date()
+      currentMonth = today.getMonth()
+      currentYear = today.getFullYear()
+
+      monthStart = new Date(currentYear, currentMonth, 1)
+      monthEnd = new Date(currentYear, currentMonth + 1, 0)
+
+      res.render 'pages/management/payments/list',
+        shops: shops
+        dates:
+          start: monthStart.getDate() + '/' + (currentMonth + 1) + '/' + currentYear
+          end: monthEnd.getDate() + '/' + (currentMonth + 1) + '/' + currentYear
   )
 
 exports.confirm = (req, res) ->
+
   id = req.params.id
 
   Shop.findOne({_id: id}).exec( (err, shop) ->
@@ -19,13 +32,22 @@ exports.confirm = (req, res) ->
       res.status(404)
     else
 
+      paymentPerMonth = 6
+
+      today = new Date()
+      currentMonth = today.getMonth()
+      currentYear = today.getFullYear()
+      currentMonthEndDay = new Date(currentYear, currentMonth + 1, 0).getDate()
+
+      if shop.confirmationDate > new Date(currentYear, currentMonth, 1)
+        paymentPerMonth = paymentPerMonth * (shop.confirmationDate.getDate() / currentMonthEndDay)
+
       payment = new Payment
         shop: shop,
-        amount: 5.5
+        amount: paymentPerMonth
 
-      console.log shop.card
 
-      PaypalAPI.makePayment shop.card, 8, ((success) ->
+      PaypalAPI.makePayment shop.card, shop.billing_address, paymentPerMonth, ((success) ->
         console.log success
         payment.save()
       ), ((error) ->
@@ -35,7 +57,7 @@ exports.confirm = (req, res) ->
         if err
           res.status(500).send('Database error')
         else
-          res.render 'pages/management/payments/list', {shops: shops, dates: {start: '01/01/2001', end: '31/01/2001'}}
+          res.redirect 'management/payments/list'
       )
   )
 
