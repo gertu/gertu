@@ -3,7 +3,6 @@ block content
   include ../layouts/top-menu
   .row-fluid
     .span2
-      &nbsp;
     .span8
       .well
           h1 Nueva oferta
@@ -13,11 +12,12 @@ block content
               label(for='categoryname') Categoria
               select#categoryname(name='categoryname', value='#{categoryname}')
                 - for category in categories
-                    option(value='category.name') #{category.name}
-              label(for='title') Name
-              input#name(type='text', value='#{name}', placeholder='Title', required='required')
+                    option(value='#{category.name}') #{category.name}
+              label(for='name') Name
+              input#name(name='name', type='text', value='#{name}', placeholder='Title', required='required')
               label(for='description') Description
-              textarea#description(rows='10', value='#{description}', placeholder='Description of the deal...', required='required')
+              textarea#description(name='description', rows='10', value='#{description}',
+                placeholder='Descripción de la oferta...', required='required')
               label(for='price') Price:
               .input-prepend
                 span.add-on €
@@ -32,9 +32,9 @@ block content
                 input#discount(type='number', name='discount', value='#{discount}', required='required')
             .span6
               label(for='datainit') Fecha de inicio
-              input#datainit(type="date", show-weeks="false", starting-day="1", min="minDate", value="#{datainit}")
+              input#datainit(type="date", name='datainit', show-weeks="false", starting-day="1", min="minDate", value="#{datainit}")
               label(for='dataend') Fecha fin
-              input#dataend(type="date", show-weeks="false", starting-day="1", min="minDate", value="#{dataend}")
+              input#dataend(type="date", name='dataend', show-weeks="false", starting-day="1", min="minDate", value="#{dataend}")
               label(for='dias') Elige los dias de la semana
               table
                 - for day in days

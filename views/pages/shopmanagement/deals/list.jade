@@ -25,10 +25,10 @@ block content
                         tr
                             td #{deal.name}
                             td #{deal.categoryname}
-                            td #{deal.price}
-                            td #{deal.gertuprice}
-                            td #{deal.discount}
+                            td #{deal.price} €
+                            td #{deal.gertuprice} €
+                            td #{deal.discount} %
                             td
-                                a.btn.btn-primary(href="/shopmanagement/deals/view/#{deal._id}") editar
+                                a.btn.btn-primary(href="/shopmanagement/deals/edit/#{deal._id}") editar
                             td
-                                a.btn.btn-primary(href="/shopmanagement/deals/delete/#{deal._id}") eliminar
+                                a.btn.btn-danger(href="/shopmanagement/deals/delete/#{deal._id}") eliminar
