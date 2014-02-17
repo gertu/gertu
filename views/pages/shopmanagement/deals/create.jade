@@ -13,7 +13,7 @@ block content
               label(for='categoryname') Categoria
               select#categoryname(name='categoryname', value='#{categoryname}')
                 - for category in categories
-                    option(value='category.name') {{category.name}}
+                    option(value='category.name') #{category.name}
               label(for='title') Name
               input#name(type='text', value='#{name}', placeholder='Title', required='required')
               label(for='description') Description
