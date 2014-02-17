@@ -15,7 +15,6 @@ exports.loginDo = (req, res) ->
   else
 
     Shop.findOne({email: email, password: password}).exec( (err, shop) ->
-
       if err
         res.status(500).send('Application error')
       else if not shop?
@@ -86,7 +85,7 @@ exports.confirm = (req, res) ->
           shopId: shop._id,
           shopEmail: shop.email,
           isAuthenticated: true
-          
+
       res.redirect "/shopmanagement/dashboard",
     else
       res.render "pages/shopmanagement/access/confirm", {currentShop: shop}
