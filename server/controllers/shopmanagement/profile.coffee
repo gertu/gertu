@@ -46,8 +46,8 @@ exports.viewDo = (req, res) ->
     else if not shop?
       res.redirect "/shopmanagement/login"
     else
-      shop.name = req.body.shop_name
-      shop.name = req.body.shop_email
+      shop.name = req.body.name
+      shop.email = req.body.email
       shop.loc =
         longitude: req.body.shop_loc_longitude
         latitude : req.body.shop_loc_latitude
@@ -68,6 +68,6 @@ exports.viewDo = (req, res) ->
         country_code: req.body.shop_billing_address_country_code
 
       shop.save( () ->
-        res.render "pages/shopmanagement/profile/view", {shop: shop, saved: true}
+        res.redirect "shopmanagement/profile/view"
       )
   )

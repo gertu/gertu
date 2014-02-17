@@ -7,56 +7,60 @@ block content
     .span8
       .well
           h1 Configuración de su cuenta
-        form(role="form", method="POST", action="/shopmanagement/profile/view")
+        form(role='form', method='POST', action='/shopmanagement/profile/view')
           .row-fluid
             .span6
               fieldset
                 legend Datos básicos
-                label(for='title') Nombre
-                input#name(type='text', value='#{shop.name}', placeholder='Nombre de la tienda', required='required')
+                label(for='name') Nombre
+                input#name(type='text', name='name', value='#{shop.name}', placeholder='Nombre de la tienda', required='required')
                 label(for='email') Email
-                input#email(type='email', value='#{shop.email}', placeholder='Email', required='required')
+                input#email(type='email', name='email', value='#{shop.email}', placeholder='Email', required='required')
                 label(for='password') Contraseña
-                input#email(type='password', value='#{shop.email}')
+                input#email(type='password', name='password')
                 label(for='passwordRpt') Repita contraseña
-                input#email(type='password', value='#{shop.email}')
+                input#email(type='password', name='passwordRpt')
                 
             .span6
               fieldset
                 legend Localización
-                label(for='longitude') Longitud
-                input#name(type='number', value='#{shop.loc.longitude}')
-                label(for='latitude') Latitud
-                input#email(type='number', value='#{shop.loc.latitude}')
+                label(for='shop_loc_longitude') Longitud
+                input#name(type='text', value='#{shop.loc.longitude}', name='shop_loc_longitude')
+                label(for='shop_loc_latitude') Latitud
+                input#email(type='text', value='#{shop.loc.latitude}', name='shop_loc_latitude')
+                label Mapa
+                div#mapa(style='height: 300px;')
           .row-fluid
             .span6
               fieldset
                 legend Datos de pago
-                label(for='title') Número de tarjeta
-                input#name(type='text', value='#{shop.name}', placeholder='Nombre de la tienda', required='required')
-                label(for='email') Mes de expiración
-                input#email(type='text', value='#{shop.email}', placeholder='Email', required='required')
-                label(for='password') Año de expiración
-                input#email(type='text', value='#{shop.email}')
-                label(for='passwordRpt') CCV2
-                input#email(type='text', value='#{shop.email}')
-                label(for='passwordRpt') Nombre (en la tarjeta)
-                input#email(type='text', value='#{shop.email}')
-                label(for='passwordRpt') Apellidos (en la tarjeta)
-                input#email(type='text', value='#{shop.email}')
+                label(for='shop_card_number') Número de tarjeta
+                input#name(type='text', value='#{shop.card.number}', name='shop_card_number')
+                label(for='shop_card_expire_month') Mes de expiración
+                input#email(type='text', value='#{shop.card.expire_month}', name='shop_card_expire_month')
+                label(for='shop_card_expire_year') Año de expiración
+                input#email(type='text', name='shop_card_expire_year', value='#{shop.card.expire_year}')
+                label(for='shop_card_cvv2') CCV2
+                input#email(type='text', name='shop_card_cvv2', value='#{shop.card.cvv2}')
+                label(for='shop_card_first_name') Nombre (en la tarjeta)
+                input#email(type='text', name='shop_card_first_name', value='#{shop.card.first_name}')
+                label(for='shop_card_last_name') Apellidos (en la tarjeta)
+                input#email(type='text', name='shop_card_last_name', value='#{shop.card.last_name}')
             .span6
               fieldset
                 legend Dirección de facturación
-                label(for='longitude') Dirección
-                input#name(type='number', value='#{shop.loc.longitude}')
-                label(for='latitude') Ciudad
-                input#email(type='number', value='#{shop.loc.latitude}')  
-                label(for='latitude') Provincia
-                input#email(type='number', value='#{shop.loc.latitude}')  
-                label(for='latitude') Código postal
-                input#email(type='number', value='#{shop.loc.latitude}')  
-                label(for='latitude') País
-                input#email(type='number', value='#{shop.loc.latitude}')  
+                label(for='shop_billing_address_line1') Dirección
+                input#name(type='text', name='shop_billing_address_line1', value='#{shop.billing_address.line1}')
+                label(for='shop_billing_address_city') Ciudad
+                input#email(type='text', name='shop_billing_address_city', value='#{shop.billing_address.city}')  
+                label(for='shop_billing_address_state') Provincia
+                input#email(type='text', name='shop_billing_address_state' value='#{shop.billing_address.state}')  
+                label(for='shop_billing_address_postal_code') Código postal
+                input#email(type='text', name='shop_billing_address_postal_code', value='#{shop.billing_address.postal_code}')  
+                label(for='shop_billing_address_country_code') País
+                input#email(type='text', name='shop_billing_address_country_code', value='#{shop.billing_address.country_code}')  
           .row-fluid
             .pull-right
               input.btn.btn-success.btn-lg(type='submit', value='Guardar')
+  script.
+    App.initializeMap('mapa', #{shop.loc.latitude}, #{shop.loc.longitude})
