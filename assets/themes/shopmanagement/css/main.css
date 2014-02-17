@@ -1,0 +1,33 @@
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+body
+{
+    padding: 10px;
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+
+.sidebar-nav
+{
+    padding: 0;
+    border: none;
+    width: 230px;
+}
+
+a.nounderline
+{
+    text-decoration: none;
+}
+
+.table td.center
+{
+    text-align: center;
+}
+
+.dropdown-menu
+{
+    max-height: 600px;
+    overflow-y: auto;
+}

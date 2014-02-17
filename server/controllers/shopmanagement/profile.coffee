@@ -33,7 +33,8 @@ exports.view = (req, res) ->
           postal_code: ''
           country_code: ''
 
-      res.render "pages/shopmanagement/profile/view", {shop: shop}
+      res.render "pages/shopmanagement/profile/view",
+        {shop: shop, currentShop: req.session.currentShop}
   )
 
 exports.viewDo = (req, res) ->

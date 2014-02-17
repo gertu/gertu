@@ -1,12 +1,50 @@
-nav.navbar.navbar-default
-    div.navbar-header
-        a.navbar-brand(href='/shopmanagement/dashboard') Área de tiendas de GERTU
-    ul.nav.navbar-nav
-        li
-            a(href='/shopmanagement/deals/list') Listado de ofertas
-        li
-            a(href='/shopmanagement/profile/view') Perfil
-
-    ul.nav.navbar-nav.navbar-right
-        li
-            a(href='/shopmanagement/logout') Cerrar sesión
+.navbar.navbar-fixed-top
+    .navbar
+        .navbar-inner
+          .container-fluid
+            a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            span.brand Área de tiendas
+            .nav-collapse.collapse
+              ul.nav
+                li.active
+                  a(href='/shopmanagement/dashboard')
+                    i.icon-home.icon-black
+                    | Dashboard
+                li
+                  a(href='/shopmanagement/deals/list')
+                    i.icon-user.icon-black
+                    | Listado de ofertas
+              ul.nav.pull-right.settings
+                li.dropdown
+                  ul.dropdown-menu
+                    li
+                      a(href='/shopmanagement/profile/view') Perfil
+                    li.divider
+                    li
+                      a(href='/shopmanagement/logout') Cerrar sesión
+              ul.nav.pull-right.settings
+                li
+                  a.tip.icon.logout(href='/shopmanagement/profile/view', data-original-title='Settings', data-placement='bottom')
+                    i.icon-large.icon-cog
+                li.divider-vertical
+                li
+                  a.tip.icon.logout(href='/shopmanagement/logout', data-original-title='Logout', data-placement='bottom')
+                    i.icon-large.icon-off
+              ul.nav.pull-right.settings
+                li.divider-vertical
+              p.navbar-text.pull-right
+                | Bienvenido/a, 
+                strong #{currentShop.shopEmail}
+              ul.nav.pull-right.settings
+                li.divider-vertical
+              .pull-right
+                form.form-search.form-inline(style='margin: 5px 0 0 0;', method='post')
+                  .input-append
+                    input.span2.search-query(type='text', name='keyword', placeholder='Search')
+                    button.btn(type='submit')
+                      i.icon-search
+            //
+              /.nav-collapse 

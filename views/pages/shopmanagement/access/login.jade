@@ -1,41 +1,43 @@
 extends ../layouts/default
 block content
-    h1 Acceso al área de tiendas
-    .row
-        .col-md-6
-            form(action="/shopmanagement/login", method="post", role="form")
-                .form-group
-                    label Email
-                    input#email.form-control(type='email', name="email", ng-model="email", placeholder='Email', required)
-
-                .form-group
-                    label Contraseña
-                    input#password.form-control(type='password', name="password", ng-model="password", placeholder='Contraseña', required)
-
-                button.btn.btn-primary(type='submit') Acceder
-
-        .col-md-6
-            form(action="/shopmanagement/signup", method="post", role="form")
-                .form-group
-                    label Nombre
-                    input#name.form-control(type='text', name="name", ng-model="name", placeholder='Name', required)
-
-                .form-group
-                    label Email
-                    input#email.form-control(type='email', name="email", ng-model="email", placeholder='Email', required)
-
-                .form-group
-                    label Contraseña
-                    input#password.form-control(type='password', name="password", ng-model="password", placeholder='Contraseña', required)
-
-                button.btn.btn-primary(type='submit') Crear nueva cuenta
-    .row
-        .col-md-12
-            br
-            br
-            - if (endSession)
-                div.alert.alert-success
-                    | La sesión se ha cerrado correctamente
-            - if (errorMsg)
-                div.alert.alert-danger
-                    | #{errorMsg}
+    link(rel='stylesheet', href='/themes/shopmanagement/css/login.css')
+    .container
+        .row
+            .col-md-6
+                form.form-signin(action="/shopmanagement/login", method='post')
+                    h2.form-signin-heading Accede
+                    .input-prepend
+                      span.add-on
+                        i.icon-large.icon-envelope
+                      input.span3(type='email', name="email", ng-model="email", placeholder='Email', required)
+                    .input-prepend
+                      span.add-on
+                        i.icon-large.icon-key
+                      input.span3(type='password', name="password", ng-model="password", placeholder='Contraseña', required)
+                    button.btn.btn-large.btn-primary(type='submit', name='submit') Acceder
+            .col-md-6
+                form.form-signin(action="/shopmanagement/signup", method='post')
+                    h2.form-signin-heading Registrate
+                    .input-prepend
+                      span.add-on
+                        i.icon-large.icon-envelope
+                      input.span3(type='text', name="name", ng-model="name", placeholder='Name', required)
+                    .input-prepend
+                      span.add-on
+                        i.icon-large.icon-envelope
+                      input.span3(type='email', name="email", ng-model="email", placeholder='Email', required)
+                    .input-prepend
+                      span.add-on
+                        i.icon-large.icon-key
+                      input.span3(type='password', name="password", ng-model="password", placeholder='Contraseña', required)
+                    button.btn.btn-large.btn-primary(type='submit', name='submit') Registrar
+        .row
+            .col-md-12
+                br
+                br
+                - if (endSession)
+                    div.alert.alert-success
+                        | La sesión se ha cerrado correctamente
+                - if (errorMsg)
+                    div.alert.alert-danger
+                        | #{errorMsg}

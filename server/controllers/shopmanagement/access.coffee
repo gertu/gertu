@@ -15,10 +15,11 @@ exports.loginDo = (req, res) ->
   else
 
     Shop.findOne({email: email, password: password}).exec( (err, shop) ->
+
       if err
         res.status(500).send('Application error')
       else if not shop?
-        res.render "/pages/shopmanagement/login",
+        res.render "pages/shopmanagement/access/login",
           {errorMsg: 'Los credenciales suministrados no corresponden a un usuario'}
       else if not shop.confirmed
         res.redirect "/shopmanagement/confirm/" + shop._id,
@@ -37,7 +38,8 @@ exports.logout = (req, res) ->
   res.redirect "/shopmanagement/login"
 
 exports.dashboard = (req, res) ->
-  res.render "pages/shopmanagement/access/dashboard"
+  currentShop = req.session.currentShop
+  res.render "pages/shopmanagement/access/dashboard", {currentShop: currentShop}
 
 exports.signupDo = (req, res) ->
   console.log req.body
@@ -71,4 +73,22 @@ exports.signupDo = (req, res) ->
 
 exports.confirm = (req, res) ->
   shopId = req.params.shopId
-  res.render "pages/shopmanagement/access/confirm", {shopId: shopId}
+
+  Shop.findOne({_id: shopId}).exec( (err, shop) ->
+
+    if err
+      res.status(500).send('Application error')
+    else if not shop?
+      res.render "pages/shopmanagement/access/login",
+        {errorMsg: 'Los credenciales suministrados no corresponden a un usuario'}
+    else if shop.confirmed
+      req.session.currentShop =
+          shopId: shop._id,
+          shopEmail: shop.email,
+          isAuthenticated: true
+          
+      res.redirect "/shopmanagement/dashboard",
+    else
+      res.render "pages/shopmanagement/access/confirm", {currentShop: shop}
+    )
+  

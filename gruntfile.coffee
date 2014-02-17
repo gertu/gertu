@@ -103,11 +103,22 @@ module.exports = (grunt) ->
     copy:
       images:
         files:[
-          expand: true
-          cwd   : "assets/img"
-          src   : "**/*"
-          dest  : "public/img"
-          filter: "isFile"]
+          {
+            expand: true
+            cwd   : "assets/img"
+            src   : "**/*"
+            dest  : "public/img"
+            filter: "isFile"
+          },
+          {
+            expand: true
+            cwd   : "assets/themes"
+            src   : "**/*"
+            dest  : "public/themes"
+            filter: "isFile"
+          },
+
+        ]
 
     nodemon:
       dev:

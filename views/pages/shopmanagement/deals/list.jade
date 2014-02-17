@@ -1,7 +1,34 @@
 extends ../layouts/default
 block content
-   h1 Listado de ofertas
-
-   a.btn.btn-primary(href="/shopmanagement/deals/new") Nueva oferta
-   - for deal in deals
-       span #{deal.name}
+    include ../layouts/top-menu
+    .row-fluid
+        .span2
+            &nbsp;
+        .span8
+            .well
+                h1 Listado de ofertas
+            .pull-right
+                p
+                    a.btn.btn-primary(href="/shopmanagement/deals/new") Nueva oferta
+            table.table.table-bordered
+                thead
+                    tr
+                        th Nombre
+                        th Categoría
+                        th Precio
+                        th Precio GERTU
+                        th Descuento
+                        th &nbsp;
+                        th &nbsp;
+                tbody
+                    - for deal in deals
+                        tr
+                            td #{deal.name}
+                            td #{deal.categoryname}
+                            td #{deal.price}
+                            td #{deal.gertuprice}
+                            td #{deal.discount}
+                            td
+                                a.btn.btn-primary(href="/shopmanagement/deals/view/#{deal._id}") editar
+                            td
+                                a.btn.btn-primary(href="/shopmanagement/deals/delete/#{deal._id}") eliminar
