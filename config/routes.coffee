@@ -144,7 +144,7 @@ module.exports = (app, passport) ->
   app.get  "/shopmanagement/deals/new", Security.authenticateShop, shopManagementDeals.create
   app.post "/shopmanagement/deals/new", Security.authenticateShop, shopManagementDeals.createDo
   app.get  "/shopmanagement/deals/edit/:dealId", Security.authenticateShop, shopManagementDeals.edit
-  app.post "/shopmanagement/deals/edit/:dealId", Security.authenticateShop, shopManagementDeals.editDo
+  app.post "/shopmanagement/deals/edit", Security.authenticateShop, shopManagementDeals.editDo
   # End of shop management area
 
 

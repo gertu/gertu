@@ -16,6 +16,7 @@ exports.create = (req, res) ->
   DealCategory.find().sort('name').exec( (err, categories ) ->
     res.render 'pages/shopmanagement/deals/create',
       {
+        deal: {_id: 0},
         categories: categories,
         days: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
         currentShop: req.session.currentShop
@@ -55,7 +56,7 @@ exports.edit = (req, res) ->
   dealId = req.params.dealId
   
   Deal.findOne({_id: req.params.dealId}).exec( (err, deal) ->
-
+   
     DealCategory.find().sort('name').exec( (err, categories ) ->
       res.render 'pages/shopmanagement/deals/create',
         {
@@ -70,8 +71,8 @@ exports.edit = (req, res) ->
 exports.editDo = (req, res) ->
   shopId = req.session.currentShop.shopId
   dealId = req.params.dealId
-  
-  Deal.findOne({_id: req.params.dealId}).exec( (err, deal) ->
+  console.log req.body
+  Deal.findOne({_id: req.body.id}).exec( (err, deal) ->
 
 
     Shop.findOne({_id: shopId}).exec( (err, shop) ->
