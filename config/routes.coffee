@@ -147,7 +147,7 @@ module.exports = (app, passport) ->
   app.post "/shopmanagement/deals/edit", Security.authenticateShop, shopManagementDeals.editDo
 
   shopManagementComments = require("../server/controllers/shopmanagement/comments")
-  app.get  "/shopmanagement/comments", Security.authenticateShop, shopManagementComments.list
+  app.get  "/shopmanagement/comments/list", Security.authenticateShop, shopManagementComments.list
 
   shopManagementReservations = require("../server/controllers/shopmanagement/reservations")
   app.get  "/shopmanagement/reservations/list", Security.authenticateShop, shopManagementReservations.list

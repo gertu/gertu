@@ -6,8 +6,8 @@ exports.list = (req, res) ->
 
   shopId = req.session.currentShop.shopId
 
-  Deal.find({shop: shopId}).populate('shop').populate('comments').exec( (err, deals) ->
-
+  Deal.find({shop: shopId}).populate('shop').exec( (err, deals) ->
+    console.log 'eeee'
     comments = []
 
     for deal in deals

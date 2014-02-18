@@ -1,0 +1,21 @@
+extends ../layouts/default
+block content
+    include ../layouts/top-menu
+    .row-fluid
+        .span2
+            &nbsp;
+        .span8
+            .well
+                h1 Últimos comentarios
+            table.table.table-bordered
+                thead
+                    tr
+                        th Fecha
+                        th Comentario
+                        th Valoración
+                tbody
+                    - for comment in comments
+                        tr
+                            td #{reservation.writedAt}
+                            td #{reservation.description}
+                            td #{reservation.rating}

@@ -9,12 +9,6 @@ exports.list = (req, res) ->
   Deal.find({shop: shopId}).populate('shop').exec (err, deals) ->
     res.render 'pages/shopmanagement/deals/list', {deals: deals, currentShop: req.session.currentShop}
 
-exports.search = (req, res) ->
-  shopId = req.session.currentShop.shopId
-
-  Deal.find({shop: shopId, name: {$regex : '*' + req.body.search + '*'}}).populate('shop').exec (err, deals) ->
-    res.render 'pages/shopmanagement/deals/list', {deals: deals, currentShop: req.session.currentShop}
-
 exports.create = (req, res) ->
   shopId = req.session.currentShop.shopId
   dealId = req.params.dealId
