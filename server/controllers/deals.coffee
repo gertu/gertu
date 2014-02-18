@@ -1,12 +1,15 @@
-mongoose = require "mongoose"
-async    = require "async"
-_        = require "underscore"
+mongoose  = require "mongoose"
+async     = require "async"
+_         = require "underscore"
+Utilities = require "../tools/utilities"
+
 Deal     = mongoose.model "Deal"
 Shop     = mongoose.model "Shop"
 User     = mongoose.model "User"
 
+
 exports.deal = (req, res, next, id) ->
-  Deal.findOne(_id: id).populate("comments.author").exec (err, deal) ->
+  Deal.findOne(_id: id).populate("comments.author").populate("shop").exec (err, deal) ->
     return next(err)  if err
     return next(new Error('Failed to load deal ' + id))  unless deal
     req.deal = deal
@@ -85,31 +88,36 @@ exports.addComment = (req, res) ->
   description = req.body.description
   rating = req.body.rating
   currentUser = req.user
+  if currentUser?
+    if description? and rating?
+      User.findOne(_id: currentUser._id).exec (err, user) ->
+        if user
+          if !hasWritten(req, currentUser)
+            comment =
+              author     : user._id
+              description: description
+              rating     : Number(rating)
 
-  if description? and rating?
-    User.findOne(_id: currentUser._id).exec (err, user) ->
-      if user
-        if !hasWritten(req, currentUser)
-          comment =
-            author     : user._id
-            description: description
-            rating     : Number(rating)
+            sumOfRatings = req.deal.average * (req.deal.comments.length)
+            average      = (sumOfRatings + comment.rating) / (req.deal.comments.length + 1)
 
-          sumOfRatings = req.deal.average * (req.deal.comments.length)
-          average      = (sumOfRatings + comment.rating) / (req.deal.comments.length + 1)
+            shopAverage  = req.deal.shop.average + Utilities.shopRating(comment.rating)
 
-          req.deal.comments.push comment
+            req.deal.comments.push comment
 
-          req.deal = _.extend(req.deal, "average": average)
-          req.deal.save (err) ->
-            if err
-              console.log err
-              res.status(500).send(err)
-            else
-              res.jsonp req.deal
+            req.deal      = _.extend(req.deal, "average": average)
+            req.deal.shop = _.extend(req.deal.shop, "average": shopAverage)
+
+            req.deal.save and req.deal.shop.save (err) ->
+              if err
+                res.status(500).send(err)
+              else
+                res.jsonp req.deal
+          else
+            res.status(409).send("user has already post a comment in this deal")
         else
-          res.status(409).send("user has already post a comment in this deal")
-      else
-        res.status(404).send("the user does not exist")
+          res.status(404).send("the user does not exist")
+    else
+      res.status(422).send("description and rating are required")
   else
-    res.status(422).send("author, description and rating are required")
+    res.status(401).send("login is required for this action")

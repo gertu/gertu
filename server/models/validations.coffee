@@ -39,37 +39,3 @@ exports.uniqueFieldInsensitiveAdministrator = (key) ->
 
     mongoose.models["Administrator"].findOne query, (error, admin) ->
       respond not admin
-
-
-exports.dateToString = (date) ->
-  date.getFullYear()             + "-" +
-  twoDigits(date.getMonth() + 1) + "-" +
-  twoDigits(date.getDate())      + "-" +
-  twoDigits(date.getHours())     +
-  twoDigits(date.getMinutes())   +
-  twoDigits(date.getSeconds())
-
-twoDigits = (i) ->
-  (if (i < 10) then "0" + i else "" + i)
-
-
-exports.slugify = (text) ->
-  accents =
-    a: /\u00e1/g
-    e: /u00e9/g
-    i: /\u00ed/g
-    o: /\u00f3/g
-    u: /\u00fa/g
-    n: /\u00f1/g
-
-  slug = text.toString().toLowerCase()
-
-  for i of accents
-    slug = slug.replace(accents[i], i)
-
-  slug
-    .replace(/\s+/g, "-")         # Replace spaces with -
-    .replace(/[^\w\-]+/g, "")     # Remove all non-word chars
-    .replace(/\-\-+/g, "-")       # Replace multiple - with single -
-    .replace(/^-+/, "")           # Trim - from start of text
-    .replace /-+$/, ""            # Trim - from end of text
