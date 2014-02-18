@@ -11,6 +11,12 @@ exports.list = (req, res) ->
   Deal.find({shop: shopId}).populate('shop').exec (err, deals) ->
     res.render 'pages/shopmanagement/deals/list', {deals: deals, currentShop: req.session.currentShop}
 
+exports.search = (req, res) ->
+  shopId = req.session.currentShop.shopId
+
+  Deal.find({shop: shopId, name: {$regex : '*' + req.body.search + '*'}}).populate('shop').exec (err, deals) ->
+    res.render 'pages/shopmanagement/deals/list', {deals: deals, currentShop: req.session.currentShop}
+
 exports.create = (req, res) ->
   shopId = req.session.currentShop.shopId
   dealId = req.params.dealId
@@ -18,7 +24,9 @@ exports.create = (req, res) ->
   DealCategory.find().sort('name').exec( (err, categories ) ->
     res.render 'pages/shopmanagement/deals/create',
       {
-        deal: {_id: 0},
+        esNueva: true,
+        actionUrl: '/shopmanagement/deals/new',
+        deal: {_id: 0, name: ''},
         categories: categories,
         days: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
         currentShop: req.session.currentShop
@@ -62,7 +70,9 @@ exports.edit = (req, res) ->
     DealCategory.find().sort('name').exec( (err, categories ) ->
       res.render 'pages/shopmanagement/deals/create',
         {
-          deal: deal
+          esNueva: false,
+          actionUrl: '/shopmanagement/deals/edit',
+          deal: deal,
           categories: categories,
           days: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
           currentShop: req.session.currentShop
