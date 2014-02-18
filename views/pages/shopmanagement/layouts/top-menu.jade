@@ -12,11 +12,19 @@
                 li.active
                   a(href='/shopmanagement/dashboard')
                     i.icon-home.icon-black
-                    | Dashboard
+                    | Inicio
                 li
                   a(href='/shopmanagement/deals/list')
                     i.icon-user.icon-black
-                    | Listado de ofertas
+                    | Ofertas
+                li
+                  a(href='/shopmanagement/reservations/list')
+                    i.icon-user.icon-black
+                    | Reservas
+                li
+                  a(href='/shopmanagement/comments/list')
+                    i.icon-user.icon-black
+                    | Comentarios
               ul.nav.pull-right.settings
                 li.dropdown
                   ul.dropdown-menu
@@ -36,8 +44,9 @@
               ul.nav.pull-right.settings
                 li.divider-vertical
               p.navbar-text.pull-right
-                | Bienvenido/a, 
-                strong #{currentShop.shopEmail}
+                | Bienvenido/a,
+                a.tip.icon.logout(href='/shopmanagement/profile/view')
+                  strong #{currentShop.shopEmail}
               ul.nav.pull-right.settings
                 li.divider-vertical
               .pull-right
