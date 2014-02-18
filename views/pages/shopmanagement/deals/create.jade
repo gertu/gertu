@@ -10,7 +10,7 @@ block content
       - else
         .well
           h1 Editando oferta
-      form(role="form", method="POST", action="#{actionUrl}")
+      form(role="form", method="POST", enctype="multipart/form-data", action="#{actionUrl}")
         .row-fluid
           .span6
             input(type="hidden", value="#{deal._id}", name="id")
@@ -22,7 +22,7 @@ block content
             input#name(name='name', type='text', value='#{deal.name}', placeholder='Title', required='required')
             label(for='description') Description
             textarea#description(name='description', rows='10', value='#{deal.description}',
-              placeholder='Descripción de la oferta...', required='required')
+              placeholder='Descripción de la oferta...', required='required') #{deal.description}
             label(for='price') Price:
             .input-prepend
               span.add-on €
@@ -50,9 +50,9 @@ block content
                     label #{day}
             label(for='quantity') Quantity:
             input#quantity(type='number',name='quantity', value='#{deal.quantity}', required='required')
-         label.col-sm-2.control-label(for='image') Imagen
-                .col-sm-10
-                  input#image.form-control(type='file', name='image', data-ng-model='image', accept="image/*")
+            label.col-sm-2.control-label(for='image') Imagen
+              .col-sm-10
+                input#image.form-control(type='file', name='image', data-ng-model='image', accept="image/*")
         .row-fluid
           .pull-right
             a.btn.btn-danger.btn-lg(href="/shopmanagement/deals/list")
