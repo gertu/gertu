@@ -132,9 +132,9 @@ exports.editDo = (req, res) ->
     fs.unlink file.path
     res.render "shopmanagement/deals/edit",
     {
-      errorMsg: 'El formato debe ser jpg, png o gif', 
-      deal: dealId, 
-      currentShop: req.session.currentShop 
+      errorMsg: 'El formato debe ser jpg, png o gif',
+      deal: dealId,
+      currentShop: req.session.currentShop
     }
 
  
