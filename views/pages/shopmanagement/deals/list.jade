@@ -13,6 +13,7 @@ block content
             table.table.table-bordered
                 thead
                     tr
+                        th Imagen
                         th Nombre
                         th Categoría
                         th Precio
@@ -23,6 +24,8 @@ block content
                 tbody
                     - for deal in deals
                         tr
+                            td 
+                              img(src="#{deal.image}")
                             td #{deal.name}
                             td #{deal.categoryname}
                             td #{deal.price} €

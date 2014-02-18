@@ -29,8 +29,10 @@ var App = (function(){
 		}
 	};
 
+
 	return {
 		initializeMap: initializeMap,
 		verifyFieldsMatch: verifyFieldsMatch
+
 	}
 })();
