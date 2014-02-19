@@ -13,4 +13,5 @@ section(data-ng-controller="DealsController", data-ng-init="findOne()")
         p {{comment.description}}
         p {{comment.writedAt | date: "longDate"}}
         hr
-    include ../deals/commentForm
+      li(data-ng-show="global.user")
+        include ../deals/commentForm

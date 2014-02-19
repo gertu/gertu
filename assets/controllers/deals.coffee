@@ -14,11 +14,11 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
 
   # $scope.toggleSelection = toggleSelection = (fruitName) ->
   #   idx = $scope.selection.indexOf(fruitName)
-    
+
   #   # is currently selected
   #   if idx > -1
   #     $scope.selection.splice idx, 1
-    
+
   #   # is newly selected
   #   else
   #     $scope.selection.push fruitName
@@ -41,7 +41,7 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
     deal.$save (response) ->
       $location.path "/admin/deals/photo/" + deal._id
 
-  
+
   $scope.findbyshop = ->
     DealsShop.query
       shopId: $routeParams.shopId
@@ -83,12 +83,13 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
       $scope.global.deal = deal
       $location.path "/admin/deals/photo/" + deal._id
 
-  $scope.addComent = () ->
+
+  $scope.addComent = ->
     deal = $scope.deal
     comment = $scope.comment
     if not comment.rating?
       comment.rating = 0
-    
+
     $http(
       url: "/api/v1/deals/" + deal._id + "/addComment"
       method: "PUT"
@@ -96,7 +97,10 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
     )
     .success (data, status) ->
       $scope.deal = data
-      AppAlert.add "success","ADDED_COMMENT"
+      AppAlert.add "success","COMMENT_" + status
+    .error (data, status) ->
+      AppAlert.add "error", "COMMENT_" + status
+
 
   truncateDecimals = (number) ->
     Math[(if number < 0 then "ceil" else "floor")] number

@@ -7,8 +7,6 @@ async    = require "async"
 _        = require "underscore"
 Path     = require "path"
 fs       = require "fs"
-Deal     = mongoose.model('Deal')
-Shop     = mongoose.model('Shop')
 
 Deal     = mongoose.model "Deal"
 Shop     = mongoose.model "Shop"
@@ -36,7 +34,7 @@ exports.updatephoto = (req, res) ->
   path = __dirname + "/public/upload/" + name
   deal = req.body.deal
   shop = req.session.currentShop.shopId
-  
+
   format = type.split("/")
   if format[1] is "jpg" or format[1] is "jpeg" or format[1] is "png" or format[1] is "gif"
     fs.rename req.files.image.path, path, (err) ->
@@ -52,8 +50,6 @@ exports.updatephoto = (req, res) ->
     fs.unlink file.path
     res.render "pages/shop/createphoto",
       {errorMsg: 'El formato debe ser jpg, png o gif'}
-
-
 
 exports.create = (req, res) ->
   if req.body.name and req.body.price and req.body.gertuprice and req.body.discount and req.body.shop
@@ -109,6 +105,7 @@ exports.destroy = (req, res) ->
     else
       res.send JSON.stringify(deal)
 
+
 # functions about Comments
 hasWritten = (req, user) ->
   i = 0
@@ -143,14 +140,14 @@ exports.addComment = (req, res) ->
 
             req.deal.save (err) -> req.deal.shop.save (err) ->
               if err
-                res.status(500).send(err)
+                res.send(500, err)
               else
                 res.jsonp req.deal
           else
-            res.status(409).send("user has already post a comment in this deal")
+            res.send(409, "user has already posted a comment in this deal")
         else
-          res.status(404).send("the user does not exist")
+          res.send(404, "the user does not exist")
     else
-      res.status(422).send("description and rating are required")
+      res.send(422, "description and rating are required")
   else
-    res.status(401).send("login is required for this action")
+    res.send(401, "login is required for this action")

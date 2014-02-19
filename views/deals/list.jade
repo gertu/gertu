@@ -13,6 +13,8 @@ section(data-ng-controller='DealsController', data-ng-init='find()')
           p Desde: {{deal.datainit | date:'longDate'}}
           p Hasta: {{deal.dataend | date:'mediumDate'}}
           p {{deal.shop.name}}
+          span.rating
+            rating.shop-rating(value="deal.shop.rating", max="10", readonly='true')
           .pricecolumn
             .normalprice
               p.price {{deal.price | currency:"&euro;"}}
