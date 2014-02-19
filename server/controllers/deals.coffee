@@ -2,6 +2,13 @@ mongoose  = require "mongoose"
 async     = require "async"
 _         = require "underscore"
 Utilities = require "../tools/utilities"
+mongoose = require "mongoose"
+async    = require "async"
+_        = require "underscore"
+Path     = require "path"
+fs       = require "fs"
+Deal     = mongoose.model('Deal')
+Shop     = mongoose.model('Shop')
 
 Deal     = mongoose.model "Deal"
 Shop     = mongoose.model "Shop"
@@ -21,6 +28,32 @@ exports.shop = (req, res, next, id) ->
     return next(new Error('Failed to load shop ' + id))  unless shop
     req.shop = shop
     next()
+
+exports.updatephoto = (req, res) ->
+  file = req.files.image
+  name = file.name
+  type = file.type
+  path = __dirname + "/public/upload/" + name
+  deal = req.body.deal
+  shop = req.session.currentShop.shopId
+  
+  format = type.split("/")
+  if format[1] is "jpg" or format[1] is "jpeg" or format[1] is "png" or format[1] is "gif"
+    fs.rename req.files.image.path, path, (err) ->
+      res.send "Ocurrio un error al intentar subir la imagen"  if err
+      res.redirect "/admin/deals/list/" + shop
+      Deal.findOne(_id: deal).exec (err, dealfound) ->
+        fs.unlink Path.resolve(".") + dealfound.image
+        splittednewname = (file.path).split("/")
+        dealfound.image = "/upload/" + splittednewname[splittednewname.length-1]
+        dealfound.save()
+
+  else
+    fs.unlink file.path
+    res.render "pages/shop/createphoto",
+      {errorMsg: 'El formato debe ser jpg, png o gif'}
+
+
 
 exports.create = (req, res) ->
   if req.body.name and req.body.price and req.body.gertuprice and req.body.discount and req.body.shop

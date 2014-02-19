@@ -28,7 +28,7 @@ module.exports = (app, passport, db) ->
 
   #Set views path, template engine and default layout
   app.set "views", config.root + "/views"
-  app.set 'photos', config.root + "/public/img/userphotos"
+  app.set 'photos', config.root + "/public/upload"
   app.set "view engine", "jade"
 
   #Enable jsonp
@@ -41,7 +41,7 @@ module.exports = (app, passport, db) ->
     #bodyParser should be above methodOverride
     app.use express.bodyParser(
       keepExtensions: true
-      uploadDir: config.root + "/public/img/userphotos"
+      uploadDir: config.root + "/public/upload"
     )
     app.use express.methodOverride()
 

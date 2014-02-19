@@ -1,0 +1,41 @@
+light-green   = #A8E430
+dark-green    = #609C00
+dark-orange   = #FC6C00
+light-orange  = #FCA860
+
+.navbar
+  background-color light-green
+  gradient(color1: lighten(dark-green,5), color2: light-green)
+  border 0
+  .nav
+    & > li
+      & > a
+        color darken(dark-green,5)
+        &:hover
+          color darken(dark-orange,5)
+          transition(color,ease-in-out,.05s)
+        &.brand
+          padding-left 20px
+          margin-left 0
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover,
+.navbar-inverse .navbar-nav>.active>a:focus,.navbar-inverse .navbar-nav>.open>a,
+.navbar-inverse .navbar-nav>.open>a:hover
+  background-color dark-green
+  color light-orange
+
+.navbar-nav.pull-right>li>
+  .dropdown-menu
+    background-color lighten(light-green,30)
+    li>a:hover
+      background-color dark-green
+      color lighten(light-green,30)
+
+.navbar-inverse .navbar-nav > .dropdown > a .caret
+  margin-left 5px
+
+form.signin
+  margin-left 150px
+  margin-top 8px
+  .form-group
+    margin-right 4px

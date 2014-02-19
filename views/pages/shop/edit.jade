@@ -50,5 +50,8 @@
           .input-group
             input#quantity.form-control(type='number', data-ng-model='deal.quantity', required='required')
         .row
-          .col-md-6.col-md-offset-4
+          .col-md-6
+            a.btn.btn-danger.btn-lg.btn-block(data-ng-href="/admin/deals/list/{{global.shop._id}}")
+              | Cancelar
+          .col-md-6
             input.btn.btn-success.btn-lg.btn-block(type='submit')

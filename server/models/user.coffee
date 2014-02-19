@@ -11,6 +11,7 @@ UserSchema = new Schema(
   lastName  : String
   picture   : type: String, default: "http://static.freepik.com/free-photo/male-user-icon-clip-art_419253.jpg"
   radius    : type: Number, default: 1000
+  confirmed : type: Boolean, default: false
 
   hashed_password : String
   salt            : String

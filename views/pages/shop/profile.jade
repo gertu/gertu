@@ -1,0 +1,81 @@
+h1 Perfil de la tienda
+
+form(method="POST", data-ng-submit="updateShopInfo()")
+    .row
+        .col-md-6
+            fieldset
+                legend General
+                label Nombre
+                input(type="text", ng-model="shop.name")
+                br
+                label Email
+                input(type="email", ng-model="shop.email")
+                br
+                label Clave
+                input(type="password", ng-model="password")
+                br
+                label Repita clave
+                input(type="password", ng-model="passwordRpt")
+            fieldset
+                legend Localización
+                label Longitud
+                input(type="text", ng-model="shop.loc.longitude",
+                      ng-change="updateCenter(shop.loc.longitude, shop.loc.latitude)")
+                br
+                label Latitud
+                input(type="text", ng-model="shop.loc.latitude",
+                      ng-change="updateCenter(shop.loc.longitude, shop.loc.latitude)")
+        .col-md-6
+            fieldset
+                legend Mapa
+                gm-map(gm-map-id="'shopLocationMap'", gm-center="center", gm-zoom="zoom", gm-bounds="bounds",
+                       gm-map-type-id="mapTypeId", style="width:100%;height:500px;")
+    .row
+        .col-md-6
+            fieldset
+                legend Información de facturación
+                label Tipo de tarjeta
+                select(ng-model="shop.card.type")
+                    option(value="Visa") Visa
+                    option(value="MasterCard") MasterCard
+                br
+                label Número
+                input(type="text", ng-model="shop.card.number")
+                br
+                label Mes expiración
+                input(type="text", ng-model="shop.card.expire_month")
+                br
+                label Año expiración
+                input(type="text", ng-model="shop.card.expire_year")
+                br
+                label CCV
+                input(type="text", ng-model="shop.card.cvv2")
+                br
+                label Nombre en la tarjeta
+                input(type="text", ng-model="shop.card.first_name")
+                br
+                label Apellidos en la tarjeta
+                input(type="text", ng-model="shop.card.last_name")
+        .col-md-6
+            fieldset
+                legend Dirección de facturación
+                label Dirección
+                input(type="text", ng-model="shop.billing_address.line1")
+                br
+                label Ciudad
+                input(type="text", ng-model="shop.billing_address.city")
+                br
+                label Provincia
+                input(type="text", ng-model="shop.billing_address.state")
+                br
+                label Código postal
+                input(type="text", ng-model="shop.billing_address.postal_code")
+                br
+                label País
+                select(ng-model="shop.billing_address.country_code")
+                    option(value="USA") Estados Unidos
+                    option(value="FR") Francia
+                    option(value="IT") Italia
+                    option(value="UK") Reino Unido
+         
+    input(Type="submit", value="Actualizar")

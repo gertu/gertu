@@ -59,4 +59,4 @@ exports.load = (req, res) ->
           nearbyDeals.sort (a, b) ->
             a.dist - b.dist
 
-      res.jsonp  [dealcount: dealc, usercount: userc, shopcount: shopc,neardeals: nearbyDeals]
+          res.jsonp  [dealcount: dealc, usercount: userc, shopcount: shopc,neardeals: nearbyDeals]

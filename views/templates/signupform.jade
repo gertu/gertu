@@ -1,14 +1,6 @@
-p
-  a.btn.btn-primary(href='/admin/signup') Soy un comercio
 form.signup.form-horizontal(name="signup_form", novalidate, action="api/v1/users", method="post")
   .form-group(ng-class="{'has-error': signup_form.email.$dirty && signup_form.email.$invalid}")
     input#email.form-control(type="email", name="email", ng-model="signup.email" ,placeholder="Email", ng-minlength=3, ng-maxlength=20 ,required)
-
-  .form-group
-    input#firstName.form-control(type="text", name="firstName", placeholder="Nombre")
-
-  .form-group
-    input#lastName.form-control(type="text", name="lastName", placeholder="Apellidos")
 
   .form-group(ng-class="{'has-error': signup_form.password.$dirty && signup_form.password.$invalid}")
     input#password.form-control(type="password", name="password", placeholder="Contraseña", ng-model="signup.password", ng-minlength=6, ng-maxlength=20, required)
@@ -18,3 +10,5 @@ form.signup.form-horizontal(name="signup_form", novalidate, action="api/v1/users
 
   .form-actions
     button.btn.btn-primary(type="submit",ng-disabled="signup_form.$invalid" ) Registrarse
+
+  a.btn.btn-secondary(href='/admin/signup') Soy un comercio

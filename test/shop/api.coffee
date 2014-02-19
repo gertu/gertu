@@ -15,6 +15,7 @@ describe "General shop testing", ->
       post(apiPreffix + '/shops').
       send({name: 'Shop name', email: 'myshop@email.com', password: '123456'}).
       end (err, res) ->
+        shopIdentifier = res._id
         res.should.have.status 200
         done()
 
@@ -45,12 +46,28 @@ describe "General shop testing", ->
         res.should.have.status 422
         done()
 
-  it "should be able to grant access to the newly created shop", (done) ->
+  it "should not be able to grant access to the newly created shop because it is not confirmed", (done) ->
     server.
       post(apiPreffix + '/shops/login').
       send({email: 'myshop@email.com', password: '123456'}).
       end (err, res) ->
-        res.should.have.status 200
+        res.should.have.status 401
+        done()
+
+  it "should confirm a shop", (done) ->
+    newShop = new Shop
+      name: 'new shop',
+      email: 'mail@gertuproject.info',
+      password: '123456'
+
+    newShop.save()
+
+    server.
+      get('/admin/confirmaccount/' + newShop._id).
+      end (err, res) ->
+        nextUrl = res.header.location
+        res.should.have.status 302
+        nextUrl.should.include '/admin/profile?confirmed'
         done()
 
   it "should not let a non-existant shop to login", (done) ->

@@ -14,9 +14,10 @@ DealSchema = new Schema
   categoryname : type: String
   datainit     : type: Date
   dataend      : type: Date
-  image        : type: String
+  image        : type: String, default: "/public/upload/terraza.jpg"
   created      : type: Date, default: Date.now
   quantity     : type: Number
+  days         : type: String
   average      : type: Number, default: 0, min: 0, max: 10
   comments     : [
       author      : type: Schema.Types.ObjectId, required: true, ref: "User"

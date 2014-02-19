@@ -12,8 +12,5 @@
     "angular-i18n"     : "latest",
     "angular-translate": "latest",
     "angular-animate"  : "latest"
-  },
-  "resolutions": {
-    "angular": "*"
   }
 }

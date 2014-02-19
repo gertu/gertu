@@ -15,7 +15,17 @@ describe "Mobile API testing", ->
   
   userOfApplication = 
     name: 'Nombre usuario',
-    email: 'nombreusuario@email.com',
+    email: 'nombreusuario@gertuproject.info',
+    password: '123456'
+
+  userWithSameEmail = 
+    name: 'Nombre usuario 2',
+    email: 'nombreusuario@gertuproject.info',
+    password: '123456'
+
+  userWithDifferentEmail = 
+    name: 'Nombre usuario 2',
+    email: 'nombreusuario2@gertuproject.info',
     password: '123456'
 
   shop1 = new Shop(
@@ -53,12 +63,28 @@ describe "Mobile API testing", ->
           )
         )
     )
-    
    
   it "should signup a new user", (done) ->
     server.
       post(apiPreffix + '/users').
       send(userOfApplication).
+      end (err, res) ->
+        res.should.have.status 200
+        done()
+
+  it "should not signup a user with a existant email", (done) ->
+    server.
+      post(apiPreffix + '/users').
+      send(userWithSameEmail).
+      end (err, res) ->
+        res.should.have.status 409
+        res.text.should.include 11000
+        done()
+
+  it "should signup a new user with different email", (done) ->
+    server.
+      post(apiPreffix + '/users').
+      send(userWithDifferentEmail).
       end (err, res) ->
         res.should.have.status 200
         done()

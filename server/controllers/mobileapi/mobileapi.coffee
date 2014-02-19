@@ -36,14 +36,15 @@ exports.usersSignUp = (req, res) ->
   user.password = req.body.password
 
   user.save( (error) ->
-    res.
-      status(422).
-      send()
-    )
 
-  res.
-    status(200).
-    send(JSON.stringify(user))
+    if error
+      if error.code is 11000 # email in use (duplicate)
+        res.status(409).send(JSON.stringify(error.code))
+      else
+        res.status(422).send(JSON.stringify(error.code))
+    else
+      res.status(200).send(JSON.stringify(user))
+  )
 
 exports.usersGetCurrent = (req, res) ->
   currentUser = req.session.user
