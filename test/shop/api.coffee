@@ -10,6 +10,10 @@ apiPreffix = '/api/v1'
 
 describe "General shop testing", ->
   
+  after (done) ->
+    Shop.remove().exec()
+    done()
+
   it "should signup a new shop", (done) ->
     server.
       post(apiPreffix + '/shops').
@@ -47,11 +51,12 @@ describe "General shop testing", ->
         done()
 
   it "should not be able to grant access to the newly created shop because it is not confirmed", (done) ->
+
     server.
       post(apiPreffix + '/shops/login').
       send({email: 'myshop@email.com', password: '123456'}).
       end (err, res) ->
-        res.should.have.status 401
+        res.should.have.status 403
         done()
 
   it "should confirm a shop", (done) ->
