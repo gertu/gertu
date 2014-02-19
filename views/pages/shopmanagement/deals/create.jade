@@ -58,3 +58,5 @@ block content
             a.btn.btn-danger.btn-lg(href="/shopmanagement/deals/list")
               | Cancelar
             input.btn.btn-success.btn-lg(type='submit', value='Guardar')
+  script.
+    App.syncronizeGertuPriceBoxes('price', 'gertuprice', 'discount');
