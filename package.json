@@ -1,74 +1,70 @@
 {
-  "name"        : "gertu",
-  "description" : "App to find the best deals near you",
-  "version"     : "0.1.0",
-  "author"      : "Gertu - gertuapp@gmail.com",
-  "repository"  : {
-    "type": "git", "url": "https://github.com/gertu/gertu"
+  "name": "gertu",
+  "description": "App to find the best deals near you",
+  "version": "0.1.0",
+  "author": "Gertu - gertuapp@gmail.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gertu/gertu"
   },
-  "license"     : [
+  "license": [
     {
       "type": "MIT",
-      "url" : "https://raw.github.com/gertu/gertu/master/LICENSE.md"
+      "url": "https://raw.github.com/gertu/gertu/master/LICENSE.md"
     }
   ],
-  "engines"     : {
+  "engines": {
     "node": "0.10.*",
-    "npm" : "1.*"
+    "npm": "1.*"
   },
   "scripts": {
-    "start"      : "node node_modules/grunt-cli/bin/grunt",
-    "test"       : "node node_modules/grunt-cli/bin/grunt test",
+    "start": "node node_modules/grunt-cli/bin/grunt",
+    "test": "node node_modules/grunt-cli/bin/grunt test",
     "postinstall": "node node_modules/bower/bin/bower install"
   },
   "dependencies": {
-    "express"              : "~3.4.4",
-    "jade"                 : "latest",
-    "stylus"               : "latest",
-
-    "mongoose"             : "~3.8.0",
-    "connect-mongo"        : "~0.4.0",
-
-    "connect-flash"        : "latest",
-    "crypto"               : "latest",
-
-    "passport"             : "latest",
-    "passport-local"       : "latest",
-
-    "view-helpers"         : "latest",
-    "mean-logger"          : "latest",
-    "forever"              : "latest",
-    "bower"                : "latest",
-    "async"                : "latest",
-    "underscore"           : "latest",
-    "nodemailer"           : "latest",
-    "cron"                 : "*",
-    "grunt-cli"            : "*",
-    "paypal-rest-sdk"      : "*"
+    "express": "~3.4.4",
+    "jade": "latest",
+    "stylus": "latest",
+    "mongoose": "~3.8.0",
+    "connect-mongo": "~0.4.0",
+    "connect-flash": "latest",
+    "crypto": "latest",
+    "passport": "latest",
+    "passport-local": "latest",
+    "view-helpers": "latest",
+    "mean-logger": "latest",
+    "forever": "latest",
+    "bower": "latest",
+    "async": "latest",
+    "underscore": "latest",
+    "nodemailer": "latest",
+    "cron": "*",
+    "grunt-cli": "*",
+    "paypal-rest-sdk": "*"
   },
   "devDependencies": {
-
-    "blanket"             : "*",
-    "coffee-script"       : "*",
-    "supertest"           : "*",
-    "should"              : "*",
-    "nodemailer"          : "*",
-
-    "grunt"               : "*",
-    "grunt-coffeelint"    : "*",
-    "grunt-concurrent"    : "*",
-    "grunt-contrib-clean" : "*",
+    "blanket": "*",
+    "coffee-script": "*",
+    "supertest": "*",
+    "should": "*",
+    "nodemailer": "*",
+    "grunt": "*",
+    "grunt-coffeelint": "*",
+    "grunt-concurrent": "*",
+    "grunt-contrib-clean": "*",
     "grunt-contrib-coffee": "*",
-    "grunt-contrib-copy"  : "*",
+    "grunt-contrib-copy": "*",
     "grunt-contrib-cssmin": "*",
-    "grunt-contrib-jade"  : "*",
+    "grunt-contrib-jade": "*",
     "grunt-contrib-stylus": "*",
     "grunt-contrib-uglify": "*",
-    "grunt-contrib-watch" : "*",
-    "grunt-env"           : "*",
-    "grunt-mocha-test"    : "*",
-    "grunt-nodemon"       : "*",
-    "cron"                : "*",
-    "paypal-rest-sdk"     : "*"
+    "grunt-contrib-watch": "*",
+    "grunt-env": "*",
+    "grunt-mocha-test": "*",
+    "grunt-nodemon": "*",
+    "cron": "*",
+    "paypal-rest-sdk": "*",
+    "grunt-coveralls": "~0.3.0"
   }
 }

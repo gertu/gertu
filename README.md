@@ -1,7 +1,10 @@
-# GERTU
-App to find the best deals near you.
+GERTU
+=====
+> App to find the best deals near you.
 
-[![Build Status](https://travis-ci.org/gertu/gertu.png?branch=develop)](https://travis-ci.org/gertu/gertu)
+[![Build Status](https://travis-ci.org/gertu/gertu.png?branch=develop)](https://travis-ci.org/gertu/gertu) [![Coverage Status](https://coveralls.io/repos/gertu/gertu/badge.png)](https://coveralls.io/r/gertu/gertu) [![Dependency status](https://david-dm.org/gertu/gertu/status.png)](https://david-dm.org/gertu/gertu#info=dependencies&view=table) [![Dev Dependency Status](https://david-dm.org/gertu/gertu/dev-status.png)](https://david-dm.org/gertu/gertu#info=devDependencies&view=table)
+
+
 ## Prerequisites
 * Node.js - Download and Install [Node.js](http://www.nodejs.org/download/). You can also follow [this gist](https://gist.github.com/isaacs/579814) for a quick and easy way to install Node.js and npm.
 * MongoDB - Download and Install [MongoDB](http://www.mongodb.org/downloads) - Make sure it's running on the default port [(27017)](http://localhost:27017).

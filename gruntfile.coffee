@@ -8,6 +8,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks "grunt-contrib-cssmin"
   grunt.loadNpmTasks "grunt-coffeelint"
   grunt.loadNpmTasks "grunt-contrib-cssmin"
+  grunt.loadNpmTasks "grunt-coveralls"
   grunt.loadNpmTasks "grunt-mocha-test"
   grunt.loadNpmTasks "grunt-nodemon"
   grunt.loadNpmTasks "grunt-env"
@@ -124,6 +125,7 @@ module.exports = (grunt) ->
     mochaTest:
       test:
         options:
+          timeout: 30000
           reporter: "spec"
           require : ["coffee-script", "coverage/blanket"]
         src: ["test/**/*.coffee"]
@@ -133,6 +135,11 @@ module.exports = (grunt) ->
           quiet      : true
           captureFile: "coverage.html"
         src: ["test/**/*.coffee"]
+
+    coveralls:
+      options:
+        src  : "coverage-results/lcov.info"
+        force: false
 
     env:
       test:
