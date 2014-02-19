@@ -67,7 +67,7 @@ exports.createDo = (req, res) ->
    else
     fs.unlink file.path
     res.render "shopmanagement/deals/edit",
-    {errorMsg: 'El formato debe ser jpg, png o gif', deal: dealId }
+    {errorMsg: 'El formato debe ser jpg, png o gif', deal: dealId, currentShop: req.session.currentShop}
 
 exports.edit = (req, res) ->
   shopId = req.session.currentShop.shopId
@@ -137,4 +137,25 @@ exports.editDo = (req, res) ->
       currentShop: req.session.currentShop
     }
 
- 
+exports.delete = (req, res) ->
+  shopId = req.session.currentShop.shopId
+  dealId = req.params.dealId
+  
+  Deal.findOne({_id: req.params.dealId}).exec (err, deal) ->
+   
+    res.render 'pages/shopmanagement/deals/delete',
+      {
+        deal: deal,
+        currentShop: req.session.currentShop
+      }
+
+exports.deleteDo = (req, res) ->
+  shopId = req.session.currentShop.shopId
+  console.log(shopId)
+  Deal.findOne({_id: req.body.id}).exec (err, deal) ->
+    deal.remove (err) ->
+      if err
+        res.render "error",
+          status: 500
+      else
+        res.redirect 'shopmanagement/deals/list'

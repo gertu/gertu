@@ -145,6 +145,8 @@ module.exports = (app, passport) ->
   app.post "/shopmanagement/deals/new", Security.authenticateShop, shopManagementDeals.createDo
   app.get  "/shopmanagement/deals/edit/:dealId", Security.authenticateShop, shopManagementDeals.edit
   app.post "/shopmanagement/deals/edit", Security.authenticateShop, shopManagementDeals.editDo
+  app.get  "/shopmanagement/deals/delete/:dealId", Security.authenticateShop, shopManagementDeals.delete
+  app.post "/shopmanagement/deals/delete", Security.authenticateShop, shopManagementDeals.deleteDo
 
   shopManagementComments = require("../server/controllers/shopmanagement/comments")
   app.get  "/shopmanagement/comments/list", Security.authenticateShop, shopManagementComments.list
@@ -152,7 +154,7 @@ module.exports = (app, passport) ->
   shopManagementReservations = require("../server/controllers/shopmanagement/reservations")
   app.get  "/shopmanagement/reservations/list", Security.authenticateShop, shopManagementReservations.list
   app.get  "/shopmanagement/reservations/confirm", Security.authenticateShop, shopManagementReservations.confirm
-  app.post  "/shopmanagement/reservations/confirm", Security.authenticateShop, shopManagementReservations.confirmDo
+  app.post "/shopmanagement/reservations/confirm", Security.authenticateShop, shopManagementReservations.confirmDo
   # End of shop management area
 
 
