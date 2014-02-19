@@ -108,7 +108,7 @@ exports.addComment = (req, res) ->
             req.deal      = _.extend(req.deal, "average": average)
             req.deal.shop = _.extend(req.deal.shop, "average": shopAverage)
 
-            req.deal.save and req.deal.shop.save (err) ->
+            req.deal.save (err) -> req.deal.shop.save (err) ->
               if err
                 res.status(500).send(err)
               else
