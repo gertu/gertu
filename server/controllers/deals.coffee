@@ -119,7 +119,7 @@ exports.addComment = (req, res) ->
   rating = req.body.rating
   currentUser = req.user
   if currentUser?
-    if description? and rating?
+    if description? and rating > 0
       User.findOne(_id: currentUser._id).exec (err, user) ->
         if user
           if !hasWritten(req, currentUser)
@@ -131,7 +131,8 @@ exports.addComment = (req, res) ->
             sumOfRatings = req.deal.average * (req.deal.comments.length)
             average      = (sumOfRatings + comment.rating) / (req.deal.comments.length + 1)
 
-            shopAverage  = req.deal.shop.average + Utilities.shopRating(comment.rating)
+            shopAverage = req.deal.shop.average + Utilities.shopRating(comment.rating)
+            shopAverage = 0  if shopAverage < 0
 
             req.deal.comments.push comment
 
