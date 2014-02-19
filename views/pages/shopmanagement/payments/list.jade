@@ -1,0 +1,19 @@
+extends ../layouts/default
+block content
+    include ../layouts/top-menu
+    .row-fluid
+        .span2
+            &nbsp;
+        .span8
+            .well
+                h1 Listado de últimos pagos
+            table.table.table-bordered
+                thead
+                    tr
+                        th Fecha
+                        th Importe
+                tbody
+                    - for payment in payments
+                        tr
+                            td #{payment.date}
+                            td #{payment.amount} €

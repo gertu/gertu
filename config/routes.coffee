@@ -155,6 +155,9 @@ module.exports = (app, passport) ->
   app.get  "/shopmanagement/reservations/list", Security.authenticateShop, shopManagementReservations.list
   app.get  "/shopmanagement/reservations/confirm", Security.authenticateShop, shopManagementReservations.confirm
   app.post "/shopmanagement/reservations/confirm", Security.authenticateShop, shopManagementReservations.confirmDo
+
+  shopManagementPayments = require("../server/controllers/shopmanagement/payments")
+  app.get  "/shopmanagement/payments/list", Security.authenticateShop, shopManagementPayments.list
   # End of shop management area
 
 
