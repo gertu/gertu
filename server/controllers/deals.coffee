@@ -70,19 +70,20 @@ exports.update = (req, res) ->
 
 # reserve a deal
 exports.reserve = (req, res) ->
-  reservation = new Reservation()
-  reservation.deal = req.deal._id
-  reservation.user = req.user._id
-  reservation.save (err) ->
-    Deal.collection.update
-      _id: req.deal._id
-    ,
-      $inc:
-        quantity:
-          -1
-    , (err,data) ->
-      res.writeHead 200
-      res.end()
+  if req.deal.quantity > 0
+    reservation = new Reservation()
+    reservation.deal = req.deal._id
+    reservation.user = req.user._id
+    reservation.save (err) ->
+      Deal.collection.update
+        _id: req.deal._id
+      ,
+        $inc:
+          quantity:
+            -1
+      , (err,data) ->
+        res.status 200
+        res.end()
 
 exports.destroy = (req, res) ->
   deal = req.deal
