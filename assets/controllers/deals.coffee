@@ -1,6 +1,6 @@
 angular.module("mean.deals").controller "DealsController", ["$scope",
-"$routeParams", "$location", "Global", "Deals", "DealsCategory", "DealsShop", ($scope, $routeParams,
-  $location, Global, Deals, DealsCategory, DealsShop) ->
+"$routeParams", "$location", "Global", "Deals", "DealsCategory", "DealsShop", "AppAlert", "$http", ($scope,
+  $routeParams, $location, Global, Deals, DealsCategory, DealsShop, AppAlert, $http) ->
   $scope.global = Global
 
   # $scope.days [
@@ -14,11 +14,11 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
 
   # $scope.toggleSelection = toggleSelection = (fruitName) ->
   #   idx = $scope.selection.indexOf(fruitName)
-    
+
   #   # is currently selected
   #   if idx > -1
   #     $scope.selection.splice idx, 1
-    
+
   #   # is newly selected
   #   else
   #     $scope.selection.push fruitName
@@ -36,11 +36,12 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
       datainit: @datainit
       dataend: @dataend
       quantity: @quantity
+      average: @average
     )
     deal.$save (response) ->
       $location.path "/admin/deals/photo/" + deal._id
 
-  
+
   $scope.findbyshop = ->
     DealsShop.query
       shopId: $routeParams.shopId
@@ -81,6 +82,24 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
     deal.$update ->
       $scope.global.deal = deal
       $location.path "/admin/deals/photo/" + deal._id
+
+
+  $scope.addComent = ->
+    deal = $scope.deal
+    comment = $scope.comment
+    if not comment.rating?
+      comment.rating = 0
+
+    $http(
+      url: "/api/v1/deals/" + deal._id + "/addComment"
+      method: "PUT"
+      data: $scope.comment
+    )
+    .success (data, status) ->
+      $scope.deal = data
+      AppAlert.add "success","COMMENT_" + status
+    .error (data, status) ->
+      AppAlert.add "error", "COMMENT_" + status
 
 
   truncateDecimals = (number) ->

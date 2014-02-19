@@ -18,10 +18,12 @@ DealSchema = new Schema
   created      : type: Date, default: Date.now
   quantity     : type: Number
   days         : type: String
-
-
-DealSchema.statics.load = (id, cb) ->
-  @findOne(_id: id).populate("shop", "name shop").exec cb
-
+  average      : type: Number, default: 0, min: 0, max: 10
+  comments     : [
+      author      : type: Schema.Types.ObjectId, required: true, ref: "User"
+      description : type: String
+      writedAt    : type: Date, default: Date.now
+      rating      : type: Number
+  ]
 
 mongoose.model "Deal", DealSchema

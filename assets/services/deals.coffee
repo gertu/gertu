@@ -5,5 +5,4 @@ angular.module("mean.deals").factory "Deals", ["$resource", ($resource) ->
   ,
     update:
       method: "PUT"
-
 ]

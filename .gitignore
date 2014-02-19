@@ -1,6 +1,7 @@
 # Project
 public/*
 !public/utils
+coverage.html
 
 # Node.js
 lib-cov
@@ -15,7 +16,9 @@ pids
 logs
 results
 npm-debug.log
-node_modules
+node_modules/*
+!node_modules/passport-stub
+
 .nodemonignore
 
 # Linux
