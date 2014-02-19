@@ -69,9 +69,11 @@ exports.usersUpdate = (req, res) ->
         res.status(403).send('Access denied')
       else
 
-        userData = _.extend(userData, req.body)
-
-        user.save (err) ->
+        userData.firstName = req.body.firstName
+        userData.lastName = req.body.lastName
+        userData.email = req.body.email
+        
+        userData.save (err) ->
 
           if err?
             res.
