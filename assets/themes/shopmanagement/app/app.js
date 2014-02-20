@@ -1,8 +1,21 @@
 var App = (function(){
 
   var map;
+  var marker;
 
-  var initializeMap = function(mapContainerId, latitude, longitude) {
+  function placeMarker(location) {
+      if ( marker ) {
+          marker.setPosition(location);
+      } else {
+          marker = new google.maps.Marker({
+            position: location,
+            map: map,
+            title: 'Tu tienda'
+          });
+      }
+    }
+
+  var initializeMap = function(mapContainerId, latitude, longitude, latitudeBox, longitudeBox) {
 
     var mapOptions = {
       zoom: 8,
@@ -11,6 +24,14 @@ var App = (function(){
 
     map = new google.maps.Map(document.getElementById(mapContainerId),
         mapOptions);
+
+    placeMarker(new google.maps.LatLng(latitude, longitude));
+
+    google.maps.event.addListener(map, 'click', function(event) {
+        placeMarker(event.latLng);
+        document.getElementById(latitudeBox).value = event.latLng.lat();
+        document.getElementById(longitudeBox).value = event.latLng.lng();
+    });
   }
 
   var verifyFieldsMatch = function (firstFieldId, secondFieldId){
