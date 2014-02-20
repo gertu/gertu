@@ -3,19 +3,20 @@ block content
     include ../layouts/top-menu
     .row-fluid
         .span2
-            &nbsp;
         .span8
             .well
                 h1 Últimos comentarios
-            table.table.table-bordered
-                thead
-                    tr
-                        th Fecha
-                        th Comentario
-                        th Valoración
-                tbody
-                    - for comment in comments
+            - for deal in deals
+                p Oferta: #{deal.name}
+                table.table.table-bordered
+                    thead
                         tr
-                            td #{reservation.writedAt}
-                            td #{reservation.description}
-                            td #{reservation.rating}
+                            th Fecha
+                            th Comentario
+                            th Valoración
+                    tbody
+                        - for comment in deal.comments
+                            tr
+                                td #{comment.writedAt}
+                                td #{comment.description}
+                                td #{comment.rating}
