@@ -1,6 +1,21 @@
 extends ../layouts/default
 block content
     include ../layouts/top-menu
+
+    -function formatDate(dateString){
+        -var date = new Date(dateString);
+        -var d = date.getDate();
+        -var monthNames = [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ];
+        -var m = monthNames[date.getMonth()];
+        -var y = date.getFullYear();
+        -return d+' '+m+' '+y;
+    -}
+
+    -function formatNumber(numberString){
+        -var numero = parseInt(numberString);
+        -return numero.toFixed(2);
+    -}
+
     .row-fluid
         .span2
         .span8
@@ -18,18 +33,20 @@ block content
                         th Precio
                         th Precio GERTU
                         th Descuento
+                        th Fecha
                         th &nbsp;
                         th &nbsp;
                 tbody
                     - for deal in deals
                         tr
                             td 
-                              img(src="#{deal.image}")
+                              img(src="#{deal.image}" width="200px")
                             td #{deal.name}
                             td #{deal.categoryname}
-                            td #{deal.price} €
-                            td #{deal.gertuprice} €
+                            td #{formatNumber(deal.price)} €
+                            td #{formatNumber(deal.gertuprice)} €
                             td #{deal.discount} %
+                            td #{formatDate(deal.created)}
                             td
                                 a.btn.btn-primary(href="/shopmanagement/deals/edit/#{deal._id}") editar
                             td
