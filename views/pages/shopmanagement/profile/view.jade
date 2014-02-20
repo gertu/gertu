@@ -63,4 +63,6 @@ block content
             .pull-right
               input.btn.btn-success.btn-lg(type='submit', value='Guardar', onclick='return App.verifyFieldsMatch(\'password\', \'passwordRpt\');')
   script.
-    App.initializeMap('mapa', #{shop.loc.latitude}, #{shop.loc.longitude})
+    document.ready = function(){
+      App.initializeMap('mapa', #{shop.loc.latitude}, #{shop.loc.longitude}, 'shop_loc_latitude', 'shop_loc_longitude')
+    }
