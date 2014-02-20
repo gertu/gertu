@@ -1,5 +1,7 @@
 mongoose  = require "mongoose"
+_         = require('underscore')
 Shop      = mongoose.model "Shop"
+Deal      = mongoose.model "Deal"
 Mailer    = require("../../tools/mailer")
 
 exports.login = (req, res) ->
@@ -38,7 +40,25 @@ exports.logout = (req, res) ->
 
 exports.dashboard = (req, res) ->
   currentShop = req.session.currentShop
-  res.render "pages/shopmanagement/access/dashboard", {currentShop: currentShop}
+  shopId = req.session.currentShop.shopId
+  Deal.find({shop: shopId}).populate('shop').exec (err, deals) ->
+
+    comments = []
+
+    for deal in deals
+      for comment in deal.comments
+        comments.push(comment)
+
+    sortedComments = _.sortBy(comments, (comment) ->
+      return comment.writedAt
+    )
+
+    res.render "pages/shopmanagement/access/dashboard",
+    {
+      deals: deals,
+      currentShop: currentShop,
+      comments: sortedComments
+    }
 
 exports.signupDo = (req, res) ->
   console.log req.body

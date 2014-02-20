@@ -1,31 +1,41 @@
 extends ../layouts/default
 block content
     include ../layouts/top-menu
+
+    -function formatDate(dateString){
+        -var date = new Date(dateString);
+        -var d = date.getDate();
+        -var monthNames = [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ];
+        -var m = monthNames[date.getMonth()];
+        -var y = date.getFullYear();
+        -return d+' '+m+' '+y;
+    -}
+
+    -function formatNumber(numberString){
+        -var numero = parseInt(numberString);
+        -return numero.toFixed(2);
+    -}
+
     .row-fluid
         .span2
-            &nbsp;
         .span8
             .well
                 h1 Dashboard
     br
     .row-fluid
         .span2
-            &nbsp;
         .span4
             .well
                 h2 Últimas ofertas
                 ul
-                    li Oferta 1
-                    li Oferta 1
-                    li Oferta 1
-                    li Oferta 1
+                - for deal in deals
+                    li #{deal.name}
+                    
         .span4
             .well
                 h2 Últimas valoraciones
                 ul
-                    li Valoración 1
-                    li Valoración 1
-                    li Valoración 1
-                    li Valoración 1
+                - for comment in comments
+                    li #{comment.description} | Fecha #{formatDate(comment.writedAt)}
         .span2
             &nbsp;
