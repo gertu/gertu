@@ -18,10 +18,10 @@ module.exports = (app, passport) ->
     successFlash   : "Welcome!"
   ), users.session
 
-  app.get currentApiVersion + "/profile", users.me
-  app.put currentApiVersion + "/profile/:profileId", users.update
+  app.get  currentApiVersion + "/profile", users.me
+  app.put  currentApiVersion + "/profile/:profileId", users.update
   app.post currentApiVersion + "/profile/updatepicture", users.updatePicture
-  app.get currentApiVersion + "/users/:userId", users.show
+  app.get  currentApiVersion + "/users/:userId", users.show
 
   # Shop routes
   shop = require("../server/controllers/shop")
@@ -44,9 +44,14 @@ module.exports = (app, passport) ->
   app.get    currentApiVersion + "/admin/deals/:shopId", deals.findByShop
   app.get    currentApiVersion + "/deals/:dealId", deals.show
   app.post   currentApiVersion + "/deals", deals.create
+  app.post   currentApiVersion + "/admin/photo", deals.updatephoto
   app.put    currentApiVersion + "/deals/:dealId", deals.update
   app.delete currentApiVersion + "/deals/:dealId", deals.destroy
   app.post   currentApiVersion + "/deals/:dealId/reserve", deals.reserve
+  #Comments routes
+  app.put    currentApiVersion + "/deals/:dealId/addcomment", deals.addComment
+
+
   #Finish with setting up the articleId param
   app.param 'shopId', deals.shop
   app.param 'dealId', deals.deal

@@ -8,5 +8,4 @@ angular.module("mean.deals").factory "Deals", ["$resource", ($resource) ->
       method: "PUT"
     reserve:
       method: "POST"
-
 ]

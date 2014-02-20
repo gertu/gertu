@@ -29,6 +29,17 @@ angular.module('mean').config ["$translateProvider", ($translateProvider) ->
     MY_MESSAGES: "My messages"
     NO_NEAR_DEALS: "There are no nearby deals"
     RESERVE: "Reserve"
+    COMMENTS: 'Comments'
+    DESCRIPTION: 'Description'
+    DESCRIPTION_PLACEHOLDER: 'Description of the deal...'
+    RATING: 'Rating'
+    COMMENT_200: 'Comment has been added!'
+    COMMENT_401: 'You must login to leave a comment'
+    COMMENT_404: 'Unknown user'
+    COMMENT_409: 'Sorry, but you have already post a comment in this deal'
+    COMMENT_422: 'Remember that the rating and description are necessary for leave a comment'
+    COMMENT_500: 'It has been impossible to add your comment, please try again in a few minutes'
+
     # Here we must add translations for english language
 
   $translateProvider.translations "es-ES",
@@ -61,6 +72,16 @@ angular.module('mean').config ["$translateProvider", ($translateProvider) ->
     MY_MESSAGES: "Mis mensajes"
     NO_NEAR_DEALS: "No hay ofertas cercanas"
     RESERVE: "Reservar"
+    COMMENTS: 'Comentarios'
+    DESCRIPTION: 'Descripción'
+    DESCRIPTION_PLACEHOLDER: 'Descripción de la oferta...'
+    RATING: 'Puntuación'
+    COMMENT_200: '¡El comentario ha sido añadido!'
+    COMMENT_401: 'Para dejar un comentario debe iniciar sesión'
+    COMMENT_404: 'Usuario desconocido'
+    COMMENT_409: 'Lo sentimos, usted ya comentó esta oferta'
+    COMMENT_422: 'Recuerde que son necesarios tanto una puntuación como un breve comentario'
+    COMMENT_500: 'Ha sido imposible añadir el comentario, por favor inténtelo de nuevo en unos minutos'
     # Here we must add translations for spanish language
 
 

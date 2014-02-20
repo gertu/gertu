@@ -1,0 +1,22 @@
+extends ../../layouts/default
+block content
+  .col-md-9.admincont
+    h2.admin Submit photo
+    section(data-ng-controller='DealsController', ng-init='findOne()' )
+      img.img-rounded.small(ng-src="{{deal.image}}")  
+      form.form-horizontal(role="form", enctype="multipart/form-data", action="/api/v1/admin/photo", method="post")
+        div#none
+          input(type='text', name='deal', data-ng-model='deal._id')
+        .form-group.control-group.admin
+          label.col-sm-2.control-label(for='image') Imagen
+          .col-sm-10
+            input#image.form-control(type='file', name='image', data-ng-model='image', accept="image/*")
+        .row
+          .col-md-6
+            a.btn.btn-danger.btn-lg.btn-block(data-ng-href="/admin/deals/list/{{global.shop._id}}")
+              | Cancelar
+          .col-md-6
+            input.btn.btn-success.btn-lg.btn-block(type='submit')
+        - if (errorMsg)
+              div.alert.alert-danger
+                  | #{errorMsg}

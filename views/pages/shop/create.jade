@@ -22,17 +22,17 @@
           .col-xs-2
             .input-group
               span.input-group-addon €
-              input#price.form-control(type='number', data-ng-model='price', required='required', ng-change='calcdiscount()')
+              input#price.form-control(type='number', name='price', data-ng-model='price', required='required', ng-change='calcdiscount()')
           label.col-sm-2.control-label(for='gertuprice') Gertuprice:
           .col-xs-2
             .input-group
               span.input-group-addon €
-              input#gertuprice.form-control(type='number', data-ng-model='gertuprice', required='required', ng-change='calcdiscount()')
+              input#gertuprice.form-control(type='number', name='gertuprice', data-ng-model='gertuprice', required='required', ng-change='calcdiscount()')
           label.col-sm-2.control-label(for='discount') %Discount:
           .col-xs-2
             .input-group
               span.input-group-addon %
-              input#discount.form-control(type='number', data-ng-model='discount', required='required', ng-change='calcgertuprice()')
+              input#discount.form-control(type='number', name='discount', data-ng-model='discount', required='required', ng-change='calcgertuprice()')
       .row
         .col-md-12
           .datainit
@@ -44,28 +44,16 @@
       .row
         .col-md-12
             label(for='dias') Elige los dias de la semana
-            label.checkbox-inline(for='lunes') Lunes
-              input#lunes.form-control(type='checkbox', data-ng-model='lunes',  value='lunes')
-            label.checkbox-inline(for='dias') Martes:
-              input#martes.form-control(type='checkbox', data-ng-model='martes', value='martes')
-            label.checkbox-inline(for='dias') Miercoles:
-              input#miercoles.form-control(type='checkbox', data-ng-model='miercoles', value='miercoles')
-            label.checkbox-inline(for='dias') Jueves:
-              input#jueves.form-control(type='checkbox',, data-ng-model='jueves', value='jueves')
-            label.checkbox-inline(for='dias') Viernes:
-              input#viernes.form-control(type='checkbox', data-ng-model='viernes', value='viernes')
-            label.checkbox-inline(for='dias') Sabado:
-              input#sabado.form-control(type='checkbox', data-ng-model='sabado', value='sabado')
-            label.checkbox-inline(for='dias') Domingo:
-              input#domingo.form-control(type='checkbox', data-ng-model='domingo', value='domingo')
+            label(ng-repeat='day in days') {{day}}
+              input(type='checkbox', name='selecteddays[]', value='{{day}}', ng-checked='selection.indexOf(day) > -1', ng-click="toggleSelection(day)")
+
       .col-xs-2
          label.col-sm-1.control-label(for='quantity') Quantity:
         .input-group
-          input#quantity.form-control(type='number', data-ng-model='quantity', required='required')
-      .form-group.control-group.admin
-        label.col-sm-2.control-label(for='image') Imagen
-        .col-sm-10
-          input#image.form-control(type='file', name='image', data-ng-model='image', accept="image/*")
+          input#quantity.form-control(type='number',name='quantity', data-ng-model='quantity', required='required')
       .row
-        .col-md-6.col-md-offset-4
+        .col-md-6
+          a.btn.btn-danger.btn-lg.btn-block(data-ng-href="/admin/deals/list/{{global.shop._id}}")
+            | Cancelar
+        .col-md-6
           input.btn.btn-success.btn-lg.btn-block(type='submit')

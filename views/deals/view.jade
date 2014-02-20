@@ -1,7 +1,20 @@
-section(data-ng-controller='DealsController', data-ng-init='findOne()')
+section(data-ng-controller="DealsController", data-ng-init="findOne()")
   .deal-view
     h1 {{deal.name}}
-    p {{deal.created | date:'medium'}}
+    p {{deal.created | date:"medium"}}
     p {{deal.shop.name}}
     p {{deal.price | currency:"&euro;"}}
+
     button.btn.btn-primary(type="submit", ng-click="reserve()") {{'RESERVE' | translate}}
+
+    h3 {{"COMMENTS" | translate}}
+    ul.deal.comments
+      li(data-ng-repeat="comment in deal.comments")
+        {{comment.author.email}}
+        span.rating
+          rating.deal-rating(value="comment.rating", max="10", readonly='true')
+        p {{comment.description}}
+        p {{comment.writedAt | date: "longDate"}}
+        hr
+      li(data-ng-show="global.user")
+        include ../deals/commentForm

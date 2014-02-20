@@ -21,13 +21,13 @@ angular.module('mean').config ['$routeProvider', ($routeProvider) ->
   ).when('/404',
     templateUrl: '/views/404.html'
   
-  ).when("/admin/signup",
-    templateUrl: "/views/pages/shop/signup.html",
-    controller: "ShopSignUpController"
+  ).when('/admin/signup',
+    templateUrl: '/views/pages/shop/signup.html',
+    controller: 'ShopSignUpController'
 
-  ).when("/admin/login",
-    templateUrl: "/views/pages/shop/login.html",
-    controller: "ShopLogInController"
+  ).when('/admin/login',
+    templateUrl: '/views/pages/shop/login.html',
+    controller: 'ShopLogInController'
 
   ).when("/admin/shouldconfirm/:id",
     templateUrl: "/views/pages/shop/shouldconfirm.html",
@@ -40,8 +40,11 @@ angular.module('mean').config ['$routeProvider', ($routeProvider) ->
   ).when('/admin/deals/create',
     templateUrl: '/views/pages/shop/create.html'
 
-  ).when("/admin/deals/list/:shopId",
-    templateUrl: "/views/pages/shop/deals.html"
+  ).when('/admin/deals/photo/:dealId',
+    templateUrl: '/views/pages/shop/createphoto.html'
+
+  ).when('/admin/deals/list/:shopId',
+    templateUrl: '/views/pages/shop/deals.html'
 
   ).when('/admin/deals/:dealId',
     templateUrl: '/views/pages/shop/view.html'
