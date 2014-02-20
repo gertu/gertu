@@ -26,15 +26,18 @@ block content
             label(for='price') Price:
             .input-prepend
               span.add-on €
-              input#price(type='number', name='price', value='#{deal.price}', required='required')
+              input#price(type='number', name='price', value='#{deal.price}', required='required', step='0.01',
+                pattern="[0-9]+([\,|\.][0-9]+)?", formnovalidate)
             label(for='gertuprice') Gertuprice:
             .input-prepend
               span.add-on €
-              input#gertuprice(type='number', name='gertuprice', value='#{deal.gertuprice}', required='required')
+              input#gertuprice(type='number', name='gertuprice', value='#{deal.gertuprice}', required='required', step='0.01',
+                pattern="[0-9]+([\,|\.][0-9]+)?", formnovalidate)
             label(for='discount') %Discount:
             .input-prepend
               span.add-on %
-              input#discount(type='number', name='discount', value='#{deal.discount}', required='required')
+              input#discount(type='number', name='discount', value='#{deal.discount}', required='required', step='0.01',
+                pattern="[0-9]+([\,|\.][0-9]+)?", formnovalidate)
           .span6
             label(for='datainit') Fecha de inicio
             input#datainit(type="date", name='datainit', show-weeks="false", starting-day="1", min="minDate", value="#{deal.datainit}")

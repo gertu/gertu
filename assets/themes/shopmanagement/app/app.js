@@ -36,8 +36,6 @@ var App = (function(){
 
   var verifyFieldsMatch = function (firstFieldId, secondFieldId){
     var doMatch = (document.getElementById(firstFieldId).value == document.getElementById(secondFieldId).value);
-
-    debugger;
     
     if (!doMatch)
     {
@@ -54,22 +52,22 @@ var App = (function(){
 
     document.getElementById(normalPriceBoxId).onchange = function(){
 
-      var normalPrice = document.getElementById(normalPriceBoxId).value;
-      var gertuPrice = document.getElementById(gertuPriceBoxId).value;
+      var normalPrice = parseFloat((document.getElementById(normalPriceBoxId).value + '').replace(',', '.'));
+      var gertuPrice = parseFloat((document.getElementById(gertuPriceBoxId).value + '').replace(',', '.'));
       
       var discount = 100 - (100 * (normalPrice > 0 ? 
                        gertuPrice / normalPrice :
                        0));
 
       discount = discount.toFixed(2);
-      
+   
       document.getElementById(discountBoxId).value = discount;
     };
 
     document.getElementById(gertuPriceBoxId).onchange = function(){
 
-      var normalPrice = document.getElementById(normalPriceBoxId).value;
-      var gertuPrice = document.getElementById(gertuPriceBoxId).value;
+      var normalPrice = parseFloat(document.getElementById(normalPriceBoxId).value.replace(',', '.'));
+      var gertuPrice = parseFloat(document.getElementById(gertuPriceBoxId).value.replace(',', '.'));
       
       var discount = 100 - (100 * (normalPrice > 0 ? 
                        gertuPrice / normalPrice :
@@ -82,8 +80,8 @@ var App = (function(){
 
     document.getElementById(discountBoxId).onchange = function(){
 
-      var normalPrice = document.getElementById(normalPriceBoxId).value;
-      var discount = document.getElementById(discountBoxId).value;
+      var normalPrice = parseFloat(document.getElementById(normalPriceBoxId).value.replace(',', '.'));
+      var discount = parseFloat(document.getElementById(discountBoxId).value.replace(',', '.'));
       
       var gertuPrice = normalPrice - (normalPrice * discount) / 100;
 
