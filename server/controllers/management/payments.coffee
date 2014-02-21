@@ -23,10 +23,7 @@ exports.confirm = (req, res) ->
         shop: shop,
         amount: 5.5
 
-      console.log shop.card
-
       PaypalAPI.makePayment shop.card, 8, ((success) ->
-        console.log success
         payment.save()
       ), ((error) ->
         console.log error)
@@ -50,4 +47,3 @@ exports.history = (req, res) ->
         res.render 'pages/management/payments/history', {payments: payments, shop: shop}
       )
   )
-  
