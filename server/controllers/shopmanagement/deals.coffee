@@ -8,8 +8,25 @@ DealCategory = mongoose.model "DealCategory"
 exports.list = (req, res) ->
   shopId = req.session.currentShop.shopId
 
-  Deal.find({shop: shopId}).populate('shop').exec (err, deals) ->
-    res.render 'pages/shopmanagement/deals/list', {deals: deals, currentShop: req.session.currentShop}
+  pageNumber = 1
+  if req.query.page?
+    pageNumber = req.query.page
+  pageSize = 5
+  skipItems = (pageNumber - 1) * pageSize
+
+  Deal.find({shop: shopId}).skip(skipItems).limit(pageSize).populate('shop').exec (err, deals) ->
+
+    Deal.count({shop: shopId}).exec (err, count) ->
+
+      numberOfPages = count / pageSize
+
+      res.render 'pages/shopmanagement/deals/list',
+        {
+          deals: deals,
+          pages: numberOfPages,
+          pageCurrent: pageNumber,
+          currentShop: req.session.currentShop
+        }
 
 exports.create = (req, res) ->
   shopId = req.session.currentShop.shopId

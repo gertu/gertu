@@ -1,7 +1,6 @@
 extends ../layouts/default
 block content
     include ../layouts/top-menu
-
     -function formatDate(dateString){
         -var date = new Date(dateString);
         -var d = date.getDate();
@@ -51,3 +50,12 @@ block content
                                 a.btn.btn-primary(href="/shopmanagement/deals/edit/#{deal._id}") editar
                             td
                                 a.btn.btn-danger(href="/shopmanagement/deals/delete/#{deal._id}") eliminar
+            .pagination
+                ul
+                    - for (pageCounter = 1; pageCounter < pages + 1; pageCounter++)
+                        - if (pageCounter == pageCurrent)
+                            li.active
+                                a(href="/shopmanagement/deals/list?page=#{pageCounter}") #{pageCounter}
+                        - else
+                            li
+                                a(href="/shopmanagement/deals/list?page=#{pageCounter}") #{pageCounter}
