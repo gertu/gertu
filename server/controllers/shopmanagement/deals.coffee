@@ -8,6 +8,11 @@ DealCategory = mongoose.model "DealCategory"
 exports.list = (req, res) ->
   shopId = req.session.currentShop.shopId
 
+  error = null
+
+  if req.query.error == '1'
+    error = 'No puede añadir ofertas porque no ha rellenado todos los datos de facturación'
+
   pageNumber = 1
   if req.query.page?
     pageNumber = req.query.page
@@ -22,6 +27,7 @@ exports.list = (req, res) ->
 
       res.render 'pages/shopmanagement/deals/list',
         {
+          error: error,
           deals: deals,
           pages: numberOfPages,
           pageCurrent: pageNumber,
@@ -32,17 +38,38 @@ exports.create = (req, res) ->
   shopId = req.session.currentShop.shopId
   dealId = req.params.dealId
 
-  DealCategory.find().sort('name').exec( (err, categories ) ->
-    res.render 'pages/shopmanagement/deals/create',
-      {
-        esNueva: true,
-        actionUrl: '/shopmanagement/deals/new',
-        deal: {_id: 0, name: ''},
-        categories: categories,
-        days: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
-        currentShop: req.session.currentShop
-      }
-  )
+  Shop.findOne({_id: shopId}).exec (err, shop) ->
+
+    if shop.hasCreditCardInfo() == true
+
+      deal = new Deal
+        shop: shop
+        name : ''
+        description: ''
+        categoryname: ''
+        price: 0
+        gertuprice: 0
+        discount: 0
+        datainit: new Date()
+        dataend: new Date()
+        selecteddays: ''
+        quantity: 0
+        image: null
+
+      DealCategory.find().sort('name').exec( (err, categories ) ->
+        res.render 'pages/shopmanagement/deals/create',
+          {
+            esNueva: true,
+            actionUrl: '/shopmanagement/deals/new',
+            deal: {_id: 0, name: ''},
+            categories: categories,
+            days: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+            currentShop: req.session.currentShop
+          }
+      )
+
+    else
+      res.redirect 'shopmanagement/deals/list?error=1'
 
 exports.createDo = (req, res) ->
   shopId = req.session.currentShop.shopId

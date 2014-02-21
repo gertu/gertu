@@ -38,7 +38,7 @@ block content
                 tbody
                     - for deal in deals
                         tr
-                            td 
+                            td
                               img(src="#{deal.image}" width="200px")
                             td #{deal.name}
                             td #{deal.categoryname}
@@ -59,3 +59,6 @@ block content
                         - else
                             li
                                 a(href="/shopmanagement/deals/list?page=#{pageCounter}") #{pageCounter}
+    - if (error != null)
+        script.
+            App.showAlert('#{error}');

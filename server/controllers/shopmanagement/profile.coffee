@@ -18,6 +18,7 @@ exports.view = (req, res) ->
 
       if not shop.card?
         shop.card =
+          type: 'visa'
           number : ''
           expire_month: ''
           expire_year: ''
@@ -59,7 +60,7 @@ exports.viewDo = (req, res) ->
         cvv2: req.body.shop_card_cvv2
         first_name: req.body.shop_card_first_name
         last_name: req.body.shop_card_last_name
-      
+
       shop.billing_address =
         line1: req.body.shop_billing_address_line1
         city: req.body.shop_billing_address_city
