@@ -97,11 +97,17 @@ var App = (function(){
 
   };
 
+  var showConfirm = function(outputMessage){
+
+    return confirm(outputMessage);
+
+  };
+
   return {
     initializeMap: initializeMap,
     verifyFieldsMatch: verifyFieldsMatch,
     syncronizeGertuPriceBoxes: syncronizeGertuPriceBoxes,
-    showAlert: showAlert
-
+    showAlert: showAlert,
+    showConfirm: showConfirm
   }
 })();

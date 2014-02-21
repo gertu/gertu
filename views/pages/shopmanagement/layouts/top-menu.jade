@@ -35,15 +35,14 @@
                     li
                       a(href='/shopmanagement/profile/view') Perfil
                     li.divider
-                    li
-                      a(href='/shopmanagement/logout') Cerrar sesión
               ul.nav.pull-right.settings
                 li
                   a.tip.icon.logout(href='/shopmanagement/profile/view', data-original-title='Settings', data-placement='bottom')
                     i.icon-large.icon-cog
                 li.divider-vertical
                 li
-                  a.tip.icon.logout(href='/shopmanagement/logout', data-original-title='Logout', data-placement='bottom')
+                  a.tip.icon.logout(href='/shopmanagement/logout', data-original-title='Logout', data-placement='bottom',
+                    onclick='return App.showConfirm("¿Está seguro de querer salir?");')
                     i.icon-large.icon-off
               ul.nav.pull-right.settings
                 li.divider-vertical
