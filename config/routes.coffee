@@ -124,7 +124,8 @@ module.exports = (app, passport) ->
   app.get  currentMobileApiVersion + "/deals/:id",  mobileApi.dealsGetById
   app.get  currentMobileApiVersion + "/deals/:id/reservation",  mobileApi.dealsMakeReservationById
   app.post currentMobileApiVersion + "/deals/:id/comment",  mobileApi.dealsAddComment
-
+  app.get  currentMobileApiVersion + "/deals/reservation",  mobileApi.reservation
+  
 
   # Shop management area
   shopManagementAccess = require("../server/controllers/shopmanagement/access")

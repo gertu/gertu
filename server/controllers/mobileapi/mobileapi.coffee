@@ -136,5 +136,11 @@ exports.dealsAddComment = (req, res) ->
     status(404).
     send('Not implemented')
 
+exports.reservation = (req, res) ->
+  # return the reservation
+  res.
+    status(404).
+    send('Not implemented')
+
 
 
