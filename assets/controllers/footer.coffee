@@ -20,7 +20,7 @@ angular.module("mean.system").controller "FooterController", [
         else
           $scope.filteredLangs.push lang
 
-      $translate.uses($scope.selectedLang.code)
+      $translate.use($scope.selectedLang.code)
 
     $scope.selectLang()
   ]
