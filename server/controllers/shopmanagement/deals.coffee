@@ -124,7 +124,14 @@ exports.editDo = (req, res) ->
 
           if shop
             fs.unlink Path.resolve(".") + deal.image
-            splittednewname = (file.path).split("/")
+
+            splittednewname = null
+
+            if file.path.indexOf('/') > -1
+              splittednewname = (file.path).split('/')
+            else
+              splittednewname = (file.path).split('\\')
+
             deal.image = "/upload/" + splittednewname[splittednewname.length-1]
             deal.shop = shop
             deal.name = req.body.name
