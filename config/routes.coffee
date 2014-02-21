@@ -128,6 +128,43 @@ module.exports = (app, passport) ->
   app.get  currentMobileApiVersion + "/deals/:id/reservation",  mobileApi.dealsMakeReservationById
   app.post currentMobileApiVersion + "/deals/:id/comment",  mobileApi.dealsAddComment
 
+
+  # Shop management area
+  shopManagementAccess = require("../server/controllers/shopmanagement/access")
+  app.get  "/shopmanagement/login", shopManagementAccess.login
+  app.post "/shopmanagement/login", shopManagementAccess.loginDo
+  app.get  "/shopmanagement/logout", shopManagementAccess.logout
+  app.get  "/shopmanagement/dashboard", Security.authenticateShop, shopManagementAccess.dashboard
+  app.post "/shopmanagement/signup", shopManagementAccess.signupDo
+  app.get  "/shopmanagement/confirm/:shopId", shopManagementAccess.confirm
+
+  shopManagementProfile = require("../server/controllers/shopmanagement/profile")
+  app.get  "/shopmanagement/profile/view", Security.authenticateShop, shopManagementProfile.view
+  app.post "/shopmanagement/profile/view", Security.authenticateShop, shopManagementProfile.viewDo
+
+  shopManagementDeals = require("../server/controllers/shopmanagement/deals")
+  app.get  "/shopmanagement/deals/list", Security.authenticateShop, shopManagementDeals.list
+  app.get  "/shopmanagement/deals/new", Security.authenticateShop, shopManagementDeals.create
+  app.post "/shopmanagement/deals/new", Security.authenticateShop, shopManagementDeals.createDo
+  app.get  "/shopmanagement/deals/edit/:dealId", Security.authenticateShop, shopManagementDeals.edit
+  app.post "/shopmanagement/deals/edit", Security.authenticateShop, shopManagementDeals.editDo
+  app.get  "/shopmanagement/deals/delete/:dealId", Security.authenticateShop, shopManagementDeals.delete
+  app.post "/shopmanagement/deals/delete", Security.authenticateShop, shopManagementDeals.deleteDo
+
+  shopManagementComments = require("../server/controllers/shopmanagement/comments")
+  app.get  "/shopmanagement/comments/list", Security.authenticateShop, shopManagementComments.list
+
+  shopManagementReservations = require("../server/controllers/shopmanagement/reservations")
+  app.get  "/shopmanagement/reservations/list", Security.authenticateShop, shopManagementReservations.list
+  app.get  "/shopmanagement/reservations/confirm", Security.authenticateShop, shopManagementReservations.confirm
+  app.post "/shopmanagement/reservations/confirm", Security.authenticateShop, shopManagementReservations.confirmDo
+
+  shopManagementPayments = require("../server/controllers/shopmanagement/payments")
+  app.get  "/shopmanagement/payments/list", Security.authenticateShop, shopManagementPayments.list
+  # End of shop management area
+
+
+
   # Home routes
   index = require("../server/controllers/index")
 

@@ -3,8 +3,8 @@ mongoose = require "mongoose"
 request  = require "supertest"
 Shop     = mongoose.model "Shop"
 
-valid_shop  = undefined
-shop2 = undefined
+valid_shop = { }
+shop2 = { }
 
 describe "<Unit Test>", ->
   describe "Model Shop:", ->
@@ -39,24 +39,25 @@ describe "<Unit Test>", ->
           done()
 
       it "should now have a shop with all data correct", (done) ->
-        Shop.find { email: 'shop1_email@email.com'}, (error, shops) ->
+        Shop.findOne({ email: 'shop1_email@email.com'}).exec( (error, shop) ->
 
-          shops[0].should.have.property "name", valid_shop.name
-          shops[0].should.have.property "password", valid_shop.password
+          shop.should.have.property "name", valid_shop.name
           done()
+        )
 
       it "should update data correctly", (done) ->
 
-        valid_shop.password = '654321'
-        valid_shop.save done
+        valid_shop.name = 'new name'
+        valid_shop.save () ->
+          done()
 
       it "should change data consistently", (done) ->
 
-        Shop.find { email: 'shop1_email@email.com'}, (error, shops) ->
+        Shop.findOne({ email: 'shop1_email@email.com'}).exec( (error, shop) ->
 
-          shops[0].should.have.property "name", valid_shop.name
-          shops[0].should.have.property "password", valid_shop.password
+          shop.should.have.property "name", valid_shop.name
           done()
+        )
 
     after (done) ->
       Shop.remove().exec()

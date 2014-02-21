@@ -1,0 +1,35 @@
+extends ../layouts/default
+block content
+    include ../layouts/top-menu
+
+    -function formatDate(dateString){
+        -var date = new Date(dateString);
+        -var d = date.getDate();
+        -var monthNames = [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ];
+        -var m = monthNames[date.getMonth()];
+        -var y = date.getFullYear();
+        -return d+' '+m+' '+y;
+    -}
+
+    -function formatNumber(numberString){
+        -var numero = parseInt(numberString);
+        -return numero.toFixed(2);
+    -}
+
+
+    .row-fluid
+        .span2
+            &nbsp;
+        .span8
+            .well
+                h1 Listado de últimos pagos
+            table.table.table-bordered
+                thead
+                    tr
+                        th Fecha
+                        th Importe
+                tbody
+                    - for payment in payments
+                        tr
+                            td #{formatDate(payment.date)}
+                            td #{formatNumber(payment.amount)} €

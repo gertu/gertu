@@ -114,6 +114,18 @@ describe "Mobile API testing", ->
         res.text.should.include userOfApplication.email
         done()
 
+  it "should change info in the current user", (done) ->
+
+    userOfApplication.name = 'new name'
+    console.log(userOfApplication)
+    server.
+      put(apiPreffix + '/users').
+      send({firstName: 'new name',  email: 'newemail@mail.com'}).
+      end (err, res) ->
+        res.should.have.status 200
+        res.text.should.include 'new name'
+        done()
+
   it "should log out current user", (done) ->
     server.
       del(apiPreffix + '/users/session').

@@ -46,7 +46,7 @@ module.exports = (grunt) ->
         files:[
           expand: true
           cwd   : "views"
-          src   : ["**/*.jade", "!pages/management/**/*.jade"]
+          src   : ["**/*.jade", "!pages/management/**/*.jade", "!pages/shopmanagement/**/*.jade"]
           dest  : "public/views"
           ext   : ".html"]
 
@@ -104,11 +104,22 @@ module.exports = (grunt) ->
     copy:
       images:
         files:[
-          expand: true
-          cwd   : "assets/img"
-          src   : "**/*"
-          dest  : "public/img"
-          filter: "isFile"]
+          {
+            expand: true
+            cwd   : "assets/img"
+            src   : "**/*"
+            dest  : "public/img"
+            filter: "isFile"
+          },
+          {
+            expand: true
+            cwd   : "assets/themes"
+            src   : "**/*"
+            dest  : "public/themes"
+            filter: "isFile"
+          },
+
+        ]
 
     nodemon:
       dev:

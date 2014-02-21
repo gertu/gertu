@@ -1,0 +1,24 @@
+extends ../layouts/default
+block content
+    include ../layouts/top-menu
+    .row-fluid
+        .span2
+            &nbsp;
+        .span8
+            .well
+                h1 Listado de reservas confirmadas
+            .pull-right
+                p
+                    a.btn.btn-primary(href="/shopmanagement/reservations/confirm") Nueva confirmación de reserva
+            table.table.table-bordered
+                thead
+                    tr
+                        th Fecha
+                        th Oferta
+                        th Categoría
+                tbody
+                    - for reservation in reservations
+                        tr
+                            td #{reservation.date}
+                            td #{reservation.deal.name}
+                            td #{reservation.deal.categoryname}
