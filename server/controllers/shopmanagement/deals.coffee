@@ -43,6 +43,7 @@ exports.create = (req, res) ->
     if shop.hasCreditCardInfo() == true
 
       deal = new Deal
+        _id: 0
         shop: shop
         name : ''
         description: ''
@@ -52,7 +53,7 @@ exports.create = (req, res) ->
         discount: 0
         datainit: new Date()
         dataend: new Date()
-        selecteddays: ''
+        selecteddays: []
         quantity: 0
         image: null
 
@@ -61,7 +62,7 @@ exports.create = (req, res) ->
           {
             esNueva: true,
             actionUrl: '/shopmanagement/deals/new',
-            deal: {_id: 0, name: ''},
+            deal: deal,
             categories: categories,
             days: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
             currentShop: req.session.currentShop
@@ -82,6 +83,12 @@ exports.createDo = (req, res) ->
   path = __dirname + "/public/upload/" + name
   format = type.split("/")
 
+  partsOfInitDate = req.body.datainit.split('/')
+  initDate = new Date(partsOfInitDate[2], partsOfInitDate[1]-1, partsOfInitDate[0])
+
+  partsOfEndDate = req.body.dataend.split('/')
+  endDate = new Date(partsOfEndDate[2], partsOfEndDate[1]-1, partsOfEndDate[0])
+
   deal = new Deal
     name : req.body.name
     description: req.body.description
@@ -89,11 +96,10 @@ exports.createDo = (req, res) ->
     price: req.body.price
     gertuprice: req.body.gertuprice
     discount: req.body.discount
-    datainit: req.body.datainit
-    dataend: req.body.dataend
+    datainit: initDate
+    dataend: endDate
     selecteddays: req.body.selecteddays
     quantity: req.body.quantity
-
 
   if format[1] is "jpg" or format[1] is "jpeg" or format[1] is "png" or format[1] is "gif"
     fs.rename req.files.image.path, path, (err) ->
@@ -110,17 +116,17 @@ exports.createDo = (req, res) ->
           deal.shop = shop
           deal.image = '/upload/' + splittednewname[splittednewname.length-1]
 
+          console.log deal
+
           deal.save (err) ->
-            if not err
-              res.redirect 'shopmanagement/deals/list'
-            else
-              console.log err
-              res.redirect 'shopmanagement/deals/list'
+            console.log err
+            res.redirect 'shopmanagement/deals/list'
 
    else
     fs.unlink file.path
 
     DealCategory.find().sort('name').exec( (err, categories ) ->
+
       res.render 'pages/shopmanagement/deals/create',
         {
           esNueva: true,
