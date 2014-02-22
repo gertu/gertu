@@ -72,13 +72,29 @@ exports.create = (req, res) ->
       res.redirect 'shopmanagement/deals/list?error=1'
 
 exports.createDo = (req, res) ->
+
   shopId = req.session.currentShop.shopId
   dealId = req.params.dealId
+
   file = req.files.image
   name = file.name
   type = file.type
   path = __dirname + "/public/upload/" + name
   format = type.split("/")
+
+  deal = new Deal
+    name : req.body.name
+    description: req.body.description
+    categoryname: req.body.categoryname
+    price: req.body.price
+    gertuprice: req.body.gertuprice
+    discount: req.body.discount
+    datainit: req.body.datainit
+    dataend: req.body.dataend
+    selecteddays: req.body.selecteddays
+    quantity: req.body.quantity
+
+
   if format[1] is "jpg" or format[1] is "jpeg" or format[1] is "png" or format[1] is "gif"
     fs.rename req.files.image.path, path, (err) ->
 
@@ -91,20 +107,8 @@ exports.createDo = (req, res) ->
           else
             splittednewname = (file.path).split('\\')
 
-          image = "/upload/" + splittednewname[splittednewname.length-1]
-          deal = new Deal
-            shop: shop
-            name : req.body.name
-            description: req.body.description
-            categoryname: req.body.categoryname
-            price: req.body.price
-            gertuprice: req.body.gertuprice
-            discount: req.body.discount
-            datainit: req.body.datainit
-            dataend: req.body.dataend
-            selecteddays: req.body.selecteddays
-            quantity: req.body.quantity
-            image: image
+          deal.shop = shop
+          deal.image = '/upload/' + splittednewname[splittednewname.length-1]
 
           deal.save (err) ->
             if not err
@@ -115,8 +119,19 @@ exports.createDo = (req, res) ->
 
    else
     fs.unlink file.path
-    res.render "pages/shopmanagement/deals/create",
-    {errorMsg: 'El formato debe ser jpg, png o gif', deal: dealId, currentShop: req.session.currentShop}
+
+    DealCategory.find().sort('name').exec( (err, categories ) ->
+      res.render 'pages/shopmanagement/deals/create',
+        {
+          esNueva: true,
+          actionUrl: '/shopmanagement/deals/new',
+          errorType: 1
+          deal: deal,
+          categories: categories,
+          days: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+          currentShop: req.session.currentShop
+        }
+    )
 
 exports.edit = (req, res) ->
   shopId = req.session.currentShop.shopId

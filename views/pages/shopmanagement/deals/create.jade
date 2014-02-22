@@ -1,6 +1,9 @@
 extends ../layouts/default
 block content
   include ../layouts/top-menu
+  - if (errorType == 1)
+    script.
+      App.showAlert('El formato debe ser jpg, png o gif');
   .row-fluid
     .span2
     .span8
@@ -61,5 +64,7 @@ block content
             a.btn.btn-danger.btn-lg(href="/shopmanagement/deals/list")
               | Cancelar
             input.btn.btn-success.btn-lg(type='submit', value='Guardar')
-  script.
-    App.syncronizeGertuPriceBoxes('price', 'gertuprice', 'discount');
+      span #{errorType}
+
+    script.
+      App.syncronizeGertuPriceBoxes('price', 'gertuprice', 'discount');
