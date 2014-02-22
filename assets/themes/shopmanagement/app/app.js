@@ -99,7 +99,16 @@ var App = (function(){
 
   var showAlert = function(outputMessage){
 
-    alert(outputMessage);
+    var dialogHtml = '<div class="custom-dialog-modal" title="Alerta"></div>';
+
+    $('body .custom-dialog-modal').remove();
+
+    $('body').append(dialogHtml);
+    $('body .custom-dialog-modal').html('<p>' + outputMessage + '</p>')
+    $('body .custom-dialog-modal').dialog({
+      height: 140,
+      modal: true
+    });
 
   };
 

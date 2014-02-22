@@ -99,10 +99,22 @@ block content
           .pull-right
             a.btn.btn-danger.btn-lg(href="/shopmanagement/deals/list")
               | Cancelar
-            input.btn.btn-success.btn-lg(type='submit', value='Guardar')
-      span #{errorType}
-
+            input.btn.btn-success.btn-lg(type='submit', value='Guardar', onclick='return isPageValid();')
+    - if (errorType == 1)
+      script.
+        App.showAlert('Debe indicar una imagen para la oferta');
     script.
+
+      function isPageValid(){
+        var isValid = true;
+
+        if (! $('#image').val()) {
+          isValid = false;
+          App.showAlert('Debe seleccionar una imagen para la oferta');
+        }
+
+        return isValid;
+      }
 
       $(function(){
 

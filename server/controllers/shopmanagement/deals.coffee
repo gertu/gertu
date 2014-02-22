@@ -127,6 +127,9 @@ exports.createDo = (req, res) ->
 
     DealCategory.find().sort('name').exec( (err, categories ) ->
 
+      # Empty image path, because MongoDB fills it with default
+      deal.image = null
+
       res.render 'pages/shopmanagement/deals/create',
         {
           esNueva: true,
