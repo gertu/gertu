@@ -20,7 +20,7 @@ block content
                 input#password(type='password', name='password')
                 label(for='passwordRpt') Repita contraseña
                 input#passwordRpt(type='password', name='passwordRpt')
-                
+
             .span6
               fieldset
                 legend Localización
@@ -33,6 +33,11 @@ block content
           .row-fluid
             .span6
               fieldset
+                legend Tarjeta
+                label(for='shop_card_type') Tarjeta
+                select#shop_card_type(name='shop_card_type')
+                  option(value="visa") Visa
+                  option(value="mastercard") MasterCard
                 legend Datos de pago
                 label(for='shop_card_number') Número de tarjeta
                 input#name(type='text', value='#{shop.card.number}', name='shop_card_number')
@@ -52,13 +57,13 @@ block content
                 label(for='shop_billing_address_line1') Dirección
                 input#name(type='text', name='shop_billing_address_line1', value='#{shop.billing_address.line1}')
                 label(for='shop_billing_address_city') Ciudad
-                input#email(type='text', name='shop_billing_address_city', value='#{shop.billing_address.city}')  
+                input#email(type='text', name='shop_billing_address_city', value='#{shop.billing_address.city}')
                 label(for='shop_billing_address_state') Provincia
-                input#email(type='text', name='shop_billing_address_state' value='#{shop.billing_address.state}')  
+                input#email(type='text', name='shop_billing_address_state' value='#{shop.billing_address.state}')
                 label(for='shop_billing_address_postal_code') Código postal
-                input#email(type='text', name='shop_billing_address_postal_code', value='#{shop.billing_address.postal_code}')  
+                input#email(type='text', name='shop_billing_address_postal_code', value='#{shop.billing_address.postal_code}')
                 label(for='shop_billing_address_country_code') País
-                input#email(type='text', name='shop_billing_address_country_code', value='#{shop.billing_address.country_code}')  
+                input#email(type='text', name='shop_billing_address_country_code', value='#{shop.billing_address.country_code}')
           .row-fluid
             .pull-right
               input.btn.btn-success.btn-lg(type='submit', value='Guardar', onclick='return App.verifyFieldsMatch(\'password\', \'passwordRpt\');')

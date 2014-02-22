@@ -91,10 +91,23 @@ var App = (function(){
     };
   };
 
+  var showAlert = function(outputMessage){
+
+    alert(outputMessage);
+
+  };
+
+  var showConfirm = function(outputMessage){
+
+    return confirm(outputMessage);
+
+  };
+
   return {
     initializeMap: initializeMap,
     verifyFieldsMatch: verifyFieldsMatch,
-    syncronizeGertuPriceBoxes: syncronizeGertuPriceBoxes
-
+    syncronizeGertuPriceBoxes: syncronizeGertuPriceBoxes,
+    showAlert: showAlert,
+    showConfirm: showConfirm
   }
 })();

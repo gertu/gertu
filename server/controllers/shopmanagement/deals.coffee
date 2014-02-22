@@ -8,24 +8,68 @@ DealCategory = mongoose.model "DealCategory"
 exports.list = (req, res) ->
   shopId = req.session.currentShop.shopId
 
-  Deal.find({shop: shopId}).populate('shop').exec (err, deals) ->
-    res.render 'pages/shopmanagement/deals/list', {deals: deals, currentShop: req.session.currentShop}
+  error = null
+
+  if req.query.error == '1'
+    error = 'No puede añadir ofertas porque no ha rellenado todos los datos de facturación'
+
+  pageNumber = 1
+  if req.query.page?
+    pageNumber = req.query.page
+  pageSize = 5
+  skipItems = (pageNumber - 1) * pageSize
+
+  Deal.find({shop: shopId}).skip(skipItems).limit(pageSize).populate('shop').exec (err, deals) ->
+
+    Deal.count({shop: shopId}).exec (err, count) ->
+
+      numberOfPages = count / pageSize
+
+      res.render 'pages/shopmanagement/deals/list',
+        {
+          error: error,
+          deals: deals,
+          pages: numberOfPages,
+          pageCurrent: pageNumber,
+          currentShop: req.session.currentShop
+        }
 
 exports.create = (req, res) ->
   shopId = req.session.currentShop.shopId
   dealId = req.params.dealId
 
-  DealCategory.find().sort('name').exec( (err, categories ) ->
-    res.render 'pages/shopmanagement/deals/create',
-      {
-        esNueva: true,
-        actionUrl: '/shopmanagement/deals/new',
-        deal: {_id: 0, name: ''},
-        categories: categories,
-        days: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
-        currentShop: req.session.currentShop
-      }
-  )
+  Shop.findOne({_id: shopId}).exec (err, shop) ->
+
+    if shop.hasCreditCardInfo() == true
+
+      deal = new Deal
+        shop: shop
+        name : ''
+        description: ''
+        categoryname: ''
+        price: 0
+        gertuprice: 0
+        discount: 0
+        datainit: new Date()
+        dataend: new Date()
+        selecteddays: ''
+        quantity: 0
+        image: null
+
+      DealCategory.find().sort('name').exec( (err, categories ) ->
+        res.render 'pages/shopmanagement/deals/create',
+          {
+            esNueva: true,
+            actionUrl: '/shopmanagement/deals/new',
+            deal: {_id: 0, name: ''},
+            categories: categories,
+            days: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+            currentShop: req.session.currentShop
+          }
+      )
+
+    else
+      res.redirect 'shopmanagement/deals/list?error=1'
 
 exports.createDo = (req, res) ->
   shopId = req.session.currentShop.shopId
@@ -41,7 +85,12 @@ exports.createDo = (req, res) ->
       Shop.findOne({_id: shopId}).exec (err, shop) ->
 
         if shop
-          splittednewname = (file.path).split("/")
+
+          if file.path.indexOf('/') > -1
+            splittednewname = (file.path).split('/')
+          else
+            splittednewname = (file.path).split('\\')
+
           image = "/upload/" + splittednewname[splittednewname.length-1]
           deal = new Deal
             shop: shop
@@ -66,7 +115,7 @@ exports.createDo = (req, res) ->
 
    else
     fs.unlink file.path
-    res.render "pages/shopmanagement/deals/edit",
+    res.render "pages/shopmanagement/deals/create",
     {errorMsg: 'El formato debe ser jpg, png o gif', deal: dealId, currentShop: req.session.currentShop}
 
 exports.edit = (req, res) ->
@@ -107,7 +156,14 @@ exports.editDo = (req, res) ->
 
           if shop
             fs.unlink Path.resolve(".") + deal.image
-            splittednewname = (file.path).split("/")
+
+            splittednewname = null
+
+            if file.path.indexOf('/') > -1
+              splittednewname = (file.path).split('/')
+            else
+              splittednewname = (file.path).split('\\')
+
             deal.image = "/upload/" + splittednewname[splittednewname.length-1]
             deal.shop = shop
             deal.name = req.body.name
@@ -130,9 +186,9 @@ exports.editDo = (req, res) ->
 
   else
     fs.unlink file.path
-    res.render "pages/shopmanagement/deals/edit",
+    res.render "pages/shopmanagement/deals/create",
     {
-      errorMsg: 'El formato debe ser jpg, png o gif',
+      errorType: 1,
       deal: dealId,
       currentShop: req.session.currentShop
     }

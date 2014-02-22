@@ -14,8 +14,7 @@ exports.add = (req, res) ->
     _id: 0,
     name: '',
     email: '',
-    password: '',
-    passwordRpt: ''
+    password: ''
 
   res.render 'pages/management/administrators/edit', {administrator: administrator}
 
@@ -36,12 +35,11 @@ exports.editDo = (req, res) ->
   name = req.body.name
   email = req.body.email
   password = req.body.password
-  passwordRpt = req.body.passwordRpt
 
   if id == '0'
     administrator = new Administrator({name: name, email: email, password: password})
     administrator.save((error) ->
-      console.log error
+
       if error?
         res.render 'pages/management/administrators/edit', {administrator: administrator, errors: error.errors}
       else
@@ -57,8 +55,6 @@ exports.editDo = (req, res) ->
         administrator.password = password
 
         administrator.save((error) ->
-
-          console.log error
 
           if error?
             res.render 'pages/management/administrators/edit/' + administrator._id ,

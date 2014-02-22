@@ -8,13 +8,14 @@ block content
     form(action="/management/currencies/edit/#{currency._id}", method="post", role="form")
         .form-group
             label Nombre
-            input#name.form-control(type='text', name="name", placeholder='Currency name', value='#{currency.name}')
+            input#name.form-control(type='text', name="name", placeholder='Currency name', value='#{currency.name}', required)
         .form-group
             label Codigo
-            input#code.form-control(type='text', name="code", placeholder='Currency code', value='#{currency.code}')
+            input#code.form-control(type='text', name="code", placeholder='Currency code', value='#{currency.code}', required)
         .form-group
             label Ratio de conversion
-            input#conversionRate.form-control(type='number', name="conversionRate", placeholder='Currency conversion rate', step='any', value='#{currency.conversionRate}')
+            input#conversionRate.form-control(type='number', name="conversionRate", placeholder='Currency conversion rate',
+                step='any', value='#{currency.conversionRate}', required)
         button.btn.btn-primary(type='submit') Guardar
 
         - if (errorMsg)

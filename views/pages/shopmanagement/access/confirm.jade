@@ -1,16 +1,18 @@
 extends ../layouts/default
 block content
   include ../layouts/top-menu
-  .row-fluid
-      .span8
-        .well
-          h1 Confirme su cuenta
-          p
-            br
-          p.well
-            | Debe confirmar su cuenta para poder utilizar la aplicación.
-            | Para ello, deberá hacer click en el enlace incluído en el email que
-            | le hemos enviado. En caso de no recibirlo (compruebe que no esté en el
-            | SPAM), haga click en el siguiente botón para que le reenviemos el email.
-          p
-          input.btn.btn-primary(value="Enviar de nuevo")
+    .row-fluid
+        .span2
+        .span8
+            .well
+                h1 Confirme su cuenta
+            p
+                br
+            p.well
+                | Debe confirmar su cuenta para poder utilizar la aplicación.
+                | Para ello, deberá hacer click en el enlace incluído en el email que
+                | le hemos enviado. En caso de no recibirlo (compruebe que no esté en el
+                | SPAM), haga click en el siguiente botón para que le reenviemos el email.
+            p
+            input.btn.btn-primary(value="Enviar de nuevo")
+        .span2

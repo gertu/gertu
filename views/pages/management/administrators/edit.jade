@@ -30,15 +30,6 @@ block content
                 placeholder='Contraseña del administrador',
                 value='#{administrator.password}',
                 required)
-        .form-group
-            label Repita contraseña
-            input#passwordRpt.form-control(
-                type='password',
-                name="passwordRpt",
-                placeholder='Nombre del administrador',
-                value='#{administrator.passwordRpt}',
-                required)
-
         button.btn.btn-primary(type='submit') Guardar
         br
         - if (errors && errors.length > 0)
