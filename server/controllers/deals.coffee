@@ -2,16 +2,13 @@ mongoose  = require "mongoose"
 async     = require "async"
 _         = require "underscore"
 Utilities = require "../tools/utilities"
-mongoose = require "mongoose"
-async    = require "async"
-_        = require "underscore"
-Path     = require "path"
-fs       = require "fs"
+Path      = require "path"
+fs        = require "fs"
 
-Deal     = mongoose.model "Deal"
-Shop     = mongoose.model "Shop"
-User     = mongoose.model "User"
-Reservation     = mongoose.model('Reservation')
+Deal        = mongoose.model "Deal"
+Shop        = mongoose.model "Shop"
+User        = mongoose.model "User"
+Reservation = mongoose.model "Reservation"
 
 
 exports.deal = (req, res, next, id) ->
