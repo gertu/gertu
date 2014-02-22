@@ -29,8 +29,12 @@ var App = (function(){
 
     google.maps.event.addListener(map, 'click', function(event) {
         placeMarker(event.latLng);
-        document.getElementById(latitudeBox).value = event.latLng.lat();
-        document.getElementById(longitudeBox).value = event.latLng.lng();
+        if (latitudeBox){
+          document.getElementById(latitudeBox).value = event.latLng.lat();
+        }
+        if(longitudeBox){
+          document.getElementById(longitudeBox).value = event.latLng.lng();
+        }
     });
   }
 

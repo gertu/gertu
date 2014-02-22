@@ -1,0 +1,17 @@
+extends ../layouts/default
+block content
+    h1  Tiendas dadas de alta
+    table.table.table-bordered.table-condensed
+        thead
+            tr
+                th Nombre
+                th Email
+                th(width='80') &nbsp;
+        each shop in shops
+            tr
+                td
+                    span #{shop.name}
+                td
+                    span #{shop.email}
+                td
+                    a.btn.btn-primary(href='/management/shops/view/#{shop._id}') detalles

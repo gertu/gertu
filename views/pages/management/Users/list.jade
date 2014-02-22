@@ -1,0 +1,20 @@
+extends ../layouts/default
+block content
+    h1  Usuarios dados de alta
+    table.table.table-bordered.table-condensed
+        thead
+            tr
+                th Nombre
+                th Apellidos
+                th Email
+                th(width='80') &nbsp;
+        each user in users
+            tr
+                td
+                    span #{user.firstName}
+                td
+                    span #{user.lastName}
+                td
+                    span #{user.email}
+                td
+                    a.btn.btn-primary(href='/management/users/view/#{user._id}') detalles
