@@ -1,8 +1,10 @@
-mongoose = require "mongoose"
-User     = mongoose.model "User"
-Deal     = mongoose.model "Deal"
-Reservation     = mongoose.model('Reservation')
-_        = require "underscore"
+_           = require 'underscore'
+mongoose    = require 'mongoose'
+
+User        = mongoose.model 'User'
+Deal        = mongoose.model 'Deal'
+Token       = mongoose.model 'Token'
+Reservation = mongoose.model 'Reservation'
 
 exports.usersLogin = (req, res) ->
 
@@ -12,17 +14,19 @@ exports.usersLogin = (req, res) ->
   User.findOne({email: user.email}).exec( (err, userData) ->
 
     if err? or not userData?
-      res.status(403).send('Access denied')
+      res.status(403).send('Access denied. No such user.')
     else
-      req.session.user =
-        id: userData._id,
-        name: userData.name,
-        email: userData.email,
-        isAuthenticated: true
+      token = new Token()
 
-      res.
-          status(200).
-          send(JSON.stringify(userData))
+      token.token = userData._id
+      token.user = userData
+      token.last_access = new Date()
+
+      token.save( (err) ->
+
+        res.status(200).send(JSON.stringify(userData)) unless error?
+        res.status(403).send('Unable to set up token') if error?
+        )
   )
 
 exports.usersLogout = (req, res) ->
@@ -48,7 +52,7 @@ exports.usersSignUp = (req, res) ->
   )
 
 exports.usersGetCurrent = (req, res) ->
-  currentUser = req.session.user
+  currentUser = req.currentMobileUser
 
   if currentUser?
     res.
@@ -61,7 +65,7 @@ exports.usersGetCurrent = (req, res) ->
 
 exports.usersUpdate = (req, res) ->
 
-  user = req.session.user
+  user = req.currentMobileUser
 
   if user?
     User.findOne({_id: user.id}).exec( (err, userData) ->
@@ -73,7 +77,7 @@ exports.usersUpdate = (req, res) ->
         userData.firstName = req.body.firstName
         userData.lastName = req.body.lastName
         userData.email = req.body.email
-        
+
         userData.save (err) ->
 
           if err?
@@ -131,7 +135,8 @@ exports.dealsMakeReservationById = (req, res) ->
   if req.deal.quantity > 0
     reservation = new Reservation()
     reservation.deal = req.deal._id
-    reservation.user = req.user._id
+    reservation.user = req.currentMobileUser._id
+
     reservation.save (err) ->
       Deal.collection.update
         _id: req.deal._id
@@ -144,9 +149,42 @@ exports.dealsMakeReservationById = (req, res) ->
         res.end()
 
 exports.dealsAddComment = (req, res) ->
-  res.
-    status(404).
-    send('Not implemented')
+
+  user = req.currentMobileUser
+
+  dealId = req.params.id
+
+  if req.body.comment? and req.body.rating?
+    Deal.findOne({_id: dealId}).exec( (err, deal) ->
+
+      if deal?
+
+        if not deal.comments?
+          deal.comments = []
+
+        deal.comments.push({
+          author : user,
+          description : req.body.comment,
+          writedAt : new Date(),
+          rating : req.body.rating
+          })
+
+        deal.save()
+
+        res.status(200).send(deal)
+
+      else
+        res.status(404).send('Deal not found')
+      )
+  else
+    res.status(400).send('Comments and rating are compulsory')
 
 
+exports.reservationsGetAll = (req, res) ->
 
+  user = req.currentMobileUser
+
+  Reservation.find({user: user}).populate('user').exec( (err, reservations) ->
+
+    res.status(200).send(JSON.stringify(reservations))
+  )

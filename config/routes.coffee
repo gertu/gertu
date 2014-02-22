@@ -118,18 +118,18 @@ module.exports = (app, passport) ->
   currentMobileApiVersion = '/mobile/v1'
 
   app.post currentMobileApiVersion + "/users/session", mobileApi.usersLogin
-  app.delete currentMobileApiVersion + "/users/session",  mobileApi.usersLogout
-  app.get  currentMobileApiVersion + "/users/session",  mobileApi.usersGetCurrent
+  app.delete currentMobileApiVersion + "/users/session", Security.authenticateMobile, mobileApi.usersLogout
 
-  app.post currentMobileApiVersion + "/users",  mobileApi.usersSignUp
-  app.put  currentMobileApiVersion + "/users",  mobileApi.usersUpdate
+  app.get  currentMobileApiVersion + "/users", Security.authenticateMobile, mobileApi.usersGetCurrent
+  app.post currentMobileApiVersion + "/users", mobileApi.usersSignUp
+  app.put  currentMobileApiVersion + "/users", Security.authenticateMobile, mobileApi.usersUpdate
 
-  app.get  currentMobileApiVersion + "/deals",  mobileApi.dealsGetAll
-  app.post currentMobileApiVersion + "/deals",  mobileApi.dealsGetAllByPositition
-  app.get  currentMobileApiVersion + "/deals/:id",  mobileApi.dealsGetById
-  app.get  currentMobileApiVersion + "/deals/:id/reservation",  mobileApi.dealsMakeReservationById
-  app.post currentMobileApiVersion + "/deals/:id/comment",  mobileApi.dealsAddComment
-
+  app.get  currentMobileApiVersion + "/deals", mobileApi.dealsGetAll
+  app.post currentMobileApiVersion + "/deals", Security.authenticateMobile, mobileApi.dealsGetAllByPositition
+  app.get  currentMobileApiVersion + "/deals/:id", mobileApi.dealsGetById
+  app.get  currentMobileApiVersion + "/deals/:id/reservation", Security.authenticateMobile, mobileApi.dealsMakeReservationById
+  app.post currentMobileApiVersion + "/deals/:id/comment", Security.authenticateMobile, mobileApi.dealsAddComment
+  app.get  currentMobileApiVersion + "/deals/reservations", Security.authenticateMobile, mobileApi.reservationsGetAll
 
   # Shop management area
   shopManagementAccess = require("../server/controllers/shopmanagement/access")
