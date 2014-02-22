@@ -1,6 +1,8 @@
 angular.module('mean').config ["$translateProvider", ($translateProvider) ->
   $translateProvider.translations "en-US",
     HOME: "Home"
+    SIGNUP: "Sign up"
+    I_AM_A_SHOP: "I'm a shop"
     PASSWORDS_DO_NOT_MATCH: 'EN_Las contraseñas suministradas no coinciden'
     SHOP_NAME_HAS_TO_BE_PROVIDED: 'EN_Debe proporcionar un nombre para el comercio'
     EMAIL_HAS_TO_BE_PROVIDED: 'EN_Debe proporcionar un email para el comercio'
@@ -42,6 +44,8 @@ angular.module('mean').config ["$translateProvider", ($translateProvider) ->
 
   $translateProvider.translations "es-ES",
     HOME: "Inicio"
+    SIGNUP: "Registrarse"
+    I_AM_A_SHOP: "Soy empresa"
     PASSWORDS_DO_NOT_MATCH: 'Las contraseñas suministradas no coinciden'
     SHOP_NAME_HAS_TO_BE_PROVIDED: 'Debe proporcionar un nombre para el comercio'
     EMAIL_HAS_TO_BE_PROVIDED: 'Debe proporcionar un email para el comercio'

@@ -9,6 +9,6 @@ form.signup.form-horizontal(name="signup_form", novalidate, action="api/v1/users
     input#pwdcheck.form-control(type="password", name="pwdcheck", placeholder="Repetir Contraseña", ng-model="signup.pwdcheck", ng-minlength=6, ng-maxlength=20, required)
 
   .form-actions
-    button.btn.btn-primary(type="submit",ng-disabled="signup_form.$invalid" ) Registrarse
+    button.btn.btn-primary(type="submit",ng-disabled="signup_form.$invalid" ) {{'SIGNUP' | translate}}
 
-  a.btn.btn-secondary(href='/admin/signup') Soy un comercio
+  a.btn.btn-secondary(target="_self" href='/shopmanagement/login') {{'I_AM_A_SHOP' | translate}}
