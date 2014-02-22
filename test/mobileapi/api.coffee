@@ -3,10 +3,11 @@ app      = require "../../server"
 mongoose = require "mongoose"
 request  = require "supertest"
 
-User     = mongoose.model "User"
-Shop     = mongoose.model "Shop"
-Deal     = mongoose.model "Deal"
-Token    = mongoose.model "Token"
+User        = mongoose.model "User"
+Shop        = mongoose.model "Shop"
+Deal        = mongoose.model "Deal"
+Token       = mongoose.model "Token"
+Reservation = mongoose.model "Reservation"
 
 server   = request.agent(app)
 
@@ -40,19 +41,23 @@ describe "Mobile API testing", ->
     price: 2,
     gertuprice: 1,
     discount: 0.5,
-    shop: shop1)
+    shop: shop1,
+    quantity: 10)
 
   deal2 = new Deal(
     name: 'Deal 2',
     price: 4,
     gertuprice: 1,
     discount: 0.75,
-    shop: shop1)
+    shop: shop1,
+    quantity: 0)
 
   before (done) ->
     User.remove().exec()
     Deal.remove().exec()
     Shop.remove().exec()
+    Token.remove().exec()
+    Reservation.remove().exec()
 
     shop1.save( (err) ->
 
@@ -231,16 +236,131 @@ describe "Mobile API testing", ->
       send({token: userOfApplication._id, comment: 'new comment', rating: 5}).
       end (err, res) ->
 
-        res.should.have.status 200
-
         returnedDeal = JSON.parse(res.text)
 
+        res.should.have.status 200
         returnedDeal.comments.should.have.length 1
+
         done()
+
+  it "should make a reservation for a deal", (done) ->
+    server.
+      post(apiPreffix + '/deals/' + deal1._id + '/reservation').
+      send({token: userOfApplication._id}).
+      end (err, res) ->
+
+        returnedReservation = JSON.parse(res.text)
+
+        res.should.have.status 200
+        returnedReservation.should.have.property "_id"
+
+        done()
+
+  it "should mark one less item in quantity allowed for a deal", (done) ->
+    Deal.findOne({_id: deal1._id}).exec( (err, deal) ->
+
+      deal.should.not.be.undefined
+      deal.should.have.property 'quantity', 9
+      done()
+    )
+
+  it "should throw authorization error on reserving a deal, as invalid token is passed", (done) ->
+    server.
+      post(apiPreffix + '/deals/' + deal1._id + '/reservation').
+      send({token: 'wrongtoken'}).
+      end (err, res) ->
+        res.should.have.status 403
+        done()
+
+  it "should not make a reservation if deal quantity is consumed", (done) ->
+    server.
+      post(apiPreffix + '/deals/' + deal2._id + '/reservation').
+      send({token: userOfApplication._id}).
+      end (err, res) ->
+        res.should.have.status 410
+        done()
+
+  it "should throw error when dreserved deal does not exist", (done) ->
+    server.
+      post(apiPreffix + '/deals/notexistantdeal/reservation').
+      send({token: userOfApplication._id}).
+      end (err, res) ->
+        res.should.have.status 404
+        done()
+
+  it "should return the reservations for a user", (done) ->
+    server.
+      get(apiPreffix + '/users/reservations').
+      send({token: userOfApplication._id}).
+      end (err, res) ->
+
+        allReservations = JSON.parse(res.text)
+        allReservations.should.have.length 1
+        res.should.have.status 200
+
+        done()
+
+  it "should throw authorization error on returning, as invalid token is passed", (done) ->
+    server.
+      get(apiPreffix + '/users/reservations').
+      send({token: 'wrongtoken'}).
+      end (err, res) ->
+        res.should.have.status 403
+        done()
+
+  it "should throw authorization error on returning, as no token is passed", (done) ->
+    server.
+      get(apiPreffix + '/users/reservations').
+      send().
+      end (err, res) ->
+        res.should.have.status 403
+        done()
+
+  describe "Security testing", ->
+
+    testingToken = new Token(
+      token = userOfApplication._id,
+      user = userOfApplication
+      )
+
+    before (done) ->
+      Token.remove().exec()
+      User.remove().exec()
+      Deal.remove().exec()
+      Shop.remove().exec()
+      Reservation.remove().exec()
+      done()
+
+    it "should throw authorization error when token has expired", (done) ->
+
+      testingToken.last_access = new Date(new Date() - (21 * 60000)) # 21 minutes
+
+      testingToken.save ( (err) ->
+
+        server.
+          get(apiPreffix + '/users').
+          send({token: userOfApplication._id}).
+          end (err, res) ->
+            console.log res.text
+            res.should.have.status 403
+            done()
+
+        )
+
+
+
+    after (done) ->
+      Token.remove().exec()
+      User.remove().exec()
+      Deal.remove().exec()
+      Shop.remove().exec()
+      Reservation.remove().exec()
+      done()
 
   after (done) ->
     Token.remove().exec()
     User.remove().exec()
     Deal.remove().exec()
     Shop.remove().exec()
+    Reservation.remove().exec()
     done()

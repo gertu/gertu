@@ -40,11 +40,14 @@ Token     = mongoose.model "Token"
         req.currentMobileUser = token.user
         next()
 
-      else
+      else if token
 
         Token.remove({ token: tokenId}).exec( (err) ->
-          res.status(403).send('Access denied')
+          res.status(403).send('Token expired')
         )
+
+      else
+        res.status(403).send('Access denied')
       )
 
   module.exports = Security
