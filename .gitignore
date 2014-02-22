@@ -1,6 +1,7 @@
 # Project
 public/*
 !public/utils
+!public/upload/.gitkeep
 coverage.html
 
 # Node.js
