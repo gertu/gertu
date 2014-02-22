@@ -14,7 +14,7 @@ exports.list = (req, res) ->
 exports.create = (req, res) ->
   shopId = req.session.currentShop.shopId
   dealId = req.params.dealId
-  
+
   DealCategory.find().sort('name').exec( (err, categories ) ->
     res.render 'pages/shopmanagement/deals/create',
       {
@@ -37,7 +37,7 @@ exports.createDo = (req, res) ->
   format = type.split("/")
   if format[1] is "jpg" or format[1] is "jpeg" or format[1] is "png" or format[1] is "gif"
     fs.rename req.files.image.path, path, (err) ->
-  
+
       Shop.findOne({_id: shopId}).exec (err, shop) ->
 
         if shop
@@ -63,18 +63,18 @@ exports.createDo = (req, res) ->
             else
               console.log err
               res.redirect 'shopmanagement/deals/list'
-      
+
    else
     fs.unlink file.path
-    res.render "shopmanagement/deals/edit",
+    res.render "pages/shopmanagement/deals/edit",
     {errorMsg: 'El formato debe ser jpg, png o gif', deal: dealId, currentShop: req.session.currentShop}
 
 exports.edit = (req, res) ->
   shopId = req.session.currentShop.shopId
   dealId = req.params.dealId
-  
+
   Deal.findOne({_id: req.params.dealId}).exec( (err, deal) ->
-   
+
     DealCategory.find().sort('name').exec( (err, categories ) ->
       res.render 'pages/shopmanagement/deals/create',
         {
@@ -87,7 +87,7 @@ exports.edit = (req, res) ->
         }
       )
   )
-  
+
 exports.editDo = (req, res) ->
   shopId = req.session.currentShop.shopId
   dealId = req.params.dealId
@@ -99,7 +99,7 @@ exports.editDo = (req, res) ->
 
   if format[1] is "jpg" or format[1] is "jpeg" or format[1] is "png" or format[1] is "gif"
     fs.rename req.files.image.path, path, (err) ->
-      
+
 
       Deal.findOne({_id: req.body.id}).exec (err, deal) ->
 
@@ -127,10 +127,10 @@ exports.editDo = (req, res) ->
               else
                 console.log err
                 res.redirect 'shopmanagement/deals/list'
-            
+
   else
     fs.unlink file.path
-    res.render "shopmanagement/deals/edit",
+    res.render "pages/shopmanagement/deals/edit",
     {
       errorMsg: 'El formato debe ser jpg, png o gif',
       deal: dealId,
@@ -140,9 +140,9 @@ exports.editDo = (req, res) ->
 exports.delete = (req, res) ->
   shopId = req.session.currentShop.shopId
   dealId = req.params.dealId
-  
+
   Deal.findOne({_id: req.params.dealId}).exec (err, deal) ->
-   
+
     res.render 'pages/shopmanagement/deals/delete',
       {
         deal: deal,

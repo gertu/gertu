@@ -6,24 +6,25 @@ request  = require "supertest"
 User     = mongoose.model "User"
 Shop     = mongoose.model "Shop"
 Deal     = mongoose.model "Deal"
+Token    = mongoose.model "Token"
 
 server   = request.agent(app)
 
 apiPreffix = '/mobile/v1'
 
 describe "Mobile API testing", ->
-  
-  userOfApplication = 
+
+  userOfApplication =
     name: 'Nombre usuario',
     email: 'nombreusuario@gertuproject.info',
     password: '123456'
 
-  userWithSameEmail = 
+  userWithSameEmail =
     name: 'Nombre usuario 2',
     email: 'nombreusuario@gertuproject.info',
     password: '123456'
 
-  userWithDifferentEmail = 
+  userWithDifferentEmail =
     name: 'Nombre usuario 2',
     email: 'nombreusuario2@gertuproject.info',
     password: '123456'
@@ -63,7 +64,7 @@ describe "Mobile API testing", ->
           )
         )
     )
-   
+
   it "should signup a new user", (done) ->
     server.
       post(apiPreffix + '/users').
@@ -103,12 +104,24 @@ describe "Mobile API testing", ->
       send({email: userOfApplication.email, password: userOfApplication.password}).
       end (err, res) ->
         res.should.have.status 200
+
+        userOfApplication._id = JSON.parse(res.text)._id
+
         done()
+
+  it "should be a token for the logged in user", (done) ->
+    Token.findOne({token: userOfApplication._id}).exec( (err, token) ->
+
+      token.should.not.be.undefined
+      token.should.have.property 'token', userOfApplication._id
+      done()
+
+      )
 
   it "should return the current user", (done) ->
     server.
-      get(apiPreffix + '/users/session').
-      send().
+      get(apiPreffix + '/users').
+      send({token: userOfApplication._id}).
       end (err, res) ->
         res.should.have.status 200
         res.text.should.include userOfApplication.email
@@ -117,27 +130,42 @@ describe "Mobile API testing", ->
   it "should change info in the current user", (done) ->
 
     userOfApplication.name = 'new name'
-    console.log(userOfApplication)
     server.
       put(apiPreffix + '/users').
-      send({firstName: 'new name',  email: 'newemail@mail.com'}).
+      send({firstName: 'new name',  email: 'newemail@mail.com', token: userOfApplication._id}).
       end (err, res) ->
         res.should.have.status 200
         res.text.should.include 'new name'
         done()
 
-  it "should log out current user", (done) ->
+  it "should throw authorization error on logging out, as no token has been passed", (done) ->
     server.
       del(apiPreffix + '/users/session').
       send().
       end (err, res) ->
+        res.should.have.status 403
+        done()
+
+  it "should log out current user", (done) ->
+    server.
+      del(apiPreffix + '/users/session').
+      send({token: userOfApplication._id}).
+      end (err, res) ->
         res.should.have.status 200
+        done()
+
+  it "should throw authorization error on returning the current user, as no token is passed", (done) ->
+    server.
+      get(apiPreffix + '/users').
+      send().
+      end (err, res) ->
+        res.should.have.status 403
         done()
 
   it "should NOT return the current user, as there is no user logged in", (done) ->
     server.
       get(apiPreffix + '/users').
-      send().
+      send({token: userOfApplication._id}).
       end (err, res) ->
         res.should.have.status 200
         res.text.should.not.include userOfApplication.email
@@ -157,9 +185,9 @@ describe "Mobile API testing", ->
         done()
 
   it "should return first deal when requested", (done) ->
-    
+
     deal1.save( (err) ->
-      
+
       server.
         get(apiPreffix + '/deals/' + deal1._id).
         send().
@@ -171,11 +199,48 @@ describe "Mobile API testing", ->
 
           done()
     )
-  
+
+  it "should throw authorization error on commenting a deal, as no token is passed", (done) ->
+    server.
+      post(apiPreffix + '/deals/' + deal1._id + '/comment').
+      send({comment: 'new comment', rating: 5}).
+      end (err, res) ->
+        res.should.have.status 403
+        done()
+
+  it "should throw authorization error on commenting a deal, as invalid token is passed", (done) ->
+    server.
+      post(apiPreffix + '/deals/' + deal1._id + '/comment').
+      send({token: 'wrongtoken', comment: 'new comment', rating: 5}).
+      end (err, res) ->
+        res.should.have.status 403
+        done()
+
+  it "should NOT add a comment in a deal if comments and rating are ommitted", (done) ->
+    server.
+      post(apiPreffix + '/deals/' + deal1._id + '/comment').
+      send({token: userOfApplication._id}).
+      end (err, res) ->
+
+        res.should.have.status 400
+        done()
+
+  it "should add a comment in a deal", (done) ->
+    server.
+      post(apiPreffix + '/deals/' + deal1._id + '/comment').
+      send({token: userOfApplication._id, comment: 'new comment', rating: 5}).
+      end (err, res) ->
+
+        res.should.have.status 200
+
+        returnedDeal = JSON.parse(res.text)
+
+        returnedDeal.comments.should.have.length 1
+        done()
+
   after (done) ->
+    Token.remove().exec()
     User.remove().exec()
     Deal.remove().exec()
     Shop.remove().exec()
     done()
-
-
