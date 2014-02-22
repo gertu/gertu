@@ -4,6 +4,9 @@ section(data-ng-controller="DealsController", data-ng-init="findOne()")
     p {{deal.created | date:"medium"}}
     p {{deal.shop.name}}
     p {{deal.price | currency:"&euro;"}}
+
+    button.btn.btn-primary(type="submit", ng-click="reserve()") {{'RESERVE' | translate}}
+
     h3 {{"COMMENTS" | translate}}
     ul.deal.comments
       li(data-ng-repeat="comment in deal.comments")

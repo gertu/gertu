@@ -11,6 +11,7 @@ fs       = require "fs"
 Deal     = mongoose.model "Deal"
 Shop     = mongoose.model "Shop"
 User     = mongoose.model "User"
+Reservation     = mongoose.model('Reservation')
 
 
 exports.deal = (req, res, next, id) ->
@@ -95,6 +96,25 @@ exports.update = (req, res) ->
       deal: deal
     else
       res.jsonp deal
+
+
+# reserve a deal
+exports.reserve = (req, res) ->
+  if req.deal.quantity > 0
+    reservation = new Reservation()
+    reservation.deal = req.deal._id
+    reservation.user = req.user._id
+    reservation.save (err) ->
+      Deal.collection.update
+        _id: req.deal._id
+      ,
+        $inc:
+          quantity:
+            -1
+      , (err,data) ->
+        res.status 200
+        res.end()
+
 
 exports.destroy = (req, res) ->
   deal = req.deal

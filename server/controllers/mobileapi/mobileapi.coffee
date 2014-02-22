@@ -1,15 +1,16 @@
 mongoose = require "mongoose"
 User     = mongoose.model "User"
 Deal     = mongoose.model "Deal"
+Reservation     = mongoose.model('Reservation')
 _        = require "underscore"
 
 exports.usersLogin = (req, res) ->
-  
+
   user = new User(req.body)
   user.password = req.body.password
 
   User.findOne({email: user.email}).exec( (err, userData) ->
-    
+
     if err? or not userData?
       res.status(403).send('Access denied')
     else
@@ -30,7 +31,7 @@ exports.usersLogout = (req, res) ->
   res.
     status(200).
     send()
-  
+
 exports.usersSignUp = (req, res) ->
   user = new User(req.body)
   user.password = req.body.password
@@ -64,7 +65,7 @@ exports.usersUpdate = (req, res) ->
 
   if user?
     User.findOne({_id: user.id}).exec( (err, userData) ->
-      
+
       if err? or not userData?
         res.status(403).send('Access denied')
       else
@@ -127,9 +128,20 @@ exports.dealsGetById = (req, res) ->
         send(JSON.stringify(deal))
 
 exports.dealsMakeReservationById = (req, res) ->
-  res.
-    status(404).
-    send('Not implemented')
+  if req.deal.quantity > 0
+    reservation = new Reservation()
+    reservation.deal = req.deal._id
+    reservation.user = req.user._id
+    reservation.save (err) ->
+      Deal.collection.update
+        _id: req.deal._id
+      ,
+        $inc:
+          quantity:
+            -1
+      , (err,data) ->
+        res.status 200
+        res.end()
 
 exports.dealsAddComment = (req, res) ->
   res.

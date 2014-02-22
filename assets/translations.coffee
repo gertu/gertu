@@ -30,6 +30,7 @@ angular.module('mean').config ["$translateProvider", ($translateProvider) ->
     CLOSE_DEALS: "Nearby deals"
     MY_MESSAGES: "My messages"
     NO_NEAR_DEALS: "There are no nearby deals"
+    RESERVE: "Reserve"
     COMMENTS: 'Comments'
     DESCRIPTION: 'Description'
     DESCRIPTION_PLACEHOLDER: 'Description of the deal...'
@@ -40,6 +41,7 @@ angular.module('mean').config ["$translateProvider", ($translateProvider) ->
     COMMENT_409: 'Sorry, but you have already post a comment in this deal'
     COMMENT_422: 'Remember that the rating and description are necessary for leave a comment'
     COMMENT_500: 'It has been impossible to add your comment, please try again in a few minutes'
+
     # Here we must add translations for english language
 
   $translateProvider.translations "es-ES",
@@ -73,6 +75,7 @@ angular.module('mean').config ["$translateProvider", ($translateProvider) ->
     CLOSE_DEALS: "Ofertas cercanas"
     MY_MESSAGES: "Mis mensajes"
     NO_NEAR_DEALS: "No hay ofertas cercanas"
+    RESERVE: "Reservar"
     COMMENTS: 'Comentarios'
     DESCRIPTION: 'Descripción'
     DESCRIPTION_PLACEHOLDER: 'Descripción de la oferta...'

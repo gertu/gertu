@@ -65,6 +65,14 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
     , (deal) ->
       $scope.deal = deal
 
+  $scope.reserve = ->
+    deal = $scope.deal
+    deal.$reserve
+      dealId: $routeParams.dealId
+      action: "reserve"
+    , (cb) ->
+      AppAlert.add "success", "Oferta reservada con éxito"
+
 
   $scope.remove = (deal) ->
     if confirm("Estas seguro")
