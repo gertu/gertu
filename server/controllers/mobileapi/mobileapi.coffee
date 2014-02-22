@@ -132,21 +132,36 @@ exports.dealsGetById = (req, res) ->
         send(JSON.stringify(deal))
 
 exports.dealsMakeReservationById = (req, res) ->
-  if req.deal.quantity > 0
-    reservation = new Reservation()
-    reservation.deal = req.deal._id
-    reservation.user = req.currentMobileUser._id
 
-    reservation.save (err) ->
-      Deal.collection.update
-        _id: req.deal._id
-      ,
-        $inc:
-          quantity:
-            -1
-      , (err,data) ->
-        res.status 200
-        res.end()
+  user = req.currentMobileUser
+
+  dealId = req.params.id
+
+  Deal.findOne({_id: dealId}).exec( (err, deal) ->
+
+    if not error? and deal?
+
+      if deal.quantity <= 0
+        res.status(410).send('No more items allowed for this deal')
+      else
+        reservation = new Reservation()
+        reservation.deal = deal._id
+        reservation.user = user._id
+
+        reservation.save (err) ->
+
+          deal.quantity--
+
+          deal.save ((err) ->
+
+            res.status(200).send(JSON.stringify(reservation)) unless error?
+            res.status(500).send('Error updateing deal') if error?
+            )
+    else
+      res.status(404).send('Deal not found')
+    )
+
+
 
 exports.dealsAddComment = (req, res) ->
 
@@ -186,5 +201,6 @@ exports.reservationsGetAll = (req, res) ->
 
   Reservation.find({user: user}).populate('user').exec( (err, reservations) ->
 
-    res.status(200).send(JSON.stringify(reservations))
+    res.status(200).send(JSON.stringify(reservations)) unless err?
+    res.status(404).send('Deal not found') if err?
   )
