@@ -39,11 +39,15 @@ angular.module("mean").config ["$translateProvider", ($translateProvider) ->
     PROFILE_HOME_1: "You have not completed your profile yet, press "
     PROFILE_HOME_HERE: "here"
     PROFILE_HOME_2: " to complete it"
-    MY_BOUGHT_DEALS: "My deals"
-    CLOSE_DEALS: "Nearby deals"
-    MY_COMMENTS: "Mis comentarios"
+
+    MY_BUYS: "My buys"
+    NO_BUYS: "You have not bought any deal yet"
+    MY_RESERVES: "My reserves"
+    NO_RESERVES: "You have not got any pending reserve"
+    NEARBY_DEALS: "Nearby deals"
+    NO_NEAR_DEALS: "You have not got any nearby deal"
+    MY_COMMENTS: "My comments"
     NO_COMMENTS: "You have not writed any comment yet"
-    NO_NEAR_DEALS: "There are no nearby deals"
 
     # /profile
     MY_PERFIL: "My perfil"
@@ -118,11 +122,16 @@ angular.module("mean").config ["$translateProvider", ($translateProvider) ->
     PROFILE_HOME_1: "Todavía no has completado tu perfil, pulsa "
     PROFILE_HOME_HERE: "aquí"
     PROFILE_HOME_2: " para completarlo"
-    MY_BOUGHT_DEALS: "Mis ofertas"
-    CLOSE_DEALS: "Ofertas cercanas"
+    MY_BUYS: "Mis compras"
+    NO_BUYS: "No has realizado ninguna compra"
+    MY_RESERVES: "Mis reservas"
+    NO_RESERVES: "No tienes ninguna reserva pendiente"
+    NEARBY_DEALS: "Ofertas cercanas"
+    NO_NEAR_DEALS: "No hay ofertas cercanas"
     MY_COMMENTS: "Mis comentarios"
     NO_COMMENTS: "No tienes comentarios aún"
-    NO_NEAR_DEALS: "No hay ofertas cercanas"
+
+
 
     # / profile
     MY_PERFIL: "Mi perfil"

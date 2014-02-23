@@ -45,23 +45,26 @@ angular.module('mean.system').controller 'IndexController', [
     $scope.totalProgress  = 4
     $scope.actualProgress = 3
 
-    $scope.boughtDeals = [
-      title: "Oferta comprada 1"
-      link : "#"
-    ,
-      title: "Oferta comprada 2"
-      link : "#"
-    ,
-      title: "Oferta comprada 3"
-      link : "#"
-    ,
-      title: "Oferta comprada 4"
-      link : "#"
-    ]
-
-    $scope.myComments = ->
+    myComments = ->
       Index.getComments.query
         userId: $scope.global.user._id
       , (myComments) ->
         $scope.myComments = myComments
+
+    myReserves = ->
+      Index.getReserves.query
+        userId: $scope.global.user._id
+      , (myReserves) ->
+        $scope.myReserves = myReserves
+
+    myBuys = ->
+      Index.getBuys.query
+        userId: $scope.global.user._id
+      , (myBuys) ->
+        $scope.myBuys = myBuys
+
+    $scope.commentsReservesBuys = ->
+      $scope.myComments = myComments()
+      $scope.myBuys     = myBuys()
+      $scope.myReserves = myReserves()
 ]

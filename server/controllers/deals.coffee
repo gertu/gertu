@@ -94,25 +94,6 @@ exports.update = (req, res) ->
     else
       res.jsonp deal
 
-
-# reserve a deal
-exports.reserve = (req, res) ->
-  if req.deal.quantity > 0
-    reservation = new Reservation()
-    reservation.deal = req.deal._id
-    reservation.user = req.user._id
-    reservation.save (err) ->
-      Deal.collection.update
-        _id: req.deal._id
-      ,
-        $inc:
-          quantity:
-            -1
-      , (err,data) ->
-        res.status 200
-        res.end()
-
-
 exports.destroy = (req, res) ->
   deal = req.deal
   deal.remove (err) ->
