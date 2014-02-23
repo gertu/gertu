@@ -34,9 +34,9 @@ exports.usersLogout = (req, res) ->
   currentUser = req.currentMobileUser
 
   Token.remove({token: currentUser._id}).exec( (err) ->
-      res.status(200).send() unless err?
-      res.status(404).send('No token found') if err?
-    )
+    res.status(200).send() unless err?
+    res.status(404).send('No token found') if err?
+  )
 
 
 exports.usersSignUp = (req, res) ->
