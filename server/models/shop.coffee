@@ -58,7 +58,9 @@ ShopSchema.pre "save", (next) ->
 
 ShopSchema.methods =
   authenticate: (plainText) ->
-    @encryptPassword(plainText) is @hashed_password
+    if not @salt or not @hashed_password # Old shops with no hashing
+      return false
+    return @encryptPassword(plainText) is @hashed_password
 
   makeSalt: ->
     Math.round((new Date().valueOf() * Math.random())) + ""
