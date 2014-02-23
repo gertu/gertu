@@ -5,7 +5,7 @@ div#header-wrap
         .container
           ul.nav.navbar-nav
             li(data-ng-repeat='item in menu', ui-route='/{{item.link}}', ng-class='{active: $uiRoute}')
-              a(href='/{{item.link}}') {{item.title}}
+              a(href='/{{item.link}}') {{item.title | translate}}
             ul.nav.navbar-nav.pull-right(data-ng-hide='global.authenticated')
               include signinform
             ul.nav.navbar-nav.navbar-nav.pull-right(data-ng-show='global.authenticated')
