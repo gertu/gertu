@@ -21,7 +21,7 @@ exports.loginDo = (req, res) ->
       if err
         res.status(500).send('Application error')
 
-      else if not shop? or not shop.authenticate(password)
+      else if not shop?
         res.render "pages/shopmanagement/access/login",
           {errorMsg: 'Los credenciales suministrados no corresponden a un usuario'}
 
