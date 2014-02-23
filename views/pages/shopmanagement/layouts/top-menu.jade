@@ -49,6 +49,6 @@
               p.navbar-text.pull-right
                 | Bienvenido/a,
                 a.tip.icon.logout(href='/shopmanagement/profile/view')
-                  strong #{currentShop.shopEmail}
+                  strong #{currentShop ? currentShop.shopEmail : ''}
               ul.nav.pull-right.settings
                 li.divider-vertical

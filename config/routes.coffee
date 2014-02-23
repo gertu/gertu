@@ -151,6 +151,8 @@ module.exports = (app, passport) ->
   app.get  "/shopmanagement/dashboard", Security.authenticateShop, shopManagementAccess.dashboard
   app.post "/shopmanagement/signup", shopManagementAccess.signupDo
   app.get  "/shopmanagement/confirm/:shopId", shopManagementAccess.confirm
+  app.get  "/shopmanagement/resetpassword", shopManagementAccess.resetpassword
+  app.post "/shopmanagement/resetpassword", shopManagementAccess.resetpasswordDo
 
   shopManagementProfile = require("../server/controllers/shopmanagement/profile")
   app.get  "/shopmanagement/profile/view", Security.authenticateShop, shopManagementProfile.view

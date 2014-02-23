@@ -2,37 +2,43 @@ extends ../layouts/default
 block content
     link(rel='stylesheet', href='/themes/shopmanagement/css/login.css')
     .container
-        .row
-            .col-md-6
+        .row-fluid
+            .span6
                 form.form-signin(action="/shopmanagement/login", method='post')
                     h2.form-signin-heading Accede
                     .input-prepend
                       span.add-on
                         i.icon-large.icon-envelope
-                      input.span3(type='email', name="email", placeholder='Email', required)
+                      input(type='email', name="email", placeholder='Email', required)
                     .input-prepend
                       span.add-on
                         i.icon-large.icon-key
-                      input.span3(type='password', name="password", placeholder='Contraseña', required)
+                      input(type='password', name="password", placeholder='Contraseña', required)
                     button.btn.btn-large.btn-primary(type='submit', name='submit') Acceder
-            .col-md-6
+                    div
+                      br
+                      a(href='/shopmanagement/resetpassword') No recuerdo mi contraseña
+            .span6
                 form.form-signin(action="/shopmanagement/signup", method='post')
-                    h2.form-signin-heading Registrate
+                    h2.form-signin-heading Regístrate
                     .input-prepend
                       span.add-on
                         i.icon-large.icon-envelope
-                      input.span3(type='text', name="name", placeholder='Name', required)
+                      input(type='text', name="name", placeholder='Name', required)
                     .input-prepend
                       span.add-on
                         i.icon-large.icon-envelope
-                      input.span3(type='email', name="email", placeholder='Email', required)
+                      input(type='email', name="email", placeholder='Email', required)
                     .input-prepend
                       span.add-on
                         i.icon-large.icon-key
-                      input.span3(type='password', name="password", placeholder='Contraseña', required)
+                      input(type='password', name="password", placeholder='Contraseña', required)
                     button.btn.btn-large.btn-primary(type='submit', name='submit') Registrar
-        .row
-            .col-md-12
+                    div
+                      br
+                      a(href='#') Condiciones de servicio
+        .row-fluid
+            .span12
                 br
                 br
                 - if (endSession)
