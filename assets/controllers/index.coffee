@@ -30,7 +30,7 @@ angular.module('mean.system').controller 'IndexController', [
 
     $scope.checkSteps = (paramLong,paramLat) ->
       prom = $q.defer()
-      Index.getData
+      Index.getData.query
         userLong: paramLong
         userLat:  paramLat
       , (data) ->
@@ -47,31 +47,26 @@ angular.module('mean.system').controller 'IndexController', [
     $scope.totalProgress  = 4
     $scope.actualProgress = 3
 
-    $scope.boughtDeals = [
-      title: "Oferta comprada 1"
-      link : "#"
-    ,
-      title: "Oferta comprada 2"
-      link : "#"
-    ,
-      title: "Oferta comprada 3"
-      link : "#"
-    ,
-      title: "Oferta comprada 4"
-      link : "#"
-    ]
+    myComments = ->
+      Index.getComments.query
+        userId: $scope.global.user._id
+      , (myComments) ->
+        $scope.myComments = myComments
 
-    $scope.messages = [
-      title: "Mensaje 1"
-      link : "#"
-    ,
-      title: "Mensaje 2"
-      link : "#"
-    ,
-      title: "Mensaje 3"
-      link : "#"
-    ,
-      title: "Mensaje 4"
-      link : "#"
-    ]
+    myReserves = ->
+      Index.getReserves.query
+        userId: $scope.global.user._id
+      , (myReserves) ->
+        $scope.myReserves = myReserves
+
+    myBuys = ->
+      Index.getBuys.query
+        userId: $scope.global.user._id
+      , (myBuys) ->
+        $scope.myBuys = myBuys
+
+    $scope.commentsReservesBuys = ->
+      $scope.myComments = myComments()
+      $scope.myBuys     = myBuys()
+      $scope.myReserves = myReserves()
 ]

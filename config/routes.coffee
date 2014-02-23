@@ -47,9 +47,15 @@ module.exports = (app, passport) ->
   app.post   currentApiVersion + "/admin/photo", deals.updatephoto
   app.put    currentApiVersion + "/deals/:dealId", deals.update
   app.delete currentApiVersion + "/deals/:dealId", deals.destroy
-  app.post   currentApiVersion + "/deals/:dealId/reserve", deals.reserve
-  #Comments routes
+  # Reserves routes
+  reservations = require "../server/controllers/reservations"
+  app.post   currentApiVersion + "/deals/:dealId/reserve", reservations.reserve
+
+  app.get    currentApiVersion + "/myreserves/:userId", reservations.myReserves
+  app.get    currentApiVersion + "/mybuys/:userId", reservations.myBuys
+  # Comments routes
   app.put    currentApiVersion + "/deals/:dealId/addcomment", deals.addComment
+  app.get    currentApiVersion + "/comments/:userId", deals.myComments
 
 
   #Finish with setting up the articleId param

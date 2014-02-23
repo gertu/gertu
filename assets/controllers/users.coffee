@@ -62,14 +62,4 @@ angular.module("mean.users").controller "UsersController", [
 
     $scope.formats = ["dd-MMMM-yyyy", "yyyy/MM/dd", "shortDate"]
     $scope.format  = $scope.formats[0]
-
-    $scope.hobbies = [
-      name: "Comida"
-    ,
-      name: "Deportes"
-    ,
-      name: "Música"
-    ,
-      name: "Tecnología"
-    ]
 ]

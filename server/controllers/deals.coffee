@@ -94,25 +94,6 @@ exports.update = (req, res) ->
     else
       res.jsonp deal
 
-
-# reserve a deal
-exports.reserve = (req, res) ->
-  if req.deal.quantity > 0
-    reservation = new Reservation()
-    reservation.deal = req.deal._id
-    reservation.user = req.user._id
-    reservation.save (err) ->
-      Deal.collection.update
-        _id: req.deal._id
-      ,
-        $inc:
-          quantity:
-            -1
-      , (err,data) ->
-        res.status 200
-        res.end()
-
-
 exports.destroy = (req, res) ->
   deal = req.deal
   deal.remove (err) ->
@@ -135,6 +116,7 @@ exports.addComment = (req, res) ->
   description = req.body.description
   rating = req.body.rating
   currentUser = req.user
+
   if currentUser?
     if description? and rating > 0
       User.findOne(_id: currentUser._id).exec (err, user) ->
@@ -169,3 +151,19 @@ exports.addComment = (req, res) ->
       res.send(422, "description and rating are required")
   else
     res.send(401, "login is required for this action")
+
+exports.myComments = (req, res) ->
+  currentUser = req.user
+  myComments = []
+
+  if currentUser?
+    Deal.find().exec (err, deals) ->
+      if err
+        res.send(500, err)
+      else
+        for deal in deals
+          if deal? and deal.comments?
+            for comment in deal.comments
+              if comment?
+                myComments.push comment  if comment.author.equals currentUser._id
+        res.jsonp myComments
