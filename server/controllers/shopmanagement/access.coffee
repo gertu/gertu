@@ -16,14 +16,18 @@ exports.loginDo = (req, res) ->
       {errorMsg: 'Debe indicar tanto el email como la contraseña del usuario'}
   else
 
-    Shop.findOne({email: email, password: password}).exec( (err, shop) ->
+    Shop.findOne({email: email}).exec( (err, shop) ->
+
       if err
         res.status(500).send('Application error')
-      else if not shop?
+
+      else if not shop? or not shop.authenticate(password)
         res.render "pages/shopmanagement/access/login",
           {errorMsg: 'Los credenciales suministrados no corresponden a un usuario'}
+
       else if not shop.confirmed
         res.redirect "/shopmanagement/confirm/" + shop._id,
+
       else
         # Access granted
         req.session.currentShop =
