@@ -8,6 +8,7 @@
     "angular-cookies"  : "latest",
     "angular-bootstrap": "latest",
     "angular-ui-utils" : "latest",
+    "angular-ui-map"   : "latest",
     "angular-route"    : "latest",
     "angular-i18n"     : "latest",
     "angular-translate": "latest",

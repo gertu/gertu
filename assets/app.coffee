@@ -5,6 +5,7 @@ angular.module "mean", [
   "ngResource",
   "ui.bootstrap",
   "ui.route",
+  "ui.map",
   "mean.system",
   "mean.users",
   "mean.shops",

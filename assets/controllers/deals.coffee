@@ -46,6 +46,30 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
   #     $scope.selection.push fruitName
   #   return
 
+  $scope.myMarkers = []
+  $scope.mapOptions =
+    center: new google.maps.LatLng($scope.global.userLat, $scope.global.userLong)
+    zoom: 15
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+
+  $scope.addMarker = ($event, $params) ->
+    $scope.myMarkers.push new google.maps.Marker(
+      map: $scope.myMap
+      position: new google.maps.LatLng($params.shop.loc.latitude, $params.shop.loc.longitude)
+      deal: $params
+    )
+    return
+
+  $scope.openMarkerInfo = (marker) ->
+    $scope.currentMarker = marker
+    $scope.currentMarkerName = marker.deal.name
+    $scope.currentMarkerLat = marker.getPosition().lat()
+    $scope.currentMarkerLng = marker.getPosition().lng()
+    $scope.myInfoWindow.open $scope.myMap, marker
+    return
+
+
+
   $scope.create = ->
     deal = new Deals(
       name: @name,
@@ -101,6 +125,8 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
               $scope.filteredDeals.push deal
       else
         $scope.filteredDeals = $scope.deals
+    for deal in $scope.filteredDeals
+          $scope.addMarker '',deal.deal
 
   #   $scope.filteredDeals_old = $scope.filteredDeals
 
