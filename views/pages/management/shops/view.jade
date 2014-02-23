@@ -1,0 +1,65 @@
+extends ../layouts/default
+block content
+    h1 Detalles de tienda
+    h2 #{shop.name}
+    .row
+        .col-md-6
+            fieldset
+                legend Datos básicos
+                label Nombre:&nbsp;
+                span #{shop.name}
+                br
+                label Email:&nbsp;
+                span
+                    a(href='mailto:#{shop.email}') #{shop.email}
+            fieldset
+                legend Localización:&nbsp;
+                div#mapa(style='height: 300px;')
+        .col-md-6
+            fieldset
+                legend Datos de pago
+                label Tarjeta:&nbsp;
+                span #{shop.card.type}
+                br
+                label Número de tarjeta:&nbsp;
+                span #{shop.card.number}
+                br
+                label Mes de expiración:&nbsp;
+                span #{shop.card.expire_month}
+                br
+                label Año de expiración:&nbsp;
+                span #{shop.card.expire_year}
+                br
+                label CCV2:&nbsp;
+                span #{shop.card.cvv2}
+                br
+                label Nombre (en la tarjeta):&nbsp;
+                span #{shop.card.first_name}
+                br
+                label Apellidos (en la tarjeta):&nbsp;
+                span #{shop.card.last_name}
+            fieldset
+                legend Dirección de facturación
+                label  Dirección:&nbsp;
+                span #{shop.billing_address.line1}
+                br
+                label Ciudad:&nbsp;
+                span #{shop.billing_address.city}
+                br
+                label Provincia:&nbsp;
+                span #{shop.billing_address.state}
+                br
+                label Código postal:&nbsp;
+                span #{shop.billing_address.postal_code}
+                br
+                label País:&nbsp;
+                span #{shop.billing_address.country_code}
+    .pull-right
+        br
+        a.btn.btn-primary(href='/management/shops/list') Volver al listado
+        br
+
+    script.
+        document.ready = function(){
+          App.initializeMap('mapa', #{shop.loc.latitude}, #{shop.loc.longitude}, null, null)
+        }

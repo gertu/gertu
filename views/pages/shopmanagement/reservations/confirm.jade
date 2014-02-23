@@ -16,10 +16,12 @@ block content
             .span6(style='text-align: center;')
               label(for='reservationId')
                 strong Código
-              input#reservationId(type='text', value='', placeholder='Introduzca el código', name='reservationId')
+              input.reservationConfirmation#reservationId(type='text', value='', placeholder='Introduzca el código',
+                name='reservationId', required)
             .span3
           .row-fluid
             .span5
             .span2(style='text-align: center;')
-              input(type='submit', value='Confirmar reserva')
+              input.btn.btn-primary(type='submit', value='Confirmar reserva',
+                onclick='return App.showConfirm("¿Está seguro de confirmar esta reserva?");')
             .span5

@@ -36,8 +36,14 @@ block content
                 legend Tarjeta
                 label(for='shop_card_type') Tarjeta
                 select#shop_card_type(name='shop_card_type')
-                  option(value="visa") Visa
-                  option(value="mastercard") MasterCard
+                  - if (shop.card && shop.card.type == 'visa')
+                    option(value="visa", selected) Visa
+                  - else
+                    option(value="visa") Visa
+                  - if (shop.card && shop.card.type == 'mastercard')
+                    option(value="mastercard", selected) MasterCard
+                  - else
+                    option(value="mastercard") MasterCard
                 legend Datos de pago
                 label(for='shop_card_number') Número de tarjeta
                 input#name(type='text', value='#{shop.card.number}', name='shop_card_number')

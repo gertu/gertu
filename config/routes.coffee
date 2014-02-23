@@ -111,6 +111,18 @@ module.exports = (app, passport) ->
   app.get  "/management/payments/history/:id", Security.authenticateAdministrator, managementPayments.history
   # End of payment management
 
+  # Shop management
+  managementShops = require("../server/controllers/management/shops")
+  app.get  "/management/shops/list", Security.authenticateAdministrator, managementShops.list
+  app.get  "/management/shops/view/:id", Security.authenticateAdministrator, managementShops.view
+  # End of payment management
+
+   # Shop management
+  managementUsers = require("../server/controllers/management/users")
+  app.get  "/management/users/list", Security.authenticateAdministrator, managementUsers.list
+  app.get  "/management/users/view/:id", Security.authenticateAdministrator, managementUsers.view
+  # End of payment management
+
   # End of management routes
 
   # Mobile API
