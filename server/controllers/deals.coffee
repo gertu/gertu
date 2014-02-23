@@ -121,10 +121,10 @@ exports.getNearestDeals = (req,res) ->
     if nearshops?
       for shop in nearshops
         nearshopids.push shop.obj._id
-      Deal.find({shop: { $in:nearshopids}}).exec (err,deals) ->
+      Deal.find({shop: { $in:nearshopids}}).populate("shop").exec (err,deals) ->
         for deal in deals
           for shop in nearshops
-            if deal.shop.equals(shop.obj._id)
+            if deal.shop._id.equals(shop.obj._id)
               nearbyDeals.push
                 dist: shop.dis
                 deal: deal
