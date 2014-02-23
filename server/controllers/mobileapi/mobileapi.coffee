@@ -8,33 +8,36 @@ Reservation = mongoose.model 'Reservation'
 
 exports.usersLogin = (req, res) ->
 
-  user = new User(req.body)
-  user.password = req.body.password
-
-  User.findOne({email: user.email}).exec( (err, userData) ->
+  User.findOne({email: req.body.email}).exec( (err, userData) ->
 
     if err? or not userData?
       res.status(403).send('Access denied. No such user.')
     else
-      token = new Token()
 
-      token.token = userData._id
-      token.user = userData
-      token.last_access = new Date()
+      if userData.authenticate(req.body.password)
+        token = new Token()
 
-      token.save( (err) ->
+        token.token = userData._id
+        token.user = userData
+        token.last_access = new Date()
 
-        res.status(200).send(JSON.stringify(userData)) unless error?
-        res.status(403).send('Unable to set up token') if error?
-        )
+        token.save( (err) ->
+
+          res.status(200).send(JSON.stringify(userData)) unless err?
+          res.status(403).send('Unable to set up token') if err?
+          )
+      else
+        res.status(403).send('Incorrect credentials')
   )
 
 exports.usersLogout = (req, res) ->
-  req.session.user = {}
+  currentUser = req.currentMobileUser
 
-  res.
-    status(200).
-    send()
+  Token.remove({token: currentUser._id}).exec( (err) ->
+      res.status(200).send() unless err?
+      res.status(404).send('No token found') if err?
+    )
+
 
 exports.usersSignUp = (req, res) ->
   user = new User(req.body)

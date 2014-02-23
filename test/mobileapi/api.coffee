@@ -103,22 +103,33 @@ describe "Mobile API testing", ->
         res.should.have.status 403
         done()
 
+  it "should NOT signin the newly created user with a wrong password", (done) ->
+
+    server.
+      post(apiPreffix + '/users/session').
+      send({email: userOfApplication.email, password: 'nonexistantpassword'}).
+      end (err, res) ->
+
+        res.should.have.status 403
+        done()
+
   it "should signin the newly created user", (done) ->
+
     server.
       post(apiPreffix + '/users/session').
       send({email: userOfApplication.email, password: userOfApplication.password}).
       end (err, res) ->
+
         res.should.have.status 200
-
         userOfApplication._id = JSON.parse(res.text)._id
-
         done()
 
   it "should be a token for the logged in user", (done) ->
-    Token.findOne({token: userOfApplication._id}).exec( (err, token) ->
+    Token.find({token: userOfApplication._id}).exec( (err, tokens) ->
 
-      token.should.not.be.undefined
-      token.should.have.property 'token', userOfApplication._id
+      tokens.should.not.be.undefined
+      tokens.should.have.length 1
+      tokens[0].should.have.property 'token', userOfApplication._id
       done()
 
       )
@@ -151,13 +162,7 @@ describe "Mobile API testing", ->
         res.should.have.status 403
         done()
 
-  it "should log out current user", (done) ->
-    server.
-      del(apiPreffix + '/users/session').
-      send({token: userOfApplication._id}).
-      end (err, res) ->
-        res.should.have.status 200
-        done()
+
 
   it "should throw authorization error on returning the current user, as no token is passed", (done) ->
     server.
@@ -316,46 +321,33 @@ describe "Mobile API testing", ->
         res.should.have.status 403
         done()
 
-  describe "Security testing", ->
+  it "should still be able to retrieve the current user", (done) ->
 
-    testingToken = new Token(
-      token = userOfApplication._id,
-      user = userOfApplication
-      )
+    server.
+      get(apiPreffix + '/users').
+      send({token: userOfApplication._id}).
+      end (err, res) ->
 
-    before (done) ->
-      Token.remove().exec()
-      User.remove().exec()
-      Deal.remove().exec()
-      Shop.remove().exec()
-      Reservation.remove().exec()
-      done()
+        res.should.have.status 200
+        done()
 
-    it "should throw authorization error when token has expired", (done) ->
+  it "should log out current user", (done) ->
+    server.
+      del(apiPreffix + '/users/session').
+      send({token: userOfApplication._id}).
+      end (err, res) ->
+        res.should.have.status 200
+        done()
 
-      testingToken.last_access = new Date(new Date() - (21 * 60000)) # 21 minutes
+  it "should NOT be able to retrieve the current user, as user is logged out", (done) ->
 
-      testingToken.save ( (err) ->
+    server.
+      get(apiPreffix + '/users').
+      send({token: userOfApplication._id}).
+      end (err, res) ->
 
-        server.
-          get(apiPreffix + '/users').
-          send({token: userOfApplication._id}).
-          end (err, res) ->
-            console.log res.text
-            res.should.have.status 403
-            done()
-
-        )
-
-
-
-    after (done) ->
-      Token.remove().exec()
-      User.remove().exec()
-      Deal.remove().exec()
-      Shop.remove().exec()
-      Reservation.remove().exec()
-      done()
+        res.should.have.status 403
+        done()
 
   after (done) ->
     Token.remove().exec()
