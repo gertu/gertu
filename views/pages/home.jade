@@ -1,71 +1,73 @@
-section.home-page(ng-controller='IndexController', data-ng-init='commentsReservesBuys()')
-  .location.col-md-12(data-ng-show='global.authenticated')
+section.home-page(ng-controller="IndexController", data-ng-init="commentsReservesBuys()")
+  .location.col-md-12(data-ng-show="global.authenticated")
     span.location-text
-  .row(data-ng-hide='global.authenticated')
+  .row(data-ng-hide="global.authenticated")
     .data
       .col-md-6.signupform
-        h3 {{ 'SIGNUP_FORM_TITLE' | translate}}
+        h3 {{ "SIGNUP_FORM_TITLE" | translate}}
         include ../templates/signupform
     include ../templates/steps
     include ../templates/webdata
 
-  .row(data-ng-show='global.authenticated')
-    div(data-ng-show='global.user')
+  .row(data-ng-show="global.authenticated")
+    div(data-ng-show="global.user")
       .profile-status(data-ng-hide="hideSteps")
         h2
-          | {{'PROFILE_HOME_1' | translate}}
-          a(href="/profile") {{'PROFILE_HOME_HERE' | translate}}
-          | {{'PROFILE_HOME_2' | translate}}
+          | {{"PROFILE_HOME_1" | translate}}
+          a(href="/profile") {{"PROFILE_HOME_HERE" | translate}}
+          | {{"PROFILE_HOME_2" | translate}}
         progressbar.progress-striped.active(value="actualProgress", max="totalProgress") {{actualProgress}}/{{totalProgress}}
         hr
       .dashboard
         .dashboard-column.col-md-4
-          h3.arrow-title {{'MY_RESERVES' | translate}}
+          h3.arrow-title {{"MY_RESERVES" | translate}}
           .arrow-down
           .fieldset
             ul
-              li(data-ng-repeat='reserve in myReserves')
-                a(href='/deals/{{reserve.deal._id}}')
+              li(data-ng-repeat="reserve in myReserves")
+                p {{reserve.date | date: "longDate"}}
+                a(href="/deals/{{reserve.deal._id}}")
                   span.glyphicon.glyphicon-circle-arrow-right.pull-right
                   | {{reserve.deal.name}}
-            ul(ng-show="!myReserves")
-              li {{'NO_RESERVES' | translate}}
+            ul(ng-show="!myReserves.length")
+              li {{"NO_RESERVES" | translate}}
 
         .dashboard-column.col-md-4
-          h3.arrow-title {{'MY_BUYS' | translate}}
+          h3.arrow-title {{"MY_BUYS" | translate}}
           .arrow-down
           .fieldset
             ul
-              li(data-ng-repeat='buy in myBuys')
-                a(href='/deals/{{buy.deal._id}}')
+              li(data-ng-repeat="buy in myBuys")
+                p {{buy.date | date: "longDate"}}
+                a(href="/deals/{{buy.deal._id}}")
                   span.glyphicon.glyphicon-circle-arrow-right.pull-right
                   | {{buy.deal.name}}
-            ul(ng-show="!myBuys")
-              li {{'NO_BUYS' | translate}}
+            ul(ng-show="!myBuys.length")
+              li {{"NO_BUYS" | translate}}
 
         .dashboard-column.col-md-4
-          h3.arrow-title {{'NEARBY_DEALS' | translate}}
+          h3.arrow-title {{"NEARBY_DEALS" | translate}}
           .arrow-down
           .fieldset
             ul
               li(data-ng-repeat="neardeal in nearDeals")
                 a(href="/map/{{neardeal.deal._id}}")
                   span.glyphicon.glyphicon-globe.pull-right(tooltip="{{'SEE_IN_MAP' | translate}}")
-                a(href='/deals/{{neardeal.deal._id}}')
+                a(href="/deals/{{neardeal.deal._id}}")
                   span.badge.pull-right {{neardeal.dist*1000 | number:2}} m.
                   | {{neardeal.deal.name | trunc:true:18}}
-            ul(ng-show="!nearDeals")
-              li {{'NO_NEAR_DEALS' | translate}}
+            ul(ng-show="!nearDeals.length")
+              li {{"NO_NEAR_DEALS" | translate}}
 
         .dashboard-column.col-md-8
-          h3.arrow-title {{'MY_COMMENTS' | translate}}
+          h3.arrow-title {{"MY_COMMENTS" | translate}}
           .arrow-down
           .fieldset
             ul
               li(data-ng-repeat="comment in myComments")
                 p {{comment.writedAt | date: "longDate"}}
                   span.rating
-                    rating.deal-rating(value="comment.rating", max="10", readonly='true')
+                    rating.deal-rating(value="comment.rating", max="10", readonly="true")
                 p {{comment.description}}
-            ul(ng-show="!myComments")
-              li {{'NO_COMMENTS' | translate}}
+            ul(ng-show="!myComments.length")
+              li {{"NO_COMMENTS" | translate}}

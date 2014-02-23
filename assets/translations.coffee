@@ -39,7 +39,6 @@ angular.module("mean").config ["$translateProvider", ($translateProvider) ->
     PROFILE_HOME_1: "You have not completed your profile yet, press "
     PROFILE_HOME_HERE: "here"
     PROFILE_HOME_2: " to complete it"
-
     MY_BUYS: "My buys"
     NO_BUYS: "You have not bought any deal yet"
     MY_RESERVES: "My reserves"
