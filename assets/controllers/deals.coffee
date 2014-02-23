@@ -1,7 +1,29 @@
 angular.module("mean.deals").controller "DealsController", ["$scope",
-"$routeParams", "$location", "Global", "Deals", "DealsCategory", "DealsShop", "AppAlert", "$http", ($scope,
-  $routeParams, $location, Global, Deals, DealsCategory, DealsShop, AppAlert, $http) ->
+"$routeParams", "$location", "Global", "Deals", "DealsCategory", "DealsShop", "AppAlert", "$http","$q", ($scope,
+  $routeParams, $location, Global, Deals, DealsCategory, DealsShop, AppAlert, $http,$q) ->
   $scope.global = Global
+
+  $scope.priceRange = [
+    min: 0
+    max: 15
+    text: "0-15€"
+  ,
+    min: 15
+    max: 30
+    text: "15-30€"
+  ,
+    min: 30
+    max: 45
+    text: "30-45€"
+  ,
+    min: 60
+    max: 75
+    text: "60-75€"
+  ,
+    min: 75
+    max: 90
+    text: "75-90€"
+  ]
 
   # $scope.days [
   #   "Lunes"
@@ -50,8 +72,47 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
 
 
   $scope.find = ->
-    Deals.query (deals) ->
+    $scope.uniqueCategories = []
+    prom = $q.defer()
+    Deals.getNearest
+      userLong: $scope.global.userLong
+      userLat:  $scope.global.userLat
+    , (deals) ->
+      console.log deals
       $scope.deals = deals
+      $scope.filteredDeals = deals
+      for deal in deals
+        if deal.deal.categoryname not in $scope.uniqueCategories
+          $scope.uniqueCategories.push deal.deal.categoryname
+      prom.resolve()
+    prom.promise
+
+  $scope.filter = ->
+    $scope.filteredDeals = []
+    for deal in $scope.deals
+      if ($scope.selectedCategory in $scope.uniqueCategories)  #si la categoria está seleccionada
+        if ($scope.selectedPrice in $scope.priceRange)  #si el precio está seleccionado
+          if deal.deal.categoryname == $scope.selectedCategory and deal.deal.gertuprice > $scope.selectedPrice.min and deal.deal.gertuprice < $scope.selectedPrice.max
+            $scope.filteredDeals.push deal
+        else if deal.deal.categoryname == $scope.selectedCategory
+            $scope.filteredDeals.push deal
+      else if ($scope.selectedPrice in $scope.priceRange)  #si el precio está seleccionado
+            if deal.deal.gertuprice > $scope.selectedPrice.min and deal.deal.gertuprice < $scope.selectedPrice.max
+              $scope.filteredDeals.push deal
+      else
+        $scope.filteredDeals = $scope.deals
+
+  #   $scope.filteredDeals_old = $scope.filteredDeals
+
+  # $scope.filterByPrice = ->
+  #   if ($scope.selectedPrice in $scope.priceRange)
+  #     $scope.filteredDeals2 = []
+  #     for deal in $scope.filteredDeals_old
+  #       if deal.deal.gertuprice > $scope.selectedPrice.min and deal.deal.gertuprice < $scope.selectedPrice.max
+  #         $scope.filteredDeals2.push deal
+  #     $scope.filteredDeals = $scope.filteredDeals2
+  #   else
+  #     $scope.filteredDeals = $scope.filteredDeals_old
 
 
   $scope.showdealcategories = ->

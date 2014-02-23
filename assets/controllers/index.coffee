@@ -42,7 +42,7 @@ angular.module('mean.system').controller 'IndexController', [
           $scope.reservationcount = data[0].reservationcount
           $scope.shopcount = data[0].shopcount
           prom.resolve()
-        prom.promise
+      prom.promise
 
     $scope.totalProgress  = 4
     $scope.actualProgress = 3
