@@ -116,3 +116,6 @@ exports.resetpassword = (req, res) ->
 
 exports.resetpasswordDo = (req, res) ->
   res.render "pages/shopmanagement/access/resetpasswordsent"
+
+exports.termsandconditions = (req, res) ->
+  res.render "pages/shopmanagement/access/termsandconditions"

@@ -101,7 +101,7 @@ var App = (function(){
 
   };
 
-  var showAlert = function(outputMessage){
+  var showAlert = function(outputMessage, height, width){
 
     var dialogHtml = '<div class="custom-dialog-modal" title="Alerta"></div>';
 
@@ -110,7 +110,8 @@ var App = (function(){
     $('body').append(dialogHtml);
     $('body .custom-dialog-modal').html('<p>' + outputMessage + '</p>')
     $('body .custom-dialog-modal').dialog({
-      height: 140,
+      height: (height ? height : 140),
+      width: (width ? width: 400),
       modal: true
     });
 

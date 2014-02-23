@@ -23,8 +23,8 @@ block content
                     h2.form-signin-heading Regístrate
                     .input-prepend
                       span.add-on
-                        i.icon-large.icon-envelope
-                      input(type='text', name="name", placeholder='Name', required)
+                        i.icon-large.icon-user
+                      input(type='text', name="name", placeholder='Nombre del comercio', required)
                     .input-prepend
                       span.add-on
                         i.icon-large.icon-envelope
@@ -36,7 +36,8 @@ block content
                     button.btn.btn-large.btn-primary(type='submit', name='submit') Registrar
                     div
                       br
-                      a(href='#') Condiciones de servicio
+                      span Al registarse, está aceptando nuestras&nbsp;
+                      a(href='#', onclick='return showSuscriptionConditions();') condiciones de servicio
         .row-fluid
             .span12
                 br
@@ -47,3 +48,12 @@ block content
                 - if (errorMsg)
                     div.alert.alert-danger
                         | #{errorMsg}
+        script.
+          function showSuscriptionConditions(){
+
+            $.get('/shopmanagement/termsandconditions', function(data){
+                App.showAlert(data, 400, 600);
+              });
+
+            return false;
+          }
