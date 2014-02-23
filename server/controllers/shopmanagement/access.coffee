@@ -12,7 +12,7 @@ exports.loginDo = (req, res) ->
   password = req.body.password
 
   if not email? or not password? or email == '' or password == ''
-    res.render "/shopmanagement/access/login",
+    res.render "/pages/shopmanagement/access/login",
       {errorMsg: 'Debe indicar tanto el email como la contraseña del usuario'}
   else
 

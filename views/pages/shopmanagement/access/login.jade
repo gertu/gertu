@@ -9,12 +9,12 @@ block content
                     .input-prepend
                       span.add-on
                         i.icon-large.icon-envelope
-                      input(type='email', name="email", placeholder='Email', required)
+                      input#emailexistant(type='email', name="email", placeholder='Email')
                     .input-prepend
                       span.add-on
                         i.icon-large.icon-key
-                      input(type='password', name="password", placeholder='Contraseña', required)
-                    button.btn.btn-large.btn-primary(type='submit', name='submit') Acceder
+                      input#passwordexistant(type='password', name="password", placeholder='Contraseña')
+                    button.btn.btn-large.btn-primary(type='submit', name='submit', onclick='return validateLoginInformation();') Acceder
                     div
                       br
                       a(href='/shopmanagement/resetpassword') No recuerdo mi contraseña
@@ -24,16 +24,16 @@ block content
                     .input-prepend
                       span.add-on
                         i.icon-large.icon-user
-                      input(type='text', name="name", placeholder='Nombre del comercio', required)
+                      input#namenew(type='text', name="name", placeholder='Nombre del comercio')
                     .input-prepend
                       span.add-on
                         i.icon-large.icon-envelope
-                      input(type='email', name="email", placeholder='Email', required)
+                      input#emailnew(type='email', name="email", placeholder='Email')
                     .input-prepend
                       span.add-on
                         i.icon-large.icon-key
-                      input(type='password', name="password", placeholder='Contraseña', required)
-                    button.btn.btn-large.btn-primary(type='submit', name='submit') Registrar
+                      input#passwordnew(type='password', name="password", placeholder='Contraseña')
+                    button.btn.btn-large.btn-primary(type='submit', name='submit', onclick='return validateSuscriptionInformation();') Registrar
                     div
                       br
                       span Al registarse, está aceptando nuestras&nbsp;
@@ -56,4 +56,68 @@ block content
               });
 
             return false;
+          }
+
+          function validateLoginInformation(){
+
+            var errorMessages = []
+
+            if ($('#emailexistant').val() == ''){
+              errorMessages.push('Debe indicar un nombre para acceder');
+            }
+            if ($('#passwordexistant').val() == ''){
+              errorMessages.push('Debe indicar una contraseña para acceder');
+            }
+
+            if(errorMessages.length > 0){
+
+              var outputMessage = '';
+
+              for (var counter = 0, maxCounter = errorMessages.length;
+                   counter < maxCounter;
+                   counter++){
+
+                outputMessage += '<p>' + errorMessages[counter] + '</p>';
+
+              }
+              App.showAlert(outputMessage, 150, 400);
+              return false;
+            }
+
+            return true;
+          }
+
+          function validateSuscriptionInformation(){
+
+            var errorMessages = []
+
+            if ($('#namenew').val() == ''){
+              errorMessages.push('Debe indicar un nombre para el comercio');
+            }
+            if ($('#emailnew').val() == ''){
+              errorMessages.push('Debe indicar un email para el comercio');
+            }
+            if ($('#passwordnew').val() == ''){
+              errorMessages.push('Debe indicar una contraseña para el comercio');
+            } else if ($('#passwordnew').val().length <= 6){
+              errorMessages.push('La contraseña debe tener entre 6 y 16 caracteres');
+            }
+
+
+            if(errorMessages.length > 0){
+
+              var outputMessage = '';
+
+              for (var counter = 0, maxCounter = errorMessages.length;
+                   counter < maxCounter;
+                   counter++){
+
+                outputMessage += '<p>' + errorMessages[counter] + '</p>';
+
+              }
+              App.showAlert(outputMessage, 180, 400);
+              return false;
+            }
+
+            return true;
           }
