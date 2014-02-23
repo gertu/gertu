@@ -6,6 +6,9 @@ angular.module("mean").config ["$translateProvider", ($translateProvider) ->
     FIND: "Find"
     ABOUT: "About"
     CONTACT: "Contact"
+    WELCOME: "Welcome"
+    PROFILE: "Profile"
+    SIGNOUT: "Logout"
 
     SIGNUP: "Sign up"
     I_AM_A_SHOP: "I'm a shop"
@@ -18,6 +21,29 @@ angular.module("mean").config ["$translateProvider", ($translateProvider) ->
     NO_SHOP_HAS_BEEN_FOUND: "Does not exist any shop with these credentials"
     PASSWORD_AND_EMAIL_HAVE_TO_BE_PROVIDED: "The email and password must required for login"
     UNKNOWN_ERROR: "Unknown error"
+
+    ACTIVE_DEALS: "active deals"
+    RESERVED_DEALS: "reserved deals"
+    ACTIVE_USERS: "active users"
+    ACTIVE_SHOPS: "active shops"
+
+    STEP_FIND: "Find"
+    STEP_FIND_DESC: "Find out in the deals list one you like the most. There are thousands to choose, don't let yours go away"
+    STEP_RESERVE: "Reserve"
+    STEP_RESERVE_DESC: "Once chosen, you simply have to reserve it and you will be assigned a reserve number; it's important you don't lose it"
+    STEP_REDEEM: "Redeem"
+    STEP_REDEEM_DESC: "Go to the shop that offers the deal and show the shop assistant your reservation number. Once validated you will be able to redeem it"
+    STEP_ENJOY: "Enjoy!"
+    STEP_ENJOY_DESC: "With the deal redeemed and in your hands, it's time to enjoy it. So don't think any more about it and run to enjoy it!"
+
+    PROFILE_HOME_1: "You have not completed your profile yet, press "
+    PROFILE_HOME_HERE: "here"
+    PROFILE_HOME_2: " to complete it"
+    MY_BOUGHT_DEALS: "My deals"
+    CLOSE_DEALS: "Nearby deals"
+    MY_COMMENTS: "Mis comentarios"
+    NO_COMMENTS: "You have not writed any comment yet"
+    NO_NEAR_DEALS: "There are no nearby deals"
 
     # /profile
     MY_PERFIL: "My perfil"
@@ -34,27 +60,7 @@ angular.module("mean").config ["$translateProvider", ($translateProvider) ->
     UPLOADING: "Uploading..."
     RADIUS_DISTANCE_TOOLTIP: "Meter radius from your position that they find the deals"
 
-    ACTIVE_DEALS: "active deals"
-    RESERVED_DEALS: "reserved deals"
-    ACTIVE_USERS: "active users"
-    ACTIVE_SHOPS: "active shops"
 
-    STEP_FIND: "Find"
-    STEP_FIND_DESC: "Find out in the deals list one you like the most. There are thousands to choose, don't let yours go away"
-    STEP_RESERVE: "Reserve"
-    STEP_RESERVE_DESC: "Once chosen, you simply have to reserve it and you will be assigned a reserve number; it's important you don't lose it"
-    STEP_REDEEM: "Redeem"
-    STEP_REDEEM_DESC: "Go to the shop that offers the deal and show the shop assistant your reservation number. Once validated you will be able to redeem it"
-    STEP_ENJOY: "Enjoy!"
-    STEP_ENJOY_DESC: "With the deal redeemed and in your hands, it's time to enjoy it. So don't think any more about it and run to enjoy it!"
-
-    PROFILE_HOME_1: "You haven't completed your profile yet, press "
-    PROFILE_HOME_HERE: "here"
-    PROFILE_HOME_2: " to complete it"
-    MY_BOUGHT_DEALS: "My deals"
-    CLOSE_DEALS: "Nearby deals"
-    MY_MESSAGES: "My messages"
-    NO_NEAR_DEALS: "There are no nearby deals"
 
     #deal/:dealId
     RESERVE: "Reserve"
@@ -79,6 +85,9 @@ angular.module("mean").config ["$translateProvider", ($translateProvider) ->
     FIND: "Buscar"
     ABOUT: "Acerca de"
     CONTACT: "Contacto"
+    WELCOME: "Bienvenido"
+    PROFILE: "Perfil"
+    SIGNOUT: "Cerrar sesión"
 
     SIGNUP: "Registrarse"
     I_AM_A_SHOP: "Soy empresa"
@@ -111,7 +120,8 @@ angular.module("mean").config ["$translateProvider", ($translateProvider) ->
     PROFILE_HOME_2: " para completarlo"
     MY_BOUGHT_DEALS: "Mis ofertas"
     CLOSE_DEALS: "Ofertas cercanas"
-    MY_MESSAGES: "Mis mensajes"
+    MY_COMMENTS: "Mis comentarios"
+    NO_COMMENTS: "No tienes comentarios aún"
     NO_NEAR_DEALS: "No hay ofertas cercanas"
 
     # / profile

@@ -1,8 +1,14 @@
-#Index service used for index REST endpoint
 angular.module("mean.system").factory "Index", ["$resource", ($resource) ->
-  $resource "/api/v1/webData",{userLong: "@userLong",userLat: "@userLat"},
-    getData:
-      method: "GET"
+  getComments: $resource "/api/v1/comments/:userId",
+    query:
+      userId : @_id
+      method : "GET"
       isArray: true
 
+  getData: $resource "/api/v1/webData",
+    query:
+      userLong: @userLong
+      userLat : @userLat
+      method  : "GET"
+      isArray : true
 ]

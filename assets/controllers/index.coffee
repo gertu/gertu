@@ -29,7 +29,7 @@ angular.module('mean.system').controller 'IndexController', [
 
     $scope.checkSteps = (paramLong,paramLat) ->
       prom = $q.defer()
-      Index.getData
+      Index.getData.query
         userLong: paramLong
         userLat:  paramLat
       , (data) ->
@@ -59,17 +59,9 @@ angular.module('mean.system').controller 'IndexController', [
       link : "#"
     ]
 
-    $scope.messages = [
-      title: "Mensaje 1"
-      link : "#"
-    ,
-      title: "Mensaje 2"
-      link : "#"
-    ,
-      title: "Mensaje 3"
-      link : "#"
-    ,
-      title: "Mensaje 4"
-      link : "#"
-    ]
+    $scope.myComments = ->
+      Index.getComments.query
+        userId: $scope.global.user._id
+      , (myComments) ->
+        $scope.myComments = myComments
 ]

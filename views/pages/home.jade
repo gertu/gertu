@@ -1,4 +1,4 @@
-section.home-page(ng-controller='IndexController')
+section.home-page(ng-controller='IndexController', data-ng-init='myComments()')
   .location.col-md-12(data-ng-show='global.authenticated')
     span.location-text
   .row(data-ng-hide='global.authenticated')
@@ -10,8 +10,6 @@ section.home-page(ng-controller='IndexController')
     include ../templates/webdata
 
   .row(data-ng-show='global.authenticated')
-    div(data-ng-show='global.shop')
-        include shop/controlpanel
     div(data-ng-show='global.user')
       .profile-status(data-ng-hide="hideSteps")
         h2
@@ -44,12 +42,15 @@ section.home-page(ng-controller='IndexController')
             ul(ng-show="!nearDeals.length")
               li {{'NO_NEAR_DEALS' | translate}}
 
-        .dashboard-column.col-md-4
-          h3.arrow-title {{'MY_MESSAGES' | translate}}
+        .dashboard-column.col-md-8
+          h3.arrow-title {{'MY_COMMENTS' | translate}}
           .arrow-down
           .fieldset
             ul
-              li(data-ng-repeat='message in messages')
-                a(href='/{{message.link}}')
-                  span.glyphicon.glyphicon-envelope.pull-right
-                  | {{message.title}}
+              li(data-ng-repeat="comment in myComments")
+                p {{comment.writedAt | date: "longDate"}}
+                  span.rating
+                    rating.deal-rating(value="comment.rating", max="10", readonly='true')
+                p {{comment.description}}
+            ul(ng-show="!myComments")
+              li {{'NO_COMMENTS' | translate}}
