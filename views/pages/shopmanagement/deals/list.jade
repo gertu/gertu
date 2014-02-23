@@ -27,28 +27,34 @@ block content
                 thead
                     tr
                         th Imagen
-                        th Nombre
-                        th Categoría
-                        th Precio
-                        th Precio GERTU
-                        th Descuento
-                        th Fecha
+                        th Oferta
+                        th Precios
                         th &nbsp;
                         th &nbsp;
                 tbody
                     - for deal in deals
                         tr
-                            td
+                            td(width="210px")
                               img(src="#{deal.image}" width="200px")
-                            td #{deal.name}
-                            td #{deal.categoryname}
-                            td #{formatNumber(deal.price)} €
-                            td #{formatNumber(deal.gertuprice)} €
-                            td #{deal.discount} %
-                            td #{formatDate(deal.created)}
                             td
+                                strong #{deal.name}
+                                br
+                                span #{deal.categoryname}
+                                br
+                                span
+                                    em #{formatDate(deal.created)}
+                            td(width="150px")
+                                strong Normal:&nbsp;
+                                span #{formatNumber(deal.price)} €
+                                br
+                                strong Gertu:&nbsp;
+                                span #{formatNumber(deal.gertuprice)} €
+                                br
+                                strong Descuento:&nbsp;
+                                span #{deal.discount} %
+                            td(width="80px")
                                 a.btn.btn-primary(href="/shopmanagement/deals/edit/#{deal._id}") editar
-                            td
+                            td(width="80px")
                                 a.btn.btn-danger(href="/shopmanagement/deals/delete/#{deal._id}") eliminar
             .pagination
                 ul

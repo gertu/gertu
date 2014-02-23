@@ -18,22 +18,37 @@ describe "Mobile API testing", ->
   userOfApplication =
     name: 'Nombre usuario',
     email: 'nombreusuario@gertuproject.info',
-    password: '123456'
+    password: '123456',
+    radius: 10000
 
   userWithSameEmail =
     name: 'Nombre usuario 2',
     email: 'nombreusuario@gertuproject.info',
-    password: '123456'
+    password: '123456',
+    radius: 10000
 
   userWithDifferentEmail =
     name: 'Nombre usuario 2',
     email: 'nombreusuario2@gertuproject.info',
-    password: '123456'
+    password: '123456',
+    radius: 10000
 
   shop1 = new Shop(
     name: 'Shop 1'
     email: 'emailshop1@mail.com'
-    password: '123456'
+    password: '123456',
+    loc:
+      latitude: 0,
+      longitude: 0
+  )
+
+  shop2 = new Shop(
+    name: 'Shop 2'
+    email: 'emailshop2@mail.com'
+    password: '123456',
+    loc:
+      latitude: 10,
+      longitude: 10
   )
 
   deal1 = new Deal(
@@ -52,6 +67,14 @@ describe "Mobile API testing", ->
     shop: shop1,
     quantity: 0)
 
+  deal3 = new Deal(
+    name: 'Deal 3',
+    price: 4,
+    gertuprice: 1,
+    discount: 0.75,
+    shop: shop2,
+    quantity: 5)
+
   before (done) ->
     User.remove().exec()
     Deal.remove().exec()
@@ -61,13 +84,19 @@ describe "Mobile API testing", ->
 
     shop1.save( (err) ->
 
-      deal1.save( (err) ->
+      shop2.save( (err) ->
 
-        deal2.save( (err) ->
+        deal1.save( (err) ->
 
-          done()
+          deal2.save( (err) ->
+
+            deal3.save( (err) ->
+
+              done()
+            )
           )
         )
+      )
     )
 
   it "should signup a new user", (done) ->
@@ -103,22 +132,33 @@ describe "Mobile API testing", ->
         res.should.have.status 403
         done()
 
+  it "should NOT signin the newly created user with a wrong password", (done) ->
+
+    server.
+      post(apiPreffix + '/users/session').
+      send({email: userOfApplication.email, password: 'nonexistantpassword'}).
+      end (err, res) ->
+
+        res.should.have.status 403
+        done()
+
   it "should signin the newly created user", (done) ->
+
     server.
       post(apiPreffix + '/users/session').
       send({email: userOfApplication.email, password: userOfApplication.password}).
       end (err, res) ->
+
         res.should.have.status 200
-
         userOfApplication._id = JSON.parse(res.text)._id
-
         done()
 
   it "should be a token for the logged in user", (done) ->
-    Token.findOne({token: userOfApplication._id}).exec( (err, token) ->
+    Token.find({token: userOfApplication._id}).exec( (err, tokens) ->
 
-      token.should.not.be.undefined
-      token.should.have.property 'token', userOfApplication._id
+      tokens.should.not.be.undefined
+      tokens.should.have.length 1
+      tokens[0].should.have.property 'token', userOfApplication._id
       done()
 
       )
@@ -151,14 +191,6 @@ describe "Mobile API testing", ->
         res.should.have.status 403
         done()
 
-  it "should log out current user", (done) ->
-    server.
-      del(apiPreffix + '/users/session').
-      send({token: userOfApplication._id}).
-      end (err, res) ->
-        res.should.have.status 200
-        done()
-
   it "should throw authorization error on returning the current user, as no token is passed", (done) ->
     server.
       get(apiPreffix + '/users').
@@ -176,17 +208,17 @@ describe "Mobile API testing", ->
         res.text.should.not.include userOfApplication.email
         done()
 
-  it "should return 2 deals when 2 are present", (done) ->
+  it "should return 3 deals when 3 are present", (done) ->
     server.
       get(apiPreffix + '/deals').
       send().
       end (err, res) ->
         res.should.have.status 200
 
-        allDeals = eval(res.text)
+        allDeals = JSON.parse(res.text)
 
-        allDeals.should.not.have.length 3
-        allDeals.should.have.length 2
+        allDeals.should.not.have.length 4
+        allDeals.should.have.length 3
         done()
 
   it "should return first deal when requested", (done) ->
@@ -204,6 +236,19 @@ describe "Mobile API testing", ->
 
           done()
     )
+
+  it "should return 2 near deals when user is at position", (done) ->
+    server.
+      post(apiPreffix + '/deals').
+      send({longitude: 0, latitude: 0, token: userOfApplication._id}).
+      end (err, res) ->
+        res.should.have.status 200
+
+        allDeals = JSON.parse(res.text)
+
+        allDeals.should.not.have.length 3
+        allDeals.should.have.length 2
+        done()
 
   it "should throw authorization error on commenting a deal, as no token is passed", (done) ->
     server.
@@ -316,46 +361,33 @@ describe "Mobile API testing", ->
         res.should.have.status 403
         done()
 
-  describe "Security testing", ->
+  it "should still be able to retrieve the current user", (done) ->
 
-    testingToken = new Token(
-      token = userOfApplication._id,
-      user = userOfApplication
-      )
+    server.
+      get(apiPreffix + '/users').
+      send({token: userOfApplication._id}).
+      end (err, res) ->
 
-    before (done) ->
-      Token.remove().exec()
-      User.remove().exec()
-      Deal.remove().exec()
-      Shop.remove().exec()
-      Reservation.remove().exec()
-      done()
+        res.should.have.status 200
+        done()
 
-    it "should throw authorization error when token has expired", (done) ->
+  it "should log out current user", (done) ->
+    server.
+      del(apiPreffix + '/users/session').
+      send({token: userOfApplication._id}).
+      end (err, res) ->
+        res.should.have.status 200
+        done()
 
-      testingToken.last_access = new Date(new Date() - (21 * 60000)) # 21 minutes
+  it "should NOT be able to retrieve the current user, as user is logged out", (done) ->
 
-      testingToken.save ( (err) ->
+    server.
+      get(apiPreffix + '/users').
+      send({token: userOfApplication._id}).
+      end (err, res) ->
 
-        server.
-          get(apiPreffix + '/users').
-          send({token: userOfApplication._id}).
-          end (err, res) ->
-            console.log res.text
-            res.should.have.status 403
-            done()
-
-        )
-
-
-
-    after (done) ->
-      Token.remove().exec()
-      User.remove().exec()
-      Deal.remove().exec()
-      Shop.remove().exec()
-      Reservation.remove().exec()
-      done()
+        res.should.have.status 403
+        done()
 
   after (done) ->
     Token.remove().exec()

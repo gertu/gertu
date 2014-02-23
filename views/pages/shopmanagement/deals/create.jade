@@ -1,6 +1,13 @@
 extends ../layouts/default
 block content
   include ../layouts/top-menu
+  -function formatDate(dateString){
+    -var date = new Date(dateString);
+    -var d = date.getDate();
+    -var m = date.getMonth() + 1;
+    -var y = date.getFullYear();
+    -return (d +'/' + m + '/'+ y);
+    -}
   - if (errorType == 1)
     script.
       App.showAlert('El formato debe ser jpg, png o gif');
@@ -13,58 +20,124 @@ block content
       - else
         .well
           h1 Editando oferta
-      form(role="form", method="POST", enctype="multipart/form-data", action="#{actionUrl}")
+      form(method="POST", enctype="multipart/form-data", action="#{actionUrl}", class="form-horizontal")
+        .row-fluid
+          .span12
+            input(type="hidden", value="#{deal._id}", name="id")
+            .control-group
+              label(for='name', class='control-label')
+                strong Nombre de la oferta
+              .controls
+                input#name(name='name', type='text', value='#{deal.name}', placeholder='Nombre de la oferta',
+                  required='required', style='width: 600px')
+            .control-group
+              label(for='description', class='control-label')
+                strong Descripción de la oferta
+              .controls
+                textarea#description(name='description', rows='5', placeholder='Descripción de la oferta',
+                  required='required', style='width: 600px') #{deal.description}
         .row-fluid
           .span6
-            input(type="hidden", value="#{deal._id}", name="id")
-            label(for='categoryname') Categoria
-            select#categoryname(name='categoryname', value='#{categoryname}')
+            label(for='categoryname')
+              strong Categoria
+            select#categoryname(name='categoryname', value='#{categoryname}', style='width: 300px')
               - for category in categories
                   option(value='#{category.name}') #{category.name}
-            label(for='name') Name
-            input#name(name='name', type='text', value='#{deal.name}', placeholder='Title', required='required')
-            label(for='description') Description
-            textarea#description(name='description', rows='10', value='#{deal.description}',
-              placeholder='Descripción de la oferta...', required='required') #{deal.description}
-            label(for='price') Price:
-            .input-prepend
-              span.add-on €
-              input#price(type='number', name='price', value='#{deal.price}', required='required', step='0.01',
-                pattern="[0-9]+([\,|\.][0-9]+)?", formnovalidate)
-            label(for='gertuprice') Gertuprice:
-            .input-prepend
-              span.add-on €
-              input#gertuprice(type='number', name='gertuprice', value='#{deal.gertuprice}', required='required', step='0.01',
-                pattern="[0-9]+([\,|\.][0-9]+)?", formnovalidate)
-            label(for='discount') %Discount:
-            .input-prepend
-              span.add-on %
-              input#discount(type='number', name='discount', value='#{deal.discount}', required='required', step='0.01',
-                pattern="[0-9]+([\,|\.][0-9]+)?", formnovalidate)
-          .span6
-            label(for='datainit') Fecha de inicio
-            input#datainit(type="date", name='datainit', show-weeks="false", starting-day="1", min="minDate", value="#{deal.datainit}")
-            label(for='dataend') Fecha fin
-            input#dataend(type="date", name='dataend', show-weeks="false", starting-day="1", min="minDate", value="#{deal.dataend}")
-            label(for='dias') Elige los dias de la semana
-            table
-              - for day in days
-                tr
-                  td
-                    input(type='checkbox', name='selecteddays[]', value='#{day}')
-                  td
-                    label #{day}
-            label(for='quantity') Quantity:
-            input#quantity(type='number',name='quantity', value='#{deal.quantity}', required='required')
-            label.col-sm-2.control-label(for='image') Imagen
-              .col-sm-10
-                input#image.form-control(type='file', name='image', data-ng-model='image', accept="image/*")
+          .span3
+            label(for='datainit')
+              strong Fecha de inicio
+            input#datainit(type="text", name='datainit', value="#{formatDate(deal.datainit)}", style='width: 100px')
+          .span3
+            label(for='dataend')
+              strong Fecha fin
+            input#dataend(type="text", name='dataend', value="#{formatDate(deal.dataend)}", style='width: 100px')
+        .clearfix
+          br
+        .row-fluid
+          .span3
+            label(for='price')
+              strong Precio:
+            input#price(type='text', name='price', value='#{deal.price}', required='required', style='width: 100px')
+          .span3
+            label(for='gertuprice')
+              strong Precio Gertu:
+            input#gertuprice(type='text', name='gertuprice', value='#{deal.gertuprice}', required='required', style='width: 100px')
+          .span3
+            label(for='discount')
+              strong Descuento (%):
+            input#discount(type='text', name='discount', value='#{deal.discount}', required='required', style='width: 100px')
+          .span3
+            label(for='quantity')
+              strong Quantity:
+            input#quantity(type='text', name='quantity', value='#{deal.quantity}', required='required', style='width: 100px')
+        .clearfix
+          br
+        .row-fluid
+          .span3
+            label(for='dias')
+              strong Elige los dias de la semana
+            .row-fluid
+              table
+                - for day in days
+                  tr
+                    td
+                      - if (deal.selecteddays)
+                        input(type='checkbox', name='selecteddays', value='#{day}', checked="checked")
+                      - else
+                        input(type='checkbox', name='selecteddays', value='#{day}')
+                    td
+                      label #{day}
+
+          .span9
+            label(for='image')
+              strong Imagen
+            input#image(type='file', name='image', data-ng-model='image', accept="image/*")
+            .clearfix
+            - if (deal.image != undefined)
+              img(src="#{deal.image}" width="200px")
         .row-fluid
           .pull-right
             a.btn.btn-danger.btn-lg(href="/shopmanagement/deals/list")
               | Cancelar
-            input.btn.btn-success.btn-lg(type='submit', value='Guardar')
-      span #{errorType}
-
+            input.btn.btn-success.btn-lg(type='submit', value='Guardar', onclick='return isPageValid();')
+    - if (errorType == 1)
+      script.
+        App.showAlert('Debe indicar una imagen para la oferta');
     script.
-      App.syncronizeGertuPriceBoxes('price', 'gertuprice', 'discount');
+
+      function isPageValid(){
+        var isValid = true;
+
+        if (! $('#image').val()) {
+          isValid = false;
+          App.showAlert('Debe seleccionar una imagen para la oferta');
+        }
+
+        return isValid;
+      }
+
+      $(function(){
+
+        App.syncronizeGertuPriceBoxes('#price', '#gertuprice', '#discount');
+
+        $('input[data-ui="datepicker"]').datepicker({
+
+            showOn: "button",
+            buttonImageOnly: true,
+            dateFormat: 'dd/mm/yy'
+
+          });
+
+        $('#price, #gertuprice, #quantity').spinner({
+          min: 0,
+          max: 2500,
+          step: 25
+        });
+
+        $('#discount').spinner({
+          min: 0,
+          max: 100,
+          step: 1,
+          numberFormat: "p"
+        });
+      });

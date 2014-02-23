@@ -2,37 +2,44 @@ extends ../layouts/default
 block content
     link(rel='stylesheet', href='/themes/shopmanagement/css/login.css')
     .container
-        .row
-            .col-md-6
+        .row-fluid
+            .span6
                 form.form-signin(action="/shopmanagement/login", method='post')
                     h2.form-signin-heading Accede
                     .input-prepend
                       span.add-on
                         i.icon-large.icon-envelope
-                      input.span3(type='email', name="email", placeholder='Email', required)
+                      input#emailexistant(type='email', name="email", placeholder='Email')
                     .input-prepend
                       span.add-on
                         i.icon-large.icon-key
-                      input.span3(type='password', name="password", placeholder='Contraseña', required)
-                    button.btn.btn-large.btn-primary(type='submit', name='submit') Acceder
-            .col-md-6
+                      input#passwordexistant(type='password', name="password", placeholder='Contraseña')
+                    button.btn.btn-large.btn-primary(type='submit', name='submit', onclick='return validateLoginInformation();') Acceder
+                    div
+                      br
+                      a(href='/shopmanagement/resetpassword') No recuerdo mi contraseña
+            .span6
                 form.form-signin(action="/shopmanagement/signup", method='post')
-                    h2.form-signin-heading Registrate
+                    h2.form-signin-heading Regístrate
+                    .input-prepend
+                      span.add-on
+                        i.icon-large.icon-user
+                      input#namenew(type='text', name="name", placeholder='Nombre del comercio')
                     .input-prepend
                       span.add-on
                         i.icon-large.icon-envelope
-                      input.span3(type='text', name="name", placeholder='Name', required)
-                    .input-prepend
-                      span.add-on
-                        i.icon-large.icon-envelope
-                      input.span3(type='email', name="email", placeholder='Email', required)
+                      input#emailnew(type='email', name="email", placeholder='Email')
                     .input-prepend
                       span.add-on
                         i.icon-large.icon-key
-                      input.span3(type='password', name="password", placeholder='Contraseña', required)
-                    button.btn.btn-large.btn-primary(type='submit', name='submit') Registrar
-        .row
-            .col-md-12
+                      input#passwordnew(type='password', name="password", placeholder='Contraseña')
+                    button.btn.btn-large.btn-primary(type='submit', name='submit', onclick='return validateSuscriptionInformation();') Registrar
+                    div
+                      br
+                      span Al registarse, está aceptando nuestras&nbsp;
+                      a(href='#', onclick='return showSuscriptionConditions();') condiciones de servicio
+        .row-fluid
+            .span12
                 br
                 br
                 - if (endSession)
@@ -41,3 +48,76 @@ block content
                 - if (errorMsg)
                     div.alert.alert-danger
                         | #{errorMsg}
+        script.
+          function showSuscriptionConditions(){
+
+            $.get('/shopmanagement/termsandconditions', function(data){
+                App.showAlert(data, 400, 600);
+              });
+
+            return false;
+          }
+
+          function validateLoginInformation(){
+
+            var errorMessages = []
+
+            if ($('#emailexistant').val() == ''){
+              errorMessages.push('Debe indicar un nombre para acceder');
+            }
+            if ($('#passwordexistant').val() == ''){
+              errorMessages.push('Debe indicar una contraseña para acceder');
+            }
+
+            if(errorMessages.length > 0){
+
+              var outputMessage = '';
+
+              for (var counter = 0, maxCounter = errorMessages.length;
+                   counter < maxCounter;
+                   counter++){
+
+                outputMessage += '<p>' + errorMessages[counter] + '</p>';
+
+              }
+              App.showAlert(outputMessage, 150, 400);
+              return false;
+            }
+
+            return true;
+          }
+
+          function validateSuscriptionInformation(){
+
+            var errorMessages = []
+
+            if ($('#namenew').val() == ''){
+              errorMessages.push('Debe indicar un nombre para el comercio');
+            }
+            if ($('#emailnew').val() == ''){
+              errorMessages.push('Debe indicar un email para el comercio');
+            }
+            if ($('#passwordnew').val() == ''){
+              errorMessages.push('Debe indicar una contraseña para el comercio');
+            } else if ($('#passwordnew').val().length <= 6){
+              errorMessages.push('La contraseña debe tener entre 6 y 16 caracteres');
+            }
+
+
+            if(errorMessages.length > 0){
+
+              var outputMessage = '';
+
+              for (var counter = 0, maxCounter = errorMessages.length;
+                   counter < maxCounter;
+                   counter++){
+
+                outputMessage += '<p>' + errorMessages[counter] + '</p>';
+
+              }
+              App.showAlert(outputMessage, 180, 400);
+              return false;
+            }
+
+            return true;
+          }

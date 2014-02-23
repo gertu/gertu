@@ -8,33 +8,36 @@ Reservation = mongoose.model 'Reservation'
 
 exports.usersLogin = (req, res) ->
 
-  user = new User(req.body)
-  user.password = req.body.password
-
-  User.findOne({email: user.email}).exec( (err, userData) ->
+  User.findOne({email: req.body.email}).exec( (err, userData) ->
 
     if err? or not userData?
       res.status(403).send('Access denied. No such user.')
     else
-      token = new Token()
 
-      token.token = userData._id
-      token.user = userData
-      token.last_access = new Date()
+      if userData.authenticate(req.body.password)
+        token = new Token()
 
-      token.save( (err) ->
+        token.token = userData._id
+        token.user = userData
+        token.last_access = new Date()
 
-        res.status(200).send(JSON.stringify(userData)) unless error?
-        res.status(403).send('Unable to set up token') if error?
-        )
+        token.save( (err) ->
+
+          res.status(200).send(JSON.stringify(userData)) unless err?
+          res.status(403).send('Unable to set up token') if err?
+          )
+      else
+        res.status(403).send('Incorrect credentials')
   )
 
 exports.usersLogout = (req, res) ->
-  req.session.user = {}
+  currentUser = req.currentMobileUser
 
-  res.
-    status(200).
-    send()
+  Token.remove({token: currentUser._id}).exec( (err) ->
+    res.status(200).send() unless err?
+    res.status(404).send('No token found') if err?
+  )
+
 
 exports.usersSignUp = (req, res) ->
   user = new User(req.body)
@@ -103,18 +106,56 @@ exports.usersUpdate = (req, res) ->
 exports.dealsGetAll = (req, res) ->
   Deal.find().sort('-created').populate("shop").exec (err, deals) ->
     if err
-      res.
-        status(500).
-        send()
+      res.status(500).send()
     else
-      res.
-        status(200).
-        send(JSON.stringify(deals))
+      res.status(200).send(JSON.stringify(deals))
 
 exports.dealsGetAllByPositition = (req, res) ->
-  res.
-    status(404).
-    send('Not implemented')
+  user = req.currentMobileUser
+
+  nearbyDeals = []
+
+  userradius = user.radius / 1000
+
+  mongoose.connection.db.executeDbCommand
+    # the mongo collection
+    geoNear: "shops"
+
+    # the geo point
+    near: [parseFloat(req.body.longitude), parseFloat(req.body.latitude)]
+
+    # tell mongo the earth is round, so it calculates based on a spherical location system
+    spherical: true
+
+    # tell mongo how many radians go into one kilometer.
+    distanceMultiplier: 6371
+
+    # tell mongo the max distance in radians to filter out
+    maxDistance: userradius / 6371
+  , (err, result) ->
+
+    nearshops = result.documents[0].results
+    nearshopids = []
+
+    if nearshops?
+
+      for shop in nearshops
+        nearshopids.push(shop.obj._id)
+
+      Deal.find({shop: { $in:nearshopids}}).exec (err,deals) ->
+
+        for deal in deals
+          for shop in nearshops
+            if deal.shop.equals(shop.obj._id)
+              nearbyDeals.push(
+                dist: shop.dis
+                deal: deal
+              )
+
+        nearbyDeals.sort (a, b) ->
+          a.dist - b.dist
+
+        res.status(200).send(JSON.stringify(nearbyDeals))
 
 exports.dealsGetById = (req, res) ->
 
@@ -123,13 +164,9 @@ exports.dealsGetById = (req, res) ->
   Deal.findOne({_id: id}).exec (err, deal) ->
 
     if err? or not deal?
-      res.
-        status(404).
-        send()
+      res.status(404).send()
     else
-      res.
-        status(200).
-        send(JSON.stringify(deal))
+      res.status(200).send(JSON.stringify(deal))
 
 exports.dealsMakeReservationById = (req, res) ->
 

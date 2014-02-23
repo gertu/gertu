@@ -31,3 +31,27 @@ a.nounderline
     max-height: 600px;
     overflow-y: auto;
 }
+
+.ui-spinner-input{
+    border: 0 !important;
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px inset !important;
+    text-align: right;
+}
+
+.span1.day{
+    text-align: left;
+}
+
+input[type="file"]{
+    width: 100%;
+    border: 1px solid #CECECE;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px 0px;
+}
+
+input.reservationConfirmation{
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+}

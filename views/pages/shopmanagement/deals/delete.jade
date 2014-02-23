@@ -4,14 +4,14 @@ block content
   .row-fluid
     .span2
     .span8
-      h2  ¿estas seguro que deseas eliminar esta oferta?
-      p 
-        strong Nombre de oferta: 
+      h2  ¿Está seguro que desea eliminar esta oferta?
+      p
+        strong Nombre de oferta:&nbsp;
         | #{deal.name}
         p
           img(src="#{deal.image}")
         form(role="form", method="POST", action="/shopmanagement/deals/delete")
           input(type="hidden", value="#{deal._id}", name="id")
-          a.btn.btn-danger.btn-lg(href="/shopmanagement/deals/list")
+          a.btn.btn-primary.btn-lg(href="/shopmanagement/deals/list")
             | Cancelar
-          input.btn.btn-success.btn-lg(type='submit', value='Eliminar')
+          input.btn.btn-danger.btn-lg(type='submit', value='Eliminar')

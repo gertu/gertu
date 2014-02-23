@@ -1,0 +1,24 @@
+extends ../layouts/default
+block content
+    h1 Detalles de usuario
+    h2 #{user.firstName}&nbsp;#{user.lastName}
+    .row
+        .col-md-6
+            fieldset
+                legend Datos básicos
+                label Nombre:&nbsp;
+                span #{user.firstName}
+                br
+                label Apellidos:&nbsp;
+                span #{user.firstName}
+                br
+                label Email:&nbsp;
+                span
+                    a(href='mailto:#{user.email}') #{user.email}
+                br
+
+        .col-md-6
+    .pull-right
+        br
+        a.btn.btn-primary(href='/management/users/list') Volver al listado
+        br

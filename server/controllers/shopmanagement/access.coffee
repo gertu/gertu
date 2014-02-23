@@ -12,25 +12,29 @@ exports.loginDo = (req, res) ->
   password = req.body.password
 
   if not email? or not password? or email == '' or password == ''
-    res.render "/shopmanagement/access/login",
+    res.render "/pages/shopmanagement/access/login",
       {errorMsg: 'Debe indicar tanto el email como la contraseña del usuario'}
   else
 
-    Shop.findOne({email: email, password: password}).exec( (err, shop) ->
+    Shop.findOne({email: email}).exec( (err, shop) ->
+
       if err
         res.status(500).send('Application error')
-      else if not shop?
+
+      else if not shop? or not shop.authenticate(password)
         res.render "pages/shopmanagement/access/login",
           {errorMsg: 'Los credenciales suministrados no corresponden a un usuario'}
+
       else if not shop.confirmed
         res.redirect "/shopmanagement/confirm/" + shop._id,
+
       else
         # Access granted
         req.session.currentShop =
           shopId: shop._id,
           shopEmail: shop.email,
           isAuthenticated: true
-          
+
         res.redirect "/shopmanagement/dashboard"
     )
 
@@ -88,7 +92,7 @@ exports.signupDo = (req, res) ->
     res.redirect "/shopmanagement/confirm/" + shop._id
   else
     res.redirect "/shopmanagement/login"
-  
+
 
 exports.confirm = (req, res) ->
   shopId = req.params.shopId
@@ -110,4 +114,12 @@ exports.confirm = (req, res) ->
     else
       res.render "pages/shopmanagement/access/confirm", {currentShop: shop}
     )
-  
+
+exports.resetpassword = (req, res) ->
+  res.render "pages/shopmanagement/access/resetpassword"
+
+exports.resetpasswordDo = (req, res) ->
+  res.render "pages/shopmanagement/access/resetpasswordsent"
+
+exports.termsandconditions = (req, res) ->
+  res.render "pages/shopmanagement/access/termsandconditions"
