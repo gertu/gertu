@@ -1,0 +1,404 @@
+/*
+    Document   : colors
+    Author     : Little Neko
+    Description: template colors
+*/
+
+
+/* Table of Content
+==================================================
+
+#BOOSTRAP CUSTOMIZATION
+#TYPOGRAPHY
+#LINKS AND BUTTONS
+#HEADER
+#MAIN MENU
+#FOOTER
+#SLIDERS
+#PORTFOLIO
+#MISCELANIOUS
+#NEKO CSS FRAMEWORK
+
+*/
+
+/* BOOSTRAP CUSTOMIZATION
+================================================== */
+
+/** tabs **/
+.panel-default>.panel-heading {background:#7DC24F; }
+.panel-default>.panel-heading:hover {background:#fff; }
+.panel-default>.panel-heading:hover a {color:#7DC24F; }
+.panel-title>a {color:#fff;}
+.panel-title>a:hover {text-decoration: none;}
+
+/* END BOOSTRAP CUSTOMIZATION
+================================================== */
+
+/* TYPOGRAPHY
+================================================== */
+
+body {
+	color:#777;
+	background: #fff;
+}
+
+blockquote small {
+	color:inherit;
+}
+h1, h2, h3, h4, h5, h6 {
+	color:#222;
+}
+h2 {
+ color:#888;
+}
+h2 i {color:#999}
+h2.subTitle:after, h1.noSubtitle:after{
+	background-color:#7DC24F;
+}
+
+/*** parallax sections ***/
+
+.paralaxText blockquote:before, .paralaxText blockquote:after {
+	color:#fff;
+}
+#home, #paralaxSlice1, #paralaxSlice2, #paralaxSlice3, #paralaxSlice4 {
+	background-color:#7DC24F;
+}
+#home {
+	background-image:url('../images/theme-pics/paralax-sea-green-3.jpg');
+}
+#paralaxSlice1 {
+	background-image: url('../images/theme-pics/paralax-1.jpg');
+}
+#paralaxSlice2 {
+	background-image: url('../images/theme-pics/paralax-grey-2.jpg');
+}
+#paralaxSlice3 {
+	background-image: url('../images/theme-pics/paralax-grey-3.jpg');
+}
+#paralaxSlice4 {
+	background-image: url('../images/theme-pics/paralax-4.jpg');
+}
+.paralaxText blockquote, .paralaxText h1, .paralaxText h2, .paralaxText h3, .paralaxText p, .paralaxText i{
+	color:#fff;
+}
+
+/* END TYPOGRAPHY
+================================================== */
+
+/* LINKS AND BUTTONS
+================================================== */
+
+a {
+	color:#7DC24F;
+}
+a:hover, .scrollspyNav .active a {
+	color:#7DC24F;
+}
+ul.iconsList li a {
+	color:#555
+}
+ul.iconsList li a:hover, ul.iconsList i {
+	color:#7DC24F
+}
+
+/*** buttons ***/
+.btn {
+	background:#7DC24F;
+	color:#fff;
+	border:2px solid #fff;
+}
+.btn:hover {
+	color:#7DC24F;
+	border-color:#eee;
+	text-shadow:none;
+	background:#fff
+}
+.btn-primary {
+	background: #006dcc;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .btn-primary.disabled, .btn-primary[disabled] {
+	background: #555;
+}
+.btn-info {
+	background: #49AFCD;
+}
+.btn-success {
+	background: #5BB75B;
+}
+.btn-warning {
+	background: #FAA732;
+}
+.btn-danger {
+	background: #DA4F49;
+}
+.btn-link, .btn-link:active, .btn-link[disabled], .btn-link:hover {
+	background:none;
+	border:none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow:none;
+	box-shadow: none;
+	color:#49AFCD;
+}
+.btnWrapper {
+	border:1px solid #ccc;
+}
+
+/* END LINKS AND BUTTONS
+================================================== */
+
+/* MAIN MENU
+================================================== */
+
+#mainHeader{
+    background-color: white;
+	-webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+	-moz-box-shadow: 0 1px 10px rgba(0,0,0,.1);
+	box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+}
+
+#mainHeader .navbar-inner {
+	background: #444;
+	filter:none !important;
+}
+#mainMenu ul li a, #resMainMenu ul li a {
+	color:#444;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+	background: #7DC24F;
+	color:#fff;
+}
+
+/* END MAIN MENU
+================================================== */
+
+/* FOOTER
+================================================== */
+
+footer {
+	color:#777;
+	background:#eee;
+	border-top:1px solid #555s;
+}
+
+#footerRights {
+	background-color:#fff;
+	color:#999;
+}
+p.credits {
+	color:#555;
+}
+p.credits a {
+	color:#7DC24F;
+}
+
+/* END FOOTER
+================================================== */
+
+/* HOME
+================================================== */
+
+#home h1 {color:#FFFFFF;}
+
+/* END HOME
+================================================== */
+
+/* SLIDERS
+================================================== */
+
+/*** FLEX ***/
+
+.flexslider {
+	box-shadow:none;
+}
+.slides .txt div {
+	background:#444;
+	color:#FFFFFF;
+}
+.flexslider .flex-direction-nav a {
+	background-color:#7DC24F;
+}
+
+.flexslider .flex-control-paging li a:hover, #sliderWrapper .flex-control-paging li a.flex-active{
+	background: #fff;
+	border:2px solid #fff;
+}
+.flexslider .flex-control-paging li a {
+	background: transparent;
+	border:2px solid rgba(255,255,255,0.5);
+}
+.flexslider .flex-control-nav {
+	background:transparent;
+}
+.flexslider h1 {
+	color:#fff;
+	background-color:#7DC24F;
+}
+.flexslider h2 {
+	color:#fff;
+	background-color:#333;
+}
+.flexslider .caption p {
+	background-color:#fff;
+	color:#555
+}
+
+/*** flexHome ***/
+#flexHome  h1 {	color:#fff;
+	background:none;
+	}
+#flexHome  h2 {	color:#fff;
+	background:none;
+}
+
+/*** END FLEX SLIDER ***/
+
+/* END SLIDERS
+================================================== */
+
+/* PORTFOLIO
+================================================== */
+
+nav#filter a {
+	background-color: #EEE;
+	color:#555;
+}
+nav#filter a:hover, nav#filter a.current {
+	background-color: #7DC24F;
+	color:#fff;
+}
+li.filterTitle {
+	color:#4F6266;
+}
+section#projectDescription {
+	background-color:#F8F8F8
+}
+.mask{background-color: #7DC24F;}
+/* END PORTFOLIO
+================================================== */
+
+/* MISCELANIOUS
+================================================== */
+/*** hover images ***/
+.iconLinks a span {color:#fff;}
+
+/*** pricing table ***/
+.pricingBloc {
+	background-color:#fff;
+	border:1px solid rgba(0, 0, 0, 0.2);
+
+}
+.pricingBloc ul li {
+	border-bottom:1px solid #ddd;
+	color:#444!important;
+}
+.pricingBloc ul li:last-child {
+	border-bottom:none;
+}
+.pricingBloc h2 {
+	background-color:#555;
+	color:#888!important;
+	border:none;
+}
+.pricingBloc h3 {
+	background-color:#777;
+	color:#fff!important;
+
+}
+.pricingBloc p {
+	background-color:#eee;
+	color:#444!important;
+}
+.pricingBloc.focusPlan {
+	margin-top:0;
+	border-color:#D1D1D1;
+}
+.pricingBloc.focusPlan h2{
+	background-color:#333;
+	color:#fff!important;
+}
+.pricingBloc.focusPlan h3 {
+	background-color:#7DC24F;
+	padding:1.25em;
+	color:#fff!important;
+}
+
+/*** Form ***/
+.form-control:focus{
+	border: none;
+	background-color:#ddd;
+	box-shadow:none;
+	-webkit-box-shadow:none;
+	-moz-box-shadow:none;
+}
+.form-control {
+	color: #444;
+	background-color:#ededed;
+    border:none;
+}
+.error {color: #B94A48;
+background-color: #F2DEDE;
+border-color: #EED3D7;}
+
+label.error {color:#fff;
+background-color: #B94A48;
+border:none}
+
+#projectQuote, #projectQuote h3{background:#ddd;color:#444;}
+
+/* END MISCELANIOUS
+================================================== */
+
+/* NEKO CSS FRAMEWORK
+================================================== */
+
+/*** Feature box **/
+
+.boxFeature i{color:#7DC24F;}
+
+/*** slices ***/
+.slice{
+	background-color:#fff;
+}
+
+/*** call to action ***/
+.ctaBox {border:2px solid rgba(0,0,0,0.05);}
+.ctaBoxFullwidth{border:none}
+
+.ctaBox blockquote {
+	color:#fff;
+}
+
+/*color1*/
+.color1, .slice.color1, .bulle.color1, .ctaBox.color1{
+	background-color:#F7F7F7;
+	color:#444;
+}
+
+.color1 h1, .color1 h2, .color1 h3, .color1 h4, .color1 blockquote, .color1 a{
+	color:#444;
+}
+.color1 a.btn{color:#fff;}
+.color1 a.btn:hover{color:#7DC24F;}
+
+/*color4*/
+.color4, .slice.color4, .bulle.color4, .ctaBox.color4{
+	background-color:#7DC24F;
+	color:#fff;
+}
+
+.color4 h1, .color4 h2, .color4 h3, .color4 h4, .color4 blockquote, .color4 a {
+	color:#fff;
+}
+
+.color4 h2.subTitle:after, .color4 h1.noSubtitle:after {
+	background:#fff;
+}
+/*** icons ***/
+.iconRounded {border:2px solid #7DC24F;color:#7DC24F;background-color:#fff;}
+.iconRounded:hover, .color1 .iconRounded:hover{background-color:#7DC24F;color:#fff;}
+.color1 .iconRounded {color:#7DC24F;}
+.color4 .iconRounded {background-color:#FFF;color:#7DC24F;}
+
+/* END NEKO CSS FRAMEWORK
+================================================== */

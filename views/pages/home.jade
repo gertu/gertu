@@ -1,4 +1,32 @@
-section.home-page(ng-controller="IndexController")
+section#home(data-stellar-background-ratio='0.5')
+  .container
+      .row
+        .col-lg-7.col-sm-6
+          #flexHome.flexslider
+            ul.slides
+              li.slides
+                h1 Gertu app
+                h2 Find beste deals near you
+        .col-lg-5.col-sm-6.hidden-xs
+          .row
+            .col-md-4
+              .step-img.step-1
+              h2.step-title {{'STEP_FIND' | translate}}
+              p.step-desc {{'STEP_FIND_DESC' | translate}}
+            .col-md-4
+              .step-img.step-2
+              h2.step-title {{'STEP_RESERVE' | translate}}
+              p.step-desc {{'STEP_RESERVE_DESC' | translate}}
+          .row
+            .col-md-4
+              .step-img.step-3
+              h2.step-title {{'STEP_REDEEM' | translate}}
+              p.step-desc {{'STEP_REDEEM_DESC' | translate}}
+            .col-md-4
+              .step-img.step-4
+              h2.step-title {{'STEP_ENJOY' | translate}}
+              p.step-desc {{'STEP_ENJOY_DESC' | translate}}
+section(ng-controller="IndexController", data-ng-init="commentsReservesBuys()",)
   .location.col-md-12(data-ng-show="global.authenticated")
     span.location-text
   .row(data-ng-hide="global.authenticated")

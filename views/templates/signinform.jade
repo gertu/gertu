@@ -1,9 +1,9 @@
 //- a.btn.btn-info(href='/admin/login') Empresas
-form.signin.form-inline(action="/api/v1/users/session", method="post", role="form")
+form.signin.form-inline.margin-top(action="/api/v1/users/session", method="post", role="form")
   .form-group
     input#email.form-control(type='text', name="email", placeholder='Email del usuario')
 
   .form-group
     input#password.form-control(type='password', name="password", placeholder='Contraseña')
 
-  button.btn.btn-primary(type='submit') Acceder
+  button.btn.btn-primary.btn-sm(type='submit') Acceder

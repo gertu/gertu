@@ -1,13 +1,10 @@
 doctype html
 html(lang='es')
   include ../includes/head
-  body
-    include ../templates/navbar
-    div.bg
-    div.main-container
-      section.content
-        section.container
-          block content
+  body(data-spy="scroll" data-target="#scrollTarget" data-offset="150")
+    #globalWrapper.localscroll
+      include ../templates/navbar
+      block content
       include ../includes/foot
     footer
       include ../templates/footer
