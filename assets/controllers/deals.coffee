@@ -55,7 +55,7 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
   $scope.addMarker = ($event, $params) ->
     $scope.myMarkers.push new google.maps.Marker(
       map: $scope.myMap
-      position: new google.maps.LatLng($params.deal.shop.loc.latitude, $params.deal.shop.loc.longitude)
+      position: new google.maps.LatLng($params.latitude, $params.longitude)
       deal: $params
     )
     return
@@ -108,7 +108,8 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
       for deal in deals
         if deal.deal.categoryname not in $scope.uniqueCategories
           $scope.uniqueCategories.push deal.deal.categoryname
-        $scope.addMarker '',deal
+        $scope.addMarker '',deal.deal.shop.loc
+
       prom.resolve()
     prom.promise
 
@@ -127,7 +128,7 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
       else
         $scope.filteredDeals = $scope.deals
     for deal in $scope.filteredDeals
-          $scope.addMarker '',deal
+          $scope.addMarker '',deal.deal.shop.loc
 
   #   $scope.filteredDeals_old = $scope.filteredDeals
 
