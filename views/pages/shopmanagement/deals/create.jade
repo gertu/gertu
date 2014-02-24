@@ -63,10 +63,6 @@ block content
               strong Precio Gertu:
             input#gertuprice(type='text', name='gertuprice', value='#{deal.gertuprice}', required='required', style='width: 100px')
           .span3
-            label(for='discount')
-              strong Descuento (%):
-            input#discount(type='text', name='discount', value='#{deal.discount}', required='required', style='width: 100px')
-          .span3
             label(for='quantity')
               strong Quantity:
             input#quantity(type='text', name='quantity', value='#{deal.quantity}', required='required', style='width: 100px')
@@ -108,7 +104,7 @@ block content
       function isPageValid(){
         var isValid = true;
 
-        if (! $('#image').val()) {
+        if (! $('#image').val() && $('id').val() == '0') {
           isValid = false;
           App.showAlert('Debe seleccionar una imagen para la oferta');
         }
