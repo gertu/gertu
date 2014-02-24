@@ -19,21 +19,33 @@ section(data-ng-controller='DealsController', ng-init='find()')
       option(value="",selected) --Cualquier precio--
   ul.deals
     li(ng-repeat='deal in filteredDeals | filter:dealname')
-      a(ng-href="deals/{{deal.deal._id}}")
-        .deal-data
-          h3 {{deal.deal.name | trunc:true:20}}
-          p Categoria: {{deal.deal.categoryname}}
-          img.img-rounded(ng-src="{{deal.deal.image}}")
-          p Desde: {{deal.deal.datainit | date:'longDate'}}
-          p Hasta: {{deal.deal.dataend | date:'mediumDate'}}
-          p {{deal.deal.shop.name}}
-          span.rating
-            rating.shop-rating(value="deal.deal.shop.rating", max="10", readonly='true')
-          .pricecolumn
-            .normalprice
-              p.price {{deal.deal.price | currency:"&euro;"}}
-              p.discount {{deal.deal.discount | number:0}}%
-            .gertuprice
-              p {{deal.deal.gertuprice | currency:"&euro;"}}
-          p Valoración
-          p {{deal.deal.average}}/10
+      .deal-data
+        a(data-ng-href="deals/{{deal._id}}")
+          figure.effeckt-caption(data-effeckt-type='revolving-door-left')
+            img(ng-src='{{deal.deal.image}}')
+            figcaption
+              .effeckt-figcaption-wrap
+                p {{deal.deal.description}}
+        .info.col-sm-12
+          h3 {{deal.deal.name | trunc:true:24}}
+        .secondary-info.col-sm-12
+          .shop-info.col-sm-4
+            h4
+              span.glyphicon.glyphicon-map-marker
+              | {{deal.deal.shop.name}}
+        .data.col-sm-12
+          .count.col-sm-4
+            h4
+              span.glyphicon.glyphicon-barcode
+              | {{deal.deal.quantity}}
+          .date.col-sm-7
+            h4
+              span.glyphicon.glyphicon-calendar
+              | {{deal.deal.dataend | date: shortDate}}
+        .pricebox.col-sm-12
+          .price.col-sm-4
+            h3.line-through {{deal.deal.price | currency:"&euro;"}}
+          .gertuprice.col-sm-4
+            h3 {{deal.deal.gertuprice | currency:"&euro;"}}
+          .discount.col-sm-4
+            h3 {{deal.deal.discount | number:0}}%

@@ -48,7 +48,123 @@ h1, h2, h3
   @extends .btn-primary
   font-size 60%
 
+.line-through
+  text-decoration line-through
+
 .map-canvas
   height 450px
   width 100%
   margin auto
+
+.deals
+  list-style none
+  width 100%
+  float left
+  margin-top 25px
+  li
+    float left
+    width 306px
+    margin 0 30px 15px
+    text-align center
+    background rgba(black,0.45)
+    animation fadeIn 1s
+    color white
+    text-shadow(0,0,6px,black)
+    // box-shadow(5px,5px,2px, #ccc)
+    span.glyphicon
+      margin-right 4px
+    a
+      text-decoration none
+      color white
+      text-shadow(0,0,6px,black)
+      &:hover
+        cursor pointer
+    .deal-data
+      img
+        width 100%
+        height 225px
+        margin 0
+        // &:hover
+      .info
+        margin 4px 0 8px
+        h3
+          margin 4px 0
+      .secondary-info
+        margin 4px 0 12px
+      .data
+        .count
+          border-right 1px solid white
+      .pricebox
+        padding 0
+        h3
+          margin 0
+          padding 8px 0
+        .price
+          background-color light-grey
+        .gertuprice
+          background-color light-green
+        .discount
+          background-color dark-orange
+      .deal-desc
+        padding 0 15px 15px
+        p
+          color white
+          text-shadow(0,0,6px,black)
+          font-size 16px
+        h3
+          color white
+          text-shadow(0,0,6px,black)
+          margin-top 0
+        .deal-rating, span
+          color white
+          text-shadow(0,0,6px,black)
+
+.effeckt-caption
+  position relative
+
+.effeckt-caption figcaption
+  position absolute
+  -webkit-transition 500
+  transition 500
+  background rgba(0, 0, 0, 0.8)
+
+
+.effeckt-caption[data-effeckt-type="revolving-door-left"]
+  overflow visible
+  figcaption
+    top 0
+    left 0
+    width 100%
+    height 100%
+    padding 12px
+    text-align justify
+    -webkit-transform perspective(1300px) rotateY(180deg)
+    -ms-transform perspective(1300px) rotateY(180deg)
+    -o-transform perspective(1300px) rotateY(180deg)
+    transform perspective(1300px) rotateY(180deg)
+    -webkit-backface-visibility hidden
+    -ms-backface-visibility hidden
+    -o-backface-visibility hidden
+    backface-visibility hidden
+  img
+    -webkit-transform perspective(1300px)
+    -ms-transform perspective(1300px)
+    -o-transform perspective(1300px)
+    transform perspective(1300px)
+    -webkit-transition 500ms
+    -o-transition 500ms
+    transition 500ms
+
+.effeckt-caption[data-effeckt-type="revolving-door-left"]:hover figcaption,
+.effeckt-caption[data-effeckt-type="revolving-door-left"]:active figcaption
+  -webkit-transform perspective(1300px) rotateY(0deg)
+  -ms-transform perspective(1300px) rotateY(0deg)
+  -o-transform perspective(1300px) rotateY(0deg)
+  transform perspective(1300px) rotateY(0deg)
+
+.effeckt-caption[data-effeckt-type="revolving-door-left"]:hover img,
+.effeckt-caption[data-effeckt-type="revolving-door-left"]:active img
+  -webkit-transform perspective(1300px) rotateY(-180deg)
+  -ms-transform perspective(1300px) rotateY(-180deg)
+  -o-transform perspective(1300px) rotateY(-180deg)
+  transform perspective(1300px) rotateY(-180deg)
