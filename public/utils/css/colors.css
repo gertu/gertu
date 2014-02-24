@@ -1,9 +1,3 @@
-/*
-    Document   : colors
-    Author     : Little Neko
-    Description: template colors
-*/
-
 
 /* Table of Content
 ==================================================
@@ -65,7 +59,7 @@ h2.subTitle:after, h1.noSubtitle:after{
 	background-color:#7DC24F;
 }
 #home {
-	background-image:url('../images/theme-pics/paralax-sea-green-3.jpg');
+	background-image:url('../../img/paralax-sea-green-3.jpg');
 }
 #paralaxSlice1 {
 	background-image: url('../images/theme-pics/paralax-1.jpg');
