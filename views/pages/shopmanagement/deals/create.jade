@@ -109,6 +109,19 @@ block content
           App.showAlert('Debe seleccionar una imagen para la oferta');
         }
 
+        if ( isNaN(parseFloat($('#price').val()))
+          || isNaN(parseFloat($('#gertuprice').val()))
+          || isNaN(parseFloat($('#quantity').val()))
+          || !(parseFloat($('#price').val()) > 0)
+          || !(parseFloat($('#gertuprice').val()) > 0)
+          || !(parseFloat($('#quantity').val()) > 0)
+          ){
+
+          isValid = false;
+          App.showAlert('Debe indicar un valor para el precio, el pregio GERTU y la cantidad');
+
+        }
+
         return isValid;
       }
 
