@@ -8,6 +8,9 @@ brown         = #483000
 blueish-green = #84C090
 light-gray    = #F7F5FA
 light-black   = #666666
+light-green   = #7DC24F
+white         = #fff
+light-grey2    = #989998
 gold          = #E0B53E
 transparent-green = rgba(96, 156, 0, .7)
 
@@ -61,21 +64,24 @@ h1, h2, h3
   list-style none
   width 100%
   float left
-  margin-top 25px
+  padding-top 25px
+  background  url('../../img/light_toast.png') repeat top left
+
   li
     float left
     width 306px
     margin 0 30px 15px
     text-align center
-    background rgba(black,0.45)
+    background rgba(white)
     animation fadeIn 1s
+    padding 15px
+    box-shadow 0px 0px 5px rgba(0, 0, 0, 0.4)
     color white
     span.glyphicon
       margin-right 4px
     a
       text-decoration none
       color white
-      text-shadow(0,0,6px,black)
       &:hover
         cursor pointer
     .deal-data
@@ -86,24 +92,11 @@ h1, h2, h3
         // &:hover
       .info
         margin 4px 0 8px
-        h3
-          margin 4px 0
       .secondary-info
         margin 4px 0 12px
       .data
         .count
           border-right 1px solid white
-      .pricebox
-        padding 0
-        h3
-          margin 0
-          padding 8px 0
-        .price
-          background-color light-grey
-        .gertuprice
-          background-color light-green
-        .discount
-          background-color dark-orange
       .deal-desc
         padding 0 15px 15px
         p
@@ -117,6 +110,29 @@ h1, h2, h3
         .deal-rating, span
           color white
           text-shadow(0,0,6px,black)
+
+    .pricecolumn
+      .normalprice
+        height 70px
+        float left
+        background light-grey2
+        color white
+        text-align center
+        p.price
+          padding 5px 30px 0px 30px
+          text-decoration line-through
+          font-size 12px
+        p.discount
+          font-size 22px
+      .gertuprice
+        height 70px
+        padding-top 25px
+        background light-green
+        color white
+        text-align center
+        p
+          font-size 30px
+
 
 .effeckt-caption
   position relative

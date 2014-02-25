@@ -11,7 +11,6 @@ section#works.slide(data-ng-controller='DealsController')
         a(ng-click='setMarkerPosition(currentMarker, currentMarkerLat, currentMarkerLng)') Set Position
       #map-canvas
     .searchbar
-
       nav#filter.col-md-12.text-center
         col-sm-12
           h1 Buscar por:
@@ -34,7 +33,6 @@ section#works.slide(data-ng-controller='DealsController')
                 a.btn.btn-sm(href='', data-filter='.women') Women
               li
                 a.btn.btn-sm(href='', data-filter='.cats') Cats
-
     ul.deals
       li(ng-repeat='deal in filteredDeals | filter:dealname')
         .deal-data
@@ -44,8 +42,17 @@ section#works.slide(data-ng-controller='DealsController')
               figcaption
                 .effeckt-figcaption-wrap
                   p {{deal.deal.description}}
+            .pricecolumn
+              .normalprice
+                p.price
+                  | {{deal.deal.price | currency:"&euro;"}}
+                p.discount
+                  | {{deal.deal.discount | number:0}}%
+              .gertuprice
+                p {{deal.deal.gertuprice | currency:"&euro;"}}
+
           .info.col-sm-12
-            h3 {{deal.deal.name | trunc:true:24}}
+            h3 {{deal.deal.name | trunc:true:30}}
           .secondary-info.col-sm-12
             .shop-info.col-sm-4
               h4
@@ -60,10 +67,3 @@ section#works.slide(data-ng-controller='DealsController')
               h4
                 span.glyphicon.glyphicon-calendar
                 | {{deal.deal.dataend | date: shortDate}}
-          .pricebox.col-sm-12
-            .price.col-sm-4
-              h3.line-through {{deal.deal.price | currency:"&euro;"}}
-            .gertuprice.col-sm-4
-              h3 {{deal.deal.gertuprice | currency:"&euro;"}}
-            .discount.col-sm-4
-              h3 {{deal.deal.discount | number:0}}%
