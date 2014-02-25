@@ -12,7 +12,6 @@ section(data-ng-controller='DealsController', ng-init='find()')
   .searchbar
     h3 Buscar por:
     input.form-control(type="search",ng-model="dealname",placeholder="Nombre de oferta...",typeahead="deal.deal.name for deal in deals | filter:$viewValue | limitTo:8")
-    //- input.form-control(type="search",ng-model="search.shop",placeholder="Nombre de tienda...")
     select(ng-options="category for category in uniqueCategories",ng-change="filter()",ng-model="selectedCategory",style="color: black;")
       option(value="",selected) --Todas las categorías--
     select(ng-options="price.text for price in priceRange",ng-change="filter()",ng-model="selectedPrice",style="color: black;")
@@ -20,7 +19,7 @@ section(data-ng-controller='DealsController', ng-init='find()')
   ul.deals
     li(ng-repeat='deal in filteredDeals | filter:dealname')
       .deal-data
-        a(data-ng-href="deals/{{deal._id}}")
+        a(data-ng-href="deals/{{deal.deal._id}}")
           figure.effeckt-caption(data-effeckt-type='revolving-door-left')
             img(ng-src='{{deal.deal.image}}')
             figcaption
