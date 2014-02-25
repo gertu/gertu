@@ -1,5 +1,5 @@
-section#works.slide(data-ng-controller='DealsController', ng-init='find()')
-  .conatiner
+section#works.slide(data-ng-controller='DealsController')
+  .container
     .col-sm-12
       div(ng-repeat='marker in myMarkers', ui-map-marker='myMarkers[$index]', ui-event='{\'map-click\': \'openMarkerInfo(marker)\'}')
       div(ui-map-info-window='myInfoWindow')
