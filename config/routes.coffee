@@ -40,7 +40,7 @@ module.exports = (app, passport) ->
 
   #Deal routes
   deals = require("../server/controllers/deals")
-  app.get    currentApiVersion + "/deals", deals.all
+  app.get    currentApiVersion + "/deals", deals.getNearestDeals
   app.get    currentApiVersion + "/admin/deals/:shopId", deals.findByShop
   app.get    currentApiVersion + "/deals/:dealId", deals.show
   app.post   currentApiVersion + "/deals", deals.create

@@ -3,8 +3,9 @@ async    = require "async"
 _        = require "underscore"
 
 User = mongoose.model "User"
-Deal = mongoose.model('Deal')
-Shop = mongoose.model('Shop')
+Deal = mongoose.model 'Deal'
+Shop = mongoose.model 'Shop'
+Reservation = mongoose.model 'Reservation'
 
 exports.render = (req, res) ->
   res.render "index",
@@ -14,6 +15,7 @@ exports.load = (req, res) ->
   dealc = 0
   userc = 0
   shopc = 0
+  reservc = 0
   nearbyDeals = []
 
   async.parallel
@@ -29,10 +31,15 @@ exports.load = (req, res) ->
       Shop.count {}
       , (err, shops) ->
         callback null, shops
+    reservations: (callback) ->
+      Reservation.count {}
+      , (err, reservations) ->
+        callback null, reservations
   , (e, r) ->
     dealc = r.deals
     userc = r.users
     shopc = r.shops
+    reservc = r.reservations
 
     userradius = (if req.user then req.user.radius else 1000)/1000
 
@@ -59,4 +66,4 @@ exports.load = (req, res) ->
           nearbyDeals.sort (a, b) ->
             a.dist - b.dist
 
-          res.jsonp  [dealcount: dealc, usercount: userc, shopcount: shopc,neardeals: nearbyDeals]
+          res.jsonp  [dealcount: dealc, reservationcount: reservc, usercount: userc, shopcount: shopc,neardeals: nearbyDeals]

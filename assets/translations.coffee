@@ -47,6 +47,7 @@ angular.module("mean").config ["$translateProvider", ($translateProvider) ->
     NO_NEAR_DEALS: "You have not got any nearby deal"
     MY_COMMENTS: "My comments"
     NO_COMMENTS: "You have not writed any comment yet"
+    YOU_ARE_IN: "You are in "
 
     # /profile
     MY_PERFIL: "My perfil"
@@ -129,8 +130,7 @@ angular.module("mean").config ["$translateProvider", ($translateProvider) ->
     NO_NEAR_DEALS: "No hay ofertas cercanas"
     MY_COMMENTS: "Mis comentarios"
     NO_COMMENTS: "No tienes comentarios aún"
-
-
+    YOU_ARE_IN: "Usted se encuentra en "
 
     # / profile
     MY_PERFIL: "Mi perfil"

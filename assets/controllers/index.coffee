@@ -18,6 +18,7 @@ angular.module('mean.system').controller 'IndexController', [
           $(".location-text").hide()
 
     $scope.dealcount = 0
+    $scope.reservationcount = 0
     $scope.usercount = 0
     $scope.shopcount = 0
 
@@ -35,12 +36,16 @@ angular.module('mean.system').controller 'IndexController', [
       , (data) ->
         if $scope.global.user
           $scope.nearDeals = data[0].neardeals
+          $scope.myComments = myComments()
+          $scope.myBuys     = myBuys()
+          $scope.myReserves = myReserves()
         else
           $scope.dealcount = data[0].dealcount
           $scope.usercount = data[0].usercount
+          $scope.reservationcount = data[0].reservationcount
           $scope.shopcount = data[0].shopcount
           prom.resolve()
-        prom.promise
+      prom.promise
 
     $scope.totalProgress  = 4
     $scope.actualProgress = 3

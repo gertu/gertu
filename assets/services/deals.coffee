@@ -8,4 +8,9 @@ angular.module("mean.deals").factory "Deals", ["$resource", ($resource) ->
       method: "PUT"
     reserve:
       method: "POST"
+    getNearest:
+      userLong: @userLong
+      userLat : @userLat
+      method  : "GET"
+      isArray : true
 ]

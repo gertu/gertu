@@ -103,6 +103,36 @@ exports.destroy = (req, res) ->
     else
       res.send JSON.stringify(deal)
 
+exports.getNearestDeals = (req,res) ->
+  nearbyDeals = []
+
+  userradius = (if req.user then req.user.radius else 1000)/1000
+
+  mongoose.connection.db.executeDbCommand
+    geoNear: "shops" # the mongo collection
+    near: [parseFloat(req.query.userLong), parseFloat(req.query.userLat)] # the geo point
+    spherical: true # tell mongo the earth is round, so it calculates based on a
+    # spherical location system
+    distanceMultiplier: 6371 # tell mongo how many radians go into one kilometer.
+    maxDistance: userradius / 6371 # tell mongo the max distance in radians to filter out
+  , (err, result) ->
+    nearshops = result.documents[0].results
+    nearshopids = []
+    if nearshops?
+      for shop in nearshops
+        nearshopids.push shop.obj._id
+      Deal.find({shop: { $in:nearshopids}}).populate("shop").exec (err,deals) ->
+        for deal in deals
+          for shop in nearshops
+            if deal.shop._id.equals(shop.obj._id)
+              nearbyDeals.push
+                dist: shop.dis
+                deal: deal
+        nearbyDeals.sort (a, b) ->
+          a.dist - b.dist
+
+        res.jsonp  nearbyDeals
+
 
 # functions about Comments
 hasWritten = (req, user) ->

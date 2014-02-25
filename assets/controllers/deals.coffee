@@ -1,7 +1,29 @@
 angular.module("mean.deals").controller "DealsController", ["$scope",
-"$routeParams", "$location", "Global", "Deals", "DealsCategory", "DealsShop", "AppAlert", "$http", ($scope,
-  $routeParams, $location, Global, Deals, DealsCategory, DealsShop, AppAlert, $http) ->
+"$routeParams", "$location", "Global", "Deals", "DealsCategory", "DealsShop", "AppAlert", "$http","$q", ($scope,
+  $routeParams, $location, Global, Deals, DealsCategory, DealsShop, AppAlert, $http,$q) ->
   $scope.global = Global
+
+  $scope.priceRange = [
+    min: 0
+    max: 15
+    text: "0-15€"
+  ,
+    min: 15
+    max: 30
+    text: "15-30€"
+  ,
+    min: 30
+    max: 45
+    text: "30-45€"
+  ,
+    min: 60
+    max: 75
+    text: "60-75€"
+  ,
+    min: 75
+    max: 90
+    text: "75-90€"
+  ]
 
   # $scope.days [
   #   "Lunes"
@@ -23,6 +45,34 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
   #   else
   #     $scope.selection.push fruitName
   #   return
+
+  $scope.myMarkers = []
+  $scope.mapOptions =
+    center: new google.maps.LatLng($scope.global.userLat, $scope.global.userLong)
+    zoom: 15
+    maxZoom: 15
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+    draggable: false
+    disableDefaultUI: true
+
+
+  $scope.addMarker = ($event, $params) ->
+    $scope.myMarkers.push new google.maps.Marker(
+      map: $scope.myMap
+      position: new google.maps.LatLng($params.latitude, $params.longitude)
+      deal: $params
+    )
+    return
+
+  $scope.openMarkerInfo = (marker) ->
+    $scope.currentMarker = marker
+    $scope.currentMarkerName = marker.deal.name
+    $scope.currentMarkerLat = marker.getPosition().lat()
+    $scope.currentMarkerLng = marker.getPosition().lng()
+    $scope.myInfoWindow.open $scope.myMap, marker
+    return
+
+
 
   $scope.create = ->
     deal = new Deals(
@@ -50,8 +100,39 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
 
 
   $scope.find = ->
-    Deals.query (deals) ->
+    $scope.uniqueCategories = []
+    prom = $q.defer()
+    Deals.getNearest
+      userLong: $scope.global.userLong
+      userLat:  $scope.global.userLat
+    , (deals) ->
+      console.log deals
       $scope.deals = deals
+      $scope.filteredDeals = deals
+      for deal in deals
+        if deal.deal.categoryname not in $scope.uniqueCategories
+          $scope.uniqueCategories.push deal.deal.categoryname
+        $scope.addMarker '',deal.deal.shop.loc
+
+      prom.resolve()
+    prom.promise
+
+  $scope.filter = ->
+    $scope.filteredDeals = []
+    for deal in $scope.deals
+      if ($scope.selectedCategory in $scope.uniqueCategories)  #si la categoria está seleccionada
+        if ($scope.selectedPrice in $scope.priceRange)  #si el precio está seleccionado
+          if deal.deal.categoryname == $scope.selectedCategory and deal.deal.gertuprice > $scope.selectedPrice.min and deal.deal.gertuprice < $scope.selectedPrice.max
+            $scope.filteredDeals.push deal
+        else if deal.deal.categoryname == $scope.selectedCategory
+            $scope.filteredDeals.push deal
+      else if ($scope.selectedPrice in $scope.priceRange)  #si el precio está seleccionado
+            if deal.deal.gertuprice > $scope.selectedPrice.min and deal.deal.gertuprice < $scope.selectedPrice.max
+              $scope.filteredDeals.push deal
+      else
+        $scope.filteredDeals = $scope.deals
+    for deal in $scope.filteredDeals
+          $scope.addMarker '',deal.deal.shop.loc
 
 
   $scope.showdealcategories = ->

@@ -95,11 +95,12 @@ exports.createDo = (req, res) ->
     categoryname: req.body.categoryname
     price: req.body.price
     gertuprice: req.body.gertuprice
-    discount: req.body.discount
     datainit: initDate
     dataend: endDate
     selecteddays: req.body.selecteddays
     quantity: req.body.quantity
+
+  deal.discount = 100 - (deal.gertuprice / deal.price) * 100
 
   if format[1] is "jpg" or format[1] is "jpeg" or format[1] is "png" or format[1] is "gif"
     fs.rename req.files.image.path, path, (err) ->
@@ -162,6 +163,8 @@ exports.edit = (req, res) ->
   )
 
 exports.editDo = (req, res) ->
+
+
   shopId = req.session.currentShop.shopId
   dealId = req.params.dealId
   file = req.files.image
@@ -170,52 +173,52 @@ exports.editDo = (req, res) ->
   path = __dirname + "/public/upload/" + name
   format = type.split("/")
 
-  if format[1] is "jpg" or format[1] is "jpeg" or format[1] is "png" or format[1] is "gif"
-    fs.rename req.files.image.path, path, (err) ->
+  Deal.findOne({_id: req.body.id}).exec (err, deal) ->
 
+    if deal?
 
-      Deal.findOne({_id: req.body.id}).exec (err, deal) ->
+      partsOfInitDate = req.body.datainit.split('/')
+      initDate = new Date(partsOfInitDate[2], partsOfInitDate[1]-1, partsOfInitDate[0])
 
-        Shop.findOne({_id: shopId}).exec (err, shop) ->
+      partsOfEndDate = req.body.dataend.split('/')
+      endDate = new Date(partsOfEndDate[2], partsOfEndDate[1]-1, partsOfEndDate[0])
 
-          if shop
-            fs.unlink Path.resolve(".") + deal.image
+      deal.name = req.body.name
+      deal.description = req.body.description
+      deal.categoryname = req.body.categoryname
+      deal.price = req.body.price
+      deal.gertuprice = req.body.gertuprice
+      deal.datainit = initDate
+      deal.dataend = endDate
+      deal.selecteddays = req.body.selecteddays
+      deal.quantity = req.body.quantity
 
-            splittednewname = null
+      deal.discount = 100 - (deal.gertuprice / deal.price) * 100
 
-            if file.path.indexOf('/') > -1
-              splittednewname = (file.path).split('/')
-            else
-              splittednewname = (file.path).split('\\')
+      if format[1] is "jpg" or format[1] is "jpeg" or format[1] is "png" or format[1] is "gif"
+        fs.rename req.files.image.path, path, (err) ->
 
-            deal.image = "/upload/" + splittednewname[splittednewname.length-1]
-            deal.shop = shop
-            deal.name = req.body.name
-            deal.description = req.body.description
-            deal.categoryname = req.body.categoryname
-            deal.price = req.body.price
-            deal.gertuprice = req.body.gertuprice
-            deal.discount = req.body.discount
-            deal.datainit = req.body.datainit
-            deal.dataend = req.body.dataend
-            deal.selecteddays = req.body.selecteddays
-            deal.quantity = req.body.quantity
+        fs.unlink Path.resolve(".") + deal.image
 
-            deal.save (err) ->
-              if not err
-                res.redirect 'shopmanagement/deals/list'
-              else
-                console.log err
-                res.redirect 'shopmanagement/deals/list'
+        splittednewname = null
 
-  else
-    fs.unlink file.path
-    res.render "pages/shopmanagement/deals/create",
-    {
-      errorType: 1,
-      deal: dealId,
-      currentShop: req.session.currentShop
-    }
+        if file.path.indexOf('/') > -1
+          splittednewname = (file.path).split('/')
+        else
+          splittednewname = (file.path).split('\\')
+
+        deal.image = "/upload/" + splittednewname[splittednewname.length-1]
+
+      deal.save (err) ->
+        if not err
+
+          res.redirect 'shopmanagement/deals/list'
+        else
+
+          console.log err
+          res.redirect 'shopmanagement/deals/list'
+    else
+      res.redirect 'shopmanagement/deals/list'
 
 exports.delete = (req, res) ->
   shopId = req.session.currentShop.shopId
