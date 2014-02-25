@@ -37,7 +37,10 @@ section(data-ng-hide="global.authenticated")
                   br
                   | Registrese gratuitamente y empiece a aprovecharse
               .col-md-4
-                a.btn.btn-lg(title='', href='#', target='blank')
+                //- a.btn.btn-lg(target="_self" href='/shopmanagement/login')
+                //-   i.icon-flash
+                //-   | {{'I_AM_A_SHOP' | translate}}
+                a.btn.btn-lg(title='', href='#signup', target='blank')
                   i.icon-flash
                   | Registrese ahora
   section#services.slice.color1(ng-controller="IndexController", data-ng-init="commentsReservesBuys()",)
@@ -80,11 +83,8 @@ section(data-ng-hide="global.authenticated")
                   p.text-center {{'ACTIVE_SHOPS' | translate}}
 .location.col-md-12(data-ng-show="global.authenticated")
   span.location-text
-.row(data-ng-hide="global.authenticated")
-  .data
-    .col-md-6.signupform
-      h3 {{ "SIGNUP_FORM_TITLE" | translate}}
-      include ../templates/signupform
+section#signup(data-ng-hide="global.authenticated")
+  include ../templates/signupform
 .row(data-ng-show="global.authenticated")
   div(data-ng-show="global.user")
     .profile-status(data-ng-hide="hideSteps")
