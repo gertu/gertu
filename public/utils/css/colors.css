@@ -60,6 +60,7 @@ h2.subTitle:after, h1.noSubtitle:after{
 }
 #home {
 	background-image:url('../../img/paralax-sea-green-3.jpg');
+	background-repeat: no-repeat;
 }
 #paralaxSlice1 {
 	background-image: url('../images/theme-pics/paralax-1.jpg');
