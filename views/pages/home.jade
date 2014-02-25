@@ -1,4 +1,4 @@
-section(data-ng-hide="global.authenticated", ng-controller="IndexController", data-ng-init="commentsReservesBuys()",)
+section(data-ng-hide="global.authenticated", ng-controller="IndexController")
   section#home(data-stellar-background-ratio='0.5')
     .container
         .row
@@ -40,7 +40,8 @@ section(data-ng-hide="global.authenticated", ng-controller="IndexController", da
                 //- a.btn.btn-lg(target="_self" href='/shopmanagement/login')
                 //-   i.icon-flash
                 //-   | {{'I_AM_A_SHOP' | translate}}
-                a.btn.btn-lg(title='', href='#signup', target='blank')
+                //- a.btn.btn-secondary(target="_self" href='/shopmanagement/login')
+                a.btn.btn-lg(target="_self" href='#signup')
                   i.icon-flash
                   | Registrese ahora
   section#services.slice.color1
@@ -81,21 +82,16 @@ section(data-ng-hide="global.authenticated", ng-controller="IndexController", da
                 .col-xs-4
                   h2.text-center {{shopcount}}
                   p.text-center {{'ACTIVE_SHOPS' | translate}}
+
   section#signup
     include ../templates/signupform
-//- .location.col-md-12(data-ng-show="global.authenticated")
-//-   span.location-text
 
 .row(ng-controller="IndexController", data-ng-show="global.authenticated")
   div(data-ng-show="global.user")
-    .profile-status(data-ng-hide="hideSteps")
-      h2
-        | {{"PROFILE_HOME_1" | translate}}
-        a(href="/profile") {{"PROFILE_HOME_HERE" | translate}}
-        | {{"PROFILE_HOME_2" | translate}}
-      progressbar.progress-striped.active(value="actualProgress", max="totalProgress") {{actualProgress}}/{{totalProgress}}
-      hr
     .dashboard
+      .dashboard-column.location.col-md-12(data-ng-show="global.authenticated")
+        span {{"YOU_ARE_IN" | translate}}
+        span.location-text
       .dashboard-column.col-md-4
         h3.arrow-title {{"MY_RESERVES" | translate}}
         .arrow-down
@@ -104,7 +100,7 @@ section(data-ng-hide="global.authenticated", ng-controller="IndexController", da
             li(data-ng-repeat="reserve in myReserves")
               p {{reserve.date | date: "longDate"}}
               a(href="/deals/{{reserve.deal._id}}")
-                span.glyphicon.glyphicon-circle-arrow-right.pull-right
+                span.glyphicon.glyphicon-barcode.pull-right
                 | {{reserve.deal.name}}
           ul(ng-show="!myReserves.length")
             li {{"NO_RESERVES" | translate}}
@@ -117,8 +113,7 @@ section(data-ng-hide="global.authenticated", ng-controller="IndexController", da
             li(data-ng-repeat="buy in myBuys")
               p {{buy.date | date: "longDate"}}
               a(href="/deals/{{buy.deal._id}}")
-                span.glyphicon.glyphicon-circle-arrow-right.pull-right
-                | {{buy.deal.name}}
+                {{buy.deal.name}}
           ul(ng-show="!myBuys.length")
             li {{"NO_BUYS" | translate}}
 
@@ -128,8 +123,6 @@ section(data-ng-hide="global.authenticated", ng-controller="IndexController", da
         .fieldset
           ul
             li(data-ng-repeat="neardeal in nearDeals")
-              a(href="/map/{{neardeal.deal._id}}")
-                span.glyphicon.glyphicon-globe.pull-right(tooltip="{{'SEE_IN_MAP' | translate}}")
               a(href="/deals/{{neardeal.deal._id}}")
                 span.badge.pull-right {{neardeal.dist*1000 | number:2}} m.
                 | {{neardeal.deal.name | trunc:true:18}}
