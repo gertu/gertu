@@ -18,15 +18,15 @@ div#header-wrap
                   |{{item.title | translate}}
             ul.nav.navbar-nav.pull-right(data-ng-hide='global.authenticated')
               include signinform
-        ul.nav.navbar-nav.navbar-nav.pull-right(data-ng-show='global.authenticated')
-          li.dropdown(data-ng-show='global.user')
-            a.dropdown-toggle(href='#', data-toggle='dropdown')
-              | {{"WELCOME" | translate}} {{global.user.firstName}}
-              span(ng-show="!global.user.firstName")
-                {{global.user.email}}
-              b.caret
-            ul.dropdown-menu
-              li
-                a(data-ng-href='/profile') {{"PROFILE" | translate}}
-              li
-                a(href='/api/v1/signout', target='_self') {{"SIGNOUT" | translate}}
+            ul.nav.navbar-nav.navbar-nav.pull-right(data-ng-show='global.authenticated')
+              li.dropdown(data-ng-show='global.user')
+                a.dropdown-toggle(href='#', data-toggle='dropdown')
+                  | {{"WELCOME" | translate}} {{global.user.firstName}}
+                  span(ng-show="!global.user.firstName")
+                    {{global.user.email}}
+                  b.caret
+                ul.dropdown-menu
+                  li
+                    a(data-ng-href='/profile') {{"PROFILE" | translate}}
+                  li
+                    a(href='/api/v1/signout', target='_self') {{"SIGNOUT" | translate}}
