@@ -11,6 +11,8 @@ angular.module('mean.system').controller 'IndexController', [
 
     geolocation().then ((position) ->
       $scope.checkSteps(position)
+      $.getJSON "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.coords.latitude + "," + position.coords.longitude + "&sensor=true", (data) ->
+        $(".location-text").text data.results[1].formatted_address
     )
 
     $scope.checkSteps = (position)->
