@@ -18,14 +18,22 @@ exports.usersLogin = (req, res) ->
 
       if userData.authenticate(req.body.password)
         token = new Token()
-
-        token.token = userData._id
+        token.token = Math.random() * 16
         token.user = userData
         token.last_access = new Date()
 
         token.save( (err) ->
 
-          res.status(200).send(JSON.stringify(userData)) unless err?
+          data = {
+            email     : userData.email,
+            firstName : userData.firstName,
+            lastName  : userData.lastName,
+            picture   : userData.picture,
+            radius    : userData.radius,
+            token     : token._id,
+          }
+
+          res.status(200).send(JSON.stringify(data)) unless err?
           res.status(403).send('Unable to set up token') if err?
           )
       else
@@ -34,8 +42,9 @@ exports.usersLogin = (req, res) ->
 
 exports.usersLogout = (req, res) ->
   currentUser = req.currentMobileUser
+  currentToken = req.currentToken
 
-  Token.remove({token: currentUser._id}).exec( (err) ->
+  Token.remove({_id: currentToken._id}).exec( (err) ->
     res.status(200).send() unless err?
     res.status(404).send('No token found') if err?
   )
@@ -53,7 +62,24 @@ exports.usersSignUp = (req, res) ->
       else
         res.status(422).send(JSON.stringify(error.code))
     else
-      res.status(200).send(JSON.stringify(user))
+
+      token = new Token()
+      token.token = Math.random() * 16
+      token.user = user
+      token.last_access = new Date()
+
+      token.save( (err) ->
+
+        data = {
+          email     : user.email,
+          firstName : user.firstName,
+          lastName  : user.lastName,
+          token     : token._id,
+        }
+
+        res.status(200).send(JSON.stringify(data)) unless err?
+        res.status(403).send(err) if err?
+        )
   )
 
 exports.usersGetCurrent = (req, res) ->
@@ -73,7 +99,7 @@ exports.usersUpdate = (req, res) ->
   user = req.currentMobileUser
 
   if user?
-    User.findOne({_id: user.id}).exec( (err, userData) ->
+    User.findOne({_id: user._id}).exec( (err, userData) ->
 
       if err? or not userData?
         res.status(403).send('Access denied')

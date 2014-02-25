@@ -30,14 +30,17 @@ Token     = mongoose.model "Token"
       tokenId = req.query.token
 
     # Verify it is in the list of tokens, and it is still valid
-    Token.findOne({ token: tokenId }).populate('user').exec( (err, token) ->
+    Token.findOne({ _id: tokenId }).populate('user').exec( (err, token) ->
 
       referenceDate = new Date(new Date() - (20 * 60000))
 
       if token? and token.last_access > referenceDate
 
         token.refresh()
+
         req.currentMobileUser = token.user
+        req.currentToken = token
+
         next()
 
       else if token
