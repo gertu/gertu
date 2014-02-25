@@ -1,50 +1,69 @@
-section(data-ng-controller='DealsController', ng-init='find()')
-  .col-sm-12
-    div(ng-repeat='marker in myMarkers', ui-map-marker='myMarkers[$index]', ui-event='{\'map-click\': \'openMarkerInfo(marker)\'}')
-    div(ui-map-info-window='myInfoWindow')
-      h1 {{currentMarkerName}}
-      | Lat:
-      input(ng-model='currentMarkerLat')
-      | , Lng:
-      input(ng-model='currentMarkerLng')
-      a(ng-click='setMarkerPosition(currentMarker, currentMarkerLat, currentMarkerLng)') Set Position
-    .map-canvas(ui-map='myMap', ui-event='{\'map-click\': \'addMarker($event, $params)\', \'map-zoom_changed\': \'setZoomMessage(myMap.getZoom())\' }', ui-options='mapOptions')
-  .searchbar
-    h3 Buscar por:
-    input.form-control(type="search",ng-model="dealname",placeholder="Nombre de oferta...",typeahead="deal.deal.name for deal in deals | filter:$viewValue | limitTo:8")
-    select(ng-options="category for category in uniqueCategories",ng-change="filter()",ng-model="selectedCategory",style="color: black;")
-      option(value="",selected) --Todas las categorías--
-    select(ng-options="price.text for price in priceRange",ng-change="filter()",ng-model="selectedPrice",style="color: black;")
-      option(value="",selected) --Cualquier precio--
-  ul.deals
-    li(ng-repeat='deal in filteredDeals | filter:dealname')
-      .deal-data
-        a(data-ng-href="deals/{{deal.deal._id}}")
-          figure.effeckt-caption(data-effeckt-type='revolving-door-left')
-            img(ng-src='{{deal.deal.image}}')
-            figcaption
-              .effeckt-figcaption-wrap
-                p {{deal.deal.description}}
-        .info.col-sm-12
-          h3 {{deal.deal.name | trunc:true:24}}
-        .secondary-info.col-sm-12
-          .shop-info.col-sm-4
-            h4
-              span.glyphicon.glyphicon-map-marker
-              | {{deal.deal.shop.name}}
-        .data.col-sm-12
-          .count.col-sm-4
-            h4
-              span.glyphicon.glyphicon-barcode
-              | {{deal.deal.quantity}}
-          .date.col-sm-7
-            h4
-              span.glyphicon.glyphicon-calendar
-              | {{deal.deal.dataend | date: shortDate}}
-        .pricebox.col-sm-12
-          .price.col-sm-4
-            h3.line-through {{deal.deal.price | currency:"&euro;"}}
-          .gertuprice.col-sm-4
-            h3 {{deal.deal.gertuprice | currency:"&euro;"}}
-          .discount.col-sm-4
-            h3 {{deal.deal.discount | number:0}}%
+section#works.slide(data-ng-controller='DealsController', ng-init='find()')
+  .conatiner
+    .col-sm-12
+      div(ng-repeat='marker in myMarkers', ui-map-marker='myMarkers[$index]', ui-event='{\'map-click\': \'openMarkerInfo(marker)\'}')
+      div(ui-map-info-window='myInfoWindow')
+        h1 {{currentMarkerName}}
+        | Lat:
+        input(ng-model='currentMarkerLat')
+        | , Lng:
+        input(ng-model='currentMarkerLng')
+        a(ng-click='setMarkerPosition(currentMarker, currentMarkerLat, currentMarkerLng)') Set Position
+      .map-canvas(ui-map='myMap', ui-event='{\'map-click\': \'addMarker($event, $params)\', \'map-zoom_changed\': \'setZoomMessage(myMap.getZoom())\' }', ui-options='mapOptions')
+    .searchbar
+
+      nav#filter.col-md-12.text-center
+        col-sm-12
+          h1 Buscar por:
+        .row
+          .col-sm-3
+            input.form-control.paddingsearch(type="search",ng-model="dealname",placeholder="Nombre de oferta...",typeahead="deal.deal.name for deal in deals | filter:$viewValue | limitTo:8")
+          .col-sm-2
+            select.paddingsearch(ng-options="category for category in uniqueCategories",ng-change="filter()",ng-model="selectedCategory",style="color: black;")
+              option(value="",selected) --Todas las categorías--
+          .col-sm-2
+            select.paddingsearch(ng-options="price.text for price in priceRange",ng-change="filter()",ng-model="selectedPrice",style="color: black;")
+              option(value="",selected) --Cualquier precio--
+          .col-sm-4
+            ul
+              li
+                a.current.btn.btn-sm(href='', data-filter='*') All
+              li
+                a.btn.btn-sm(href='', data-filter='.graphics') Graphics
+              li
+                a.btn.btn-sm(href='', data-filter='.women') Women
+              li
+                a.btn.btn-sm(href='', data-filter='.cats') Cats
+
+    ul.deals
+      li(ng-repeat='deal in filteredDeals | filter:dealname')
+        .deal-data
+          a(data-ng-href="deals/{{deal.deal._id}}")
+            figure.effeckt-caption(data-effeckt-type='revolving-door-left')
+              img(ng-src='{{deal.deal.image}}')
+              figcaption
+                .effeckt-figcaption-wrap
+                  p {{deal.deal.description}}
+          .info.col-sm-12
+            h3 {{deal.deal.name | trunc:true:24}}
+          .secondary-info.col-sm-12
+            .shop-info.col-sm-4
+              h4
+                span.glyphicon.glyphicon-map-marker
+                | {{deal.deal.shop.name}}
+          .data.col-sm-12
+            .count.col-sm-4
+              h4
+                span.glyphicon.glyphicon-barcode
+                | {{deal.deal.quantity}}
+            .date.col-sm-7
+              h4
+                span.glyphicon.glyphicon-calendar
+                | {{deal.deal.dataend | date: shortDate}}
+          .pricebox.col-sm-12
+            .price.col-sm-4
+              h3.line-through {{deal.deal.price | currency:"&euro;"}}
+            .gertuprice.col-sm-4
+              h3 {{deal.deal.gertuprice | currency:"&euro;"}}
+            .discount.col-sm-4
+              h3 {{deal.deal.discount | number:0}}%

@@ -38,7 +38,9 @@
 	text-align: center;
 }
 
-
+#works{
+	background-image: url ('../img/light_toast.png')
+}
 /* BOOSTRAP CUSTOMIZATION
 ================================================== */
 .navbar {margin-bottom:0;}
@@ -848,6 +850,11 @@ header#project{padding:22px 0;}
 /* FORM
 ================================================== */
 #verifyImg{margin-bottom: 11px;}
+
+.paddingsearch{
+
+	margin: 10px;
+}
 /*** MEDIA QUERIES ***/
 
 @media(max-width:767px){}
