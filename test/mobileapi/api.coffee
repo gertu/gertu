@@ -15,6 +15,8 @@ apiPreffix = '/mobile/v1'
 
 describe "Mobile API testing", ->
 
+  token = {}
+
   userOfApplication =
     name: 'Nombre usuario',
     email: 'nombreusuario@gertuproject.info',
@@ -104,7 +106,13 @@ describe "Mobile API testing", ->
       post(apiPreffix + '/users').
       send(userOfApplication).
       end (err, res) ->
+
         res.should.have.status 200
+
+        token = JSON.parse(res.text).token
+
+        token.should.not.be.undefined
+
         done()
 
   it "should not signup a user with a existant email", (done) ->
@@ -151,14 +159,16 @@ describe "Mobile API testing", ->
 
         res.should.have.status 200
         userOfApplication._id = JSON.parse(res.text)._id
+        token = JSON.parse(res.text).token
+
         done()
 
   it "should be a token for the logged in user", (done) ->
-    Token.find({token: userOfApplication._id}).exec( (err, tokens) ->
+    Token.find({_id: token}).exec( (err, tokens) ->
 
       tokens.should.not.be.undefined
       tokens.should.have.length 1
-      tokens[0].should.have.property 'token', userOfApplication._id
+      console.log tokens[0]._id
       done()
 
       )
@@ -166,18 +176,18 @@ describe "Mobile API testing", ->
   it "should return the current user", (done) ->
     server.
       get(apiPreffix + '/users').
-      send({token: userOfApplication._id}).
+      send({token: token}).
       end (err, res) ->
         res.should.have.status 200
         res.text.should.include userOfApplication.email
         done()
 
   it "should change info in the current user", (done) ->
-
+    console.log token
     userOfApplication.name = 'new name'
     server.
       put(apiPreffix + '/users').
-      send({firstName: 'new name',  email: 'newemail@mail.com', token: userOfApplication._id}).
+      send({firstName: 'new name',  email: 'newemail@mail.com', token: token}).
       end (err, res) ->
         res.should.have.status 200
         res.text.should.include 'new name'
@@ -202,7 +212,7 @@ describe "Mobile API testing", ->
   it "should NOT return the current user, as there is no user logged in", (done) ->
     server.
       get(apiPreffix + '/users').
-      send({token: userOfApplication._id}).
+      send({token: token}).
       end (err, res) ->
         res.should.have.status 200
         res.text.should.not.include userOfApplication.email
@@ -240,7 +250,7 @@ describe "Mobile API testing", ->
   it "should return 2 near deals when user is at position", (done) ->
     server.
       post(apiPreffix + '/deals').
-      send({longitude: 0, latitude: 0, token: userOfApplication._id}).
+      send({longitude: 0, latitude: 0, token: token}).
       end (err, res) ->
         res.should.have.status 200
 
@@ -269,7 +279,7 @@ describe "Mobile API testing", ->
   it "should NOT add a comment in a deal if comments and rating are ommitted", (done) ->
     server.
       post(apiPreffix + '/deals/' + deal1._id + '/comment').
-      send({token: userOfApplication._id}).
+      send({token: token}).
       end (err, res) ->
 
         res.should.have.status 400
@@ -278,7 +288,7 @@ describe "Mobile API testing", ->
   it "should add a comment in a deal", (done) ->
     server.
       post(apiPreffix + '/deals/' + deal1._id + '/comment').
-      send({token: userOfApplication._id, comment: 'new comment', rating: 5}).
+      send({token: token, comment: 'new comment', rating: 5}).
       end (err, res) ->
 
         returnedDeal = JSON.parse(res.text)
@@ -291,7 +301,7 @@ describe "Mobile API testing", ->
   it "should make a reservation for a deal", (done) ->
     server.
       post(apiPreffix + '/deals/' + deal1._id + '/reservation').
-      send({token: userOfApplication._id}).
+      send({token: token}).
       end (err, res) ->
 
         returnedReservation = JSON.parse(res.text)
@@ -320,7 +330,7 @@ describe "Mobile API testing", ->
   it "should not make a reservation if deal quantity is consumed", (done) ->
     server.
       post(apiPreffix + '/deals/' + deal2._id + '/reservation').
-      send({token: userOfApplication._id}).
+      send({token: token}).
       end (err, res) ->
         res.should.have.status 410
         done()
@@ -328,7 +338,7 @@ describe "Mobile API testing", ->
   it "should throw error when dreserved deal does not exist", (done) ->
     server.
       post(apiPreffix + '/deals/notexistantdeal/reservation').
-      send({token: userOfApplication._id}).
+      send({token: token}).
       end (err, res) ->
         res.should.have.status 404
         done()
@@ -336,7 +346,7 @@ describe "Mobile API testing", ->
   it "should return the reservations for a user", (done) ->
     server.
       get(apiPreffix + '/users/reservations').
-      send({token: userOfApplication._id}).
+      send({token: token}).
       end (err, res) ->
 
         allReservations = JSON.parse(res.text)
@@ -365,7 +375,7 @@ describe "Mobile API testing", ->
 
     server.
       get(apiPreffix + '/users').
-      send({token: userOfApplication._id}).
+      send({token: token}).
       end (err, res) ->
 
         res.should.have.status 200
@@ -374,7 +384,7 @@ describe "Mobile API testing", ->
   it "should log out current user", (done) ->
     server.
       del(apiPreffix + '/users/session').
-      send({token: userOfApplication._id}).
+      send({token: token}).
       end (err, res) ->
         res.should.have.status 200
         done()
@@ -383,14 +393,98 @@ describe "Mobile API testing", ->
 
     server.
       get(apiPreffix + '/users').
-      send({token: userOfApplication._id}).
+      send({token: token}).
       end (err, res) ->
 
         res.should.have.status 403
         done()
 
+  it "should be able to give access to a new token", (done) ->
+
+    newUser = new User(
+      email: 'thisemail@mail.com',
+      password: '123456',
+      firstName: 'this user'
+      )
+
+    newUser.save ( (err) ->
+
+      newToken = new Token(
+        token : Math.random() * 16
+        user : newUser
+        last_access : new Date()
+      )
+
+      newToken.save( (err) ->
+
+      server.
+        get(apiPreffix + '/users').
+        send({token: newToken._id}).
+        end (err, res) ->
+
+          res.should.have.status 200
+          done()
+      )
+    )
+
+  it "should be able to give access to a valid lasting token", (done) ->
+
+    newUser = new User(
+      email: 'thisemail2@mail.com',
+      password: '123456',
+      firstName: 'this user'
+      )
+
+    newUser.save ( (err) ->
+
+      newToken = new Token(
+        token : Math.random() * 16
+        user : newUser
+        last_access : new Date(new Date() - (5 * 60000))
+      )
+
+      newToken.save( (err) ->
+
+      server.
+        get(apiPreffix + '/users').
+        send({token: newToken._id}).
+        end (err, res) ->
+
+          res.should.have.status 200
+          done()
+      )
+    )
+
+  it "should NOT be able to give access to a expired token", (done) ->
+
+    newUser = new User(
+      email: 'thisemail3@mail.com',
+      password: '123456',
+      firstName: 'this user'
+      )
+
+    newUser.save ( (err) ->
+
+      newToken = new Token(
+        token : Math.random() * 16
+        user : newUser
+        last_access : new Date(new Date() - (21 * 60000))
+      )
+
+      newToken.save( (err) ->
+
+      server.
+        get(apiPreffix + '/users').
+        send({token: newToken._id}).
+        end (err, res) ->
+
+          res.should.have.status 403
+          done()
+      )
+    )
+
   after (done) ->
-    Token.remove().exec()
+    #Token.remove().exec()
     User.remove().exec()
     Deal.remove().exec()
     Shop.remove().exec()

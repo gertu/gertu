@@ -1,38 +1,25 @@
 angular.module('mean.system').controller 'IndexController', [
-  '$scope', 'Global','Index', '$q', '$timeout', 'AppAlert',
-  ($scope, Global, Index, $q,$timeout, AppAlert) ->
+  '$scope', 'Global','Index', '$q', '$timeout', 'AppAlert','GeolocationService',
+  ($scope, Global, Index, $q,$timeout, AppAlert, geolocation) ->
     $scope.global = Global
 
-
-    showPosition = (position) ->
-      $.getJSON "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.coords.latitude + "," + position.coords.longitude + "&sensor=true", (data) ->
-        $(".location-text").text data.results[1].formatted_address
-        $scope.global.userLong = position.coords.longitude
-        $scope.global.userLat = position.coords.latitude
-        $scope.checkSteps(position.coords.longitude,position.coords.latitude)
-
-
-    showError = (error) ->
-      switch error.code
-        when error.PERMISSION_DENIED
-          $(".location-text").hide()
 
     $scope.dealcount = 0
     $scope.reservationcount = 0
     $scope.usercount = 0
     $scope.shopcount = 0
 
-    $(document).ready ->
-      navigator.geolocation.getCurrentPosition showPosition, showError  if navigator.geolocation
-      setInterval(->
-          navigator.geolocation.getCurrentPosition showPosition, showError  if navigator.geolocation
-      , 120000)
+    geolocation().then ((position) ->
+      $scope.checkSteps(position)
+      $.getJSON "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.coords.latitude + "," + position.coords.longitude + "&sensor=true", (data) ->
+        $(".location-text").text data.results[1].formatted_address
+    )
 
-    $scope.checkSteps = (paramLong,paramLat) ->
+    $scope.checkSteps = (position)->
       prom = $q.defer()
       Index.getData.query
-        userLong: paramLong
-        userLat:  paramLat
+        userLong: position.coords.longitude
+        userLat:  position.coords.latitude
       , (data) ->
         if $scope.global.user
           $scope.nearDeals = data[0].neardeals

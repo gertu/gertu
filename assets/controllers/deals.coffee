@@ -1,6 +1,6 @@
 angular.module("mean.deals").controller "DealsController", ["$scope",
-"$routeParams", "$location", "Global", "Deals", "DealsCategory", "DealsShop", "AppAlert", "$http","$q", ($scope,
-  $routeParams, $location, Global, Deals, DealsCategory, DealsShop, AppAlert, $http,$q) ->
+"$routeParams", "$location", "Global", "Deals", "DealsCategory", "DealsShop", "AppAlert", "$http","$q", 'GeolocationService', ($scope,
+  $routeParams, $location, Global, Deals, DealsCategory, DealsShop, AppAlert, $http,$q, geolocation) ->
   $scope.global = Global
 
   $scope.priceRange = [
@@ -98,13 +98,18 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
     , (deals) ->
       $scope.deals = deals
 
+  geolocation().then ((position) ->
+    $scope.find(position)
+  )
 
-  $scope.find = ->
+
+  $scope.find = (position)->
     $scope.uniqueCategories = []
     prom = $q.defer()
+    console.log $scope.global.userLong
     Deals.getNearest
-      userLong: $scope.global.userLong
-      userLat:  $scope.global.userLat
+      userLong: position.coords.longitude
+      userLat:  position.coords.latitude
     , (deals) ->
       console.log deals
       $scope.deals = deals
@@ -113,6 +118,7 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
         if deal.deal.categoryname not in $scope.uniqueCategories
           $scope.uniqueCategories.push deal.deal.categoryname
         $scope.addMarker '',deal.deal.shop.loc
+      $scope.$apply
 
       prom.resolve()
     prom.promise
