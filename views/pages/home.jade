@@ -1,4 +1,4 @@
-section(data-ng-hide="global.authenticated")
+section(data-ng-hide="global.authenticated", ng-controller="IndexController", data-ng-init="commentsReservesBuys()",)
   section#home(data-stellar-background-ratio='0.5')
     .container
         .row
@@ -43,7 +43,7 @@ section(data-ng-hide="global.authenticated")
                 a.btn.btn-lg(title='', href='#signup', target='blank')
                   i.icon-flash
                   | Registrese ahora
-  section#services.slice.color1(ng-controller="IndexController", data-ng-init="commentsReservesBuys()",)
+  section#services.slice.color1
         .container
           .row
             .col-xs-12
@@ -81,11 +81,12 @@ section(data-ng-hide="global.authenticated")
                 .col-xs-4
                   h2.text-center {{shopcount}}
                   p.text-center {{'ACTIVE_SHOPS' | translate}}
-.location.col-md-12(data-ng-show="global.authenticated")
-  span.location-text
-section#signup(data-ng-hide="global.authenticated")
-  include ../templates/signupform
-.row(data-ng-show="global.authenticated")
+  section#signup
+    include ../templates/signupform
+//- .location.col-md-12(data-ng-show="global.authenticated")
+//-   span.location-text
+
+.row(ng-controller="IndexController", data-ng-show="global.authenticated")
   div(data-ng-show="global.user")
     .profile-status(data-ng-hide="hideSteps")
       h2
