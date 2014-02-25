@@ -9,7 +9,7 @@ section#works.slide(data-ng-controller='DealsController')
         | , Lng:
         input(ng-model='currentMarkerLng')
         a(ng-click='setMarkerPosition(currentMarker, currentMarkerLat, currentMarkerLng)') Set Position
-      .map-canvas(ui-map='myMap', ui-event='{\'map-click\': \'addMarker($event, $params)\', \'map-zoom_changed\': \'setZoomMessage(myMap.getZoom())\' }', ui-options='mapOptions')
+      #map-canvas
     .searchbar
 
       nav#filter.col-md-12.text-center

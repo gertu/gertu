@@ -47,18 +47,18 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
   #   return
 
   $scope.myMarkers = []
-  $scope.mapOptions =
-    center: new google.maps.LatLng($scope.global.userLat, $scope.global.userLong)
-    zoom: 15
-    maxZoom: 15
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-    draggable: false
-    disableDefaultUI: true
+  # $scope.mapOptions =
+  #   center: new google.maps.LatLng($scope.global.userLat, $scope.global.userLong)
+  #   zoom: 15
+  #   maxZoom: 15
+  #   mapTypeId: google.maps.MapTypeId.ROADMAP
+  #   draggable: false
+  #   disableDefaultUI: true
 
 
   $scope.addMarker = ($event, $params) ->
     $scope.myMarkers.push new google.maps.Marker(
-      map: $scope.myMap
+      map: $scope.dealmap
       position: new google.maps.LatLng($params.latitude, $params.longitude)
       deal: $params
     )
@@ -100,18 +100,26 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
 
   geolocation().then ((position) ->
     $scope.find(position)
+
+    $scope.mapOptions =
+      center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+      zoom: 15
+      maxZoom: 15
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+      draggable: false
+      disableDefaultUI: true
+
+    $scope.dealmap = new google.maps.Map(document.getElementById("map-canvas"), $scope.mapOptions)
   )
 
 
   $scope.find = (position)->
     $scope.uniqueCategories = []
     prom = $q.defer()
-    console.log $scope.global.userLong
     Deals.getNearest
       userLong: position.coords.longitude
       userLat:  position.coords.latitude
     , (deals) ->
-      console.log deals
       $scope.deals = deals
       $scope.filteredDeals = deals
       for deal in deals
