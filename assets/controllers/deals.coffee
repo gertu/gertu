@@ -50,7 +50,11 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
   $scope.mapOptions =
     center: new google.maps.LatLng($scope.global.userLat, $scope.global.userLong)
     zoom: 15
+    maxZoom: 15
     mapTypeId: google.maps.MapTypeId.ROADMAP
+    draggable: false
+    disableDefaultUI: true
+
 
   $scope.addMarker = ($event, $params) ->
     $scope.myMarkers.push new google.maps.Marker(
@@ -129,18 +133,6 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
         $scope.filteredDeals = $scope.deals
     for deal in $scope.filteredDeals
           $scope.addMarker '',deal.deal.shop.loc
-
-  #   $scope.filteredDeals_old = $scope.filteredDeals
-
-  # $scope.filterByPrice = ->
-  #   if ($scope.selectedPrice in $scope.priceRange)
-  #     $scope.filteredDeals2 = []
-  #     for deal in $scope.filteredDeals_old
-  #       if deal.deal.gertuprice > $scope.selectedPrice.min and deal.deal.gertuprice < $scope.selectedPrice.max
-  #         $scope.filteredDeals2.push deal
-  #     $scope.filteredDeals = $scope.filteredDeals2
-  #   else
-  #     $scope.filteredDeals = $scope.filteredDeals_old
 
 
   $scope.showdealcategories = ->
