@@ -1,52 +1,57 @@
 section.profile(data-ng-controller='UsersController', data-ng-init='findOne()')
-  form.user-basics.col-md-4(name="user-basics", data-ng-submit="update()")
-    h3.arrow-title {{'MY_PERFIL' | translate}}
-    .arrow-down
-    .fieldset
-      .form-group
-        label(for="email")
-          span.glyphicon.glyphicon-envelope
-          | {{'EMAIL' | translate}}
-        input.email.form-control(type="email", id="email", name="email", data-ng-model="user.email" ,value="{{user.email}}", disabled='true')
+  h2 {{'MY_PERFIL' | translate}}
+  .row
+    .col-md-8
+      form(name="user-basics", data-ng-submit="update()")
+       .fieldset
+          .row
+            .col-md-6
+              .form-group
+                label(for="email")
+                  span.glyphicon.glyphicon-envelope
+                  | {{'EMAIL' | translate}}
+                input.email.form-control(type="email", id="email", name="email", data-ng-model="user.email" ,value="{{user.email}}", disabled='true')
 
-      .form-group
-        label(for="firstName")
-          span.glyphicon.glyphicon-user
-          | {{'FIRSTNAME' | translate}}
-        input.firstName.form-control(type="text", id="firstName", name="firstName", data-ng-model="user.firstName",value="{{user.firstName}}")
+              .form-group
+                label(for="firstName")
+                  span.glyphicon.glyphicon-user
+                  | {{'FIRSTNAME' | translate}}
+                input.firstName.form-control(type="text", id="firstName", name="firstName", data-ng-model="user.firstName",value="{{user.firstName}}")
 
-      .form-group
-        label(for="lastName")
-          span.glyphicon.glyphicon-user
-          | {{'LASTNAME' | translate}}
-        input.lastName.form-control(type="text", id="lastName", name="lastName", data-ng-model="user.lastName",value="{{user.lastName}}")
+              .form-group
+                label(for="lastName")
+                  span.glyphicon.glyphicon-user
+                  | {{'LASTNAME' | translate}}
+                input.lastName.form-control(type="text", id="lastName", name="lastName", data-ng-model="user.lastName",value="{{user.lastName}}")
+            .col-md-6
+              .form-group
+                label(for="birthDate")
+                  span.glyphicon.glyphicon-calendar
+                  | {{'BIRTHDAY' | translate}}
+                input.form-control(type='text', ng-click='open($event)', id="birthDate",placeholder="Fecha nacimiento",datepicker-popup='dd/MM/yyyy',data-ng-model='user.birthDate', is-open='opened', max='\'2015-06-22\'', datepicker-options='dateOptions', ng-required='true', close-text='Close')
 
-      .form-group
-        label(for="birthDate")
-          span.glyphicon.glyphicon-calendar
-          | {{'BIRTHDAY' | translate}}
-        input.form-control(type='text', ng-click='open($event)', id="birthDate",placeholder="Fecha nacimiento",datepicker-popup='dd/MM/yyyy',data-ng-model='user.birthDate', is-open='opened', max='\'2015-06-22\'', datepicker-options='dateOptions', ng-required='true', close-text='Close')
+              .form-group
+                label(for="location")
+                  span.glyphicon.glyphicon-map-marker
+                  | {{'RADIUS_DISTANCE' | translate}}
+                  span.glyphicon.glyphicon-question-sign(tooltip="{{'RADIUS_DISTANCE_TOOLTIP' | translate}}",tooltip-placement="bottom",style="margin-left: 12px;")
+                .input-group
+                  input.form-control(type="text", data-ng-model="user.radius",id="location", name="location")
+                  span.input-group-addon {{'METERS' | translate}}
 
-      .form-group
-        label(for="location")
-          span.glyphicon.glyphicon-map-marker
-          | {{'RADIUS_DISTANCE' | translate}}
-          span.glyphicon.glyphicon-question-sign(tooltip="{{'RADIUS_DISTANCE_TOOLTIP' | translate}}",tooltip-placement="bottom",style="margin-left: 12px;")
-        .input-group
-          input.form-control(type="text", data-ng-model="user.radius",id="location", name="location")
-          span.input-group-addon {{'METERS' | translate}}
-
-      .form-actions
-        button.btn.btn-primary(type="submit",data-loading-text="{{'SAVING' | translate}}") {{'SAVE' | translate}}
-  form.user-picture.col-md-4(action="/api/v1/profile/updatepicture", method="post", id="user-picture", enctype="multipart/form-data")
-    .arrow-down
-    .fieldset
-      .imagechanger
-        img.dynamicpicture(ng-src="{{user.picture}}")
-      .form-group
-        a.uploadButton(href="#",onclick="openInput();")
-          span.glyphicon.glyphicon-folder-open
-          |  {{'CHANGE_IMAGE' | translate}}
-        input.picture.form-control(type="file", onchange="readURL(this);", name="picture")
-      .form-actions
-        button.btn.btn-primary(type="submit",data-loading-text="{{'UPLOADING' | translate}}") {{'UPLOAD' | translate}}
+          .form-actions
+            button.btn.btn-primary(type="submit",data-loading-text="{{'SAVING' | translate}}") {{'SAVE' | translate}}
+    .col-md-1
+    .col-md-3
+      form.user-picture.col-md-4(action="/api/v1/profile/updatepicture", method="post", id="user-picture", enctype="multipart/form-data")
+        .arrow-down
+        .fieldset
+          .imagechanger
+            img.dynamicpicture(ng-src="{{user.picture}}")
+          .uploadPhoto
+            a.uploadButton(href="#",onclick="openInput();")
+              span.glyphicon.glyphicon-folder-open
+              |  {{'CHANGE_IMAGE' | translate}}
+            input.picture.form-control(type="file", onchange="readURL(this);", name="picture")
+          .form-actions
+            button.btn.btn-primary(type="submit",data-loading-text="{{'UPLOADING' | translate}}") {{'UPLOAD' | translate}}

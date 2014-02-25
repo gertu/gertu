@@ -23,7 +23,7 @@ block content
       form(method="POST", enctype="multipart/form-data", action="#{actionUrl}", class="form-horizontal")
         .row-fluid
           .span12
-            input(type="hidden", value="#{deal._id}", name="id")
+            input#id(type="hidden", value="#{deal._id}", name="id")
             .control-group
               label(for='name', class='control-label')
                 strong Nombre de la oferta
@@ -56,16 +56,12 @@ block content
         .row-fluid
           .span3
             label(for='price')
-              strong Precio:
+              strong Precio (&euro;):
             input#price(type='text', name='price', value='#{deal.price}', required='required', style='width: 100px')
           .span3
             label(for='gertuprice')
-              strong Precio Gertu:
+              strong Precio Gertu (&euro;):
             input#gertuprice(type='text', name='gertuprice', value='#{deal.gertuprice}', required='required', style='width: 100px')
-          .span3
-            label(for='discount')
-              strong Descuento (%):
-            input#discount(type='text', name='discount', value='#{deal.discount}', required='required', style='width: 100px')
           .span3
             label(for='quantity')
               strong Quantity:
@@ -108,17 +104,28 @@ block content
       function isPageValid(){
         var isValid = true;
 
-        if (! $('#image').val()) {
+        if (! $('#image').val() && $('#id').val() == 'undefined') {
           isValid = false;
           App.showAlert('Debe seleccionar una imagen para la oferta');
+        }
+
+        if ( isNaN(parseFloat($('#price').val()))
+          || isNaN(parseFloat($('#gertuprice').val()))
+          || isNaN(parseFloat($('#quantity').val()))
+          || !(parseFloat($('#price').val()) > 0)
+          || !(parseFloat($('#gertuprice').val()) > 0)
+          || !(parseFloat($('#quantity').val()) > 0)
+          ){
+
+          isValid = false;
+          App.showAlert('Debe indicar un valor para el precio, el pregio GERTU y la cantidad');
+
         }
 
         return isValid;
       }
 
       $(function(){
-
-        App.syncronizeGertuPriceBoxes('#price', '#gertuprice', '#discount');
 
         $('input[data-ui="datepicker"]').datepicker({
 

@@ -47,9 +47,6 @@ angular.module('mean.system').controller 'IndexController', [
           prom.resolve()
       prom.promise
 
-    $scope.totalProgress  = 4
-    $scope.actualProgress = 3
-
     myComments = ->
       Index.getComments.query
         userId: $scope.global.user._id
@@ -67,9 +64,4 @@ angular.module('mean.system').controller 'IndexController', [
         userId: $scope.global.user._id
       , (myBuys) ->
         $scope.myBuys = myBuys
-
-    $scope.commentsReservesBuys = ->
-      $scope.myComments = myComments()
-      $scope.myBuys     = myBuys()
-      $scope.myReserves = myReserves()
 ]
