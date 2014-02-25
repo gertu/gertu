@@ -11,7 +11,6 @@ section#works.slide(data-ng-controller='DealsController', ng-init='find()')
         a(ng-click='setMarkerPosition(currentMarker, currentMarkerLat, currentMarkerLng)') Set Position
       .map-canvas(ui-map='myMap', ui-event='{\'map-click\': \'addMarker($event, $params)\', \'map-zoom_changed\': \'setZoomMessage(myMap.getZoom())\' }', ui-options='mapOptions')
     .searchbar
-
       nav#filter.col-md-12.text-center
         col-sm-12
           h1 Buscar por:
@@ -34,7 +33,6 @@ section#works.slide(data-ng-controller='DealsController', ng-init='find()')
                 a.btn.btn-sm(href='', data-filter='.women') Women
               li
                 a.btn.btn-sm(href='', data-filter='.cats') Cats
-
     ul.deals
       li(ng-repeat='deal in filteredDeals | filter:dealname')
         .deal-data

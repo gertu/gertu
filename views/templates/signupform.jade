@@ -13,16 +13,17 @@ section#contactSlice.slice
           br
           | No lo piense mas
           br
+      .col-sm-8
+        form.contactfrm(name="signup_form", novalidate, action="api/v1/users", method="post")
+          .form-group(ng-class="{'has-error': signup_form.email.$dirty && signup_form.email.$invalid}")
+            input#email.form-control(type="email", name="email", ng-model="signup.email" ,placeholder="Email", ng-minlength=3, ng-maxlength=20 ,required)
 
-      form.contactfrm(name="signup_form", novalidate, action="api/v1/users", method="post")
-        .form-group(ng-class="{'has-error': signup_form.email.$dirty && signup_form.email.$invalid}")
-          input#email.form-control(type="email", name="email", ng-model="signup.email" ,placeholder="Email", ng-minlength=3, ng-maxlength=20 ,required)
+          .form-group(ng-class="{'has-error': signup_form.password.$dirty && signup_form.password.$invalid}")
+            input#password.form-control(type="password", name="password", placeholder="Contraseña", ng-model="signup.password", ng-minlength=6, ng-maxlength=20, required)
 
-        .form-group(ng-class="{'has-error': signup_form.password.$dirty && signup_form.password.$invalid}")
-          input#password.form-control(type="password", name="password", placeholder="Contraseña", ng-model="signup.password", ng-minlength=6, ng-maxlength=20, required)
+          .form-group(ng-class="{'has-error': signup_form.pwdcheck.$dirty && signup_form.pwdcheck.$invalid}")
+            input#pwdcheck.form-control(type="password", name="pwdcheck", placeholder="Repetir Contraseña", ng-model="signup.pwdcheck", ng-minlength=6, ng-maxlength=20, required)
 
-        .form-group(ng-class="{'has-error': signup_form.pwdcheck.$dirty && signup_form.pwdcheck.$invalid}")
-          input#pwdcheck.form-control(type="password", name="pwdcheck", placeholder="Repetir Contraseña", ng-model="signup.pwdcheck", ng-minlength=6, ng-maxlength=20, required)
-
-        .form-actions
-          button.btn.btn-primary(type="submit",ng-disabled="signup_form.$invalid" ) {{'SIGNUP' | translate}}
+          .form-actions
+            button.btn(type="submit",ng-disabled="signup_form.$invalid" ) {{'SIGNUP' | translate}}
+              i.icon-flash

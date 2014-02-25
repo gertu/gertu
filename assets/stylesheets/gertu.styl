@@ -61,14 +61,18 @@ h1, h2, h3
   list-style none
   width 100%
   float left
-  margin-top 25px
+  padding-top 25px
+  background  url('../../img/light_toast.png') repeat top left
+
   li
     float left
     width 306px
     margin 0 30px 15px
     text-align center
-    background rgba(black,0.45)
+    background rgba(white)
     animation fadeIn 1s
+    padding 10px
+    box-shadow 0px 0px 5px rgba(0, 0, 0, 0.4)
     color white
     span.glyphicon
       margin-right 4px
@@ -117,6 +121,28 @@ h1, h2, h3
         .deal-rating, span
           color white
           text-shadow(0,0,6px,black)
+
+.pricecolumn
+  .normalprice
+    height 70px
+    float left
+    background light-grey
+    color white
+    text-align center
+    p.price
+      padding 5px 30px 0px 30px
+      text-decoration line-through
+      font-size 12px
+    p.discount
+      font-size 22px
+  .gertuprice
+    height 70px
+    padding-top 25px
+    background light-green
+    color white
+    text-align center
+    p
+      font-size 30px
 
 .effeckt-caption
   position relative
