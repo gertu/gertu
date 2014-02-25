@@ -17,7 +17,7 @@ section#works.slice(data-ng-controller='DealsController', ng-init='find()')
     h3 Buscar por:
     input.form-control(type="search",ng-model="dealname",placeholder="Nombre de oferta...")
     //- input.form-control(type="search",ng-model="search.shop",placeholder="Nombre de tienda...")
-   nav#filter.col-md-12.text-center
+    nav#filter.col-md-12.text-center
       ul
         li
           a.current.btn.btn-sm(href='', data-filter='*') All
@@ -60,4 +60,4 @@ section#works.slice(data-ng-controller='DealsController', ng-init='find()')
           .gertuprice.col-sm-4
             h3 {{deal.deal.gertuprice | currency:"&euro;"}}
           .discount.col-sm-4
-            h3 {{deal.deal.discount | number:0}}%
+            h3 {{deal.deal.discount | number:0}} %
