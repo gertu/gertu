@@ -547,11 +547,11 @@ hr {
 ================================================== */
 
 .margin-top{
-	margin-top: 15px;
+	margin-top: 20px;
 }
 
 #mainHeader{background:#eee;}
-.navbar-brand{padding-top:30px;padding-left: 0;}
+.navbar-brand{padding-top:10px;padding-left: 0;}
 
 
 .fixedHeader {
