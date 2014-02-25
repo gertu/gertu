@@ -40,7 +40,8 @@ section(data-ng-hide="global.authenticated", ng-controller="IndexController")
                 //- a.btn.btn-lg(target="_self" href='/shopmanagement/login')
                 //-   i.icon-flash
                 //-   | {{'I_AM_A_SHOP' | translate}}
-                a.btn.btn-lg(title='', href='#signup', target='blank')
+                //- a.btn.btn-secondary(target="_self" href='/shopmanagement/login')
+                a.btn.btn-lg(target="_self" href='#signup')
                   i.icon-flash
                   | Registrese ahora
   section#services.slice.color1
@@ -81,6 +82,7 @@ section(data-ng-hide="global.authenticated", ng-controller="IndexController")
                 .col-xs-4
                   h2.text-center {{shopcount}}
                   p.text-center {{'ACTIVE_SHOPS' | translate}}
+
   section#signup
     include ../templates/signupform
 
