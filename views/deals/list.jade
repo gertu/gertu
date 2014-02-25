@@ -1,9 +1,5 @@
-section#works.slice(data-ng-controller='DealsController', ng-init='find()')
-  .container.clearfix
-    .row
-      .col-sm-12
-        h1 Ofertas
-        h2.subTitle Aqui puede ver las ofertas
+section(data-ng-controller='DealsController', ng-init='find()')
+  .col-sm-12
     div(ng-repeat='marker in myMarkers', ui-map-marker='myMarkers[$index]', ui-event='{\'map-click\': \'openMarkerInfo(marker)\'}')
     div(ui-map-info-window='myInfoWindow')
       h1 {{currentMarkerName}}
@@ -15,21 +11,12 @@ section#works.slice(data-ng-controller='DealsController', ng-init='find()')
     .map-canvas(ui-map='myMap', ui-event='{\'map-click\': \'addMarker($event, $params)\', \'map-zoom_changed\': \'setZoomMessage(myMap.getZoom())\' }', ui-options='mapOptions')
   .searchbar
     h3 Buscar por:
-    input.form-control(type="search",ng-model="dealname",placeholder="Nombre de oferta...")
-    //- input.form-control(type="search",ng-model="search.shop",placeholder="Nombre de tienda...")
-    nav#filter.col-md-12.text-center
-      ul
-        li
-          a.current.btn.btn-sm(href='', data-filter='*') All
-
     input.form-control(type="search",ng-model="dealname",placeholder="Nombre de oferta...",typeahead="deal.deal.name for deal in deals | filter:$viewValue | limitTo:8")
-
     select(ng-options="category for category in uniqueCategories",ng-change="filter()",ng-model="selectedCategory",style="color: black;")
       option(value="",selected) --Todas las categorías--
     select(ng-options="price.text for price in priceRange",ng-change="filter()",ng-model="selectedPrice",style="color: black;")
       option(value="",selected) --Cualquier precio--
-   #3.portfolio-items.isotopeWrapper.clearfix.imgHover
-        article.col-sm-4.isotopeItem.women(ng-repeat='deal in filteredDeals | filter:dealname')
+  ul.deals
     li(ng-repeat='deal in filteredDeals | filter:dealname')
       .deal-data
         a(data-ng-href="deals/{{deal.deal._id}}")
@@ -60,4 +47,4 @@ section#works.slice(data-ng-controller='DealsController', ng-init='find()')
           .gertuprice.col-sm-4
             h3 {{deal.deal.gertuprice | currency:"&euro;"}}
           .discount.col-sm-4
-            h3 {{deal.deal.discount | number:0}} %
+            h3 {{deal.deal.discount | number:0}}%
