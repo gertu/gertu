@@ -5,6 +5,8 @@ User        = mongoose.model 'User'
 Deal        = mongoose.model 'Deal'
 Token       = mongoose.model 'Token'
 Reservation = mongoose.model 'Reservation'
+Shop        = mongoose.model "Shop"
+
 
 exports.usersLogin = (req, res) ->
 
@@ -240,4 +242,15 @@ exports.reservationsGetAll = (req, res) ->
 
     res.status(200).send(JSON.stringify(reservations)) unless err?
     res.status(404).send('Deal not found') if err?
+  )
+
+exports.currentShopInfo = (req, res) ->
+
+  shopId = req.params.shopId
+
+  Shop.findOne({_id: shopId}).exec( (err, shopdata) ->
+    if err
+      res.status(500).send('Application error')
+    else
+      res.send JSON.stringify(shopdata.name)
   )
