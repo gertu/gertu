@@ -21,6 +21,8 @@ config     = require("../../config/config")
       (err, data) ->
         htmlContent = data + ''
 
+        console.log err if err?
+
         if err and onError?
 
           onError (err)
@@ -30,7 +32,7 @@ config     = require("../../config/config")
           for key of variables
             onError(key)
             htmlContent = htmlContent.replace '{{' + key + '}}', variables[key]
-        
+
         Mailer.send to, subject, htmlContent, onSuccess, onError
 
 

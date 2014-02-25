@@ -115,6 +115,36 @@ exports.confirm = (req, res) ->
       res.render "pages/shopmanagement/access/confirm", {currentShop: shop}
     )
 
+exports.confirmDo = (req, res) ->
+  shopId = req.params.shopId
+
+  Shop.findOne({_id: shopId}).exec( (err, shop) ->
+
+    if err
+      res.status(500).send('Application error')
+    else if not shop?
+
+      res.render "pages/shopmanagement/access/login",
+        {errorMsg: 'Los credenciales suministrados no corresponden a un usuario'}
+
+    else if shop.confirmed
+
+      res.redirect "/shopmanagement/dashboard"
+
+    else
+
+      shop.confirmed = true
+      shop.save( (err) ->
+        req.session.currentShop =
+          shopId: shop._id,
+          shopEmail: shop.email,
+          isAuthenticated: true
+        res.redirect "/shopmanagement/dashboard"
+        )
+
+    )
+
+
 exports.resetpassword = (req, res) ->
   res.render "pages/shopmanagement/access/resetpassword"
 
