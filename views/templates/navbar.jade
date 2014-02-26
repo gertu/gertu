@@ -21,8 +21,7 @@ div#header-wrap
             li.dropdown(data-ng-show='global.user')
               a.dropdown-toggle(href='#', data-toggle='dropdown')
                 | {{"WELCOME" | translate}} {{global.user.firstName}}
-                span(ng-show="!global.user.firstName")
-                  {{global.user.email}}
+                span(ng-show="!global.user.firstName") {{global.user.email}}
                 b.caret
               ul.dropdown-menu
                 li

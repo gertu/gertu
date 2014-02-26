@@ -6,7 +6,9 @@
               span.icon-bar
               span.icon-bar
               span.icon-bar
-            span.brand Área de tiendas
+            span.brand
+              img(src='/img/gertu_logo_head.png')
+              span Área de tiendas
             .nav-collapse.collapse
               ul.nav
                 li.active
@@ -47,7 +49,6 @@
               ul.nav.pull-right.settings
                 li.divider-vertical
               p.navbar-text.pull-right
-                | Bienvenido/a,
                 a.tip.icon.logout(href='/shopmanagement/profile/view')
                   strong #{currentShop ? currentShop.shopEmail : ''}
               ul.nav.pull-right.settings
