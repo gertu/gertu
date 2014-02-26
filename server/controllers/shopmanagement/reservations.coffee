@@ -6,11 +6,17 @@ _           = require "underscore"
 exports.list = (req, res) ->
   shopId = req.session.currentShop.shopId
 
-  Reservation.find({deal: {shop: {_id: shopId}}}).populate('deal').populate('deal.shop').exec( (err, reservations) ->
+  Reservation.find({redeemed: true}).populate('deal').populate('deal.shop').exec( (err, reservations) ->
 
-    reservations = reservations || []
+    shopReservations = []
 
-    res.render 'pages/shopmanagement/reservations/list', {reservations: reservations, currentShop: req.session.currentShop}
+    for reservation in reservations
+
+      if (reservation.deal.shop + '') == (shopId + '')
+
+        shopReservations.push reservation
+
+    res.render 'pages/shopmanagement/reservations/list', {reservations: shopReservations, currentShop: req.session.currentShop}
   )
 
 exports.confirm = (req, res) ->
