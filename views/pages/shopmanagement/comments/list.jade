@@ -19,19 +19,23 @@ block content
     .row-fluid
         .span2
         .span8
-            .well
-                h1 Últimos comentarios
-            - for deal in deals
-                p Oferta: #{deal.name}
-                table.table.table-bordered
-                    thead
-                        tr
-                            th Fecha
-                            th Comentario
-                            th Valoración
-                    tbody
-                        - for comment in deal.comments
+            h1 Últimos comentarios
+
+            -if (deals.length == 0)
+                .well
+                    p No tiene comentarios aún
+            -else
+                - for deal in deals
+                    p Oferta: #{deal.name}
+                    table.table.table-bordered
+                        thead
                             tr
-                                td #{formatDate(comment.writedAt)}
-                                td #{comment.description}
-                                td #{comment.rating}
+                                th Fecha
+                                th Comentario
+                                th Valoración
+                        tbody
+                            - for comment in deal.comments
+                                tr
+                                    td #{formatDate(comment.writedAt)}
+                                    td #{comment.description}
+                                    td #{comment.rating}

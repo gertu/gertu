@@ -5,8 +5,9 @@
 body
 {
     padding: 10px;
-    padding-top: 60px;
+    padding-top: 120px;
     padding-bottom: 40px;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .sidebar-nav
@@ -54,4 +55,74 @@ input.reservationConfirmation{
     text-align: center;
     font-weight: bold;
     font-size: 20px;
+}
+
+.navbar-inner{
+    background: #FFFFFF;
+    height: 90px;
+}
+
+ul.nav{
+    margin-top: 20px !important;
+}
+
+.navbar-inner ul li{
+    height: 50px;
+}
+
+.navbar-inner ul li a{
+    padding: 15px !important;
+}
+
+.navbar-inner ul li.active a{
+    background-color: #7DC24F !important;
+    color: #FFFFFF !important;
+    font-size: 14px !important;
+}
+.navbar-inner p.navbar-text{
+    padding-top: 20px;
+}
+
+span.brand span{
+    padding-top: 20px;
+}
+
+.btn{
+
+    border-radius: 2px !important;
+    padding: 2px 5px !important;
+}
+
+.btn.btn-primary{
+    background-color: #7DC24F;
+}
+
+h1{
+    font-size: 44px;
+    line-height: 44px;
+    font-weight: 300;
+    font-style: normal;
+    text-align: center;
+    text-transform: uppercase;
+    position: relative;
+    letter-spacing: 0.1em;
+    margin-bottom: 17px;
+    color: #222222;
+}
+
+table thead tr th{
+    background-color: #7DC24F;
+}
+
+.table-bordered th, .table-bordered td{
+    border: 1px solid #7DC24F;
+}
+
+form label{
+    color: #777777;
+    font-weight: bold;
+}
+
+form input[type='text'], form input[type='email'], form input[type='password']{
+    background-color: #EDEDED;
 }
