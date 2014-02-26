@@ -479,7 +479,15 @@ hr {
 
 /*** call to actioon ***/
 
-.ctaBox{padding:33px 11px;}
+.ctaBox{
+  padding:33px 11px;
+  margin-top: 20px;
+}
+
+.ctaBox li{
+  list-style: none;
+}
+
 .ctaBoxFullwidth{padding:0;}
 
 .ctaBox a {margin-top:22px;}
