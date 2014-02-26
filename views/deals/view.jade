@@ -3,7 +3,8 @@ section#portfolioSheetWrapper(data-ng-controller="DealsController", data-ng-init
     .row
       .col-md-10
         h1 {{deal.name}}
-        p.date Valido desde: {{deal.datainit | date:"medium"}} hasta {{deal.dataend | date: "longDate"}}
+        p Quedan {{deal.quantity}} ofertas disponibles
+
       .col-md-2
         button.btn.pull-right(type="submit", ng-click="reserve()")
           i.icon-ok-outline
@@ -13,7 +14,7 @@ section#portfolioSheetWrapper(data-ng-controller="DealsController", data-ng-init
       .container
         .row
           .col-md-4
-            img(ng-src='{{deal.image}}' width="300px")
+            img.dealdetail(ng-src='{{deal.image}}' width="300px")
             .pricecolumn
               .normalprice
                 p.price
@@ -25,12 +26,13 @@ section#portfolioSheetWrapper(data-ng-controller="DealsController", data-ng-init
           .col-md-7
             h2 {{deal.shop.name}}
             p {{deal.description}}
-            p {{deal.price | currency:"&euro;"}}
+            p.date Valido desde: {{deal.datainit | date: "longDate"}} hasta {{deal.dataend | date: "longDate"}}
+            p Los dias: {{deal.days}}
 
             //- button.btn.btn-primary(type="submit", ng-click="reserve()") {{'RESERVE' | translate}}
         .row
-          .col-md-12.color1.ctaBox
-            h3 {{"COMMENTS" | translate}}
+          .col-md-12.color1.ctaBox.comment
+            h2 {{"COMMENTS" | translate}}
             ul.deal.comments
               li(data-ng-repeat="comment in deal.comments")
                 {{comment.author.email}}
