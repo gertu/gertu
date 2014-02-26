@@ -13,6 +13,9 @@ section#contactSlice.slice
           br
           | {{'DONT_HESITATE' | translate}}
           br
+         a.btn.btn-lg(target="_self" href='/shopmanagement/login')
+            i.icon-flash
+            | {{'I_AM_A_SHOP' | translate}}
       .col-sm-8
         form.contactfrm(name="signup_form", novalidate, action="api/v1/users", method="post")
           .form-group(ng-class="{'has-error': signup_form.email.$dirty && signup_form.email.$invalid}")
