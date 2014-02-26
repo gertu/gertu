@@ -90,8 +90,8 @@ angular.module("mean").config ["$translateProvider", ($translateProvider) ->
     #deals
     DEALNAME_PLACEHOLDER: "Deal name..."
     SEARCH_BY: "Search by:"
-    ALL_CATEGORIES: "--All categories--"
-    ANY_PRICE: "--Any price--"
+    ALL_CATEGORIES: "All categories"
+    ANY_PRICE: "Any price"
 
     #deal/:dealId
     RESERVE: "Reserve"
@@ -200,8 +200,8 @@ angular.module("mean").config ["$translateProvider", ($translateProvider) ->
     #deals
     DEALNAME_PLACEHOLDER: "Nombre de oferta..."
     SEARCH_BY: "Buscar por:"
-    ALL_CATEGORIES: "--Todas las categorías--"
-    ANY_PRICE: "--Cualquier precio--"
+    ALL_CATEGORIES: "Todas las categorías"
+    ANY_PRICE: "Cualquier precio"
 
     # deal/:dealId
     RESERVE: "Reservar"

@@ -40,6 +40,25 @@
   text-align: center;
 }
 
+.styled-select {
+   margin-top: 5px;
+   width: 268px;
+   height: 34px;
+   overflow: hidden;
+   background: url("../../img/select_arrow.png") no-repeat right #ddd;
+   border: 1px solid #ccc;
+   }
+
+.styled-select select {
+   width: 268px;
+   background: transparent;
+   font-size: 16px;
+   line-height: 1;
+   border: 0;
+   -webkit-appearance: none;
+   }
+
+
 
 
 
