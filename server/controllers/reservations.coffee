@@ -22,7 +22,7 @@ exports.reserve = (req, res) ->
             -1
       , (err,data) ->
         res.status 200
-        res.end()
+        res.jsonp reservation
 
 exports.myReserves = (req, res) ->
   currentUser = req.user
