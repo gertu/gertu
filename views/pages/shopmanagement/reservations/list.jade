@@ -1,6 +1,16 @@
 extends ../layouts/default
 block content
     include ../layouts/top-menu
+
+    -function formatDate(dateString){
+        -var date = new Date(dateString);
+        -var d = date.getDate();
+        -var monthNames = [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ];
+        -var m = monthNames[date.getMonth()];
+        -var y = date.getFullYear();
+        -return d+' '+m+' '+y;
+    -}
+
     .row-fluid
         .span2
             &nbsp;
@@ -19,6 +29,6 @@ block content
                     span #{reservations.length}
                     - for reservation in reservations
                         tr
-                            td #{reservation.date}
-                            td #{reservation.deal.name}
-                            td #{reservation.deal.categoryname}
+                            td #{formatDate(reservation.date)}
+                            td ff
+                            td ff
