@@ -1,10 +1,10 @@
 form.form-horizontal(role="form", data-ng-submit="addComent()")
   .form-group
     p
-      label(for="description") {{"DESCRIPTION" | translate}}:
-      span.rating
-        label(for="rating") {{"RATING" | translate}}: &nbsp;
-        rating.deal-rating(value="comment.rating", max="10", data-ng-model="comment.rating", required="required")
+     span.rating
+      label(for="rating") {{"RATING" | translate}}: &nbsp;
+      rating.deal-rating(value="comment.rating", max="10", data-ng-model="comment.rating", required="required")
+    label(for="description") {{"DESCRIPTION" | translate}}:
      p
       textarea#description(rows="5",  cols="50", data-ng-model="comment.description"
       , placeholder="{{'DESCRIPTION_PLACEHOLDER' | translate}}", required="required")

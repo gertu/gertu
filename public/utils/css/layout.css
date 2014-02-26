@@ -66,6 +66,9 @@ p.disp{
   text-align: center;
 }
 
+textarea#description{
+  resize: none;
+}
 /* BOOSTRAP CUSTOMIZATION
 ================================================== */
 .navbar {margin-bottom:0;}
