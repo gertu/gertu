@@ -2,40 +2,42 @@ section#contactSlice.slice
   .container
     .row
       .col-sm-12
-        h1.noSubtitle Contacte con nosotros
+        h1.noSubtitle {{'CONTACT_US' | translate}}
       //- .col-sm-12
       //-   #mapWrapper.mb30
       .col-sm-4
-        h4 Dirección;
+        .form-group
+          label {{'ADDRESS' | translate}}
         address
           | Universidad Desuto
           br
           | Pasepo de las universidades 77
           br
-          | Bilbo Bizkaia 20560
+          | Bilbao Bizkaia 48014
           br
-        h4 Phone&colon;
+        .form-group
+          label {{'OUR_PHONE' | translate}}
         address
           | 615&period;987&period;1234
           br
       form#contactfrm(method='post', action='js-plugin/neko-contact-ajax-plugin/php/form-handler.php', role='form')
         .col-sm-4
           .form-group
-            label(for='name') Name
-            input#name.form-control(type='text', name='name', placeholder='Enter name', title='Please enter your name (at least 2 characters)')
+            label(for='name') {{'NAME' | translate}}
+            input#name.form-control(type='text', name='name', placeholder='{{"NAME_PLACEHOLDER" | translate}}', title='Please enter your name (at least 2 characters)')
           .form-group
-            label(for='email') Email
-            input#email.form-control(type='email', name='email', placeholder='Enter email', title='Please enter a valid email address')
+            label(for='email') {{'EMAIL' | translate}}
+            input#email.form-control(type='email', name='email', placeholder='{{"EMAIL_PLACEHOLDER" | translate}}', title='Please enter a valid email address')
           .form-group
-            label(for='phone') Phone
-            input#phone.form-control.required.digits(type='tel', name='phone', size='30', value='', placeholder='Enter email phone', title='Please enter a valid phone number (at least 10 characters)')
+            label(for='phone') {{'PHONE' | translate}}
+            input#phone.form-control.required.digits(type='tel', name='phone', size='30', value='', placeholder='{{"PHONE_PLACEHOLDER" | translate}}', title='Please enter a valid phone number (at least 10 characters)')
         .col-sm-4
           .form-group
-            label(for='comments') Comments
-            textarea#comments.form-control(name='comment', cols='3', rows='5', placeholder='Enter your message…', title='Please enter your message (at least 10 characters)')
+            label(for='comments') {{'COMMENTS' | translate}}
+            textarea#comments.form-control(name='comment', cols='3', rows='5', placeholder='{{"MESSAGE_PLACEHOLDER" | translate}}', title='Please enter your message (at least 10 characters)')
         .col-md-8.col-md-offset-4
           .result
-          button#submit.btn.btn-lg(name='submit', type='submit')  Enviar
+          button#submit.btn.btn-lg(name='submit', type='submit')  {{'SEND' | translate}}
 
 //- section
 //-   .col-md-8(style="text-align: center;")

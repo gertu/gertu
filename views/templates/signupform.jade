@@ -2,27 +2,27 @@ section#contactSlice.slice
   .container
     .row
       .col-sm-12
-        h1.noSubtitle Rigistrese
+        h1.noSubtitle {{'SIGNUP' | translate}}
       //- .col-sm-12
       //-   #mapWrapper.mb30
       .col-sm-4
         address
-          | No cobramo nada
+          | {{'FOR_FREE' | translate}}
           br
-          | Entre y descubra las ofertas
+          | {{'GET_IN' | translate}}
           br
-          | No lo piense mas
+          | {{'DONT_HESITATE' | translate}}
           br
       .col-sm-8
         form.contactfrm(name="signup_form", novalidate, action="api/v1/users", method="post")
           .form-group(ng-class="{'has-error': signup_form.email.$dirty && signup_form.email.$invalid}")
-            input#email.form-control(type="email", name="email", ng-model="signup.email" ,placeholder="Email", ng-minlength=3, ng-maxlength=20 ,required)
+            input#email.form-control(type="email", name="email", ng-model="signup.email" ,placeholder="{{'EMAIL' | translate}}", ng-minlength=3, ng-maxlength=20 ,required)
 
           .form-group(ng-class="{'has-error': signup_form.password.$dirty && signup_form.password.$invalid}")
-            input#password.form-control(type="password", name="password", placeholder="Contraseña", ng-model="signup.password", ng-minlength=6, ng-maxlength=20, required)
+            input#password.form-control(type="password", name="password", placeholder="{{'PASSWORD' | translate}}", ng-model="signup.password", ng-minlength=6, ng-maxlength=20, required)
 
           .form-group(ng-class="{'has-error': signup_form.pwdcheck.$dirty && signup_form.pwdcheck.$invalid}")
-            input#pwdcheck.form-control(type="password", name="pwdcheck", placeholder="Repetir Contraseña", ng-model="signup.pwdcheck", ng-minlength=6, ng-maxlength=20, required)
+            input#pwdcheck.form-control(type="password", name="pwdcheck", placeholder="{{'REPEAT_PASSWORD' | translate}}", ng-model="signup.pwdcheck", ng-minlength=6, ng-maxlength=20, required)
 
           .form-actions
             button.btn(type="submit",ng-disabled="signup_form.$invalid" ) {{'SIGNUP' | translate}}

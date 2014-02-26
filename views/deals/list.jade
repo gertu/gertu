@@ -9,20 +9,20 @@ section#works.slide(data-ng-controller='DealsController')
         | , Lng:
         input(ng-model='currentMarkerLng')
         a(ng-click='setMarkerPosition(currentMarker, currentMarkerLat, currentMarkerLng)') Set Position
-      .map-canvas(ui-map='myMap', ui-event='{\'map-click\': \'addMarker($event, $params)\', \'map-zoom_changed\': \'setZoomMessage(myMap.getZoom())\' }', ui-options='mapOptions')
+      #map-canvas
     .searchbar
       nav#filter.col-md-12.text-center
         col-sm-12
-          h1 Buscar por:
+          h1 {{'SEARCH_BY' | translate}}
         .row
           .col-sm-3
-            input.form-control.paddingsearch(type="search",ng-model="dealname",placeholder="Nombre de oferta...",typeahead="deal.deal.name for deal in deals | filter:$viewValue | limitTo:8")
+            input.form-control.paddingsearch(type="search",ng-model="dealname",placeholder="{{'DEALNAME_PLACEHOLDER' | translate}}",typeahead="deal.deal.name for deal in deals | filter:$viewValue | limitTo:8")
           .col-sm-2
             select.paddingsearch(ng-options="category for category in uniqueCategories",ng-change="filter()",ng-model="selectedCategory",style="color: black;")
-              option(value="",selected) --Todas las categorías--
+              option(value="",selected) {{'ALL_CATEGORIES' | translate}}
           .col-sm-2
             select.paddingsearch(ng-options="price.text for price in priceRange",ng-change="filter()",ng-model="selectedPrice",style="color: black;")
-              option(value="",selected) --Cualquier precio--
+              option(value="",selected) {{'ANY_PRICE' | translate}}
           .col-sm-4
             ul
               li

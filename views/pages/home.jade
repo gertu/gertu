@@ -2,13 +2,13 @@ section(data-ng-hide="global.authenticated", ng-controller="IndexController")
   section#home(data-stellar-background-ratio='0.5')
     .container
         .row
-          .col-lg-7.col-sm-6
-            #flexHome.flexslider
-              //- ul.slides
-              //-   li.slides
-              //-     h1 Gertu app
-              //-     h2 Find the best deals near you
-          .col-lg-5.col-sm-6.hidden-xs.steps
+          //- .col-lg-7.col-sm-6
+          //-   #flexHome.flexslider
+          //-     //- ul.slides
+          //-     //-   li.slides
+          //-     //-     h1 Gertu app
+          //-     //-     h2 Find the best deals near you
+          .col-lg-5.col-sm-6.hidden-xs.steps.pull-right
             .row
               .col-md-6.step
                 .step-img
@@ -33,9 +33,9 @@ section(data-ng-hide="global.authenticated", ng-controller="IndexController")
             .row
               .col-md-8
                 h1
-                  strong No pierda mas el tiempo
+                  strong {{'DONOT_WASTE_TIME' | translate}}
                   br
-                  | Registrese gratuitamente y empiece a aprovecharse
+                  | {{'REGISTER_FOR_FREE' | translate}}
               .col-md-4
                 //- a.btn.btn-lg(target="_self" href='/shopmanagement/login')
                 //-   i.icon-flash
@@ -43,13 +43,13 @@ section(data-ng-hide="global.authenticated", ng-controller="IndexController")
                 //- a.btn.btn-secondary(target="_self" href='/shopmanagement/login')
                 a.btn.btn-lg(target="_self" href='#signup')
                   i.icon-flash
-                  | Registrese ahora
+                  | {{'REGISTER_NOW' | translate}}
   section#services.slice.color1
         .container
           .row
             .col-xs-12
-              h1 LO QUE TENEMOS
-              h2.subTitle No pierda la oportunidad de aprovecharlos
+              h1 {{'WHAT_WE_HAVE' | translate}}
+              h2.subTitle {{'DONOT_LOSE_CHANCE' | translate}}
           .row
             .col-sm-6
               .row.boxFeature
