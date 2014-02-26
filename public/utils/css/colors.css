@@ -31,7 +31,29 @@
 /* TYPOGRAPHY
 ================================================== */
 
-body {
+.steps{
+  padding: 30px;
+  background-color: rgba(0,0,0,0.7);
+  margin-top: 50px;
+}
+
+.step{
+  padding: 10px;
+  color: white;
+}
+
+.step p{
+  font-size: 12px;
+  text-align: justify;
+}
+
+.text-center{
+  text-align: center;
+}
+
+
+html, body {
+	height: 100%;
 	color:#777;
 	background: #fff;
 }
@@ -171,14 +193,32 @@ ul.iconsList li a:hover, ul.iconsList i {
 /* END MAIN MENU
 ================================================== */
 
-/* FOOTER
+/* STICKY FOOTER
 ================================================== */
 
 footer {
+	height: 100px;
 	color:#777;
-	background:#eee;
+	background: #7DC24F;
 	border-top:1px solid #555s;
 }
+
+#globalWrapper {
+  min-height: 100%;
+  height: auto;
+  margin: 0 auto -60px;
+  padding: 0 0 100px;
+}
+
+
+body > footer > div > ul > li > a {
+  color: #FFFFFF;
+}
+
+.nav .open>a, .nav .open>a:hover, .nav .open>a:focus { background-color: #d1e9c1; }
+
+ul.dropdown-menu { min-width: 120px;}
+
 
 #footerRights {
 	background-color:#fff;

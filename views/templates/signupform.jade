@@ -3,9 +3,7 @@ section#contactSlice.slice
     .row
       .col-sm-12
         h1.noSubtitle {{'SIGNUP' | translate}}
-      //- .col-sm-12
-      //-   #mapWrapper.mb30
-      .col-sm-4
+      #signupform
         address
           | {{'FOR_FREE' | translate}}
           br
@@ -13,7 +11,7 @@ section#contactSlice.slice
           br
           | {{'DONT_HESITATE' | translate}}
           br
-      .col-sm-8
+
         form.contactfrm(name="signup_form", novalidate, action="api/v1/users", method="post")
           .form-group(ng-class="{'has-error': signup_form.email.$dirty && signup_form.email.$invalid}")
             input#email.form-control(type="email", name="email", ng-model="signup.email" ,placeholder="{{'EMAIL' | translate}}", ng-minlength=3, ng-maxlength=20 ,required)

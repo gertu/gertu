@@ -1,9 +1,8 @@
-.navbar.navbar-inverse.navbar-fixed-bottom.navbar-inner(data-ng-controller='FooterController')
-  .container(style="text-align: center;")
-      ul.language-selector.nav.navbar-nav.pull-right
-        li.dropdown
-          a.dropdown-toggle(ng-cloak,href='#', data-toggle='dropdown') {{selectedLang.name}}
-            b.caret
-          ul.dropdown-menu(style="min-width: 0; width: 100%;")
-            li(data-ng-repeat="lang in filteredLangs")
-              a(href='#', data-ng-click="selectLang(lang.code)") {{lang.name}}
+.container(data-ng-controller='FooterController')
+    ul.language-selector.nav.navbar-nav.pull-right
+      li.dropdown
+        a.dropdown-toggle(ng-cloak,href='#', data-toggle='dropdown') {{selectedLang.name}}
+          b.caret
+        ul.dropdown-menu
+          li(data-ng-repeat="lang in filteredLangs")
+            a(href='#', data-ng-click="selectLang(lang.code)") {{lang.name}}
