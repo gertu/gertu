@@ -58,9 +58,13 @@
    -webkit-appearance: none;
    }
 
+img.dealdetail{
+  width: 100%;
+}
 
-
-
+p.disp{
+  text-align: center;
+}
 
 /* BOOSTRAP CUSTOMIZATION
 ================================================== */
