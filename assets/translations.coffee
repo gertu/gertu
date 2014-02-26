@@ -11,6 +11,14 @@ angular.module("mean").config ["$translateProvider", ($translateProvider) ->
     SIGNOUT: "Logout"
 
     SIGNUP: "Sign up"
+    SIGNIN: "Sign in"
+    PASSWORD: "Password"
+    REPEAT_PASSWORD: "Repeat password"
+    DONOT_WASTE_TIME: "Do not waste time"
+    REGISTER_FOR_FREE: "Register for free and start taking advantage"
+    REGISTER_NOW: "Register now"
+    WHAT_WE_HAVE: "What we have"
+    DONOT_LOSE_CHANCE: "Do not miss the opportunity to take advantage of them"
     I_AM_A_SHOP: "I'm a shop"
     SIGNUP_FORM_TITLE: "SIGN UP"
     PASSWORDS_DO_NOT_MATCH: "The passwords do not match"
@@ -21,6 +29,9 @@ angular.module("mean").config ["$translateProvider", ($translateProvider) ->
     NO_SHOP_HAS_BEEN_FOUND: "Does not exist any shop with these credentials"
     PASSWORD_AND_EMAIL_HAVE_TO_BE_PROVIDED: "The email and password must required for login"
     UNKNOWN_ERROR: "Unknown error"
+    FOR_FREE: "We do not charge anything"
+    GET_IN: "Enter and discover the deals"
+    DONT_HESITATE: "Do not think twice"
 
     ACTIVE_DEALS: "active deals"
     RESERVED_DEALS: "reserved deals"
@@ -49,6 +60,18 @@ angular.module("mean").config ["$translateProvider", ($translateProvider) ->
     NO_COMMENTS: "You have not writed any comment yet"
     YOU_ARE_IN: "You are in "
 
+    #contact
+    CONTACT_US: "Contact us"
+    ADDRESS: "Address:"
+    OUR_PHONE: "Phone:"
+    NAME: "Name"
+    NAME_PLACEHOLDER: "Enter your name"
+    EMAIL_PLACEHOLDER: "Enter your email"
+    PHONE: "Phone"
+    PHONE_PLACEHOLDER: "Enter your phone"
+    MESSAGE_PLACEHOLDER: "Enter your comments"
+    SEND: "Send"
+
     # /profile
     MY_PERFIL: "My perfil"
     EMAIL: "Email"
@@ -64,7 +87,11 @@ angular.module("mean").config ["$translateProvider", ($translateProvider) ->
     UPLOADING: "Uploading..."
     RADIUS_DISTANCE_TOOLTIP: "Meter radius from your position that they find the deals"
 
-
+    #deals
+    DEALNAME_PLACEHOLDER: "Deal name..."
+    SEARCH_BY: "Search by:"
+    ALL_CATEGORIES: "--All categories--"
+    ANY_PRICE: "--Any price--"
 
     #deal/:dealId
     RESERVE: "Reserve"
@@ -94,6 +121,14 @@ angular.module("mean").config ["$translateProvider", ($translateProvider) ->
     SIGNOUT: "Cerrar sesión"
 
     SIGNUP: "Registrarse"
+    SIGNIN: "Acceder"
+    PASSWORD: "Contraseña"
+    REPEAT_PASSWORD: "Repetir contraseña"
+    DONOT_WASTE_TIME: "No pierda más el tiempo"
+    REGISTER_FOR_FREE: "Regístrese gratuitamente y empiece a aprovecharse"
+    REGISTER_NOW: "Regístrese ahora"
+    WHAT_WE_HAVE: "Lo que tenemos"
+    DONOT_LOSE_CHANCE: "No pierda la oportunidad de aprovecharlas"
     I_AM_A_SHOP: "Soy empresa"
     SIGNUP_FORM_TITLE: "CREAR UNA CUENTA"
     PASSWORDS_DO_NOT_MATCH: "Las contraseñas suministradas no coinciden"
@@ -104,6 +139,9 @@ angular.module("mean").config ["$translateProvider", ($translateProvider) ->
     NO_SHOP_HAS_BEEN_FOUND: "No se ha encontrado ningún comercio con los credenciales suministrados"
     PASSWORD_AND_EMAIL_HAVE_TO_BE_PROVIDED: "Debe indicar una contraseña y un email para poder acceder"
     UNKNOWN_ERROR: "Error desconocido"
+    FOR_FREE: "No cobramos nada"
+    GET_IN: "Entre y descubra las ofertas"
+    DONT_HESITATE: "No lo piense más"
 
     ACTIVE_DEALS: "ofertas activas"
     RESERVED_DEALS: "ofertas reservadas"
@@ -132,6 +170,18 @@ angular.module("mean").config ["$translateProvider", ($translateProvider) ->
     NO_COMMENTS: "No tienes comentarios aún"
     YOU_ARE_IN: "Usted se encuentra en "
 
+    #contact
+    CONTACT_US: "Contacte con nosotros"
+    ADDRESS: "Dirección:"
+    OUR_PHONE: "Teléfono:"
+    NAME: "Nombre"
+    NAME_PLACEHOLDER: "Introduzca su nombre"
+    EMAIL_PLACEHOLDER: "Introduzca su correo electrónico"
+    PHONE: "Teléfono"
+    PHONE_PLACEHOLDER: "Introduzca su teléfono"
+    MESSAGE_PLACEHOLDER: "Introduzca su comentario"
+    SEND: "Enviar"
+
     # / profile
     MY_PERFIL: "Mi perfil"
     EMAIL: "Correo electrónico"
@@ -146,6 +196,12 @@ angular.module("mean").config ["$translateProvider", ($translateProvider) ->
     SAVING: "Guardando..."
     UPLOADING: "Subiendo..."
     RADIUS_DISTANCE_TOOLTIP: "Metros a la redonda, desde tu posición, en los que se buscarán ofertas"
+
+    #deals
+    DEALNAME_PLACEHOLDER: "Nombre de oferta..."
+    SEARCH_BY: "Buscar por:"
+    ALL_CATEGORIES: "--Todas las categorías--"
+    ANY_PRICE: "--Cualquier precio--"
 
     # deal/:dealId
     RESERVE: "Reservar"
