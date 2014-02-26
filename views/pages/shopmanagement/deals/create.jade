@@ -15,8 +15,7 @@ block content
     .span2
     .span8
       - if (esNueva)
-        .well
-          h1 Nueva oferta
+        h1 Nueva oferta
       - else
         .well
           h1 Editando oferta
@@ -58,32 +57,14 @@ block content
             label(for='price')
               strong Precio (&euro;):
             input#price(type='text', name='price', value='#{deal.price}', required='required', style='width: 100px')
-          .span3
+            br
             label(for='gertuprice')
               strong Precio Gertu (&euro;):
             input#gertuprice(type='text', name='gertuprice', value='#{deal.gertuprice}', required='required', style='width: 100px')
-          .span3
+            br
             label(for='quantity')
               strong Quantity:
             input#quantity(type='text', name='quantity', value='#{deal.quantity}', required='required', style='width: 100px')
-        .clearfix
-          br
-        .row-fluid
-          .span3
-            label(for='dias')
-              strong Elige los dias de la semana
-            .row-fluid
-              table
-                - for day in days
-                  tr
-                    td
-                      - if (deal.selecteddays)
-                        input(type='checkbox', name='selecteddays', value='#{day}', checked="checked")
-                      - else
-                        input(type='checkbox', name='selecteddays', value='#{day}')
-                    td
-                      label #{day}
-
           .span9
             label(for='image')
               strong Imagen

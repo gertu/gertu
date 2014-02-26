@@ -4,10 +4,10 @@ Reservation = mongoose.model "Reservation"
 exports.list = (req, res) ->
   shopId = req.session.currentShop.shopId
 
-  Reservation.find({deal : {shop: shopId } }).exec( (err, reservations) ->
-
+  Reservation.find({}).populate('user').exec( (err, reservations) ->
+    console.log(reservations)
     reservations = reservations || []
-    
+
     res.render 'pages/shopmanagement/reservations/list', {reservations: reservations, currentShop: req.session.currentShop}
   )
 

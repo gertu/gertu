@@ -21,15 +21,18 @@ block content
         .span2
             &nbsp;
         .span8
-            .well
-                h1 Listado de últimos pagos
-            table.table.table-bordered
-                thead
-                    tr
-                        th Fecha
-                        th Importe
-                tbody
-                    - for payment in payments
+            h1 Listado de últimos pagos
+            -if (payments.length == 0)
+                .well
+                    p No tiene pagos aún
+            -else
+                table.table.table-bordered
+                    thead
                         tr
-                            td #{formatDate(payment.date)}
-                            td #{formatNumber(payment.amount)} €
+                            th Fecha
+                            th Importe
+                    tbody
+                        - for payment in payments
+                            tr
+                                td #{formatDate(payment.date)}
+                                td #{formatNumber(payment.amount)} €

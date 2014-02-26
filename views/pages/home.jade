@@ -102,8 +102,7 @@ section(data-ng-hide="global.authenticated", ng-controller="IndexController")
           ul
             li(data-ng-repeat="buy in myBuys")
               p {{buy.date | date: "longDate"}}
-              a(href="/deals/{{buy.deal._id}}")
-                {{buy.deal.name}}
+              a(href="/deals/{{buy.deal._id}}") {{buy.deal.name}}
           ul(ng-show="!myBuys.length")
             li {{"NO_BUYS" | translate}}
 
