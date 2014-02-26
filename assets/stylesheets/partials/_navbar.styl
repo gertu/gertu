@@ -40,21 +40,33 @@ form.signin
     margin-right 4px
 
 
+#scrollTarget
+  padding 20px
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form
+  border-color: transparent
+
+@media (min-width: 768px)
+  nav
+    width: 100%
+
+@media (min-width: 992px)
+  nav
+    width: 95%
 
 
+@media (min-width: 1200px)
+  nav
+    width: 90%
 
-@media (min-width: 768px) {
-  .navbartotal {
-    width: 100%;
-  }
+@media (max-width: 1226px) and (min-width: 768px) {
+  #selector-icon-mail { display: none }
 }
-@media (min-width: 992px) {
-  .navbartotal {
-    width: 95%;
-  }
+
+@media (max-width: 1034px) and (min-width: 768px) {
+  #selector-icon-users { display: none }
 }
-@media (min-width: 1200px) {
-  .navbartotal {
-    width: 90%;
-  }
+
+@media (max-width: 856px) and (min-width: 768px) {
+  #selector-icon-home-outline { display: none }
 }

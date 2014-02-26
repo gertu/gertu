@@ -107,13 +107,14 @@ ul.iconsList li a:hover, ul.iconsList i {
 	border:2px solid #fff;
 }
 .btn:hover {
+	background: #555;
 	color:#7DC24F;
 	border-color:#eee;
 	text-shadow:none;
 	background:#fff
 }
 .btn-primary {
-	background: #006dcc;
+	background: #7DC24F;
 }
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .btn-primary.disabled, .btn-primary[disabled] {
 	background: #555;
