@@ -16,6 +16,7 @@ block content
                         th Oferta
                         th Categoría
                 tbody
+                    span #{reservations.length}
                     - for reservation in reservations
                         tr
                             td #{reservation.date}
