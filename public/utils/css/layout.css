@@ -479,7 +479,15 @@ hr {
 
 /*** call to actioon ***/
 
-.ctaBox{padding:33px 11px;}
+.ctaBox{
+  padding:33px 11px;
+  margin-top: 20px;
+}
+
+.ctaBox li{
+  list-style: none;
+}
+
 .ctaBoxFullwidth{padding:0;}
 
 .ctaBox a {margin-top:22px;}
@@ -853,6 +861,10 @@ header#project{padding:22px 0;}
   color: #000;
   box-shadow:none;
   padding:0;
+}
+
+section#portfolioSheetWrapper{
+  margin-top: 80px;
 }
 
 #portfolioSheetWrapper .stage {

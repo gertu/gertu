@@ -1,6 +1,6 @@
 angular.module("mean.deals").controller "DealsController", ["$scope",
-"$routeParams", "$location", "Global", "Deals", "DealsCategory", "DealsShop", "AppAlert", "$http","$q", 'GeolocationService', ($scope,
-  $routeParams, $location, Global, Deals, DealsCategory, DealsShop, AppAlert, $http,$q, geolocation) ->
+"$routeParams", "$location", "Global", "Deals", "DealsCategory", "DealsShop", "AppAlert", "$http","$q", 'GeolocationService', '$modal', ($scope,
+  $routeParams, $location, Global, Deals, DealsCategory, DealsShop, AppAlert, $http,$q, geolocation, $modal) ->
   $scope.global = Global
 
   $scope.priceRange = [
@@ -166,7 +166,20 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
       dealId: $routeParams.dealId
       action: "reserve"
     , (cb) ->
-      AppAlert.add "success", "Oferta reservada con éxito"
+      # AppAlert.add "success", "Oferta reservada con éxito"
+      $location.path "/deals"
+      $scope.open(cb)
+
+  $scope.open = (reservation) ->
+    modalInstance = $modal.open(
+      templateUrl: "/views/templates/modal.html"
+      controller: 'ModalInstanceCtrl'
+      resolve:
+        reservation: ->
+          reservation
+
+    )
+    # return
 
 
   $scope.remove = (deal) ->

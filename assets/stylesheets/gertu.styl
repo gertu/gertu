@@ -27,6 +27,32 @@ gradient(direction, color1, color2)
   background -moz-linear-gradient(direction, color1, color2)    /* For Firefox 3.6 to 15 */
   background linear-gradient(direction, color1, color2)         /* Standard syntax */
 
+img
+  .dealdetail
+    width 100%
+
+
+.pricecolumn
+  .normalprice
+    height 70px
+    float left
+    background light-grey2
+    color white
+    text-align center
+    p.price
+      padding 5px 30px 0px 30px
+      text-decoration line-through
+      font-size 12px
+    p.discount
+      font-size 22px
+  .gertuprice
+    height 70px
+    padding-top 25px
+    background light-green
+    color white
+    text-align center
+    p
+      font-size 30px
 
 // titles
 h1, h2, h3
@@ -113,7 +139,6 @@ h1, h2, h3
         .shop-info
           h4.green
             color light-green
-
     .pricecolumn
       .normalprice
         height 70px
@@ -186,3 +211,32 @@ h1, h2, h3
   -ms-transform perspective(1300px) rotateY(-180deg)
   -o-transform perspective(1300px) rotateY(-180deg)
   transform perspective(1300px) rotateY(-180deg)
+
+.alert
+  width 300px
+  margin-left -150px
+  border 1px solid dark-green
+  box-shadow(0,0,20px,black)
+  z-index 1045
+  position fixed
+  top 40px
+  left 50%
+.disp.ng-enter
+  transition(all, linear,0.3s)
+  opacity 0
+  -webkit-transform translateY(-20px)
+  transform translateY(-20px)
+.disp.ng-enter-active
+  opacity 1
+  -webkit-transform translateY(0)
+  transform translateY(0)
+
+.disp.ng-leave
+  transition(all, linear,0.3s)
+  opacity 1
+  -webkit-transform translateY(0)
+  transform translateY(0)
+.disp.ng-leave-active
+  opacity 0
+  -webkit-transform translateY(-20px)
+  transform translateY(-20px)
