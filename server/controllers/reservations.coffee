@@ -11,8 +11,8 @@ Deal        = mongoose.model "Deal"
 exports.reserve = (req, res) ->
   if req.deal.quantity > 0
     reservation = new Reservation()
-    reservation.deal = req.deal._id
-    reservation.user = req.user._id
+    reservation.deal = req.deal
+    reservation.user = req.user
     reservation.save (err) ->
       Deal.collection.update
         _id: req.deal._id

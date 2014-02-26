@@ -25,10 +25,14 @@ block content
                         th Fecha
                         th Oferta
                         th Categoría
+                        th Consumida
                 tbody
-                    span #{reservations.length}
                     - for reservation in reservations
                         tr
                             td #{formatDate(reservation.date)}
-                            td ff
-                            td ff
+                            td #{reservation.deal.name}
+                            td #{reservation.deal.categoryname}
+                            - if (reservation.redeemed)
+                                td Sí
+                            - else
+                                td No
