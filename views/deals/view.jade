@@ -1,20 +1,43 @@
-section(data-ng-controller="DealsController", data-ng-init="findOne()")
-  .deal-view
-    h1 {{deal.name}}
-    p {{deal.created | date:"medium"}}
-    p {{deal.shop.name}}
-    p {{deal.price | currency:"&euro;"}}
+section#portfolioSheetWrapper(data-ng-controller="DealsController", data-ng-init="findOne()")
+  .container
+    .row
+      .col-md-10
+        h1 {{deal.name}}
+        p.date Valido desde: {{deal.datainit | date:"medium"}} hasta {{deal.dataend | date: "longDate"}}
+      .col-md-2
+        button.btn.pull-right(type="submit", ng-click="reserve()")
+          i.icon-ok-outline
+          | {{'RESERVE' | translate}}
+  section.content
+    section.mb15
+      .container
+        .row
+          .col-md-4
+            img(ng-src='{{deal.image}}' width="300px")
+              .pricecolumn
+                .normalprice
+                  p.price
+                    | {{deal.price | currency:"&euro;"}}
+                  p.discount
+                    | {{deal.discount | number:0}}%
+                .gertuprice
+                  p {{deal.gertuprice | currency:"&euro;"}}
+          .col-md-7
+            h2 {{deal.shop.name}}
+            p {{deal.description}}
+            p {{deal.price | currency:"&euro;"}}
 
-    button.btn.btn-primary(type="submit", ng-click="reserve()") {{'RESERVE' | translate}}
-
-    h3 {{"COMMENTS" | translate}}
-    ul.deal.comments
-      li(data-ng-repeat="comment in deal.comments")
-        {{comment.author.email}}
-        span.rating
-          rating.deal-rating(value="comment.rating", max="10", readonly='true')
-        p {{comment.description}}
-        p {{comment.writedAt | date: "longDate"}}
-        hr
-      li(data-ng-show="global.user")
-        include ../deals/commentForm
+            //- button.btn.btn-primary(type="submit", ng-click="reserve()") {{'RESERVE' | translate}}
+        .row
+          .col-md-12.color1.ctaBox
+            h3 {{"COMMENTS" | translate}}
+            ul.deal.comments
+              li(data-ng-repeat="comment in deal.comments")
+                {{comment.author.email}}
+                span.rating
+                  rating.deal-rating(value="comment.rating", max="10", readonly='true')
+                p {{comment.description}}
+                p {{comment.writedAt | date: "longDate"}}
+                hr
+              li(data-ng-show="global.user")
+                include ../deals/commentForm
