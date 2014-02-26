@@ -3,13 +3,12 @@ block content
   include ../layouts/top-menu
   .row-fluid
     .span2
-      &nbsp;
     .span8
       h1 Confirmar reserva
       .well
         p
           | Introduzca el código que su cliente le proporcionará para comprobarlo:
-        form(role='form', method='POST', action='/shopmanagement/profile/view')
+        form(role='form', method='POST', action='/shopmanagement/reservations/confirm')
           .row-fluid
             .span3
             .span6(style='text-align: center;')
@@ -24,3 +23,7 @@ block content
               input.btn.btn-primary(type='submit', value='Confirmar reserva',
                 onclick='return App.showConfirm("¿Está seguro de confirmar esta reserva?");')
             .span5
+
+    - if (error)
+      script.
+        App.showAlert('Ha habido un error al confirmar la reserva', 200, 400);

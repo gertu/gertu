@@ -1,35 +1,53 @@
-mongoose  = require "mongoose"
+mongoose    = require "mongoose"
 Reservation = mongoose.model "Reservation"
+Deal        = mongoose.model "Deal"
+_           = require "underscore"
 
 exports.list = (req, res) ->
   shopId = req.session.currentShop.shopId
 
-  Reservation.find({}).populate('user').exec( (err, reservations) ->
-    console.log(reservations)
-    reservations = reservations || []
+  Reservation.find({redeemed: true}).populate('deal').populate('deal.shop').exec( (err, reservations) ->
 
-    res.render 'pages/shopmanagement/reservations/list', {reservations: reservations, currentShop: req.session.currentShop}
+    shopReservations = []
+
+    for reservation in reservations
+
+      if (reservation.deal.shop + '') == (shopId + '')
+
+        shopReservations.push reservation
+
+    res.render 'pages/shopmanagement/reservations/list', {reservations: shopReservations, currentShop: req.session.currentShop}
   )
 
 exports.confirm = (req, res) ->
-  res.render 'pages/shopmanagement/reservations/confirm', {currentShop: req.session.currentShop}
+
+  error = null
+
+  if req.query.errorProc == 'true'
+    error = 'error'
+
+  res.render 'pages/shopmanagement/reservations/confirm', {currentShop: req.session.currentShop, error: error}
 
 exports.confirmDo = (req, res) ->
 
   shopId = req.session.currentShop.shopId
   reservationId = req.body.reservationId
-  isError = true
 
-  Reservation.findOne({_id: reservationId, deal : { shop: shopId } }).exec( (err, reservation) ->
+  Reservation.findOne({_id: req.body.reservationId}).exec( (err, reservation) ->
 
-    reservation.redeemed = true
-    reservation.date = new Date()
-    reservation.save( (err)->
-      if not err
-        isError = false
-        res.render 'pages/shopmanagement/reservations/confirm-success', {currentShop: req.session.currentShop}
-    )
+    if not err? and reservation?
 
-    if isError
-      res.redirect '/shopmanagement/reservations?errorProc=true', {reservations: reservations, currentShop: req.session.currentShop}
+      reservation.redeemed = true
+      reservation.date = new Date()
+      reservation.save( (err)->
+
+        if not err?
+          isError = false
+          res.render 'pages/shopmanagement/reservations/confirm-success', {currentShop: req.session.currentShop}
+        else
+          res.redirect '/shopmanagement/reservations/confirm/?errorProc=true'
+      )
+    else
+
+      res.redirect '/shopmanagement/reservations/confirm/?errorProc=true'
   )
