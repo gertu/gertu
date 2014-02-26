@@ -78,7 +78,7 @@ p.disp{
 .jumbotron {font-size: 16px;}
 .jumbotron h1 {text-align: left;}
 /*forms*/
-.form-control {-webkit-box-shadow:none;box-shadow:none}
+.form-control {-webkit-box-shadow:none;box-shadow:none;width: 300px;}
 .has-error div {padding: 5px;
 margin-bottom: 20px;
 display:block;
@@ -1099,3 +1099,5 @@ body#comingSoon{padding-top:0; background: #4B4A4A}
 
 /* END MISCELANIOUS
 ================================================== */
+
+.small-btn { padding: 7px; font-size: 12px; font-weight: bold; margin-left: 35px; }

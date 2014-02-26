@@ -3,9 +3,7 @@ section#contactSlice.slice
     .row
       .col-sm-12
         h1.noSubtitle {{'SIGNUP' | translate}}
-      //- .col-sm-12
-      //-   #mapWrapper.mb30
-      .col-sm-4
+      #signupform
         address
           | {{'FOR_FREE' | translate}}
           br
@@ -13,10 +11,7 @@ section#contactSlice.slice
           br
           | {{'DONT_HESITATE' | translate}}
           br
-         a.btn.btn-lg(target="_self" href='/shopmanagement/login')
-            i.icon-flash
-            | {{'I_AM_A_SHOP' | translate}}
-      .col-sm-8
+
         form.contactfrm(name="signup_form", novalidate, action="api/v1/users", method="post")
           .form-group(ng-class="{'has-error': signup_form.email.$dirty && signup_form.email.$invalid}")
             input#email.form-control(type="email", name="email", ng-model="signup.email" ,placeholder="{{'EMAIL' | translate}}", ng-minlength=3, ng-maxlength=20 ,required)
@@ -30,3 +25,6 @@ section#contactSlice.slice
           .form-actions
             button.btn(type="submit",ng-disabled="signup_form.$invalid" ) {{'SIGNUP' | translate}}
               i.icon-flash
+
+            a.btn.small-btn(target="_self" href='/shopmanagement/login')
+              {{'I_AM_A_SHOP' | translate}}
