@@ -33,6 +33,7 @@
 
 .step p{
   font-size: 12px;
+  text-align: justify;
 }
 
 .text-center{
@@ -282,7 +283,7 @@ h2.subTitle{
   text-align:center;
 }
 h2.subTitle:after, h1.noSubtitle:after {
-  display:block;
+  display:none;
   height:1px;
   width:100px;
   content:'';
