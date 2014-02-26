@@ -167,6 +167,7 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
       action: "reserve"
     , (cb) ->
       # AppAlert.add "success", "Oferta reservada con éxito"
+      $location.path "/deals"
       $scope.open(cb)
 
   $scope.open = (reservation) ->
