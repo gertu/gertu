@@ -6,7 +6,7 @@ _           = require "underscore"
 exports.list = (req, res) ->
   shopId = req.session.currentShop.shopId
 
-  Reservation.find({redeemed: true}).populate('deal').populate('deal.shop').exec( (err, reservations) ->
+  Reservation.find({}).populate('deal').populate('deal.shop').exec( (err, reservations) ->
 
     shopReservations = []
 
