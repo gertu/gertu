@@ -78,7 +78,7 @@ section(data-ng-hide="global.authenticated", ng-controller="IndexController")
 
 .row(ng-controller="IndexController", data-ng-show="global.authenticated")
   div(data-ng-show="global.user")
-    .dashboard
+    .col-md-12.dashboard-toast
       .dashboard-column.location.col-md-12(data-ng-show="global.authenticated")
         span {{"YOU_ARE_IN" | translate}}
         span.location-text
