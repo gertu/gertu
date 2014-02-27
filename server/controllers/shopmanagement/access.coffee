@@ -73,23 +73,17 @@ exports.signupDo = (req, res) ->
   if shopName and shopEmail and shopPassword
 
     shop = new Shop(req.body)
-    shop.save()
+    shop.confirmed = true
+    shop.save( (err) ->
 
-    mailInfo = {
-      shopname: shopName,
-      confirmationId: shop._id
-    }
+      req.session.currentShop =
+        shopId: shop._id,
+        shopEmail: shop.email,
+        isAuthenticated: true
 
-    Mailer.sendTemplate shopEmail,
-      'Wellcome to Gertu',
-      'newShop',
-      mailInfo
-      , () ->
-        @
-      , (error) ->
-        @
+      res.redirect "/shopmanagement/dashboard"
+      )
 
-    res.redirect "/shopmanagement/confirm/" + shop._id
   else
     res.redirect "/shopmanagement/login"
 
