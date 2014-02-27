@@ -23,6 +23,8 @@ block content
             .span6
                 form.form-signin(action="/shopmanagement/signup", method='post')
                     h2 Regístrate
+                    input#latitude(type="hidden", name="latitude")
+                    input#longitude(type="hidden", name="longitude")
                     .input-prepend
                       span.add-on
                         i.icon-large.icon-user
@@ -51,6 +53,19 @@ block content
                     div.alert.alert-danger
                         | #{errorMsg}
         script.
+
+          function getLocation()
+          {
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(showPosition);
+            }
+          }
+
+          function showPosition(position) {
+            $('#latitude').val(position.coords.latitude);
+            $('#longitude').val(position.coords.longitude);
+          }
+
           function showSuscriptionConditions(){
 
             $.get('/shopmanagement/termsandconditions', function(data){
@@ -123,3 +138,5 @@ block content
 
             return true;
           }
+
+          getLocation();

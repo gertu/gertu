@@ -74,6 +74,11 @@ exports.signupDo = (req, res) ->
 
     shop = new Shop(req.body)
     shop.confirmed = true
+
+    if req.body.longitude? and req.body.latitude
+      shop.loc.longitude = req.body.longitude
+      shop.loc.latitude = req.body.latitude
+
     shop.save( (err) ->
 
       req.session.currentShop =
