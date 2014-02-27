@@ -92,7 +92,7 @@ section(data-ng-hide="global.authenticated", ng-controller="IndexController")
                 span {{reserve.date | date: "longDate"}}
                 span.reserves
                   a(href="/deals/{{reserve.deal._id}}") {{reserve.deal.name}}
-                span.glyphicon.glyphicon-barcode.pull-right
+                span.glyphicon.glyphicon-barcode.pull-right(tooltip="Código de reserva: {{reserve._id}}")
 
           ul(ng-show="!myReserves.length")
             li {{"NO_RESERVES" | translate}}
