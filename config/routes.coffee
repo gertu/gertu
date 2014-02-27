@@ -147,7 +147,7 @@ module.exports = (app, passport) ->
   app.get  currentMobileApiVersion + "/deals/:id", mobileApi.dealsGetById
   app.post  currentMobileApiVersion + "/deals/:id/reservation", Security.authenticateMobile, mobileApi.dealsMakeReservationById
   app.post currentMobileApiVersion + "/deals/:id/comment", Security.authenticateMobile, mobileApi.dealsAddComment
-  app.get  currentMobileApiVersion + "/users/reservations", Security.authenticateMobile, mobileApi.reservationsGetAll
+  app.post  currentMobileApiVersion + "/users/reservations", Security.authenticateMobile, mobileApi.reservationsGetAll
   app.get  currentMobileApiVersion + "/shopInfo/:shopId", mobileApi.currentShopInfo
 
 
