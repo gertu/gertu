@@ -47,9 +47,6 @@ angular.module("mean").config ["$translateProvider", ($translateProvider) ->
     STEP_ENJOY: "Enjoy!"
     STEP_ENJOY_DESC: "With the deal redeemed and in your hands, it's time to enjoy it. So don't think any more about it and run to enjoy it!"
 
-    PROFILE_HOME_1: "You have not completed your profile yet, press "
-    PROFILE_HOME_HERE: "here"
-    PROFILE_HOME_2: " to complete it"
     MY_BUYS: "My buys"
     NO_BUYS: "You have not bought any deal yet"
     BUYED: "Buyed the "
@@ -61,6 +58,7 @@ angular.module("mean").config ["$translateProvider", ($translateProvider) ->
     MY_COMMENTS: "My comments"
     NO_COMMENTS: "You have not writed any comment yet"
     YOU_ARE_IN: "You are in "
+    RESERVE_CODE: "Reserve code"
 
     #contact
     CONTACT_US: "Contact us"
@@ -159,9 +157,6 @@ angular.module("mean").config ["$translateProvider", ($translateProvider) ->
     STEP_ENJOY: "¡Disfruta!"
     STEP_ENJOY_DESC: "Con la oferta ya canjeada y en tu poder, es hora de disfrutar de ella. Así que no lo pienses más y ¡corre a disfrutar de ella!"
 
-    PROFILE_HOME_1: "Todavía no has completado tu perfil, pulsa "
-    PROFILE_HOME_HERE: "aquí"
-    PROFILE_HOME_2: " para completarlo"
     MY_BUYS: "Mis compras"
     NO_BUYS: "No has realizado ninguna compra"
     BUYED: "Comprado el "
@@ -173,6 +168,8 @@ angular.module("mean").config ["$translateProvider", ($translateProvider) ->
     MY_COMMENTS: "Mis comentarios"
     NO_COMMENTS: "No tienes comentarios aún"
     YOU_ARE_IN: "Usted se encuentra en "
+    RESERVE_CODE: "Codigo de reserva"
+
 
     #contact
     CONTACT_US: "Contacte con nosotros"
@@ -219,6 +216,114 @@ angular.module("mean").config ["$translateProvider", ($translateProvider) ->
     COMMENT_409: "Lo sentimos, usted ya comentó esta oferta"
     COMMENT_422: "Recuerde que son necesarios tanto una puntuación como un breve comentario"
     COMMENT_500: "Ha sido imposible añadir el comentario, por favor inténtelo de nuevo en unos minutos"
+
+    $translateProvider.translations "eu",
+    # /
+    HOME: "Hasiera"
+    DEALS: "Eskeintzak"
+    FIND: "Aurkitu"
+    ABOUT: "Guri bruz"
+    CONTACT: "Kontaktua"
+    WELCOME: "Ongi etorri"
+    PROFILE: "Profila"
+    SIGNOUT: "Irten"
+
+    SIGNUP: "Kontua sortu"
+    SIGNIN: "Sartu"
+    PASSWORD: "Pasahitza"
+    REPEAT_PASSWORD: "Pasahitza errepikatu"
+    DONOT_WASTE_TIME: "Denbora gehiagorik ez galdu"
+    REGISTER_FOR_FREE: "Sortu kontua dohainik eta hasi erabiltzan"
+    REGISTER_NOW: "Kontua sortu"
+    WHAT_WE_HAVE: "Bertan aurkituko duzuna"
+    DONOT_LOSE_CHANCE: "Ez galdu onura hauek izateko aukera"
+    I_AM_A_SHOP: "Denda naiz"
+    SIGNUP_FORM_TITLE: "KONTUA SORTU"
+    PASSWORDS_DO_NOT_MATCH: "Sarturiko pasahitzak ez datoz bat"
+    SHOP_NAME_HAS_TO_BE_PROVIDED: "Dendaren izena sartu behar duzu"
+    EMAIL_HAS_TO_BE_PROVIDED: "Dendarendako email bat sartu behar duzu"
+    PASSWORD_HAS_TO_BE_PROVIDED: "Dendaren pasahitza sartu behar duzu"
+    EMAIL_ALREADY_EXISTS: "Bada helbide hau erabiltzen ari den denda. Mesedez, sartu beste bat."
+    NO_SHOP_HAS_BEEN_FOUND: "Ez da dendarik aurkitu sartutako datuekin"
+    PASSWORD_AND_EMAIL_HAVE_TO_BE_PROVIDED: "Helbide eta pasahitz bat beharrezkoa da sartzeko"
+    UNKNOWN_ERROR: "Akats ezezaguna"
+    FOR_FREE: "Ez dugu ezer kobratzen"
+    GET_IN: "Sartu eta eskaintzez gozatu"
+    DONT_HESITATE: "Ez pentsatu gehiago"
+
+    ACTIVE_DEALS: "uskaintzak"
+    RESERVED_DEALS: "eskaintza erreserba"
+    ACTIVE_USERS: "erabiltzaile"
+    ACTIVE_SHOPS: "denda"
+
+    STEP_FIND: "Aurkitu"
+    STEP_FIND_DESC: "Gure eskaintzen artean gehien gustuko duzuna bilatu. Hamaika eskaintza ditugu, lortu zurea."
+    STEP_RESERVE: "Erreserba"
+    STEP_RESERVE_DESC: "Behin aukeratutakoan, erreserba egin eta zenbaki bat egokituko zaizu"
+    STEP_REDEEM: "Trukatu"
+    STEP_REDEEM_DESC: "Gerturatu eskaintzaren dendara eta erakutsi zure kodea. Baieztatu ostean trukatu ahal izango duzu"
+    STEP_ENJOY: "Gozatu!"
+    STEP_ENJOY_DESC: "Behin eskaintza eskuratuta, gozatzen hasi zaitezke. Beraz, ez gehiago pentsatu eta arineketan joan zaitez!"
+
+
+    MY_BUYS: "Nire erosketak"
+    NO_BUYS: "Ez duzu erosketarik egin"
+    BUYED: "Erosketa eguna: "
+    MY_RESERVES: "Nire erreserbak"
+    NO_RESERVES: "Ez duzu erreserbarik trukatzeko"
+    RESERVED: "Erreserbatutako eguna: "
+    NEARBY_DEALS: "Gertuko eskaintzak"
+    NO_NEAR_DEALS: "Ez dago gertuko eskaintzarik"
+    MY_COMMENTS: "Nire iruzkinak"
+    NO_COMMENTS: "Ez duzu iruzkinik idatzi"
+    YOU_ARE_IN: "Zure kokapena: "
+    RESERVE_CODE: "Erreserba kodea"
+
+    #contact
+    CONTACT_US: "Gurekin harremanetan jarri"
+    ADDRESS: "Helbidea:"
+    OUR_PHONE: "Telefonoa:"
+    NAME: "Izena"
+    NAME_PLACEHOLDER: "Sartu zure izena"
+    EMAIL_PLACEHOLDER: "Sartu zure helbidea"
+    PHONE: "Telefonoa"
+    PHONE_PLACEHOLDER: "Sartu zure telefonoa"
+    MESSAGE_PLACEHOLDER: "Idatzi zure iruzkina"
+    SEND: "Bidali"
+
+    # / profile
+    MY_PERFIL: "Nire profila"
+    EMAIL: "Helbide elektronikoa"
+    FIRSTNAME: "Izena"
+    LASTNAME: "Abizenak"
+    BIRTHDAY: "Jaiotze data"
+    RADIUS_DISTANCE: "Kokapen eremua"
+    METERS: "metro"
+    SAVE: "Gorde"
+    UPLOAD: "Irudia igo"
+    CHANGE_IMAGE: "Irudia aldatu"
+    SAVING: "Gordetzen..."
+    UPLOADING: "Igotzen..."
+    RADIUS_DISTANCE_TOOLTIP: "Eskaintzak aurkitzeko distantzia eremua"
+
+    #deals
+    DEALNAME_PLACEHOLDER: "Eskaintzaren izena..."
+    SEARCH_BY: "Parametro hauengatik bilatu:"
+    ALL_CATEGORIES: "Kategoria guztiak"
+    ANY_PRICE: "Edozein prezio"
+
+    # deal/:dealId
+    RESERVE: "Erreserbatu"
+    COMMENTS: "Iruzkinak"
+    DESCRIPTION: "Deskribapena"
+    DESCRIPTION_PLACEHOLDER: "Eskeintzaren deskribapena..."
+    RATING: "Puntuazioa"
+    COMMENT_200: "Iruzkina gehitua izan da!"
+    COMMENT_401: "Iruzkina idazteko saioa hasi beharra duzu"
+    COMMENT_404: "Erabiltzaile ezezaguna"
+    COMMENT_409: "Barkatu, eskaintza hau komentatu duzu jada"
+    COMMENT_422: "Bai puntuazioa, bai deskribapena beharrezkoak dira"
+    COMMENT_500: "Iruzkina gehitzea ezinezkoa izan da, mesedez saia zaitze hemenidk minutu batzuetara"
 
 
   $translateProvider.preferredLanguage (if navigator.language is "es" then "es-ES" else navigator.language)

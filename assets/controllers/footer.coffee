@@ -8,6 +8,10 @@ angular.module("mean.system").controller "FooterController", [
     ,
       name: "English"
       code: "en-US"
+
+    ,
+      name: "Euskara"
+      code: "eu"
     ]
 
     $scope.filteredLangs = []
