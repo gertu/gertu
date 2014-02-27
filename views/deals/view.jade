@@ -1,5 +1,5 @@
 section#portfolioSheetWrapper(data-ng-controller="DealsController", data-ng-init="findOne()")
-  .container
+  .container.dealreserve
     .row
       .col-md-10
         h1 {{deal.name}}
@@ -24,26 +24,26 @@ section#portfolioSheetWrapper(data-ng-controller="DealsController", data-ng-init
               .gertuprice
                 p {{deal.gertuprice | currency:"&euro;"}}
           .col-md-7
-            h2 {{deal.shop.name}}
+            h2.icon-home {{deal.shop.name}}
             p {{deal.description}}
             p.date
               strong
                 | Valido desde:
-              | {{deal.datainit | date: "longDate"}}
+              |  {{deal.datainit | date: "longDate"}}
               br
               strong
-                | Hasta
-              | {{deal.dataend | date: "longDate"}}
+                | Hasta:
+              |  {{deal.dataend | date: "longDate"}}
         .row
           .col-md-12.color1.ctaBox.comment
             h2 {{"COMMENTS" | translate}}
             ul.deal.comments
-              li(data-ng-repeat="comment in deal.comments")
-                {{comment.author.email}}
-                span.rating
-                  rating.deal-rating(value="comment.rating", max="10", readonly='true')
-                p {{comment.description}}
-                p {{comment.writedAt | date: "longDate"}}
-                hr
+              li.coment(data-ng-repeat="comment in deal.comments")
+                .border
+                  p.comauthor {{comment.author.email}}
+                    span.rating
+                      rating.deal-rating(value="comment.rating", max="10", readonly='true')
+                  p.comdesc {{comment.description}}
+                  p.comdate {{comment.writedAt | date: "longDate"}}
               li(data-ng-show="global.user")
                 include ../deals/commentForm

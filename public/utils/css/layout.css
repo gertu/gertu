@@ -66,8 +66,44 @@ p.disp{
   text-align: center;
 }
 
+p.comdate{
+  font-size: 14px;
+  font-style: italic;
+  font-weight: lighter;
+  text-align: right;
+  margin-top: -10px;
+}
+
+ p.comauthor{
+  font-weight: lighter;
+  font-size: 15px;
+
+ }
+
+p.comdesc{
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+li.coment{
+  border: 1px #444;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  margin-top: -10px;
+}
+
+.border{
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
 textarea#description{
   resize: none;
+}
+
+.container.dealreserve{
+  margin-bottom: -65px;
 }
 /* BOOSTRAP CUSTOMIZATION
 ================================================== */
