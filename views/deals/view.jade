@@ -41,8 +41,8 @@ section#portfolioSheetWrapper(data-ng-controller="DealsController", data-ng-init
               li.coment(data-ng-repeat="comment in deal.comments")
                 .border
                   p.comauthor {{comment.author.email}}
-                    span.rating
-                      rating.deal-rating(value="comment.rating", max="10", readonly='true')
+                  span.rating
+                    rating.deal-rating(value="comment.rating", max="10", readonly='true')
                   p.comdesc {{comment.description}}
                   p.comdate {{comment.writedAt | date: "longDate"}}
               li(data-ng-show="global.user")
