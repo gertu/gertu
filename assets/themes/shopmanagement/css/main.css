@@ -89,12 +89,12 @@ span.brand span{
 
 .btn{
     padding: 10px 20px !important;
-    background-color: #7DC24F !important;
+    background-color: #7DC24F;
     background-image: none;
 }
 
 .btn.btn-primary{
-    background-color: #7DC24F;
+    background-color: #2185c5;
 }
 
 h1{
@@ -123,10 +123,22 @@ form label{
     font-weight: bold;
 }
 
-form input[type='text'], form input[type='email'], form input[type='password']{
+form input[type='text'], form input[type='email'], form input[type='password'], form textarea, form select{
     background-color: #EDEDED;
 }
 
 .ui-spinner.ui-widget{
     background-color: #EDEDED;
+}
+
+.btn.btn-danger{
+    background-color: #ff7f66;
+}
+
+.btn.btn-default{
+
+}
+
+.ui-spinner.ui-widget.ui-widget-content.ui-corner-all{
+    background-image: none;
 }

@@ -17,8 +17,7 @@ block content
       - if (esNueva)
         h1 Nueva oferta
       - else
-        .well
-          h1 Editando oferta
+        h1 Editando oferta
       form(method="POST", enctype="multipart/form-data", action="#{actionUrl}", class="form-horizontal")
         .row-fluid
           .span12
@@ -45,11 +44,11 @@ block content
           .span3
             label(for='datainit')
               strong Fecha de inicio
-            input#datainit(type="text", name='datainit', value="#{formatDate(deal.datainit)}", style='width: 100px')
+            input#datainit(type="text", name='datainit', value="#{formatDate(deal.datainit)}", style='width: 100px', data-ui="datepicker")
           .span3
             label(for='dataend')
               strong Fecha fin
-            input#dataend(type="text", name='dataend', value="#{formatDate(deal.dataend)}", style='width: 100px')
+            input#dataend(type="text", name='dataend', value="#{formatDate(deal.dataend)}", style='width: 100px', data-ui="datepicker")
         .clearfix
           br
         .row-fluid
@@ -99,7 +98,7 @@ block content
           ){
 
           isValid = false;
-          App.showAlert('Debe indicar un valor para el precio, el pregio GERTU y la cantidad');
+          App.showAlert('Debe indicar un valor para el precio, el precio GERTU y la cantidad');
 
         }
 
