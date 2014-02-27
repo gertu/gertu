@@ -13,7 +13,7 @@ block content
 
     -function formatNumber(numberString){
         -var numero = parseInt(numberString);
-        -return numero.toFixed(2);
+        -return numero.toFixed(0);
     -}
 
     .row-fluid
@@ -30,12 +30,17 @@ block content
                     table.table.table-bordered
                         thead
                             tr
-                                th Fecha
+                                th(width="80px") Fecha
                                 th Comentario
-                                th Valoración
+                                th(width="240px") Valoración
                         tbody
                             - for comment in deal.comments
                                 tr
                                     td #{formatDate(comment.writedAt)}
                                     td #{comment.description}
-                                    td #{comment.rating}
+                                    td
+                                        - for (var counter = 0; counter < 10; counter++)
+                                            - if (counter < comment.rating)
+                                                img(src="/img/rating.png")
+                                            - else
+                                                img(src="/img/rating-no.png")
