@@ -50,6 +50,7 @@ angular.module("mean").config ["$translateProvider", ($translateProvider) ->
     MY_BUYS: "My buys"
     NO_BUYS: "You have not bought any deal yet"
     BUYED: "Buyed the "
+    PRICE: "Price: "
     MY_RESERVES: "My reserves"
     NO_RESERVES: "You have not got any pending reserve"
     RESERVED: "Reserved the "
@@ -160,6 +161,7 @@ angular.module("mean").config ["$translateProvider", ($translateProvider) ->
     MY_BUYS: "Mis compras"
     NO_BUYS: "No has realizado ninguna compra"
     BUYED: "Comprado el "
+    PRICE: "Precio: "
     MY_RESERVES: "Mis reservas"
     NO_RESERVES: "No tienes ninguna reserva pendiente"
     RESERVED: "Reservado el "
@@ -168,7 +170,7 @@ angular.module("mean").config ["$translateProvider", ($translateProvider) ->
     MY_COMMENTS: "Mis comentarios"
     NO_COMMENTS: "No tienes comentarios aún"
     YOU_ARE_IN: "Usted se encuentra en "
-    RESERVE_CODE: "Codigo de reserva"
+    RESERVE_CODE: "Código de reserva"
 
 
     #contact
@@ -269,6 +271,7 @@ angular.module("mean").config ["$translateProvider", ($translateProvider) ->
     MY_BUYS: "Nire erosketak"
     NO_BUYS: "Ez duzu erosketarik egin"
     BUYED: "Erosketa eguna: "
+    PRICE: "Salneurria: "
     MY_RESERVES: "Nire erreserbak"
     NO_RESERVES: "Ez duzu erreserbarik trukatzeko"
     RESERVED: "Erreserbatutako eguna: "
