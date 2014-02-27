@@ -11,7 +11,7 @@ block content
     -}
 
     -function formatNumber(numberString){
-        -var numero = parseInt(numberString);
+        -var numero = parseFloat(numberString);
         -return numero.toFixed(2);
     -}
 
@@ -50,7 +50,7 @@ block content
                                 span #{formatNumber(deal.gertuprice)} €
                                 br
                                 strong Descuento:&nbsp;
-                                span #{deal.discount} %
+                                span #{formatNumber(deal.discount)} %
                             td(width="80px")
                                 a.btn.btn-primary(href="/shopmanagement/deals/edit/#{deal._id}") editar
                             td(width="80px")
