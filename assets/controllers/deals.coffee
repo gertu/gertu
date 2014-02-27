@@ -214,6 +214,8 @@ angular.module("mean.deals").controller "DealsController", ["$scope",
     .success (data, status) ->
       $scope.deal = data
       AppAlert.add "success","COMMENT_" + status
+      $scope.comment.rating = ""
+      $scope.comment.description = ""
     .error (data, status) ->
       AppAlert.add "error", "COMMENT_" + status
 
