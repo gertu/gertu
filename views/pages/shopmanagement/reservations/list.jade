@@ -21,12 +21,19 @@ block content
             table.table.table-bordered
                 thead
                     tr
-                        th(width="90px") Fecha
+                        th(width="90") Fecha
                         th Oferta
-                        th(width="200px") Categoría
+                        th(width="180") Categoría
+                        th(width="50") Consumida
                 tbody
                     - for reservation in reservations
                         tr
                             td #{formatDate(reservation.date)}
                             td #{reservation.deal.name}
                             td #{reservation.deal.categoryname}
+                            - if (reservation.redeemed)
+                                td(style="text-align: center;")
+                                    img(src='/img/ok.png')
+                            - else
+                                td(style="text-align: center;")
+                                    img(src='/img/nok.png')
