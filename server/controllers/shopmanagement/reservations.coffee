@@ -33,9 +33,9 @@ exports.confirmDo = (req, res) ->
   shopId = req.session.currentShop.shopId
   reservationId = req.body.reservationId
 
-  Reservation.findOne({_id: req.body.reservationId}).exec( (err, reservation) ->
+  Reservation.findOne({_id: req.body.reservationId}).populate('deal').exec( (err, reservation) ->
 
-    if not err? and reservation?
+    if not err? and reservation? and reservation.deal? and (reservation.deal.shop + '') == (shopId + '')
 
       reservation.redeemed = true
       reservation.date = new Date()
