@@ -88,9 +88,9 @@ span.brand span{
 }
 
 .btn{
-
-    border-radius: 2px !important;
-    padding: 2px 5px !important;
+    padding: 10px 20px !important;
+    background-color: #7DC24F !important;
+    background-image: none;
 }
 
 .btn.btn-primary{

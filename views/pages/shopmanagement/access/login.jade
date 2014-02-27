@@ -3,9 +3,14 @@ block content
     link(rel='stylesheet', href='/themes/shopmanagement/css/login.css')
     .container
         .row-fluid
+          .login-header
+            h1
+              img(src='/img/gertu_logo_head.png')
+              | Área de tiendas
+        .row-fluid
             .span6
                 form.form-signin(action="/shopmanagement/login", method='post')
-                    h2.form-signin-heading Accede
+                    h2 Accede
                     .input-prepend
                       span.add-on
                         i.icon-large.icon-envelope
@@ -15,12 +20,9 @@ block content
                         i.icon-large.icon-key
                       input#passwordexistant(type='password', name="password", placeholder='Contraseña')
                     button.btn.btn-large.btn-primary(type='submit', name='submit', onclick='return validateLoginInformation();') Acceder
-                    div
-                      br
-                      a(href='/shopmanagement/resetpassword') No recuerdo mi contraseña
             .span6
                 form.form-signin(action="/shopmanagement/signup", method='post')
-                    h2.form-signin-heading Regístrate
+                    h2 Regístrate
                     .input-prepend
                       span.add-on
                         i.icon-large.icon-user
