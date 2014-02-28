@@ -5,7 +5,7 @@ section.profile(data-ng-controller='UsersController', data-ng-init='findOne()')
         h1.center {{'MY_PERFIL' | translate}}
         .row
           .col-md-1
-          .col-md-10.ctaBox.comment
+          .col-md-5
             form(name="user-basics", data-ng-submit="update()")
              .fieldset
                 .row
@@ -27,7 +27,7 @@ section.profile(data-ng-controller='UsersController', data-ng-init='findOne()')
                         span.glyphicon.glyphicon-user
                         | {{'LASTNAME' | translate}}
                       input.lastName.form-control(type="text", id="lastName", name="lastName", data-ng-model="user.lastName",value="{{user.lastName}}")
-                  .col-md-5
+
                     .form-group
                       label(for="birthDate")
                         span.glyphicon.glyphicon-calendar
@@ -44,10 +44,8 @@ section.profile(data-ng-controller='UsersController', data-ng-init='findOne()')
                         span.input-group-addon {{'METERS' | translate}}
                 .form-actions
                   button.btn.btn-primary(type="submit",data-loading-text="{{'SAVING' | translate}}") {{'SAVE' | translate}}
-          .col-md-1
-        .row
-          .col-md-2
-          .col-md-8.ctaBox.comment
+
+          .col-md-5
             form.user-picture.col-md-4(action="/api/v1/profile/updatepicture", method="post", id="user-picture", enctype="multipart/form-data")
               .arrow-down
               .fieldset

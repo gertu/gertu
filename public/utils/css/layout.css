@@ -1037,6 +1037,8 @@ section#portfolioSheetWrapper{
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
 }
 
+#user-picture > div.fieldset > div.imagechanger > img { width: 200px; height: auto; }
+#globalWrapper > section > section > div > div > div > div > div:nth-child(2) > form > div > div.row > div > div:nth-child(5) > div > span { border: 0;}
 
 ul.socialNetwork {padding:0; display: block;}
 ul.socialNetwork li {display:inline-block; list-style-type: none;}
