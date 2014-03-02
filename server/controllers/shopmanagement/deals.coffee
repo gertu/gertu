@@ -117,8 +117,6 @@ exports.createDo = (req, res) ->
           deal.shop = shop
           deal.image = '/upload/' + splittednewname[splittednewname.length-1]
 
-          console.log deal
-
           deal.save (err) ->
             console.log err
             res.redirect 'shopmanagement/deals/list'
@@ -234,7 +232,6 @@ exports.delete = (req, res) ->
 
 exports.deleteDo = (req, res) ->
   shopId = req.session.currentShop.shopId
-  console.log(shopId)
   Deal.findOne({_id: req.body.id}).exec (err, deal) ->
     deal.remove (err) ->
       if err

@@ -168,7 +168,6 @@ describe "Mobile API testing", ->
 
       tokens.should.not.be.undefined
       tokens.should.have.length 1
-      console.log tokens[0]._id
       done()
 
       )
@@ -183,7 +182,6 @@ describe "Mobile API testing", ->
         done()
 
   it "should change info in the current user", (done) ->
-    console.log token
     userOfApplication.name = 'new name'
     server.
       put(apiPreffix + '/users').

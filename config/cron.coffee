@@ -9,7 +9,7 @@ job = new cronJob(
   # cronTime: "*/10 * * * * *" # Every day at 00:00.00
   cronTime: "0 0 0 * * *" # Every day at 00:00.00
   onTick: ->
-    
+
     Currency.find({}).exec( (err, currencies) ->
       if err
         console.log err
@@ -35,10 +35,6 @@ job = new cronJob(
 
             response.on "end", ->
               currency.conversionRate = parseFloat(JSON.parse(conversionInfo).rate)
-
-
-              console.log currency
-              console.log JSON.parse(conversionInfo).rate
 
               currency.save()
           )

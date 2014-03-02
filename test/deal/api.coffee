@@ -70,7 +70,10 @@ describe "<Unit test>", ->
       )
       deal.save()
 
-      done()
+      setTimeout(
+        -> done()
+        1000
+      )
 
     describe "API deal", ->
       it "should create a new deal", (done) ->

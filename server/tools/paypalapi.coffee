@@ -29,17 +29,14 @@ paypal_api = require('paypal-rest-sdk')
         amount:
           total: amount.toString()
           currency: "EUR"
-         
+
         description: "This is the payment transaction description."
       ]
 
     paypal_api.payment.create create_payment_json, config_opts, (err, res) ->
       if err and onError?
-        console.log 'Payment ERROR'
-        console.log create_payment_json
         onError(err)
       if res and onSuccess?
-        console.log 'Payment OK'
         onSuccess(res)
       return
 

@@ -59,16 +59,11 @@ var App = (function(){
       var normalPrice = parseFloat($(normalPriceBoxId).spinner('value'));
       var gertuPrice = parseFloat($(gertuPriceBoxId).spinner('value'));
 
-      console.log(normalPrice);
-      console.log(gertuPrice);
-
       var discount = 100 - (100 * (normalPrice > 0 ?
                        gertuPrice / normalPrice :
                        0));
 
       discount = discount.toFixed(2);
-
-      console.log(discount);
 
       $(discountBoxId).spinner('value' ,discount);
     });

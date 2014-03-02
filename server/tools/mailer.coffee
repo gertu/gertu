@@ -21,8 +21,6 @@ config     = require("../../config/config")
       (err, data) ->
         htmlContent = data + ''
 
-        console.log err if err?
-
         if err and onError?
 
           onError (err)

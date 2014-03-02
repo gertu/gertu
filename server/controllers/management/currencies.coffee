@@ -109,10 +109,6 @@ exports.loadRates = (req, res) ->
           response.on "end", ->
             currency.conversionRate = parseFloat(JSON.parse(conversionInfo).rate)
 
-
-            console.log currency
-            console.log JSON.parse(conversionInfo).rate
-
             currency.save()
         )
         request.on "error", (err) ->

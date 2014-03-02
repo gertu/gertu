@@ -70,8 +70,6 @@ ShopSchema.methods =
     crypto.createHmac("sha1", @salt).update(password).digest "hex"
 
   hasCreditCardInfo: ->
-    console.log @card
-
     @card? and @card.type? and @card.number? and @card.expire_month? and @card.expire_year? and @card.cvv2? and @card.first_name? and @card.type?
 
 ShopSchema.index {loc: "2d"}

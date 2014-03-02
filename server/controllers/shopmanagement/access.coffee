@@ -65,7 +65,6 @@ exports.dashboard = (req, res) ->
     }
 
 exports.signupDo = (req, res) ->
-  console.log req.body
   shopName = req.body.name
   shopEmail = req.body.email
   shopPassword = req.body.password
