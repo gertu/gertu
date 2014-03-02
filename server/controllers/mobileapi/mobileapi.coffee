@@ -154,6 +154,13 @@ exports.dealsGetAll = (req, res) ->
     if err
       res.status(500).send()
     else
+
+      for deal in deals
+        deal.shop.billing_address = null
+        deal.shop.card = null
+        deal.shop.hashed_password = null
+        deal.shop.salt = null
+
       res.status(200).send(JSON.stringify(deals))
 
 exports.dealsGetAllByPositition = (req, res) ->
@@ -212,6 +219,12 @@ exports.dealsGetById = (req, res) ->
     if err? or not deal?
       res.status(404).send()
     else
+
+      deal.shop.billing_address = null
+      deal.shop.card = null
+      deal.shop.hashed_password = null
+      deal.shop.salt = null
+
       res.status(200).send(JSON.stringify(deal))
 
 exports.dealsMakeReservationById = (req, res) ->

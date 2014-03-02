@@ -168,6 +168,7 @@ describe "Mobile API testing", ->
 
       tokens.should.not.be.undefined
       tokens.should.have.length 1
+
       done()
 
       )
