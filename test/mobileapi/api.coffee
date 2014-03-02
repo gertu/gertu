@@ -345,7 +345,7 @@ describe "Mobile API testing", ->
 
   it "should return the reservations for a user", (done) ->
     server.
-      get(apiPreffix + '/users/reservations').
+      post(apiPreffix + '/users/reservations').
       send({token: token}).
       end (err, res) ->
 
@@ -357,7 +357,7 @@ describe "Mobile API testing", ->
 
   it "should throw authorization error on returning, as invalid token is passed", (done) ->
     server.
-      get(apiPreffix + '/users/reservations').
+      post(apiPreffix + '/users/reservations').
       send({token: 'wrongtoken'}).
       end (err, res) ->
         res.should.have.status 403
@@ -365,7 +365,7 @@ describe "Mobile API testing", ->
 
   it "should throw authorization error on returning, as no token is passed", (done) ->
     server.
-      get(apiPreffix + '/users/reservations').
+      post(apiPreffix + '/users/reservations').
       send().
       end (err, res) ->
         res.should.have.status 403
