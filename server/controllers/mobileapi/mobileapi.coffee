@@ -46,7 +46,7 @@ exports.usersLogout = (req, res) ->
 
   Token.remove({_id: currentToken._id}).exec( (err) ->
     res.status(200).send() unless err?
-    res.status(404).send('No token found') if err?
+    res.status(403).send('No token found') if err?
   )
 
 
@@ -60,7 +60,7 @@ exports.usersSignUp = (req, res) ->
       if error.code is 11000 # email in use (duplicate)
         res.status(409).send(JSON.stringify(error.code))
       else
-        res.status(422).send(JSON.stringify(error.code))
+        res.status(500).send(JSON.stringify(error.code))
     else
 
       token = new Token()
@@ -74,7 +74,9 @@ exports.usersSignUp = (req, res) ->
           email     : user.email,
           firstName : user.firstName,
           lastName  : user.lastName,
-          token     : token._id,
+          radius    : user.radius,
+          picture   : user.picture,
+          token     : token._id
         }
 
         res.status(200).send(JSON.stringify(data)) unless err?
@@ -86,9 +88,18 @@ exports.usersGetCurrent = (req, res) ->
   currentUser = req.currentMobileUser
 
   if currentUser?
+
+    data = {
+      email     : currentUser.email,
+      firstName : currentUser.firstName,
+      lastName  : currentUser.lastName,
+      radius    : currentUser.radius,
+      picture   : currentUser.picture
+    }
+
     res.
       status(200).
-      send(JSON.stringify(currentUser))
+      send(JSON.stringify(data))
   else
     res.
       status(404).
@@ -122,9 +133,16 @@ exports.usersUpdate = (req, res) ->
                 email: userData.email,
                 isAuthenticated: true
 
+            data = {
+              email     : userData.email,
+              firstName : userData.firstName,
+              lastName  : userData.lastName,
+              radius    : userData.radius,
+              picture   : userData.picture
+            }
             res.
               status(200).
-              send(JSON.stringify(userData))
+              send(JSON.stringify(data))
      )
   else
     res.
@@ -132,7 +150,7 @@ exports.usersUpdate = (req, res) ->
       send()
 
 exports.dealsGetAll = (req, res) ->
-  Deal.find().sort('-created').populate("shop").exec (err, deals) ->
+  Deal.find().sort('-created').populate("shop").limit(10).exec (err, deals) ->
     if err
       res.status(500).send()
     else
