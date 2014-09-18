@@ -23,6 +23,7 @@
     "postinstall": "node node_modules/bower/bin/bower install"
   },
   "dependencies": {
+    "coffee-script": "*",
     "express": "~3.4.4",
     "jade": "latest",
     "stylus": "latest",
@@ -45,7 +46,6 @@
   },
   "devDependencies": {
     "blanket": "*",
-    "coffee-script": "*",
     "supertest": "*",
     "should": "*",
     "nodemailer": "*",
